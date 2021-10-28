@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31729.503
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KhoaHocAPI", "KhoaHocAPI\KhoaHocAPI.csproj", "{51E69254-3A79-4380-8A1C-D1636C26F460}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KhoaHocData", "KhoaHocData\KhoaHocData.csproj", "{1F1B3206-A74F-4696-B7AF-22B4067AAC67}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{51E69254-3A79-4380-8A1C-D1636C26F460}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51E69254-3A79-4380-8A1C-D1636C26F460}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51E69254-3A79-4380-8A1C-D1636C26F460}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51E69254-3A79-4380-8A1C-D1636C26F460}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F1B3206-A74F-4696-B7AF-22B4067AAC67}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F1B3206-A74F-4696-B7AF-22B4067AAC67}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F1B3206-A74F-4696-B7AF-22B4067AAC67}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F1B3206-A74F-4696-B7AF-22B4067AAC67}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E8A07EE3-3DB9-48EB-854B-6108EC820755}
+	EndGlobalSection
+EndGlobal
