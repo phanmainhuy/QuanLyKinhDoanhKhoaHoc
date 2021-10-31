@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KhoaHocAPI", "KhoaHocAPI\Kh
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KhoaHocData", "KhoaHocData\KhoaHocData.csproj", "{1F1B3206-A74F-4696-B7AF-22B4067AAC67}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{3B9E256C-7407-44D9-8FAB-B5FD77AEF316}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{1F1B3206-A74F-4696-B7AF-22B4067AAC67}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1F1B3206-A74F-4696-B7AF-22B4067AAC67}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1F1B3206-A74F-4696-B7AF-22B4067AAC67}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B9E256C-7407-44D9-8FAB-B5FD77AEF316}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B9E256C-7407-44D9-8FAB-B5FD77AEF316}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B9E256C-7407-44D9-8FAB-B5FD77AEF316}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B9E256C-7407-44D9-8FAB-B5FD77AEF316}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -14,7 +14,7 @@ namespace KhoaHocData.EF
     
     public partial class TichDiem
     {
-        public string MaND { get; set; }
+        public int MaND { get; set; }
         public Nullable<int> SoDiem { get; set; }
     
         public virtual NguoiDung NguoiDung { get; set; }

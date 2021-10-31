@@ -14,13 +14,21 @@ namespace KhoaHocData.EF
     
     public partial class BaiHoc
     {
-        public string MaBaiHoc { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public BaiHoc()
+        {
+            this.BaiTaps = new HashSet<BaiTap>();
+        }
+    
+        public int MaBaiHoc { get; set; }
+        public Nullable<int> MaKhoaHoc { get; set; }
         public string TenBaiHoc { get; set; }
         public string VideoLink { get; set; }
-        public string MaKhoaHoc { get; set; }
         public string MoTa { get; set; }
         public Nullable<bool> TrangThai { get; set; }
     
         public virtual KhoaHoc KhoaHoc { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BaiTap> BaiTaps { get; set; }
     }
 }

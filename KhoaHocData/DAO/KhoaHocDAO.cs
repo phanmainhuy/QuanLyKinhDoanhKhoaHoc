@@ -15,7 +15,7 @@ namespace KhoaHocData.DAO
             db = new QL_KHOAHOCEntities();
         }
 
-        public KhoaHoc LayKhoaHocTheoMa(string maKhoaHoc)
+        public KhoaHoc LayKhoaHocTheoMa(int maKhoaHoc)
         {
             return db.KhoaHocs.Where(x=>x.MaKhoaHoc == maKhoaHoc).SingleOrDefault();
         }
@@ -30,7 +30,7 @@ namespace KhoaHocData.DAO
             totalRow =(int)Math.Ceiling((float)db.KhoaHocs.Count() / pageSize);
             return db.KhoaHocs.OrderByDescending(x => x.MaKhoaHoc).Skip(skipCount);
         }
-        public IEnumerable<KhoaHoc> LayRaKhoaHocTheoMaLoaiKhoaHoc(string maLoai)
+        public IEnumerable<KhoaHoc> LayRaKhoaHocTheoMaLoaiKhoaHoc(int maLoai)
         {
             return db.KhoaHocs.Where(x => x.MaLoai == maLoai);
         }

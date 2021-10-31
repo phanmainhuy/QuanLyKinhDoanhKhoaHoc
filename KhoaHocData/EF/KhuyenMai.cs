@@ -20,10 +20,13 @@ namespace KhoaHocData.EF
             this.KhuyenMai_KhachHang = new HashSet<KhuyenMai_KhachHang>();
         }
     
-        public string MaKM { get; set; }
+        public int MaKM { get; set; }
+        public Nullable<int> MaND { get; set; }
+        public string MaApDung { get; set; }
         public string TenKM { get; set; }
-        public Nullable<int> ThoiGianKeoDai { get; set; }
+        public string HinhAnh { get; set; }
     
+        public virtual NguoiDung NguoiDung { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<KhuyenMai_KhachHang> KhuyenMai_KhachHang { get; set; }
     }

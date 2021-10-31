@@ -16,7 +16,7 @@ namespace KhoaHocData.EF
     {
         public string MaCSKH { get; set; }
         public string MaLoaiVanDe { get; set; }
-        public string MaND { get; set; }
+        public Nullable<int> MaND { get; set; }
         public string SDTKH { get; set; }
         public string TenKH { get; set; }
         public string TinhTrang { get; set; }

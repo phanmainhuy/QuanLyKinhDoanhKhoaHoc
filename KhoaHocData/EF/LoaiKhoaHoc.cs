@@ -14,10 +14,19 @@ namespace KhoaHocData.EF
     
     public partial class LoaiKhoaHoc
     {
-        public string MaLoai { get; set; }
-        public string MaDanhMuc { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public LoaiKhoaHoc()
+        {
+            this.KhoaHocs = new HashSet<KhoaHoc>();
+        }
+    
+        public int MaLoai { get; set; }
+        public Nullable<int> MaDanhMuc { get; set; }
         public string TenLoai { get; set; }
+        public string HinhAnh { get; set; }
     
         public virtual DanhMucKhoaHoc DanhMucKhoaHoc { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<KhoaHoc> KhoaHocs { get; set; }
     }
 }

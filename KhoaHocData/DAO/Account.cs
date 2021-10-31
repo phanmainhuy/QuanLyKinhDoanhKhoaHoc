@@ -13,14 +13,14 @@ namespace KhoaHocData.DAO
             db = new QL_KHOAHOCEntities();
         }
 
-        public bool Login(string username, string password)
+        public NguoiDung Login(string username, string password)
         {
-            return db.NguoiDungs.Any(x => x.TenDN == username && x.MatKhau == password);
+            return db.NguoiDungs.SingleOrDefault(x => x.TenDN == username && x.MatKhau == password);
         }
-        public string[] GetRoles(string pTenDN)
+        public int[] GetRoles(string pTenDN)
         {
-            string nhomnd = db.NguoiDungs.Single(x => x.TenDN == pTenDN).MaNhomNguoiDung;
-            return new string[] { nhomnd };
+            int nhomnd = db.NguoiDungs.Single(x => x.TenDN == pTenDN).MaNhomNguoiDung.Value;
+            return new int[] { nhomnd };
         }
     }
 }

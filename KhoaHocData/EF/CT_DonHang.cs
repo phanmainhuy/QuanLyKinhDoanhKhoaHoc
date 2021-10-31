@@ -14,8 +14,8 @@ namespace KhoaHocData.EF
     
     public partial class CT_DonHang
     {
-        public string MaCTDH { get; set; }
-        public string MaDonHang { get; set; }
+        public int MaCTDH { get; set; }
+        public Nullable<int> MaDonHang { get; set; }
         public Nullable<decimal> DonGia { get; set; }
     
         public virtual DonHang DonHang { get; set; }

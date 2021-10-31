@@ -14,8 +14,8 @@ namespace KhoaHocData.EF
     
     public partial class DanhGiaKhoaHoc
     {
-        public string MaKhoaHoc { get; set; }
-        public string MaND { get; set; }
+        public int MaKhoaHoc { get; set; }
+        public Nullable<int> MaND { get; set; }
         public Nullable<int> Diem { get; set; }
         public string NoiDung { get; set; }
     

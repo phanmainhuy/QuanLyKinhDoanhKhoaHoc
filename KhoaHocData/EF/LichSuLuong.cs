@@ -14,7 +14,7 @@ namespace KhoaHocData.EF
     
     public partial class LichSuLuong
     {
-        public string MaLuong { get; set; }
+        public int MaLuong { get; set; }
         public System.DateTime NgayPhatLuong { get; set; }
         public Nullable<decimal> SoTien { get; set; }
         public Nullable<decimal> TienPhat { get; set; }

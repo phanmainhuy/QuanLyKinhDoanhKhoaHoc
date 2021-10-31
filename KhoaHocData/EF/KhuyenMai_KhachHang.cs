@@ -14,10 +14,11 @@ namespace KhoaHocData.EF
     
     public partial class KhuyenMai_KhachHang
     {
-        public string MaND { get; set; }
-        public string MaKM { get; set; }
+        public int MaND { get; set; }
+        public int MaKM { get; set; }
         public Nullable<System.DateTime> NgayBatDau { get; set; }
         public Nullable<System.DateTime> NgayKetThuc { get; set; }
+        public string HinhAnh { get; set; }
     
         public virtual KhuyenMai KhuyenMai { get; set; }
         public virtual NguoiDung NguoiDung { get; set; }

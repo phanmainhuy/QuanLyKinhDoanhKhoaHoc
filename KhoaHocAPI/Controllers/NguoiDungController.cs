@@ -6,10 +6,12 @@ using System.Linq;
 using System.Net.Http;
 using System.Web;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using System.Web.Mvc;
 
 namespace KhoaHocAPI.Controllers
 {
+    [EnableCors(origins: "http://localhost:8080", headers: "*", methods: "*")]
     public class NguoiDungController : ApiController
     {
         private readonly NguoiDungDAO ndDAO = new NguoiDungDAO();
@@ -30,7 +32,7 @@ namespace KhoaHocAPI.Controllers
                 return new HttpResponseMessage(System.Net.HttpStatusCode.BadRequest);
         }
         [System.Web.Http.HttpGet]
-        public IEnumerable<NguoiDung> GetHocVien(string pMaNhomNguoiDung)
+        public IEnumerable<NguoiDung> GetHocVien(int pMaNhomNguoiDung)
         {
             return this.ndDAO.LayDanhSachTheoMaNhom(pMaNhomNguoiDung);
         }

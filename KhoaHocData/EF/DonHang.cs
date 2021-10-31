@@ -14,14 +14,22 @@ namespace KhoaHocData.EF
     
     public partial class DonHang
     {
-        public string MaDonHang { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public DonHang()
+        {
+            this.CT_DonHang = new HashSet<CT_DonHang>();
+        }
+    
+        public int MaDonHang { get; set; }
+        public Nullable<int> MaND { get; set; }
         public Nullable<decimal> TongTien { get; set; }
         public Nullable<System.DateTime> NgayLap { get; set; }
-        public string MaND { get; set; }
         public Nullable<bool> ThanhToan { get; set; }
-        public Nullable<bool> TrangThai { get; set; }
+        public string TrangThai { get; set; }
         public string HinhThucThanhToan { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CT_DonHang> CT_DonHang { get; set; }
         public virtual NguoiDung NguoiDung { get; set; }
     }
 }

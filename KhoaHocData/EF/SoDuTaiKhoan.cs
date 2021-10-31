@@ -14,11 +14,11 @@ namespace KhoaHocData.EF
     
     public partial class SoDuTaiKhoan
     {
-        public string MaND { get; set; }
+        public int MaSoDu { get; set; }
+        public Nullable<int> MaND { get; set; }
         public Nullable<decimal> SoDu { get; set; }
         public Nullable<System.DateTime> NgayNap { get; set; }
         public string NoiDung { get; set; }
-        public string MASODU { get; set; }
     
         public virtual NguoiDung NguoiDung { get; set; }
     }

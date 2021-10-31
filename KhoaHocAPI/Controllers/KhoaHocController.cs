@@ -7,9 +7,11 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace KhoaHocAPI.Controllers
 {
+    [EnableCors(origins: "http://localhost:8080", headers: "*", methods: "*")]
     public class KhoaHocController : ApiController
     {
         private readonly KhoaHocDAO khDAO = new KhoaHocDAO();
@@ -26,7 +28,7 @@ namespace KhoaHocAPI.Controllers
                 return BadRequest();
         } 
         [HttpGet]
-        public IHttpActionResult Get(string maKhoa)
+        public IHttpActionResult Get(int maKhoa)
         {
             var item = khDAO.LayKhoaHocTheoMa(maKhoa);
             if (item != null)

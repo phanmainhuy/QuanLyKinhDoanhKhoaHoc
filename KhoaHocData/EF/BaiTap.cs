@@ -14,10 +14,10 @@ namespace KhoaHocData.EF
     
     public partial class BaiTap
     {
-        public string MaBaiTap { get; set; }
+        public int MaBaiTap { get; set; }
+        public Nullable<int> MaBaiHoc { get; set; }
         public string TenBaiTap { get; set; }
         public string FileLink { get; set; }
-        public string MaBaiHoc { get; set; }
     
         public virtual BaiHoc BaiHoc { get; set; }
     }

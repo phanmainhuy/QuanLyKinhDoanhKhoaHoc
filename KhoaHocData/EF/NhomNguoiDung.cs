@@ -20,8 +20,9 @@ namespace KhoaHocData.EF
             this.NguoiDungs = new HashSet<NguoiDung>();
         }
     
-        public string MaNhomNguoiDung { get; set; }
+        public int MaNhomNguoiDung { get; set; }
         public string TenNhomNguoiDung { get; set; }
+        public string HinhAnh { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<NguoiDung> NguoiDungs { get; set; }

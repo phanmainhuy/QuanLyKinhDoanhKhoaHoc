@@ -14,11 +14,19 @@ namespace KhoaHocData.EF
     
     public partial class Luong
     {
-        public string MaLuong { get; set; }
-        public string MaND { get; set; }
-        public Nullable<System.DateTime> NgayBatDau { get; set; }
-        public Nullable<decimal> Luong1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Luong()
+        {
+            this.LichSuLuongs = new HashSet<LichSuLuong>();
+        }
     
+        public int MaLuong { get; set; }
+        public Nullable<int> MaND { get; set; }
+        public Nullable<decimal> Luong1 { get; set; }
+        public Nullable<System.DateTime> NgayTinhLuong { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<LichSuLuong> LichSuLuongs { get; set; }
         public virtual NguoiDung NguoiDung { get; set; }
     }
 }
