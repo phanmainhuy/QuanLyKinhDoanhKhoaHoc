@@ -16,7 +16,7 @@ namespace KhoaHocAPI.Controllers
         [Route("TopCategory")]
         public HttpResponseMessage GetAllTopCategory(HttpRequestMessage request)
         {
-            var item = db.LayHetDanhMucKhoaHoc();
+            var item = db.LayDanhMucKhoaHoc(5);
             if(item != null)
             {
                 return request.CreateResponse(HttpStatusCode.OK, item);

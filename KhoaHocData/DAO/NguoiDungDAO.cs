@@ -1,4 +1,5 @@
-﻿using KhoaHocData.EF;
+﻿using Common;
+using KhoaHocData.EF;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,7 @@ namespace KhoaHocData.DAO
         {
             db = new QL_KHOAHOCEntities();
         }
-        public LoginResult DangKy(NguoiDung nd)
+        public AllEnum.LoginResult DangKy(NguoiDung nd)
         {
             var item = db.NguoiDungs.SingleOrDefault(x => x.TenDN == nd.TenDN);
             if (item != null)
@@ -65,10 +66,5 @@ namespace KhoaHocData.DAO
             return db.NguoiDungs.Find(pMaNguoiDung);
         }
     }
-    public enum LoginResult
-    {
-        DaTonTai,
-        ThanhCong,
-        ThatBai
-    }
+    
 }

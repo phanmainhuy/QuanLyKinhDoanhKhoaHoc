@@ -18,6 +18,8 @@ namespace KhoaHocData.EF
         public KhoaHoc()
         {
             this.BaiHocs = new HashSet<BaiHoc>();
+            this.CT_GioHang = new HashSet<CT_GioHang>();
+            this.CT_HoaDon = new HashSet<CT_HoaDon>();
         }
     
         public int MaKhoaHoc { get; set; }
@@ -25,13 +27,19 @@ namespace KhoaHocData.EF
         public string TenKhoaHoc { get; set; }
         public Nullable<decimal> DonGia { get; set; }
         public Nullable<int> SoLuongMua { get; set; }
-        public Nullable<System.DateTime> ThoiHanHoanTien { get; set; }
+        public Nullable<int> ThoiHanHoanTien { get; set; }
         public Nullable<bool> TrangThai { get; set; }
         public string HinhAnh { get; set; }
+        public Nullable<int> MaGV { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BaiHoc> BaiHocs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CT_GioHang> CT_GioHang { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CT_HoaDon> CT_HoaDon { get; set; }
         public virtual DanhGiaKhoaHoc DanhGiaKhoaHoc { get; set; }
+        public virtual NguoiDung NguoiDung { get; set; }
         public virtual LoaiKhoaHoc LoaiKhoaHoc { get; set; }
     }
 }

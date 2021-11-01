@@ -168,6 +168,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\CartItemController.cs" />
     <Compile Include="Controllers\CustomKhoaHocController.cs" />
     <Compile Include="Controllers\HocVienController.cs" />
     <Compile Include="Controllers\IdentityController.cs" />
@@ -176,7 +177,10 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Mapper\CartMapper.cs" />
     <Compile Include="Mapper\UserMapper.cs" />
+    <Compile Include="Models\CartItemVM.cs" />
+    <Compile Include="Models\CourseCartVM.cs" />
     <Compile Include="Models\DanhMucVM.cs" />
     <Compile Include="Models\UserLogin.cs" />
     <Compile Include="Models\UserLogon.cs" />
@@ -268,6 +272,10 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{3B9E256C-7407-44D9-8FAB-B5FD77AEF316}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\KhoaHocData\KhoaHocData.csproj">
       <Project>{1f1b3206-a74f-4696-b7af-22b4067aac67}</Project>
       <Name>KhoaHocData</Name>

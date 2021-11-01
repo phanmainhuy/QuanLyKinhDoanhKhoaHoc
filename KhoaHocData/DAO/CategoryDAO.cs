@@ -18,5 +18,13 @@ namespace KhoaHocData.DAO
         {
             return db.DanhMucKhoaHocs;
         }
+        public IEnumerable<DanhMucKhoaHoc> LayDanhMucKhoaHoc(int pSoLuong)
+        {
+            return db.DanhMucKhoaHocs.OrderByDescending(x => x.MaDanhMuc).Take(pSoLuong);
+        }
+        public DanhMucKhoaHoc LayDanhMucKhoaHocTheoMa(int pMaDanhMuc)
+        {
+            return db.DanhMucKhoaHocs.SingleOrDefault(x => x.MaDanhMuc == pMaDanhMuc);
+        }
     }
 }

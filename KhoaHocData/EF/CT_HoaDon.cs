@@ -12,12 +12,14 @@ namespace KhoaHocData.EF
     using System;
     using System.Collections.Generic;
     
-    public partial class CT_DonHang
+    public partial class CT_HoaDon
     {
-        public int MaCTDH { get; set; }
-        public Nullable<int> MaDonHang { get; set; }
+        public int MaCTHD { get; set; }
+        public Nullable<int> MaHD { get; set; }
+        public Nullable<int> MaKhoaHoc { get; set; }
         public Nullable<decimal> DonGia { get; set; }
     
-        public virtual DonHang DonHang { get; set; }
+        public virtual KhoaHoc KhoaHoc { get; set; }
+        public virtual HoaDon HoaDon { get; set; }
     }
 }

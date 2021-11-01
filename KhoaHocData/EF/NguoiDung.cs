@@ -19,7 +19,9 @@ namespace KhoaHocData.EF
         {
             this.ChamSocKhachHangs = new HashSet<ChamSocKhachHang>();
             this.DanhGiaKhoaHocs = new HashSet<DanhGiaKhoaHoc>();
-            this.DonHangs = new HashSet<DonHang>();
+            this.GioHangs = new HashSet<GioHang>();
+            this.HoaDons = new HashSet<HoaDon>();
+            this.KhoaHocs = new HashSet<KhoaHoc>();
             this.KhuyenMais = new HashSet<KhuyenMai>();
             this.KhuyenMai_KhachHang = new HashSet<KhuyenMai_KhachHang>();
             this.Luongs = new HashSet<Luong>();
@@ -43,7 +45,11 @@ namespace KhoaHocData.EF
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DanhGiaKhoaHoc> DanhGiaKhoaHocs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DonHang> DonHangs { get; set; }
+        public virtual ICollection<GioHang> GioHangs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<HoaDon> HoaDons { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<KhoaHoc> KhoaHocs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<KhuyenMai> KhuyenMais { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -9,5 +9,16 @@
             Teacher,
             Employee
         }
+        public enum LoginResult
+        {
+            DaTonTai,
+            ThanhCong,
+            ThatBai
+        }
+        public enum AddCartItemResult
+        {
+            ThanhCong, ThemGioHangThatbai, ThatBai, DaTonTai
+        }
     }
+    
 }

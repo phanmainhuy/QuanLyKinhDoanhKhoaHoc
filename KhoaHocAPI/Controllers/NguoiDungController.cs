@@ -26,7 +26,7 @@ namespace KhoaHocAPI.Controllers
         public HttpResponseMessage Post(HttpRequestMessage request, NguoiDung model)
         {
             var result =  this.ndDAO.DangKy(model);
-            if(result == LoginResult.ThanhCong)
+            if(result == Common.AllEnum.LoginResult.ThanhCong)
                 return request.CreateResponse(System.Net.HttpStatusCode.Created);
             else
                 return new HttpResponseMessage(System.Net.HttpStatusCode.BadRequest);
