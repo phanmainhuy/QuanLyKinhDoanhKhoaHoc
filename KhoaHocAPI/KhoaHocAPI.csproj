@@ -178,9 +178,11 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Mapper\CartMapper.cs" />
+    <Compile Include="Mapper\CourseMapper.cs" />
     <Compile Include="Mapper\UserMapper.cs" />
     <Compile Include="Models\CartItemVM.cs" />
     <Compile Include="Models\CourseCartVM.cs" />
+    <Compile Include="Models\CourseVM.cs" />
     <Compile Include="Models\DanhMucVM.cs" />
     <Compile Include="Models\UserLogin.cs" />
     <Compile Include="Models\UserLogon.cs" />

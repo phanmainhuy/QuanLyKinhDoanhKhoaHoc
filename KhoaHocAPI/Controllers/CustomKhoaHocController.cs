@@ -1,4 +1,5 @@
-﻿using KhoaHocData.DAO;
+﻿using KhoaHocAPI.Models;
+using KhoaHocData.DAO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,10 +17,21 @@ namespace KhoaHocAPI.Controllers
         [Route("TopCategory")]
         public HttpResponseMessage GetAllTopCategory(HttpRequestMessage request)
         {
-            var item = db.LayDanhMucKhoaHoc(5);
+            var item = db.LayHetDanhMucKhoaHoc();
             if(item != null)
             {
                 return request.CreateResponse(HttpStatusCode.OK, item);
+            }
+            return new HttpResponseMessage(HttpStatusCode.NoContent);
+        }
+        [Route("LatestCourse")]
+        public HttpResponseMessage GetLatestCourse(HttpRequestMessage request, int limit)
+        {
+            var item = db.LayKhoaHocMoiNhat(limit);
+            if (item != null)
+            {
+                var lstCourseCartVM = Mapper.CourseMapper.MapListCourse(item);
+                return request.CreateResponse(HttpStatusCode.OK, lstCourseCartVM);
             }
             return new HttpResponseMessage(HttpStatusCode.NoContent);
         }

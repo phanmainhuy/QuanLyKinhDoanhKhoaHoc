@@ -31,6 +31,7 @@ namespace KhoaHocData.EF
         public Nullable<bool> TrangThai { get; set; }
         public string HinhAnh { get; set; }
         public Nullable<int> MaGV { get; set; }
+        public string MOTAKHOAHOC { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BaiHoc> BaiHocs { get; set; }
@@ -39,7 +40,5 @@ namespace KhoaHocData.EF
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CT_HoaDon> CT_HoaDon { get; set; }
         public virtual DanhGiaKhoaHoc DanhGiaKhoaHoc { get; set; }
-        public virtual NguoiDung NguoiDung { get; set; }
-        public virtual LoaiKhoaHoc LoaiKhoaHoc { get; set; }
     }
 }

@@ -53,6 +53,7 @@
     <Compile Include="DAO\Account.cs" />
     <Compile Include="DAO\CartDAO.cs" />
     <Compile Include="DAO\CategoryDAO.cs" />
+    <Compile Include="DAO\GetDAO.cs" />
     <Compile Include="DAO\KhoaHocDAO.cs" />
     <Compile Include="DAO\NguoiDungDAO.cs" />
     <Compile Include="EF\BaiHoc.cs">
@@ -125,9 +126,6 @@
       <DependentUpon>KhoaHocDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\SoDuTaiKhoan.cs">
-      <DependentUpon>KhoaHocDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EF\sysdiagram.cs">
       <DependentUpon>KhoaHocDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\TichDiem.cs">

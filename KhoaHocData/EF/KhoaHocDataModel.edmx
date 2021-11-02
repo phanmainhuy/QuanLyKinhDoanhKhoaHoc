@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="QL_KHOAHOCModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="QL_KHOAHOCModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="BaiHoc">
           <Key>
             <PropertyRef Name="MaBaiHoc" />
@@ -108,6 +108,7 @@
           <Property Name="TrangThai" Type="bit" />
           <Property Name="HinhAnh" Type="nvarchar" MaxLength="300" />
           <Property Name="MaGV" Type="int" />
+          <Property Name="MOTAKHOAHOC" Type="nvarchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="KhuyenMai">
           <Key>
@@ -198,16 +199,6 @@
           <Property Name="SoDu" Type="money" />
           <Property Name="NgayNap" Type="date" />
           <Property Name="NoiDung" Type="nvarchar" MaxLength="2000" />
-        </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="TichDiem">
           <Key>
@@ -524,7 +515,6 @@
           <EntitySet Name="NguoiDung" EntityType="Self.NguoiDung" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NhomNguoiDung" EntityType="Self.NhomNguoiDung" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SoDuTaiKhoan" EntityType="Self.SoDuTaiKhoan" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TichDiem" EntityType="Self.TichDiem" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_BaiHoc_KhoaHoc" Association="Self.FK_BaiHoc_KhoaHoc">
             <End Role="KhoaHoc" EntitySet="KhoaHoc" />
@@ -623,11 +613,128 @@
             <End Role="TichDiem" EntitySet="TichDiem" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="QL_KHOAHOCModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="QL_KHOAHOCEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="BaiHocs" EntityType="QL_KHOAHOCModel.BaiHoc" />
+          <EntitySet Name="BaiTaps" EntityType="QL_KHOAHOCModel.BaiTap" />
+          <EntitySet Name="ChamSocKhachHangs" EntityType="QL_KHOAHOCModel.ChamSocKhachHang" />
+          <EntitySet Name="CT_GioHang" EntityType="QL_KHOAHOCModel.CT_GioHang" />
+          <EntitySet Name="CT_HoaDon" EntityType="QL_KHOAHOCModel.CT_HoaDon" />
+          <EntitySet Name="DanhGiaKhoaHocs" EntityType="QL_KHOAHOCModel.DanhGiaKhoaHoc" />
+          <EntitySet Name="DanhMucKhoaHocs" EntityType="QL_KHOAHOCModel.DanhMucKhoaHoc" />
+          <EntitySet Name="GioHangs" EntityType="QL_KHOAHOCModel.GioHang" />
+          <EntitySet Name="HoaDons" EntityType="QL_KHOAHOCModel.HoaDon" />
+          <EntitySet Name="KhoaHocs" EntityType="QL_KHOAHOCModel.KhoaHoc" />
+          <EntitySet Name="KhuyenMais" EntityType="QL_KHOAHOCModel.KhuyenMai" />
+          <EntitySet Name="KhuyenMai_KhachHang" EntityType="QL_KHOAHOCModel.KhuyenMai_KhachHang" />
+          <EntitySet Name="LichSuLuongs" EntityType="QL_KHOAHOCModel.LichSuLuong" />
+          <EntitySet Name="LoaiKhoaHocs" EntityType="QL_KHOAHOCModel.LoaiKhoaHoc" />
+          <EntitySet Name="LoaiVanDes" EntityType="QL_KHOAHOCModel.LoaiVanDe" />
+          <EntitySet Name="Luongs" EntityType="QL_KHOAHOCModel.Luong" />
+          <EntitySet Name="NguoiDungs" EntityType="QL_KHOAHOCModel.NguoiDung" />
+          <EntitySet Name="NhomNguoiDungs" EntityType="QL_KHOAHOCModel.NhomNguoiDung" />
+          <EntitySet Name="SoDuTaiKhoans" EntityType="QL_KHOAHOCModel.SoDuTaiKhoan" />
+          <EntitySet Name="TichDiems" EntityType="QL_KHOAHOCModel.TichDiem" />
+          <AssociationSet Name="FK_BaiHoc_KhoaHoc" Association="QL_KHOAHOCModel.FK_BaiHoc_KhoaHoc">
+            <End Role="KhoaHoc" EntitySet="KhoaHocs" />
+            <End Role="BaiHoc" EntitySet="BaiHocs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BaiTap_BaiHoc" Association="QL_KHOAHOCModel.FK_BaiTap_BaiHoc">
+            <End Role="BaiHoc" EntitySet="BaiHocs" />
+            <End Role="BaiTap" EntitySet="BaiTaps" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChamSocKhachHang_Loaivande" Association="QL_KHOAHOCModel.FK_ChamSocKhachHang_Loaivande">
+            <End Role="LoaiVanDe" EntitySet="LoaiVanDes" />
+            <End Role="ChamSocKhachHang" EntitySet="ChamSocKhachHangs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChamSocKhachHang_NguoiDung" Association="QL_KHOAHOCModel.FK_ChamSocKhachHang_NguoiDung">
+            <End Role="NguoiDung" EntitySet="NguoiDungs" />
+            <End Role="ChamSocKhachHang" EntitySet="ChamSocKhachHangs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CTGioHang" Association="QL_KHOAHOCModel.FK_CTGioHang">
+            <End Role="KhoaHoc" EntitySet="KhoaHocs" />
+            <End Role="CT_GioHang" EntitySet="CT_GioHang" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CTGioHang_GioHang" Association="QL_KHOAHOCModel.FK_CTGioHang_GioHang">
+            <End Role="GioHang" EntitySet="GioHangs" />
+            <End Role="CT_GioHang" EntitySet="CT_GioHang" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CTHoaDon" Association="QL_KHOAHOCModel.FK_CTHoaDon">
+            <End Role="KhoaHoc" EntitySet="KhoaHocs" />
+            <End Role="CT_HoaDon" EntitySet="CT_HoaDon" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CTHoaDon_HoaDon" Association="QL_KHOAHOCModel.FK_CTHoaDon_HoaDon">
+            <End Role="HoaDon" EntitySet="HoaDons" />
+            <End Role="CT_HoaDon" EntitySet="CT_HoaDon" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DanhGiaKhoaHoc_KhoaHoc" Association="QL_KHOAHOCModel.FK_DanhGiaKhoaHoc_KhoaHoc">
+            <End Role="KhoaHoc" EntitySet="KhoaHocs" />
+            <End Role="DanhGiaKhoaHoc" EntitySet="DanhGiaKhoaHocs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DanhGiaKhoaHoc_NguoiDung" Association="QL_KHOAHOCModel.FK_DanhGiaKhoaHoc_NguoiDung">
+            <End Role="NguoiDung" EntitySet="NguoiDungs" />
+            <End Role="DanhGiaKhoaHoc" EntitySet="DanhGiaKhoaHocs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LoaiKhoaHoc_DanhMucKH" Association="QL_KHOAHOCModel.FK_LoaiKhoaHoc_DanhMucKH">
+            <End Role="DanhMucKhoaHoc" EntitySet="DanhMucKhoaHocs" />
+            <End Role="LoaiKhoaHoc" EntitySet="LoaiKhoaHocs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DonHang_NguoiDung" Association="QL_KHOAHOCModel.FK_DonHang_NguoiDung">
+            <End Role="NguoiDung" EntitySet="NguoiDungs" />
+            <End Role="GioHang" EntitySet="GioHangs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HoaDon_KhuyenMai" Association="QL_KHOAHOCModel.FK_HoaDon_KhuyenMai">
+            <End Role="KhuyenMai" EntitySet="KhuyenMais" />
+            <End Role="HoaDon" EntitySet="HoaDons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HoaDon_NguoiDung" Association="QL_KHOAHOCModel.FK_HoaDon_NguoiDung">
+            <End Role="NguoiDung" EntitySet="NguoiDungs" />
+            <End Role="HoaDon" EntitySet="HoaDons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_KHOAHOC_GIAOVIEN" Association="QL_KHOAHOCModel.FK_KHOAHOC_GIAOVIEN">
+            <End Role="NguoiDung" EntitySet="NguoiDungs" />
+            <End Role="KhoaHoc" EntitySet="KhoaHocs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_KhoaHoc_LoaiKhoaHoc" Association="QL_KHOAHOCModel.FK_KhoaHoc_LoaiKhoaHoc">
+            <End Role="LoaiKhoaHoc" EntitySet="LoaiKhoaHocs" />
+            <End Role="KhoaHoc" EntitySet="KhoaHocs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_KhuyenMai_NguoiDung" Association="QL_KHOAHOCModel.FK_KhuyenMai_NguoiDung">
+            <End Role="NguoiDung" EntitySet="NguoiDungs" />
+            <End Role="KhuyenMai" EntitySet="KhuyenMais" />
+          </AssociationSet>
+          <AssociationSet Name="FK_KhuyenMaiKH_KhuyenMai" Association="QL_KHOAHOCModel.FK_KhuyenMaiKH_KhuyenMai">
+            <End Role="KhuyenMai" EntitySet="KhuyenMais" />
+            <End Role="KhuyenMai_KhachHang" EntitySet="KhuyenMai_KhachHang" />
+          </AssociationSet>
+          <AssociationSet Name="FK_KhuyenMaiKH_NguoiDung" Association="QL_KHOAHOCModel.FK_KhuyenMaiKH_NguoiDung">
+            <End Role="NguoiDung" EntitySet="NguoiDungs" />
+            <End Role="KhuyenMai_KhachHang" EntitySet="KhuyenMai_KhachHang" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LichSuLuong_Luong" Association="QL_KHOAHOCModel.FK_LichSuLuong_Luong">
+            <End Role="Luong" EntitySet="Luongs" />
+            <End Role="LichSuLuong" EntitySet="LichSuLuongs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Luong_NguoiDung" Association="QL_KHOAHOCModel.FK_Luong_NguoiDung">
+            <End Role="NguoiDung" EntitySet="NguoiDungs" />
+            <End Role="Luong" EntitySet="Luongs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NguoiDung_NhomNguoiDung" Association="QL_KHOAHOCModel.FK_NguoiDung_NhomNguoiDung">
+            <End Role="NhomNguoiDung" EntitySet="NhomNguoiDungs" />
+            <End Role="NguoiDung" EntitySet="NguoiDungs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SoDuTaiKhoan_NguoiDung" Association="QL_KHOAHOCModel.FK_SoDuTaiKhoan_NguoiDung">
+            <End Role="NguoiDung" EntitySet="NguoiDungs" />
+            <End Role="SoDuTaiKhoan" EntitySet="SoDuTaiKhoans" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TichDiem_NguoiDung" Association="QL_KHOAHOCModel.FK_TichDiem_NguoiDung">
+            <End Role="NguoiDung" EntitySet="NguoiDungs" />
+            <End Role="TichDiem" EntitySet="TichDiems" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="BaiHoc">
           <Key>
             <PropertyRef Name="MaBaiHoc" />
@@ -638,8 +745,8 @@
           <Property Name="VideoLink" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Name="MoTa" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
           <Property Name="TrangThai" Type="Boolean" />
-          <NavigationProperty Name="KhoaHoc" Relationship="Self.FK_BaiHoc_KhoaHoc" FromRole="BaiHoc" ToRole="KhoaHoc" />
-          <NavigationProperty Name="BaiTaps" Relationship="Self.FK_BaiTap_BaiHoc" FromRole="BaiHoc" ToRole="BaiTap" />
+          <NavigationProperty Name="KhoaHoc" Relationship="QL_KHOAHOCModel.FK_BaiHoc_KhoaHoc" FromRole="BaiHoc" ToRole="KhoaHoc" />
+          <NavigationProperty Name="BaiTaps" Relationship="QL_KHOAHOCModel.FK_BaiTap_BaiHoc" FromRole="BaiHoc" ToRole="BaiTap" />
         </EntityType>
         <EntityType Name="BaiTap">
           <Key>
@@ -649,13 +756,13 @@
           <Property Name="MaBaiHoc" Type="Int32" />
           <Property Name="TenBaiTap" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="FileLink" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="BaiHoc" Relationship="Self.FK_BaiTap_BaiHoc" FromRole="BaiTap" ToRole="BaiHoc" />
+          <NavigationProperty Name="BaiHoc" Relationship="QL_KHOAHOCModel.FK_BaiTap_BaiHoc" FromRole="BaiTap" ToRole="BaiHoc" />
         </EntityType>
         <EntityType Name="ChamSocKhachHang">
           <Key>
             <PropertyRef Name="MaCSKH" />
           </Key>
-          <Property Name="MaCSKH" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MaCSKH" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="MaLoaiVanDe" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="MaND" Type="Int32" />
           <Property Name="SDTKH" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
@@ -664,8 +771,8 @@
           <Property Name="NoiDung" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
           <Property Name="CachXuLy" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
           <Property Name="NgayLap" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="LoaiVanDe" Relationship="Self.FK_ChamSocKhachHang_Loaivande" FromRole="ChamSocKhachHang" ToRole="LoaiVanDe" />
-          <NavigationProperty Name="NguoiDung" Relationship="Self.FK_ChamSocKhachHang_NguoiDung" FromRole="ChamSocKhachHang" ToRole="NguoiDung" />
+          <NavigationProperty Name="LoaiVanDe" Relationship="QL_KHOAHOCModel.FK_ChamSocKhachHang_Loaivande" FromRole="ChamSocKhachHang" ToRole="LoaiVanDe" />
+          <NavigationProperty Name="NguoiDung" Relationship="QL_KHOAHOCModel.FK_ChamSocKhachHang_NguoiDung" FromRole="ChamSocKhachHang" ToRole="NguoiDung" />
         </EntityType>
         <EntityType Name="CT_GioHang">
           <Key>
@@ -674,8 +781,8 @@
           <Property Name="MaGioHang" Type="Int32" Nullable="false" />
           <Property Name="MaKhoaHoc" Type="Int32" />
           <Property Name="DonGia" Type="Decimal" Precision="19" Scale="4" />
-          <NavigationProperty Name="KhoaHoc" Relationship="Self.FK_CTGioHang" FromRole="CT_GioHang" ToRole="KhoaHoc" />
-          <NavigationProperty Name="GioHang" Relationship="Self.FK_CTGioHang_GioHang" FromRole="CT_GioHang" ToRole="GioHang" />
+          <NavigationProperty Name="KhoaHoc" Relationship="QL_KHOAHOCModel.FK_CTGioHang" FromRole="CT_GioHang" ToRole="KhoaHoc" />
+          <NavigationProperty Name="GioHang" Relationship="QL_KHOAHOCModel.FK_CTGioHang_GioHang" FromRole="CT_GioHang" ToRole="GioHang" />
         </EntityType>
         <EntityType Name="CT_HoaDon">
           <Key>
@@ -685,8 +792,8 @@
           <Property Name="MaHD" Type="Int32" />
           <Property Name="MaKhoaHoc" Type="Int32" />
           <Property Name="DonGia" Type="Decimal" Precision="19" Scale="4" />
-          <NavigationProperty Name="KhoaHoc" Relationship="Self.FK_CTHoaDon" FromRole="CT_HoaDon" ToRole="KhoaHoc" />
-          <NavigationProperty Name="HoaDon" Relationship="Self.FK_CTHoaDon_HoaDon" FromRole="CT_HoaDon" ToRole="HoaDon" />
+          <NavigationProperty Name="KhoaHoc" Relationship="QL_KHOAHOCModel.FK_CTHoaDon" FromRole="CT_HoaDon" ToRole="KhoaHoc" />
+          <NavigationProperty Name="HoaDon" Relationship="QL_KHOAHOCModel.FK_CTHoaDon_HoaDon" FromRole="CT_HoaDon" ToRole="HoaDon" />
         </EntityType>
         <EntityType Name="DanhGiaKhoaHoc">
           <Key>
@@ -696,8 +803,8 @@
           <Property Name="MaND" Type="Int32" />
           <Property Name="Diem" Type="Int32" />
           <Property Name="NoiDung" Type="String" MaxLength="1500" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="KhoaHoc" Relationship="Self.FK_DanhGiaKhoaHoc_KhoaHoc" FromRole="DanhGiaKhoaHoc" ToRole="KhoaHoc" />
-          <NavigationProperty Name="NguoiDung" Relationship="Self.FK_DanhGiaKhoaHoc_NguoiDung" FromRole="DanhGiaKhoaHoc" ToRole="NguoiDung" />
+          <NavigationProperty Name="KhoaHoc" Relationship="QL_KHOAHOCModel.FK_DanhGiaKhoaHoc_KhoaHoc" FromRole="DanhGiaKhoaHoc" ToRole="KhoaHoc" />
+          <NavigationProperty Name="NguoiDung" Relationship="QL_KHOAHOCModel.FK_DanhGiaKhoaHoc_NguoiDung" FromRole="DanhGiaKhoaHoc" ToRole="NguoiDung" />
         </EntityType>
         <EntityType Name="DanhMucKhoaHoc">
           <Key>
@@ -706,7 +813,6 @@
           <Property Name="MaDanhMuc" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TenDanhMuc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="HinhAnh" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="LoaiKhoaHocs" Relationship="Self.FK_LoaiKhoaHoc_DanhMucKH" FromRole="DanhMucKhoaHoc" ToRole="LoaiKhoaHoc" />
         </EntityType>
         <EntityType Name="GioHang">
           <Key>
@@ -715,8 +821,8 @@
           <Property Name="MaGioHang" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="MaND" Type="Int32" />
           <Property Name="TongTien" Type="Decimal" Precision="19" Scale="4" />
-          <NavigationProperty Name="CT_GioHang" Relationship="Self.FK_CTGioHang_GioHang" FromRole="GioHang" ToRole="CT_GioHang" />
-          <NavigationProperty Name="NguoiDung" Relationship="Self.FK_DonHang_NguoiDung" FromRole="GioHang" ToRole="NguoiDung" />
+          <NavigationProperty Name="CT_GioHang" Relationship="QL_KHOAHOCModel.FK_CTGioHang_GioHang" FromRole="GioHang" ToRole="CT_GioHang" />
+          <NavigationProperty Name="NguoiDung" Relationship="QL_KHOAHOCModel.FK_DonHang_NguoiDung" FromRole="GioHang" ToRole="NguoiDung" />
         </EntityType>
         <EntityType Name="HoaDon">
           <Key>
@@ -731,9 +837,9 @@
           <Property Name="ThanhToan" Type="Boolean" />
           <Property Name="TrangThai" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="HinhThucThanhToan" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="CT_HoaDon" Relationship="Self.FK_CTHoaDon_HoaDon" FromRole="HoaDon" ToRole="CT_HoaDon" />
-          <NavigationProperty Name="KhuyenMai" Relationship="Self.FK_HoaDon_KhuyenMai" FromRole="HoaDon" ToRole="KhuyenMai" />
-          <NavigationProperty Name="NguoiDung" Relationship="Self.FK_HoaDon_NguoiDung" FromRole="HoaDon" ToRole="NguoiDung" />
+          <NavigationProperty Name="CT_HoaDon" Relationship="QL_KHOAHOCModel.FK_CTHoaDon_HoaDon" FromRole="HoaDon" ToRole="CT_HoaDon" />
+          <NavigationProperty Name="KhuyenMai" Relationship="QL_KHOAHOCModel.FK_HoaDon_KhuyenMai" FromRole="HoaDon" ToRole="KhuyenMai" />
+          <NavigationProperty Name="NguoiDung" Relationship="QL_KHOAHOCModel.FK_HoaDon_NguoiDung" FromRole="HoaDon" ToRole="NguoiDung" />
         </EntityType>
         <EntityType Name="KhoaHoc">
           <Key>
@@ -748,12 +854,11 @@
           <Property Name="TrangThai" Type="Boolean" />
           <Property Name="HinhAnh" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
           <Property Name="MaGV" Type="Int32" />
-          <NavigationProperty Name="BaiHocs" Relationship="Self.FK_BaiHoc_KhoaHoc" FromRole="KhoaHoc" ToRole="BaiHoc" />
-          <NavigationProperty Name="CT_GioHang" Relationship="Self.FK_CTGioHang" FromRole="KhoaHoc" ToRole="CT_GioHang" />
-          <NavigationProperty Name="CT_HoaDon" Relationship="Self.FK_CTHoaDon" FromRole="KhoaHoc" ToRole="CT_HoaDon" />
-          <NavigationProperty Name="DanhGiaKhoaHoc" Relationship="Self.FK_DanhGiaKhoaHoc_KhoaHoc" FromRole="KhoaHoc" ToRole="DanhGiaKhoaHoc" />
-          <NavigationProperty Name="NguoiDung" Relationship="Self.FK_KHOAHOC_GIAOVIEN" FromRole="KhoaHoc" ToRole="NguoiDung" />
-          <NavigationProperty Name="LoaiKhoaHoc" Relationship="Self.FK_KhoaHoc_LoaiKhoaHoc" FromRole="KhoaHoc" ToRole="LoaiKhoaHoc" />
+          <NavigationProperty Name="BaiHocs" Relationship="QL_KHOAHOCModel.FK_BaiHoc_KhoaHoc" FromRole="KhoaHoc" ToRole="BaiHoc" />
+          <NavigationProperty Name="CT_GioHang" Relationship="QL_KHOAHOCModel.FK_CTGioHang" FromRole="KhoaHoc" ToRole="CT_GioHang" />
+          <NavigationProperty Name="CT_HoaDon" Relationship="QL_KHOAHOCModel.FK_CTHoaDon" FromRole="KhoaHoc" ToRole="CT_HoaDon" />
+          <NavigationProperty Name="DanhGiaKhoaHoc" Relationship="QL_KHOAHOCModel.FK_DanhGiaKhoaHoc_KhoaHoc" FromRole="KhoaHoc" ToRole="DanhGiaKhoaHoc" />
+          <Property Name="MOTAKHOAHOC" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="KhuyenMai">
           <Key>
@@ -764,9 +869,9 @@
           <Property Name="MaApDung" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="TenKM" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="HinhAnh" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="HoaDons" Relationship="Self.FK_HoaDon_KhuyenMai" FromRole="KhuyenMai" ToRole="HoaDon" />
-          <NavigationProperty Name="NguoiDung" Relationship="Self.FK_KhuyenMai_NguoiDung" FromRole="KhuyenMai" ToRole="NguoiDung" />
-          <NavigationProperty Name="KhuyenMai_KhachHang" Relationship="Self.FK_KhuyenMaiKH_KhuyenMai" FromRole="KhuyenMai" ToRole="KhuyenMai_KhachHang" />
+          <NavigationProperty Name="HoaDons" Relationship="QL_KHOAHOCModel.FK_HoaDon_KhuyenMai" FromRole="KhuyenMai" ToRole="HoaDon" />
+          <NavigationProperty Name="NguoiDung" Relationship="QL_KHOAHOCModel.FK_KhuyenMai_NguoiDung" FromRole="KhuyenMai" ToRole="NguoiDung" />
+          <NavigationProperty Name="KhuyenMai_KhachHang" Relationship="QL_KHOAHOCModel.FK_KhuyenMaiKH_KhuyenMai" FromRole="KhuyenMai" ToRole="KhuyenMai_KhachHang" />
         </EntityType>
         <EntityType Name="KhuyenMai_KhachHang">
           <Key>
@@ -777,8 +882,8 @@
           <Property Name="MaKM" Type="Int32" Nullable="false" />
           <Property Name="NgayBatDau" Type="DateTime" Precision="0" />
           <Property Name="NgayKetThuc" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="KhuyenMai" Relationship="Self.FK_KhuyenMaiKH_KhuyenMai" FromRole="KhuyenMai_KhachHang" ToRole="KhuyenMai" />
-          <NavigationProperty Name="NguoiDung" Relationship="Self.FK_KhuyenMaiKH_NguoiDung" FromRole="KhuyenMai_KhachHang" ToRole="NguoiDung" />
+          <NavigationProperty Name="KhuyenMai" Relationship="QL_KHOAHOCModel.FK_KhuyenMaiKH_KhuyenMai" FromRole="KhuyenMai_KhachHang" ToRole="KhuyenMai" />
+          <NavigationProperty Name="NguoiDung" Relationship="QL_KHOAHOCModel.FK_KhuyenMaiKH_NguoiDung" FromRole="KhuyenMai_KhachHang" ToRole="NguoiDung" />
         </EntityType>
         <EntityType Name="LichSuLuong">
           <Key>
@@ -790,7 +895,7 @@
           <Property Name="SoTien" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="TienPhat" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="GhiChu" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Luong" Relationship="Self.FK_LichSuLuong_Luong" FromRole="LichSuLuong" ToRole="Luong" />
+          <NavigationProperty Name="Luong" Relationship="QL_KHOAHOCModel.FK_LichSuLuong_Luong" FromRole="LichSuLuong" ToRole="Luong" />
         </EntityType>
         <EntityType Name="LoaiKhoaHoc">
           <Key>
@@ -800,16 +905,15 @@
           <Property Name="MaDanhMuc" Type="Int32" />
           <Property Name="TenLoai" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="HinhAnh" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="DanhMucKhoaHoc" Relationship="Self.FK_LoaiKhoaHoc_DanhMucKH" FromRole="LoaiKhoaHoc" ToRole="DanhMucKhoaHoc" />
-          <NavigationProperty Name="KhoaHocs" Relationship="Self.FK_KhoaHoc_LoaiKhoaHoc" FromRole="LoaiKhoaHoc" ToRole="KhoaHoc" />
+          <NavigationProperty Name="KhoaHocs" Relationship="QL_KHOAHOCModel.FK_KhoaHoc_LoaiKhoaHoc" FromRole="LoaiKhoaHoc" ToRole="KhoaHoc" />
         </EntityType>
         <EntityType Name="LoaiVanDe">
           <Key>
             <PropertyRef Name="MaLoaiVanDe" />
           </Key>
-          <Property Name="MaLoaiVanDe" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MaLoaiVanDe" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="TenLoaiVanDe" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="ChamSocKhachHangs" Relationship="Self.FK_ChamSocKhachHang_Loaivande" FromRole="LoaiVanDe" ToRole="ChamSocKhachHang" />
+          <NavigationProperty Name="ChamSocKhachHangs" Relationship="QL_KHOAHOCModel.FK_ChamSocKhachHang_Loaivande" FromRole="LoaiVanDe" ToRole="ChamSocKhachHang" />
         </EntityType>
         <EntityType Name="Luong">
           <Key>
@@ -819,8 +923,8 @@
           <Property Name="MaND" Type="Int32" />
           <Property Name="Luong1" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="NgayTinhLuong" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="LichSuLuongs" Relationship="Self.FK_LichSuLuong_Luong" FromRole="Luong" ToRole="LichSuLuong" />
-          <NavigationProperty Name="NguoiDung" Relationship="Self.FK_Luong_NguoiDung" FromRole="Luong" ToRole="NguoiDung" />
+          <NavigationProperty Name="LichSuLuongs" Relationship="QL_KHOAHOCModel.FK_LichSuLuong_Luong" FromRole="Luong" ToRole="LichSuLuong" />
+          <NavigationProperty Name="NguoiDung" Relationship="QL_KHOAHOCModel.FK_Luong_NguoiDung" FromRole="Luong" ToRole="NguoiDung" />
         </EntityType>
         <EntityType Name="NguoiDung">
           <Key>
@@ -837,17 +941,17 @@
           <Property Name="Email" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
           <Property Name="NgaySinh" Type="DateTime" Precision="0" />
           <Property Name="Diachi" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="ChamSocKhachHangs" Relationship="Self.FK_ChamSocKhachHang_NguoiDung" FromRole="NguoiDung" ToRole="ChamSocKhachHang" />
-          <NavigationProperty Name="DanhGiaKhoaHocs" Relationship="Self.FK_DanhGiaKhoaHoc_NguoiDung" FromRole="NguoiDung" ToRole="DanhGiaKhoaHoc" />
-          <NavigationProperty Name="GioHangs" Relationship="Self.FK_DonHang_NguoiDung" FromRole="NguoiDung" ToRole="GioHang" />
-          <NavigationProperty Name="HoaDons" Relationship="Self.FK_HoaDon_NguoiDung" FromRole="NguoiDung" ToRole="HoaDon" />
-          <NavigationProperty Name="KhoaHocs" Relationship="Self.FK_KHOAHOC_GIAOVIEN" FromRole="NguoiDung" ToRole="KhoaHoc" />
-          <NavigationProperty Name="KhuyenMais" Relationship="Self.FK_KhuyenMai_NguoiDung" FromRole="NguoiDung" ToRole="KhuyenMai" />
-          <NavigationProperty Name="KhuyenMai_KhachHang" Relationship="Self.FK_KhuyenMaiKH_NguoiDung" FromRole="NguoiDung" ToRole="KhuyenMai_KhachHang" />
-          <NavigationProperty Name="Luongs" Relationship="Self.FK_Luong_NguoiDung" FromRole="NguoiDung" ToRole="Luong" />
-          <NavigationProperty Name="NhomNguoiDung" Relationship="Self.FK_NguoiDung_NhomNguoiDung" FromRole="NguoiDung" ToRole="NhomNguoiDung" />
-          <NavigationProperty Name="SoDuTaiKhoans" Relationship="Self.FK_SoDuTaiKhoan_NguoiDung" FromRole="NguoiDung" ToRole="SoDuTaiKhoan" />
-          <NavigationProperty Name="TichDiem" Relationship="Self.FK_TichDiem_NguoiDung" FromRole="NguoiDung" ToRole="TichDiem" />
+          <NavigationProperty Name="ChamSocKhachHangs" Relationship="QL_KHOAHOCModel.FK_ChamSocKhachHang_NguoiDung" FromRole="NguoiDung" ToRole="ChamSocKhachHang" />
+          <NavigationProperty Name="DanhGiaKhoaHocs" Relationship="QL_KHOAHOCModel.FK_DanhGiaKhoaHoc_NguoiDung" FromRole="NguoiDung" ToRole="DanhGiaKhoaHoc" />
+          <NavigationProperty Name="GioHangs" Relationship="QL_KHOAHOCModel.FK_DonHang_NguoiDung" FromRole="NguoiDung" ToRole="GioHang" />
+          <NavigationProperty Name="HoaDons" Relationship="QL_KHOAHOCModel.FK_HoaDon_NguoiDung" FromRole="NguoiDung" ToRole="HoaDon" />
+          <NavigationProperty Name="KhoaHocs" Relationship="QL_KHOAHOCModel.FK_KHOAHOC_GIAOVIEN" FromRole="NguoiDung" ToRole="KhoaHoc" />
+          <NavigationProperty Name="KhuyenMais" Relationship="QL_KHOAHOCModel.FK_KhuyenMai_NguoiDung" FromRole="NguoiDung" ToRole="KhuyenMai" />
+          <NavigationProperty Name="KhuyenMai_KhachHang" Relationship="QL_KHOAHOCModel.FK_KhuyenMaiKH_NguoiDung" FromRole="NguoiDung" ToRole="KhuyenMai_KhachHang" />
+          <NavigationProperty Name="Luongs" Relationship="QL_KHOAHOCModel.FK_Luong_NguoiDung" FromRole="NguoiDung" ToRole="Luong" />
+          <NavigationProperty Name="NhomNguoiDung" Relationship="QL_KHOAHOCModel.FK_NguoiDung_NhomNguoiDung" FromRole="NguoiDung" ToRole="NhomNguoiDung" />
+          <NavigationProperty Name="SoDuTaiKhoans" Relationship="QL_KHOAHOCModel.FK_SoDuTaiKhoan_NguoiDung" FromRole="NguoiDung" ToRole="SoDuTaiKhoan" />
+          <NavigationProperty Name="TichDiem" Relationship="QL_KHOAHOCModel.FK_TichDiem_NguoiDung" FromRole="NguoiDung" ToRole="TichDiem" />
         </EntityType>
         <EntityType Name="NhomNguoiDung">
           <Key>
@@ -856,7 +960,7 @@
           <Property Name="MaNhomNguoiDung" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TenNhomNguoiDung" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="HinhAnh" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="NguoiDungs" Relationship="Self.FK_NguoiDung_NhomNguoiDung" FromRole="NhomNguoiDung" ToRole="NguoiDung" />
+          <NavigationProperty Name="NguoiDungs" Relationship="QL_KHOAHOCModel.FK_NguoiDung_NhomNguoiDung" FromRole="NhomNguoiDung" ToRole="NguoiDung" />
         </EntityType>
         <EntityType Name="SoDuTaiKhoan">
           <Key>
@@ -867,17 +971,7 @@
           <Property Name="SoDu" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="NgayNap" Type="DateTime" Precision="0" />
           <Property Name="NoiDung" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="NguoiDung" Relationship="Self.FK_SoDuTaiKhoan_NguoiDung" FromRole="SoDuTaiKhoan" ToRole="NguoiDung" />
-        </EntityType>
-        <EntityType Name="sysdiagram">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="NguoiDung" Relationship="QL_KHOAHOCModel.FK_SoDuTaiKhoan_NguoiDung" FromRole="SoDuTaiKhoan" ToRole="NguoiDung" />
         </EntityType>
         <EntityType Name="TichDiem">
           <Key>
@@ -885,11 +979,11 @@
           </Key>
           <Property Name="MaND" Type="Int32" Nullable="false" />
           <Property Name="SoDiem" Type="Int32" />
-          <NavigationProperty Name="NguoiDung" Relationship="Self.FK_TichDiem_NguoiDung" FromRole="TichDiem" ToRole="NguoiDung" />
+          <NavigationProperty Name="NguoiDung" Relationship="QL_KHOAHOCModel.FK_TichDiem_NguoiDung" FromRole="TichDiem" ToRole="NguoiDung" />
         </EntityType>
         <Association Name="FK_BaiHoc_KhoaHoc">
-          <End Role="KhoaHoc" Type="Self.KhoaHoc" Multiplicity="0..1" />
-          <End Role="BaiHoc" Type="Self.BaiHoc" Multiplicity="*" />
+          <End Type="QL_KHOAHOCModel.KhoaHoc" Role="KhoaHoc" Multiplicity="0..1" />
+          <End Type="QL_KHOAHOCModel.BaiHoc" Role="BaiHoc" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="KhoaHoc">
               <PropertyRef Name="MaKhoaHoc" />
@@ -900,8 +994,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_BaiTap_BaiHoc">
-          <End Role="BaiHoc" Type="Self.BaiHoc" Multiplicity="0..1" />
-          <End Role="BaiTap" Type="Self.BaiTap" Multiplicity="*" />
+          <End Type="QL_KHOAHOCModel.BaiHoc" Role="BaiHoc" Multiplicity="0..1" />
+          <End Type="QL_KHOAHOCModel.BaiTap" Role="BaiTap" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="BaiHoc">
               <PropertyRef Name="MaBaiHoc" />
@@ -912,8 +1006,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ChamSocKhachHang_Loaivande">
-          <End Role="LoaiVanDe" Type="Self.LoaiVanDe" Multiplicity="0..1" />
-          <End Role="ChamSocKhachHang" Type="Self.ChamSocKhachHang" Multiplicity="*" />
+          <End Type="QL_KHOAHOCModel.LoaiVanDe" Role="LoaiVanDe" Multiplicity="0..1" />
+          <End Type="QL_KHOAHOCModel.ChamSocKhachHang" Role="ChamSocKhachHang" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="LoaiVanDe">
               <PropertyRef Name="MaLoaiVanDe" />
@@ -924,8 +1018,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ChamSocKhachHang_NguoiDung">
-          <End Role="NguoiDung" Type="Self.NguoiDung" Multiplicity="0..1" />
-          <End Role="ChamSocKhachHang" Type="Self.ChamSocKhachHang" Multiplicity="*" />
+          <End Type="QL_KHOAHOCModel.NguoiDung" Role="NguoiDung" Multiplicity="0..1" />
+          <End Type="QL_KHOAHOCModel.ChamSocKhachHang" Role="ChamSocKhachHang" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="NguoiDung">
               <PropertyRef Name="MaND" />
@@ -936,8 +1030,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_CTGioHang">
-          <End Role="KhoaHoc" Type="Self.KhoaHoc" Multiplicity="0..1" />
-          <End Role="CT_GioHang" Type="Self.CT_GioHang" Multiplicity="*" />
+          <End Type="QL_KHOAHOCModel.KhoaHoc" Role="KhoaHoc" Multiplicity="0..1" />
+          <End Type="QL_KHOAHOCModel.CT_GioHang" Role="CT_GioHang" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="KhoaHoc">
               <PropertyRef Name="MaKhoaHoc" />
@@ -948,8 +1042,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_CTGioHang_GioHang">
-          <End Role="GioHang" Type="Self.GioHang" Multiplicity="1" />
-          <End Role="CT_GioHang" Type="Self.CT_GioHang" Multiplicity="0..1" />
+          <End Type="QL_KHOAHOCModel.GioHang" Role="GioHang" Multiplicity="1" />
+          <End Type="QL_KHOAHOCModel.CT_GioHang" Role="CT_GioHang" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="GioHang">
               <PropertyRef Name="MaGioHang" />
@@ -960,8 +1054,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_CTHoaDon">
-          <End Role="KhoaHoc" Type="Self.KhoaHoc" Multiplicity="0..1" />
-          <End Role="CT_HoaDon" Type="Self.CT_HoaDon" Multiplicity="*" />
+          <End Type="QL_KHOAHOCModel.KhoaHoc" Role="KhoaHoc" Multiplicity="0..1" />
+          <End Type="QL_KHOAHOCModel.CT_HoaDon" Role="CT_HoaDon" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="KhoaHoc">
               <PropertyRef Name="MaKhoaHoc" />
@@ -972,8 +1066,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_CTHoaDon_HoaDon">
-          <End Role="HoaDon" Type="Self.HoaDon" Multiplicity="0..1" />
-          <End Role="CT_HoaDon" Type="Self.CT_HoaDon" Multiplicity="*" />
+          <End Type="QL_KHOAHOCModel.HoaDon" Role="HoaDon" Multiplicity="0..1" />
+          <End Type="QL_KHOAHOCModel.CT_HoaDon" Role="CT_HoaDon" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="HoaDon">
               <PropertyRef Name="MaHD" />
@@ -984,8 +1078,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_DanhGiaKhoaHoc_KhoaHoc">
-          <End Role="KhoaHoc" Type="Self.KhoaHoc" Multiplicity="1" />
-          <End Role="DanhGiaKhoaHoc" Type="Self.DanhGiaKhoaHoc" Multiplicity="0..1" />
+          <End Type="QL_KHOAHOCModel.KhoaHoc" Role="KhoaHoc" Multiplicity="1" />
+          <End Type="QL_KHOAHOCModel.DanhGiaKhoaHoc" Role="DanhGiaKhoaHoc" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="KhoaHoc">
               <PropertyRef Name="MaKhoaHoc" />
@@ -996,8 +1090,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_DanhGiaKhoaHoc_NguoiDung">
-          <End Role="NguoiDung" Type="Self.NguoiDung" Multiplicity="0..1" />
-          <End Role="DanhGiaKhoaHoc" Type="Self.DanhGiaKhoaHoc" Multiplicity="*" />
+          <End Type="QL_KHOAHOCModel.NguoiDung" Role="NguoiDung" Multiplicity="0..1" />
+          <End Type="QL_KHOAHOCModel.DanhGiaKhoaHoc" Role="DanhGiaKhoaHoc" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="NguoiDung">
               <PropertyRef Name="MaND" />
@@ -1008,8 +1102,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_LoaiKhoaHoc_DanhMucKH">
-          <End Role="DanhMucKhoaHoc" Type="Self.DanhMucKhoaHoc" Multiplicity="0..1" />
-          <End Role="LoaiKhoaHoc" Type="Self.LoaiKhoaHoc" Multiplicity="*" />
+          <End Type="QL_KHOAHOCModel.DanhMucKhoaHoc" Role="DanhMucKhoaHoc" Multiplicity="0..1" />
+          <End Type="QL_KHOAHOCModel.LoaiKhoaHoc" Role="LoaiKhoaHoc" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DanhMucKhoaHoc">
               <PropertyRef Name="MaDanhMuc" />
@@ -1020,8 +1114,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_DonHang_NguoiDung">
-          <End Role="NguoiDung" Type="Self.NguoiDung" Multiplicity="0..1" />
-          <End Role="GioHang" Type="Self.GioHang" Multiplicity="*" />
+          <End Type="QL_KHOAHOCModel.NguoiDung" Role="NguoiDung" Multiplicity="0..1" />
+          <End Type="QL_KHOAHOCModel.GioHang" Role="GioHang" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="NguoiDung">
               <PropertyRef Name="MaND" />
@@ -1032,8 +1126,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_HoaDon_KhuyenMai">
-          <End Role="KhuyenMai" Type="Self.KhuyenMai" Multiplicity="0..1" />
-          <End Role="HoaDon" Type="Self.HoaDon" Multiplicity="*" />
+          <End Type="QL_KHOAHOCModel.KhuyenMai" Role="KhuyenMai" Multiplicity="0..1" />
+          <End Type="QL_KHOAHOCModel.HoaDon" Role="HoaDon" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="KhuyenMai">
               <PropertyRef Name="MaKM" />
@@ -1044,8 +1138,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_HoaDon_NguoiDung">
-          <End Role="NguoiDung" Type="Self.NguoiDung" Multiplicity="0..1" />
-          <End Role="HoaDon" Type="Self.HoaDon" Multiplicity="*" />
+          <End Type="QL_KHOAHOCModel.NguoiDung" Role="NguoiDung" Multiplicity="0..1" />
+          <End Type="QL_KHOAHOCModel.HoaDon" Role="HoaDon" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="NguoiDung">
               <PropertyRef Name="MaND" />
@@ -1056,8 +1150,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_KHOAHOC_GIAOVIEN">
-          <End Role="NguoiDung" Type="Self.NguoiDung" Multiplicity="0..1" />
-          <End Role="KhoaHoc" Type="Self.KhoaHoc" Multiplicity="*" />
+          <End Type="QL_KHOAHOCModel.NguoiDung" Role="NguoiDung" Multiplicity="0..1" />
+          <End Type="QL_KHOAHOCModel.KhoaHoc" Role="KhoaHoc" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="NguoiDung">
               <PropertyRef Name="MaND" />
@@ -1068,8 +1162,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_KhoaHoc_LoaiKhoaHoc">
-          <End Role="LoaiKhoaHoc" Type="Self.LoaiKhoaHoc" Multiplicity="0..1" />
-          <End Role="KhoaHoc" Type="Self.KhoaHoc" Multiplicity="*" />
+          <End Type="QL_KHOAHOCModel.LoaiKhoaHoc" Role="LoaiKhoaHoc" Multiplicity="0..1" />
+          <End Type="QL_KHOAHOCModel.KhoaHoc" Role="KhoaHoc" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="LoaiKhoaHoc">
               <PropertyRef Name="MaLoai" />
@@ -1080,8 +1174,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_KhuyenMai_NguoiDung">
-          <End Role="NguoiDung" Type="Self.NguoiDung" Multiplicity="0..1" />
-          <End Role="KhuyenMai" Type="Self.KhuyenMai" Multiplicity="*" />
+          <End Type="QL_KHOAHOCModel.NguoiDung" Role="NguoiDung" Multiplicity="0..1" />
+          <End Type="QL_KHOAHOCModel.KhuyenMai" Role="KhuyenMai" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="NguoiDung">
               <PropertyRef Name="MaND" />
@@ -1092,8 +1186,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_KhuyenMaiKH_KhuyenMai">
-          <End Role="KhuyenMai" Type="Self.KhuyenMai" Multiplicity="1" />
-          <End Role="KhuyenMai_KhachHang" Type="Self.KhuyenMai_KhachHang" Multiplicity="*" />
+          <End Type="QL_KHOAHOCModel.KhuyenMai" Role="KhuyenMai" Multiplicity="1" />
+          <End Type="QL_KHOAHOCModel.KhuyenMai_KhachHang" Role="KhuyenMai_KhachHang" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="KhuyenMai">
               <PropertyRef Name="MaKM" />
@@ -1104,8 +1198,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_KhuyenMaiKH_NguoiDung">
-          <End Role="NguoiDung" Type="Self.NguoiDung" Multiplicity="1" />
-          <End Role="KhuyenMai_KhachHang" Type="Self.KhuyenMai_KhachHang" Multiplicity="*" />
+          <End Type="QL_KHOAHOCModel.NguoiDung" Role="NguoiDung" Multiplicity="1" />
+          <End Type="QL_KHOAHOCModel.KhuyenMai_KhachHang" Role="KhuyenMai_KhachHang" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="NguoiDung">
               <PropertyRef Name="MaND" />
@@ -1116,8 +1210,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_LichSuLuong_Luong">
-          <End Role="Luong" Type="Self.Luong" Multiplicity="1" />
-          <End Role="LichSuLuong" Type="Self.LichSuLuong" Multiplicity="*" />
+          <End Type="QL_KHOAHOCModel.Luong" Role="Luong" Multiplicity="1" />
+          <End Type="QL_KHOAHOCModel.LichSuLuong" Role="LichSuLuong" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Luong">
               <PropertyRef Name="MaLuong" />
@@ -1128,8 +1222,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Luong_NguoiDung">
-          <End Role="NguoiDung" Type="Self.NguoiDung" Multiplicity="0..1" />
-          <End Role="Luong" Type="Self.Luong" Multiplicity="*" />
+          <End Type="QL_KHOAHOCModel.NguoiDung" Role="NguoiDung" Multiplicity="0..1" />
+          <End Type="QL_KHOAHOCModel.Luong" Role="Luong" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="NguoiDung">
               <PropertyRef Name="MaND" />
@@ -1140,8 +1234,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_NguoiDung_NhomNguoiDung">
-          <End Role="NhomNguoiDung" Type="Self.NhomNguoiDung" Multiplicity="0..1" />
-          <End Role="NguoiDung" Type="Self.NguoiDung" Multiplicity="*" />
+          <End Type="QL_KHOAHOCModel.NhomNguoiDung" Role="NhomNguoiDung" Multiplicity="0..1" />
+          <End Type="QL_KHOAHOCModel.NguoiDung" Role="NguoiDung" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="NhomNguoiDung">
               <PropertyRef Name="MaNhomNguoiDung" />
@@ -1152,8 +1246,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_SoDuTaiKhoan_NguoiDung">
-          <End Role="NguoiDung" Type="Self.NguoiDung" Multiplicity="0..1" />
-          <End Role="SoDuTaiKhoan" Type="Self.SoDuTaiKhoan" Multiplicity="*" />
+          <End Type="QL_KHOAHOCModel.NguoiDung" Role="NguoiDung" Multiplicity="0..1" />
+          <End Type="QL_KHOAHOCModel.SoDuTaiKhoan" Role="SoDuTaiKhoan" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="NguoiDung">
               <PropertyRef Name="MaND" />
@@ -1164,8 +1258,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_TichDiem_NguoiDung">
-          <End Role="NguoiDung" Type="Self.NguoiDung" Multiplicity="1" />
-          <End Role="TichDiem" Type="Self.TichDiem" Multiplicity="0..1" />
+          <End Type="QL_KHOAHOCModel.NguoiDung" Role="NguoiDung" Multiplicity="1" />
+          <End Type="QL_KHOAHOCModel.TichDiem" Role="TichDiem" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="NguoiDung">
               <PropertyRef Name="MaND" />
@@ -1175,125 +1269,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="QL_KHOAHOCEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="BaiHocs" EntityType="Self.BaiHoc" />
-          <EntitySet Name="BaiTaps" EntityType="Self.BaiTap" />
-          <EntitySet Name="ChamSocKhachHangs" EntityType="Self.ChamSocKhachHang" />
-          <EntitySet Name="CT_GioHang" EntityType="Self.CT_GioHang" />
-          <EntitySet Name="CT_HoaDon" EntityType="Self.CT_HoaDon" />
-          <EntitySet Name="DanhGiaKhoaHocs" EntityType="Self.DanhGiaKhoaHoc" />
-          <EntitySet Name="DanhMucKhoaHocs" EntityType="Self.DanhMucKhoaHoc" />
-          <EntitySet Name="GioHangs" EntityType="Self.GioHang" />
-          <EntitySet Name="HoaDons" EntityType="Self.HoaDon" />
-          <EntitySet Name="KhoaHocs" EntityType="Self.KhoaHoc" />
-          <EntitySet Name="KhuyenMais" EntityType="Self.KhuyenMai" />
-          <EntitySet Name="KhuyenMai_KhachHang" EntityType="Self.KhuyenMai_KhachHang" />
-          <EntitySet Name="LichSuLuongs" EntityType="Self.LichSuLuong" />
-          <EntitySet Name="LoaiKhoaHocs" EntityType="Self.LoaiKhoaHoc" />
-          <EntitySet Name="LoaiVanDes" EntityType="Self.LoaiVanDe" />
-          <EntitySet Name="Luongs" EntityType="Self.Luong" />
-          <EntitySet Name="NguoiDungs" EntityType="Self.NguoiDung" />
-          <EntitySet Name="NhomNguoiDungs" EntityType="Self.NhomNguoiDung" />
-          <EntitySet Name="SoDuTaiKhoans" EntityType="Self.SoDuTaiKhoan" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
-          <EntitySet Name="TichDiems" EntityType="Self.TichDiem" />
-          <AssociationSet Name="FK_BaiHoc_KhoaHoc" Association="Self.FK_BaiHoc_KhoaHoc">
-            <End Role="KhoaHoc" EntitySet="KhoaHocs" />
-            <End Role="BaiHoc" EntitySet="BaiHocs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_BaiTap_BaiHoc" Association="Self.FK_BaiTap_BaiHoc">
-            <End Role="BaiHoc" EntitySet="BaiHocs" />
-            <End Role="BaiTap" EntitySet="BaiTaps" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ChamSocKhachHang_Loaivande" Association="Self.FK_ChamSocKhachHang_Loaivande">
-            <End Role="LoaiVanDe" EntitySet="LoaiVanDes" />
-            <End Role="ChamSocKhachHang" EntitySet="ChamSocKhachHangs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ChamSocKhachHang_NguoiDung" Association="Self.FK_ChamSocKhachHang_NguoiDung">
-            <End Role="NguoiDung" EntitySet="NguoiDungs" />
-            <End Role="ChamSocKhachHang" EntitySet="ChamSocKhachHangs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CTGioHang" Association="Self.FK_CTGioHang">
-            <End Role="KhoaHoc" EntitySet="KhoaHocs" />
-            <End Role="CT_GioHang" EntitySet="CT_GioHang" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CTGioHang_GioHang" Association="Self.FK_CTGioHang_GioHang">
-            <End Role="GioHang" EntitySet="GioHangs" />
-            <End Role="CT_GioHang" EntitySet="CT_GioHang" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CTHoaDon" Association="Self.FK_CTHoaDon">
-            <End Role="KhoaHoc" EntitySet="KhoaHocs" />
-            <End Role="CT_HoaDon" EntitySet="CT_HoaDon" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CTHoaDon_HoaDon" Association="Self.FK_CTHoaDon_HoaDon">
-            <End Role="HoaDon" EntitySet="HoaDons" />
-            <End Role="CT_HoaDon" EntitySet="CT_HoaDon" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DanhGiaKhoaHoc_KhoaHoc" Association="Self.FK_DanhGiaKhoaHoc_KhoaHoc">
-            <End Role="KhoaHoc" EntitySet="KhoaHocs" />
-            <End Role="DanhGiaKhoaHoc" EntitySet="DanhGiaKhoaHocs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DanhGiaKhoaHoc_NguoiDung" Association="Self.FK_DanhGiaKhoaHoc_NguoiDung">
-            <End Role="NguoiDung" EntitySet="NguoiDungs" />
-            <End Role="DanhGiaKhoaHoc" EntitySet="DanhGiaKhoaHocs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_LoaiKhoaHoc_DanhMucKH" Association="Self.FK_LoaiKhoaHoc_DanhMucKH">
-            <End Role="DanhMucKhoaHoc" EntitySet="DanhMucKhoaHocs" />
-            <End Role="LoaiKhoaHoc" EntitySet="LoaiKhoaHocs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DonHang_NguoiDung" Association="Self.FK_DonHang_NguoiDung">
-            <End Role="NguoiDung" EntitySet="NguoiDungs" />
-            <End Role="GioHang" EntitySet="GioHangs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_HoaDon_KhuyenMai" Association="Self.FK_HoaDon_KhuyenMai">
-            <End Role="KhuyenMai" EntitySet="KhuyenMais" />
-            <End Role="HoaDon" EntitySet="HoaDons" />
-          </AssociationSet>
-          <AssociationSet Name="FK_HoaDon_NguoiDung" Association="Self.FK_HoaDon_NguoiDung">
-            <End Role="NguoiDung" EntitySet="NguoiDungs" />
-            <End Role="HoaDon" EntitySet="HoaDons" />
-          </AssociationSet>
-          <AssociationSet Name="FK_KHOAHOC_GIAOVIEN" Association="Self.FK_KHOAHOC_GIAOVIEN">
-            <End Role="NguoiDung" EntitySet="NguoiDungs" />
-            <End Role="KhoaHoc" EntitySet="KhoaHocs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_KhoaHoc_LoaiKhoaHoc" Association="Self.FK_KhoaHoc_LoaiKhoaHoc">
-            <End Role="LoaiKhoaHoc" EntitySet="LoaiKhoaHocs" />
-            <End Role="KhoaHoc" EntitySet="KhoaHocs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_KhuyenMai_NguoiDung" Association="Self.FK_KhuyenMai_NguoiDung">
-            <End Role="NguoiDung" EntitySet="NguoiDungs" />
-            <End Role="KhuyenMai" EntitySet="KhuyenMais" />
-          </AssociationSet>
-          <AssociationSet Name="FK_KhuyenMaiKH_KhuyenMai" Association="Self.FK_KhuyenMaiKH_KhuyenMai">
-            <End Role="KhuyenMai" EntitySet="KhuyenMais" />
-            <End Role="KhuyenMai_KhachHang" EntitySet="KhuyenMai_KhachHang" />
-          </AssociationSet>
-          <AssociationSet Name="FK_KhuyenMaiKH_NguoiDung" Association="Self.FK_KhuyenMaiKH_NguoiDung">
-            <End Role="NguoiDung" EntitySet="NguoiDungs" />
-            <End Role="KhuyenMai_KhachHang" EntitySet="KhuyenMai_KhachHang" />
-          </AssociationSet>
-          <AssociationSet Name="FK_LichSuLuong_Luong" Association="Self.FK_LichSuLuong_Luong">
-            <End Role="Luong" EntitySet="Luongs" />
-            <End Role="LichSuLuong" EntitySet="LichSuLuongs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Luong_NguoiDung" Association="Self.FK_Luong_NguoiDung">
-            <End Role="NguoiDung" EntitySet="NguoiDungs" />
-            <End Role="Luong" EntitySet="Luongs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_NguoiDung_NhomNguoiDung" Association="Self.FK_NguoiDung_NhomNguoiDung">
-            <End Role="NhomNguoiDung" EntitySet="NhomNguoiDungs" />
-            <End Role="NguoiDung" EntitySet="NguoiDungs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SoDuTaiKhoan_NguoiDung" Association="Self.FK_SoDuTaiKhoan_NguoiDung">
-            <End Role="NguoiDung" EntitySet="NguoiDungs" />
-            <End Role="SoDuTaiKhoan" EntitySet="SoDuTaiKhoans" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TichDiem_NguoiDung" Association="Self.FK_TichDiem_NguoiDung">
-            <End Role="NguoiDung" EntitySet="NguoiDungs" />
-            <End Role="TichDiem" EntitySet="TichDiems" />
-          </AssociationSet>
-        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1303,230 +1278,220 @@
           <EntitySetMapping Name="BaiHocs">
             <EntityTypeMapping TypeName="QL_KHOAHOCModel.BaiHoc">
               <MappingFragment StoreEntitySet="BaiHoc">
-                <ScalarProperty Name="MaBaiHoc" ColumnName="MaBaiHoc" />
-                <ScalarProperty Name="MaKhoaHoc" ColumnName="MaKhoaHoc" />
-                <ScalarProperty Name="TenBaiHoc" ColumnName="TenBaiHoc" />
-                <ScalarProperty Name="VideoLink" ColumnName="VideoLink" />
-                <ScalarProperty Name="MoTa" ColumnName="MoTa" />
                 <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
+                <ScalarProperty Name="MoTa" ColumnName="MoTa" />
+                <ScalarProperty Name="VideoLink" ColumnName="VideoLink" />
+                <ScalarProperty Name="TenBaiHoc" ColumnName="TenBaiHoc" />
+                <ScalarProperty Name="MaKhoaHoc" ColumnName="MaKhoaHoc" />
+                <ScalarProperty Name="MaBaiHoc" ColumnName="MaBaiHoc" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="BaiTaps">
             <EntityTypeMapping TypeName="QL_KHOAHOCModel.BaiTap">
               <MappingFragment StoreEntitySet="BaiTap">
-                <ScalarProperty Name="MaBaiTap" ColumnName="MaBaiTap" />
-                <ScalarProperty Name="MaBaiHoc" ColumnName="MaBaiHoc" />
-                <ScalarProperty Name="TenBaiTap" ColumnName="TenBaiTap" />
                 <ScalarProperty Name="FileLink" ColumnName="FileLink" />
+                <ScalarProperty Name="TenBaiTap" ColumnName="TenBaiTap" />
+                <ScalarProperty Name="MaBaiHoc" ColumnName="MaBaiHoc" />
+                <ScalarProperty Name="MaBaiTap" ColumnName="MaBaiTap" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ChamSocKhachHangs">
             <EntityTypeMapping TypeName="QL_KHOAHOCModel.ChamSocKhachHang">
               <MappingFragment StoreEntitySet="ChamSocKhachHang">
-                <ScalarProperty Name="MaCSKH" ColumnName="MaCSKH" />
-                <ScalarProperty Name="MaLoaiVanDe" ColumnName="MaLoaiVanDe" />
-                <ScalarProperty Name="MaND" ColumnName="MaND" />
-                <ScalarProperty Name="SDTKH" ColumnName="SDTKH" />
-                <ScalarProperty Name="TenKH" ColumnName="TenKH" />
-                <ScalarProperty Name="TinhTrang" ColumnName="TinhTrang" />
-                <ScalarProperty Name="NoiDung" ColumnName="NoiDung" />
-                <ScalarProperty Name="CachXuLy" ColumnName="CachXuLy" />
                 <ScalarProperty Name="NgayLap" ColumnName="NgayLap" />
+                <ScalarProperty Name="CachXuLy" ColumnName="CachXuLy" />
+                <ScalarProperty Name="NoiDung" ColumnName="NoiDung" />
+                <ScalarProperty Name="TinhTrang" ColumnName="TinhTrang" />
+                <ScalarProperty Name="TenKH" ColumnName="TenKH" />
+                <ScalarProperty Name="SDTKH" ColumnName="SDTKH" />
+                <ScalarProperty Name="MaND" ColumnName="MaND" />
+                <ScalarProperty Name="MaLoaiVanDe" ColumnName="MaLoaiVanDe" />
+                <ScalarProperty Name="MaCSKH" ColumnName="MaCSKH" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CT_GioHang">
             <EntityTypeMapping TypeName="QL_KHOAHOCModel.CT_GioHang">
               <MappingFragment StoreEntitySet="CT_GioHang">
-                <ScalarProperty Name="MaGioHang" ColumnName="MaGioHang" />
-                <ScalarProperty Name="MaKhoaHoc" ColumnName="MaKhoaHoc" />
                 <ScalarProperty Name="DonGia" ColumnName="DonGia" />
+                <ScalarProperty Name="MaKhoaHoc" ColumnName="MaKhoaHoc" />
+                <ScalarProperty Name="MaGioHang" ColumnName="MaGioHang" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CT_HoaDon">
             <EntityTypeMapping TypeName="QL_KHOAHOCModel.CT_HoaDon">
               <MappingFragment StoreEntitySet="CT_HoaDon">
-                <ScalarProperty Name="MaCTHD" ColumnName="MaCTHD" />
-                <ScalarProperty Name="MaHD" ColumnName="MaHD" />
-                <ScalarProperty Name="MaKhoaHoc" ColumnName="MaKhoaHoc" />
                 <ScalarProperty Name="DonGia" ColumnName="DonGia" />
+                <ScalarProperty Name="MaKhoaHoc" ColumnName="MaKhoaHoc" />
+                <ScalarProperty Name="MaHD" ColumnName="MaHD" />
+                <ScalarProperty Name="MaCTHD" ColumnName="MaCTHD" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="DanhGiaKhoaHocs">
             <EntityTypeMapping TypeName="QL_KHOAHOCModel.DanhGiaKhoaHoc">
               <MappingFragment StoreEntitySet="DanhGiaKhoaHoc">
-                <ScalarProperty Name="MaKhoaHoc" ColumnName="MaKhoaHoc" />
-                <ScalarProperty Name="MaND" ColumnName="MaND" />
-                <ScalarProperty Name="Diem" ColumnName="Diem" />
                 <ScalarProperty Name="NoiDung" ColumnName="NoiDung" />
+                <ScalarProperty Name="Diem" ColumnName="Diem" />
+                <ScalarProperty Name="MaND" ColumnName="MaND" />
+                <ScalarProperty Name="MaKhoaHoc" ColumnName="MaKhoaHoc" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="DanhMucKhoaHocs">
             <EntityTypeMapping TypeName="QL_KHOAHOCModel.DanhMucKhoaHoc">
               <MappingFragment StoreEntitySet="DanhMucKhoaHoc">
-                <ScalarProperty Name="MaDanhMuc" ColumnName="MaDanhMuc" />
-                <ScalarProperty Name="TenDanhMuc" ColumnName="TenDanhMuc" />
                 <ScalarProperty Name="HinhAnh" ColumnName="HinhAnh" />
+                <ScalarProperty Name="TenDanhMuc" ColumnName="TenDanhMuc" />
+                <ScalarProperty Name="MaDanhMuc" ColumnName="MaDanhMuc" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="GioHangs">
             <EntityTypeMapping TypeName="QL_KHOAHOCModel.GioHang">
               <MappingFragment StoreEntitySet="GioHang">
-                <ScalarProperty Name="MaGioHang" ColumnName="MaGioHang" />
-                <ScalarProperty Name="MaND" ColumnName="MaND" />
                 <ScalarProperty Name="TongTien" ColumnName="TongTien" />
+                <ScalarProperty Name="MaND" ColumnName="MaND" />
+                <ScalarProperty Name="MaGioHang" ColumnName="MaGioHang" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="HoaDons">
             <EntityTypeMapping TypeName="QL_KHOAHOCModel.HoaDon">
               <MappingFragment StoreEntitySet="HoaDon">
-                <ScalarProperty Name="MaHD" ColumnName="MaHD" />
-                <ScalarProperty Name="MaND" ColumnName="MaND" />
-                <ScalarProperty Name="MaKM" ColumnName="MaKM" />
-                <ScalarProperty Name="GiamGia" ColumnName="GiamGia" />
-                <ScalarProperty Name="TongTien" ColumnName="TongTien" />
-                <ScalarProperty Name="NgayLap" ColumnName="NgayLap" />
-                <ScalarProperty Name="ThanhToan" ColumnName="ThanhToan" />
-                <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
                 <ScalarProperty Name="HinhThucThanhToan" ColumnName="HinhThucThanhToan" />
+                <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
+                <ScalarProperty Name="ThanhToan" ColumnName="ThanhToan" />
+                <ScalarProperty Name="NgayLap" ColumnName="NgayLap" />
+                <ScalarProperty Name="TongTien" ColumnName="TongTien" />
+                <ScalarProperty Name="GiamGia" ColumnName="GiamGia" />
+                <ScalarProperty Name="MaKM" ColumnName="MaKM" />
+                <ScalarProperty Name="MaND" ColumnName="MaND" />
+                <ScalarProperty Name="MaHD" ColumnName="MaHD" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="KhoaHocs">
             <EntityTypeMapping TypeName="QL_KHOAHOCModel.KhoaHoc">
               <MappingFragment StoreEntitySet="KhoaHoc">
-                <ScalarProperty Name="MaKhoaHoc" ColumnName="MaKhoaHoc" />
-                <ScalarProperty Name="MaLoai" ColumnName="MaLoai" />
-                <ScalarProperty Name="TenKhoaHoc" ColumnName="TenKhoaHoc" />
-                <ScalarProperty Name="DonGia" ColumnName="DonGia" />
-                <ScalarProperty Name="SoLuongMua" ColumnName="SoLuongMua" />
-                <ScalarProperty Name="ThoiHanHoanTien" ColumnName="ThoiHanHoanTien" />
-                <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
-                <ScalarProperty Name="HinhAnh" ColumnName="HinhAnh" />
+                <ScalarProperty Name="MOTAKHOAHOC" ColumnName="MOTAKHOAHOC" />
                 <ScalarProperty Name="MaGV" ColumnName="MaGV" />
+                <ScalarProperty Name="HinhAnh" ColumnName="HinhAnh" />
+                <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
+                <ScalarProperty Name="ThoiHanHoanTien" ColumnName="ThoiHanHoanTien" />
+                <ScalarProperty Name="SoLuongMua" ColumnName="SoLuongMua" />
+                <ScalarProperty Name="DonGia" ColumnName="DonGia" />
+                <ScalarProperty Name="TenKhoaHoc" ColumnName="TenKhoaHoc" />
+                <ScalarProperty Name="MaLoai" ColumnName="MaLoai" />
+                <ScalarProperty Name="MaKhoaHoc" ColumnName="MaKhoaHoc" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="KhuyenMais">
             <EntityTypeMapping TypeName="QL_KHOAHOCModel.KhuyenMai">
               <MappingFragment StoreEntitySet="KhuyenMai">
-                <ScalarProperty Name="MaKM" ColumnName="MaKM" />
-                <ScalarProperty Name="MaND" ColumnName="MaND" />
-                <ScalarProperty Name="MaApDung" ColumnName="MaApDung" />
-                <ScalarProperty Name="TenKM" ColumnName="TenKM" />
                 <ScalarProperty Name="HinhAnh" ColumnName="HinhAnh" />
+                <ScalarProperty Name="TenKM" ColumnName="TenKM" />
+                <ScalarProperty Name="MaApDung" ColumnName="MaApDung" />
+                <ScalarProperty Name="MaND" ColumnName="MaND" />
+                <ScalarProperty Name="MaKM" ColumnName="MaKM" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="KhuyenMai_KhachHang">
             <EntityTypeMapping TypeName="QL_KHOAHOCModel.KhuyenMai_KhachHang">
               <MappingFragment StoreEntitySet="KhuyenMai_KhachHang">
-                <ScalarProperty Name="MaND" ColumnName="MaND" />
-                <ScalarProperty Name="MaKM" ColumnName="MaKM" />
-                <ScalarProperty Name="NgayBatDau" ColumnName="NgayBatDau" />
                 <ScalarProperty Name="NgayKetThuc" ColumnName="NgayKetThuc" />
+                <ScalarProperty Name="NgayBatDau" ColumnName="NgayBatDau" />
+                <ScalarProperty Name="MaKM" ColumnName="MaKM" />
+                <ScalarProperty Name="MaND" ColumnName="MaND" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="LichSuLuongs">
             <EntityTypeMapping TypeName="QL_KHOAHOCModel.LichSuLuong">
               <MappingFragment StoreEntitySet="LichSuLuong">
-                <ScalarProperty Name="MaLuong" ColumnName="MaLuong" />
-                <ScalarProperty Name="NgayPhatLuong" ColumnName="NgayPhatLuong" />
-                <ScalarProperty Name="SoTien" ColumnName="SoTien" />
-                <ScalarProperty Name="TienPhat" ColumnName="TienPhat" />
                 <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
+                <ScalarProperty Name="TienPhat" ColumnName="TienPhat" />
+                <ScalarProperty Name="SoTien" ColumnName="SoTien" />
+                <ScalarProperty Name="NgayPhatLuong" ColumnName="NgayPhatLuong" />
+                <ScalarProperty Name="MaLuong" ColumnName="MaLuong" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="LoaiKhoaHocs">
             <EntityTypeMapping TypeName="QL_KHOAHOCModel.LoaiKhoaHoc">
               <MappingFragment StoreEntitySet="LoaiKhoaHoc">
-                <ScalarProperty Name="MaLoai" ColumnName="MaLoai" />
-                <ScalarProperty Name="MaDanhMuc" ColumnName="MaDanhMuc" />
-                <ScalarProperty Name="TenLoai" ColumnName="TenLoai" />
                 <ScalarProperty Name="HinhAnh" ColumnName="HinhAnh" />
+                <ScalarProperty Name="TenLoai" ColumnName="TenLoai" />
+                <ScalarProperty Name="MaDanhMuc" ColumnName="MaDanhMuc" />
+                <ScalarProperty Name="MaLoai" ColumnName="MaLoai" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="LoaiVanDes">
             <EntityTypeMapping TypeName="QL_KHOAHOCModel.LoaiVanDe">
               <MappingFragment StoreEntitySet="LoaiVanDe">
-                <ScalarProperty Name="MaLoaiVanDe" ColumnName="MaLoaiVanDe" />
                 <ScalarProperty Name="TenLoaiVanDe" ColumnName="TenLoaiVanDe" />
+                <ScalarProperty Name="MaLoaiVanDe" ColumnName="MaLoaiVanDe" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Luongs">
             <EntityTypeMapping TypeName="QL_KHOAHOCModel.Luong">
               <MappingFragment StoreEntitySet="Luong">
-                <ScalarProperty Name="MaLuong" ColumnName="MaLuong" />
-                <ScalarProperty Name="MaND" ColumnName="MaND" />
-                <ScalarProperty Name="Luong1" ColumnName="Luong" />
                 <ScalarProperty Name="NgayTinhLuong" ColumnName="NgayTinhLuong" />
+                <ScalarProperty Name="Luong1" ColumnName="Luong" />
+                <ScalarProperty Name="MaND" ColumnName="MaND" />
+                <ScalarProperty Name="MaLuong" ColumnName="MaLuong" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="NguoiDungs">
             <EntityTypeMapping TypeName="QL_KHOAHOCModel.NguoiDung">
               <MappingFragment StoreEntitySet="NguoiDung">
-                <ScalarProperty Name="MaND" ColumnName="MaND" />
-                <ScalarProperty Name="MaNhomNguoiDung" ColumnName="MaNhomNguoiDung" />
-                <ScalarProperty Name="TenDN" ColumnName="TenDN" />
-                <ScalarProperty Name="MatKhau" ColumnName="MatKhau" />
-                <ScalarProperty Name="HoTen" ColumnName="HoTen" />
-                <ScalarProperty Name="CMND" ColumnName="CMND" />
-                <ScalarProperty Name="HinhAnh" ColumnName="HinhAnh" />
-                <ScalarProperty Name="SDT" ColumnName="SDT" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="NgaySinh" ColumnName="NgaySinh" />
                 <ScalarProperty Name="Diachi" ColumnName="Diachi" />
+                <ScalarProperty Name="NgaySinh" ColumnName="NgaySinh" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="SDT" ColumnName="SDT" />
+                <ScalarProperty Name="HinhAnh" ColumnName="HinhAnh" />
+                <ScalarProperty Name="CMND" ColumnName="CMND" />
+                <ScalarProperty Name="HoTen" ColumnName="HoTen" />
+                <ScalarProperty Name="MatKhau" ColumnName="MatKhau" />
+                <ScalarProperty Name="TenDN" ColumnName="TenDN" />
+                <ScalarProperty Name="MaNhomNguoiDung" ColumnName="MaNhomNguoiDung" />
+                <ScalarProperty Name="MaND" ColumnName="MaND" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="NhomNguoiDungs">
             <EntityTypeMapping TypeName="QL_KHOAHOCModel.NhomNguoiDung">
               <MappingFragment StoreEntitySet="NhomNguoiDung">
-                <ScalarProperty Name="MaNhomNguoiDung" ColumnName="MaNhomNguoiDung" />
-                <ScalarProperty Name="TenNhomNguoiDung" ColumnName="TenNhomNguoiDung" />
                 <ScalarProperty Name="HinhAnh" ColumnName="HinhAnh" />
+                <ScalarProperty Name="TenNhomNguoiDung" ColumnName="TenNhomNguoiDung" />
+                <ScalarProperty Name="MaNhomNguoiDung" ColumnName="MaNhomNguoiDung" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="SoDuTaiKhoans">
             <EntityTypeMapping TypeName="QL_KHOAHOCModel.SoDuTaiKhoan">
               <MappingFragment StoreEntitySet="SoDuTaiKhoan">
-                <ScalarProperty Name="MaSoDu" ColumnName="MaSoDu" />
-                <ScalarProperty Name="MaND" ColumnName="MaND" />
-                <ScalarProperty Name="SoDu" ColumnName="SoDu" />
-                <ScalarProperty Name="NgayNap" ColumnName="NgayNap" />
                 <ScalarProperty Name="NoiDung" ColumnName="NoiDung" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="QL_KHOAHOCModel.sysdiagram">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="NgayNap" ColumnName="NgayNap" />
+                <ScalarProperty Name="SoDu" ColumnName="SoDu" />
+                <ScalarProperty Name="MaND" ColumnName="MaND" />
+                <ScalarProperty Name="MaSoDu" ColumnName="MaSoDu" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="TichDiems">
             <EntityTypeMapping TypeName="QL_KHOAHOCModel.TichDiem">
               <MappingFragment StoreEntitySet="TichDiem">
-                <ScalarProperty Name="MaND" ColumnName="MaND" />
                 <ScalarProperty Name="SoDiem" ColumnName="SoDiem" />
+                <ScalarProperty Name="MaND" ColumnName="MaND" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
