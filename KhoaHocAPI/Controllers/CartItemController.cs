@@ -7,14 +7,15 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace KhoaHocAPI.Controllers
 {
+    [EnableCors(origins: "http://localhost:8080", headers: "*", methods: "*")]
     public class CartItemController : ApiController
     {
         private readonly CartDAO db = new CartDAO();
 
-        public object CartVM { get; private set; }
 
         public HttpResponseMessage Get(HttpRequestMessage request, int? pUserID)
         {
@@ -23,11 +24,11 @@ namespace KhoaHocAPI.Controllers
             var item = db.LayGioHangTheoUserID(pUserID.Value);
             CourseCartVM returnedCart = CartMapper.MapCourseCart(item);
             if (returnedCart == null)
-                return new HttpResponseMessage(HttpStatusCode.NotFound);
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Error");
             else
                 return request.CreateResponse(HttpStatusCode.OK, (returnedCart));
         }
-        public HttpResponseMessage Post(HttpRequestMessage request, CartItemVM model)
+        public HttpResponseMessage Post(HttpRequestMessage request,[FromBody] CartItemVM model)
         {
             if (model != null)
             {
@@ -35,11 +36,11 @@ namespace KhoaHocAPI.Controllers
                 if (result == Common.AllEnum.AddCartItemResult.ThanhCong)
                     return request.CreateResponse(HttpStatusCode.OK);
                 else if (result == Common.AllEnum.AddCartItemResult.DaTonTai)
-                    return new HttpResponseMessage(HttpStatusCode.Conflict);
+                    return Request.CreateErrorResponse(HttpStatusCode.Conflict, "Sản phẩm này đã có trong giỏ");
                 else
-                    return new HttpResponseMessage(HttpStatusCode.BadRequest);
+                    return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Error");
             }
-            return new HttpResponseMessage(HttpStatusCode.BadRequest);
+            return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Error");
         }
     }
 }

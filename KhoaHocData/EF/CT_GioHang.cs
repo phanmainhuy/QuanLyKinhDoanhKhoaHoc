@@ -15,7 +15,7 @@ namespace KhoaHocData.EF
     public partial class CT_GioHang
     {
         public int MaGioHang { get; set; }
-        public Nullable<int> MaKhoaHoc { get; set; }
+        public int MaKhoaHoc { get; set; }
         public Nullable<decimal> DonGia { get; set; }
     
         public virtual KhoaHoc KhoaHoc { get; set; }

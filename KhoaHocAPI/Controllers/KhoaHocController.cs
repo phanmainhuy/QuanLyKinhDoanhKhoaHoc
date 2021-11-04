@@ -28,15 +28,15 @@ namespace KhoaHocAPI.Controllers
                 return BadRequest();
         } 
         [HttpGet]
-        public IHttpActionResult Get(int maKhoa)
+        public HttpResponseMessage Get(int maKhoa)
         {
-            var item = khDAO.LayKhoaHocTheoMa(maKhoa);
+            var item = Mapper.CourseMapper.MapCourse(khDAO.LayKhoaHocTheoMa(maKhoa));
             if (item != null)
             {
-                return Ok(item);
+                return Request.CreateResponse(HttpStatusCode.OK, item);
             }
             else
-                return BadRequest();
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "No content");
         }
 
     }

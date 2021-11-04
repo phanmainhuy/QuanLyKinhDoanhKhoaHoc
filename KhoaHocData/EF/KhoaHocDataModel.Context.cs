@@ -44,6 +44,7 @@ namespace KhoaHocData.EF
         public virtual DbSet<NguoiDung> NguoiDungs { get; set; }
         public virtual DbSet<NhomNguoiDung> NhomNguoiDungs { get; set; }
         public virtual DbSet<SoDuTaiKhoan> SoDuTaiKhoans { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<TichDiem> TichDiems { get; set; }
     }
 }

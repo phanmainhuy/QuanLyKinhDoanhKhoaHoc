@@ -12,11 +12,12 @@ namespace KhoaHocData.EF
     using System;
     using System.Collections.Generic;
     
-    public partial class LoaiKhoaHoc
+    public partial class sysdiagram
     {
-        public int MaLoai { get; set; }
-        public Nullable<int> MaDanhMuc { get; set; }
-        public string TenLoai { get; set; }
-        public string HinhAnh { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

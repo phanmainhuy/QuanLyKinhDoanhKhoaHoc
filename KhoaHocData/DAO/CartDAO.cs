@@ -71,10 +71,12 @@ namespace KhoaHocData.DAO
                 db.CT_GioHang.Add(CTGH);
                 try
                 {
-                    if(db.GioHangs.Single(x => x.MaGioHang == CTGH.MaGioHang).TongTien == null)
-                        db.GioHangs.Single(x => x.MaGioHang == CTGH.MaGioHang).TongTien = CTGH.DonGia.Value;
+                    db.SaveChanges();
+                    var item = db.GioHangs.SingleOrDefault(x => x.MaGioHang == CTGH.MaGioHang);
+                    if (item.TongTien == null)
+                        item.TongTien = CTGH.DonGia.Value;
                     else
-                        db.GioHangs.Single(x => x.MaGioHang == CTGH.MaGioHang).TongTien += CTGH.DonGia.Value;
+                        item.TongTien += CTGH.DonGia.Value;
                     db.SaveChanges();
                     return AddCartItemResult.ThanhCong;
                 }

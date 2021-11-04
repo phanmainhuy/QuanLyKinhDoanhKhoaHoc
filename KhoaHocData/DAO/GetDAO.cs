@@ -8,17 +8,17 @@ using System.Threading.Tasks;
 
 namespace KhoaHocData.DAO
 {
-    public static class GetDAO
+    public  class GetDAO
     {
-        private static QL_KHOAHOCEntities db = new QL_KHOAHOCEntities();
+        private  QL_KHOAHOCEntities db = new QL_KHOAHOCEntities();
         
-        public static NguoiDung GetGiaoVienTheoMa(int pMaGV)
+        public  NguoiDung GetGiaoVienTheoMa(int pMaGV)
         {
             return db.NguoiDungs
                 .Where(x => x.MaND == (int)AllEnum.MaNhomNguoiDung.Teacher)
                                     .SingleOrDefault(x => x.MaND == pMaGV);
         }
-        public static decimal GetDanhGiaKhoaHoc(int pMaKhoaHoc)
+        public  decimal GetDanhGiaKhoaHoc(int pMaKhoaHoc)
         {
             
             int TongDanhGia = 0;

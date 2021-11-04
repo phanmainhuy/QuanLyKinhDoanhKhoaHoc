@@ -24,7 +24,7 @@ namespace KhoaHocAPI.Controllers
                     return request.CreateResponse(HttpStatusCode.OK, Mapper.UserMapper.MapUserLogon(kq));
                 }
             }
-            return new HttpResponseMessage(HttpStatusCode.NoContent);
+            return Request.CreateErrorResponse(HttpStatusCode.NoContent, "Error");
         }
 
         [HttpGet]

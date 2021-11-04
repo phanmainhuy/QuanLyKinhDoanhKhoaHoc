@@ -15,6 +15,7 @@ namespace KhoaHocAPI.Models
         public bool TrangThai { get; set; }
         public string HinhAnh { get; set; }
         public int MaGV { get; set; }
+        public string TenGV { get; set; }
         public decimal DanhGia { get; set; }
         public string GioiThieu { get; set; }
 

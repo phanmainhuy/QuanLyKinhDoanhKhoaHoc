@@ -15,22 +15,28 @@ namespace KhoaHocAPI.Mapper
             List<CourseVM> lstReturn = new List<CourseVM>();
             foreach(var item in lstKhoaHoc)
             {
-                CourseVM course = new CourseVM()
-                {
-                    DonGia = item.DonGia.Value,
-                    HinhAnh = item.HinhAnh,
-                    MaGV = item.MaGV.Value,
-                    MaKhoaHoc = item.MaKhoaHoc,
-                    MaLoai = item.MaLoai.Value,
-                    SoLuongMua = item.SoLuongMua.Value,
-                    TenKhoaHoc = item.TenKhoaHoc,
-                    TrangThai = item.TrangThai.Value,
-                    DanhGia = GetDAO.GetDanhGiaKhoaHoc(item.MaKhoaHoc),
-                    GioiThieu = item.MOTAKHOAHOC
-                };
+                var course = MapCourse(item);
                 lstReturn.Add(course);
             }
             return lstReturn;
+        }
+        public static CourseVM MapCourse(KhoaHoc item)
+        {
+            GetDAO getDAODB = new GetDAO();
+            return new CourseVM()
+            {
+                DonGia = item.DonGia.Value,
+                HinhAnh = item.HinhAnh,
+                MaGV = item.MaGV.Value,
+                MaKhoaHoc = item.MaKhoaHoc,
+                MaLoai = item.MaLoai.Value,
+                SoLuongMua = item.SoLuongMua.Value,
+                TenKhoaHoc = item.TenKhoaHoc,
+                TrangThai = item.TrangThai.Value,
+                DanhGia = getDAODB.GetDanhGiaKhoaHoc(item.MaKhoaHoc),
+                GioiThieu = item.MOTAKHOAHOC,
+                TenGV = item.NguoiDung.HoTen
+            };
         }
     }
 }

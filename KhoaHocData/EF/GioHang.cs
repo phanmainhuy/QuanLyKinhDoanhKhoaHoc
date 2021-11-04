@@ -14,11 +14,18 @@ namespace KhoaHocData.EF
     
     public partial class GioHang
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public GioHang()
+        {
+            this.CT_GioHang = new HashSet<CT_GioHang>();
+        }
+    
         public int MaGioHang { get; set; }
         public Nullable<int> MaND { get; set; }
         public Nullable<decimal> TongTien { get; set; }
     
-        public virtual CT_GioHang CT_GioHang { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CT_GioHang> CT_GioHang { get; set; }
         public virtual NguoiDung NguoiDung { get; set; }
     }
 }

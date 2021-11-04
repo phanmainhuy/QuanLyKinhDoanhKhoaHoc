@@ -26,10 +26,7 @@ namespace KhoaHocData.DAO
         {
             return db.DanhMucKhoaHocs.SingleOrDefault(x => x.MaDanhMuc == pMaDanhMuc);
         }
-        public IEnumerable<KhoaHoc> LayKhoaHocMoiNhat(int limit)
-        {
-            return db.KhoaHocs.OrderByDescending(x => x.MaKhoaHoc).Take(limit);
-        }
+        
 
     }
 }

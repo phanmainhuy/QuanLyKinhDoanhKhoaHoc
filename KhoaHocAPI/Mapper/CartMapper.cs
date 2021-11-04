@@ -12,6 +12,7 @@ namespace KhoaHocAPI.Mapper
     {
         public static CourseCartVM MapCourseCart(GioHang gh)
         {
+            GetDAO getDAODB = new GetDAO();
             if (gh != null)
             {
                 CourseCartVM CartVM = new CourseCartVM();
@@ -22,10 +23,10 @@ namespace KhoaHocAPI.Mapper
                 {
                     CartItemVM CItemVM = new CartItemVM()
                     {
-                        CourseID = item.MaKhoaHoc.Value,
+                        CourseID = item.MaKhoaHoc,
                         CourseName = item.KhoaHoc.TenKhoaHoc,
-                        TeacherId = GetDAO.GetGiaoVienTheoMa(item.KhoaHoc.MaGV.Value).MaND,
-                        TeacherName = GetDAO.GetGiaoVienTheoMa(item.KhoaHoc.MaGV.Value).HoTen,
+                        TeacherId = getDAODB.GetGiaoVienTheoMa(item.KhoaHoc.MaGV.Value).MaND,
+                        TeacherName = getDAODB.GetGiaoVienTheoMa(item.KhoaHoc.MaGV.Value).HoTen,
                         AfterPrice = item.KhoaHoc.DonGia.Value,
                         OriginPrice = item.KhoaHoc.DonGia.Value,
                         ImageName = item.KhoaHoc.HinhAnh,
