@@ -35,7 +35,10 @@ namespace KhoaHocData.DAO
         {
             return db.KhoaHocs.Where(x => x.MaLoai == maLoai);
         }
-
+        public IEnumerable<KhoaHoc> LayRaKhoaHocTheoMaLoaiKhoaHoc(int maLoai, int limit)
+        {
+            return db.KhoaHocs.Where(x => x.MaLoai == maLoai).OrderByDescending(x=>x.MaKhoaHoc).Take(limit);
+        }
         public IEnumerable<KhoaHoc> LayKhoaHocMoiNhat(int limit)
         {
             return db.KhoaHocs.OrderByDescending(x => x.MaKhoaHoc).Take(limit);

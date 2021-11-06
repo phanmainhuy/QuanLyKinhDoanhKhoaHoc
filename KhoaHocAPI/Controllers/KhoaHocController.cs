@@ -38,6 +38,17 @@ namespace KhoaHocAPI.Controllers
             else
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "No content");
         }
+        [HttpGet]
+        public HttpResponseMessage GetByParentID(int maLoai, int limit)
+        {
+            var items = Mapper.CourseMapper.MapListCourse(khDAO.LayRaKhoaHocTheoMaLoaiKhoaHoc(maLoai, limit));
+            if (items != null)
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, items);
+            }
+            else
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "No content");
+        }
 
     }
 }

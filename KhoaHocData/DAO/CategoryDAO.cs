@@ -26,6 +26,11 @@ namespace KhoaHocData.DAO
         {
             return db.DanhMucKhoaHocs.SingleOrDefault(x => x.MaDanhMuc == pMaDanhMuc);
         }
+        public IEnumerable<LoaiKhoaHoc> LayLoaiKhoaHocTheoMaDanhMuc(int pMaDanhMuc)
+        {
+            return db.LoaiKhoaHocs.Where(x => x.MaDanhMuc == pMaDanhMuc);
+        }
+
         
 
     }

@@ -9,6 +9,7 @@ namespace KhoaHocAPI.Models
     {
         public int CourseCartID { get; set; }
         public int UserID { get; set; }
+        public decimal TongTien { get; set; }
         public List<CartItemVM> CartItems{ get; set; }
     }
 }

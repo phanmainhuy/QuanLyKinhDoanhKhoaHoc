@@ -16,15 +16,12 @@ namespace KhoaHocAPI.Controllers
         [HttpPost]
         public HttpResponseMessage Login(HttpRequestMessage request, UserLogin model)
         {
-            if(ModelState.IsValid)
-            {
                 var kq = new Account().Login(model.UserName, model.Password);
                 if (kq != null)
                 {
                     return request.CreateResponse(HttpStatusCode.OK, Mapper.UserMapper.MapUserLogon(kq));
                 }
-            }
-            return Request.CreateErrorResponse(HttpStatusCode.NoContent, "Error");
+            return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Error");
         }
 
         [HttpGet]
@@ -36,7 +33,7 @@ namespace KhoaHocAPI.Controllers
                 if (result != null)
                     return request.CreateResponse(HttpStatusCode.OK, result);
             }
-            return new HttpResponseMessage(HttpStatusCode.BadRequest);
+            return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Lỗi lúc get phân quyền");
         }
     }
 }
