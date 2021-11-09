@@ -12,6 +12,8 @@ namespace KhoaHocData.EF
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class QL_KHOAHOCEntities : DbContext
     {
@@ -46,5 +48,58 @@ namespace KhoaHocData.EF
         public virtual DbSet<SoDuTaiKhoan> SoDuTaiKhoans { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<TichDiem> TichDiems { get; set; }
+    
+        public virtual ObjectResult<KhoaHoc> SearchKhoaHoc(string tieuDe)
+        {
+            var tieuDeParameter = tieuDe != null ?
+                new ObjectParameter("TieuDe", tieuDe) :
+                new ObjectParameter("TieuDe", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<KhoaHoc>("SearchKhoaHoc", tieuDeParameter);
+        }
+    
+        public virtual ObjectResult<KhoaHoc> SearchKhoaHoc(string tieuDe, MergeOption mergeOption)
+        {
+            var tieuDeParameter = tieuDe != null ?
+                new ObjectParameter("TieuDe", tieuDe) :
+                new ObjectParameter("TieuDe", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<KhoaHoc>("SearchKhoaHoc", mergeOption, tieuDeParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> TinhTongTienMua(Nullable<int> maKhoaHoc)
+        {
+            var maKhoaHocParameter = maKhoaHoc.HasValue ?
+                new ObjectParameter("MaKhoaHoc", maKhoaHoc) :
+                new ObjectParameter("MaKhoaHoc", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("TinhTongTienMua", maKhoaHocParameter);
+        }
+    
+        public virtual ObjectResult<KhoaHoc> SearchKhoaHocTheoTheLoai(Nullable<int> maTheLoai, string tieuDe)
+        {
+            var maTheLoaiParameter = maTheLoai.HasValue ?
+                new ObjectParameter("MaTheLoai", maTheLoai) :
+                new ObjectParameter("MaTheLoai", typeof(int));
+    
+            var tieuDeParameter = tieuDe != null ?
+                new ObjectParameter("TieuDe", tieuDe) :
+                new ObjectParameter("TieuDe", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<KhoaHoc>("SearchKhoaHocTheoTheLoai", maTheLoaiParameter, tieuDeParameter);
+        }
+    
+        public virtual ObjectResult<KhoaHoc> SearchKhoaHocTheoTheLoai(Nullable<int> maTheLoai, string tieuDe, MergeOption mergeOption)
+        {
+            var maTheLoaiParameter = maTheLoai.HasValue ?
+                new ObjectParameter("MaTheLoai", maTheLoai) :
+                new ObjectParameter("MaTheLoai", typeof(int));
+    
+            var tieuDeParameter = tieuDe != null ?
+                new ObjectParameter("TieuDe", tieuDe) :
+                new ObjectParameter("TieuDe", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<KhoaHoc>("SearchKhoaHocTheoTheLoai", mergeOption, maTheLoaiParameter, tieuDeParameter);
+        }
     }
 }

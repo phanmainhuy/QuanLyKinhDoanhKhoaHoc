@@ -30,8 +30,5 @@ namespace KhoaHocData.DAO
         {
             return db.LoaiKhoaHocs.Where(x => x.MaDanhMuc == pMaDanhMuc);
         }
-
-        
-
     }
 }

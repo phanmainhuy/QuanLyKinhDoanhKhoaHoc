@@ -1,5 +1,7 @@
-﻿using KhoaHocData.DAO;
+﻿using KhoaHocAPI.Models;
+using KhoaHocData.DAO;
 using KhoaHocData.EF;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -48,6 +50,18 @@ namespace KhoaHocAPI.Controllers
             }
             else
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "No content");
+        }
+        [HttpGet]
+        public HttpResponseMessage GetByParentIDPaging(int maLoai, PagingVM paging)
+        {
+            int total;
+            var items = Mapper.CourseMapper.MapListCourse(khDAO.LayRaKhoaHocTheoMaLoaiKhoaHocPaging(maLoai, paging.page, paging.pageSize, out total));
+            if (items == null)
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "No content");
+            var response = Request.CreateResponse(HttpStatusCode.OK, items);
+            response.Content.Headers.Add("Access-Control-Expose-Headers", "pagingheader");
+            response.Content.Headers.Add("pagingheader", JsonConvert.SerializeObject(total));
+            return response;
         }
 
     }

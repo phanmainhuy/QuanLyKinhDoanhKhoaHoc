@@ -42,5 +42,14 @@ namespace KhoaHocAPI.Controllers
             }
             return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Error");
         }
+        [HttpDelete]
+        public HttpResponseMessage Delete(int maGioHang, int maKhoaHoc)
+        {
+            var result = db.DeleteCartItem(maGioHang, maKhoaHoc);
+            if (result)
+                return Request.CreateResponse(HttpStatusCode.OK);
+            else
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Delete Cart Item Error");
+        }
     }
 }

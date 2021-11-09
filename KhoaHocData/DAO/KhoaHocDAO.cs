@@ -35,10 +35,19 @@ namespace KhoaHocData.DAO
         {
             return db.KhoaHocs.Where(x => x.MaLoai == maLoai);
         }
+        public IEnumerable<KhoaHoc> LayRaKhoaHocTheoMaLoaiKhoaHocPaging(int maLoai, int page, int pageSize, out int total)
+        {
+            int skipSize = pageSize * (page - 1);
+            var result = db.KhoaHocs.Where(x => x.MaLoai == maLoai).ToList();
+            total = result.Count();
+            return result.Skip(skipSize).Take(pageSize).ToList();
+        }
+
         public IEnumerable<KhoaHoc> LayRaKhoaHocTheoMaLoaiKhoaHoc(int maLoai, int limit)
         {
-            return db.KhoaHocs.Where(x => x.MaLoai == maLoai).OrderByDescending(x=>x.MaKhoaHoc).Take(limit);
+            return db.KhoaHocs.Where(x => x.MaLoai == maLoai).OrderByDescending(x => x.MaKhoaHoc).Take(limit);
         }
+
         public IEnumerable<KhoaHoc> LayKhoaHocMoiNhat(int limit)
         {
             return db.KhoaHocs.OrderByDescending(x => x.MaKhoaHoc).Take(limit);
@@ -46,13 +55,58 @@ namespace KhoaHocData.DAO
 
         public IEnumerable<KhoaHoc> LayKhoaHocMuaNhieu(int pLimit)
         {
-            return db.KhoaHocs.OrderByDescending(x => LayTongTienMua(x.MaKhoaHoc)).Take(pLimit);
+            return db.KhoaHocs.OrderByDescending(x => x.SoLuongMua.Value).Take(pLimit);
         }
 
-        //private method
-        private decimal LayTongTienMua(int pMaKhoaHoc)
+        public IEnumerable<KhoaHoc> TimKiemKhoaHoc(string pSearchString)
         {
-            return db.CT_HoaDon.Where(x => x.MaKhoaHoc == pMaKhoaHoc).Sum(x => x.DonGia.Value);
+            if (String.IsNullOrEmpty(pSearchString))
+                return db.KhoaHocs;
+            var item = db.SearchKhoaHoc(pSearchString);
+            return (IEnumerable<KhoaHoc>)item;
+        }
+
+        public IEnumerable<KhoaHoc> TimKiemKhoaHocPaging(string pSearchString, out int total, int page, int pageSize)
+        {
+            int skipSize = (page-1) * pageSize;
+            if (string.IsNullOrEmpty(pSearchString))
+            {
+                var result = db.KhoaHocs.OrderByDescending(x => x.MaKhoaHoc).ToList();
+                total = result.Count();
+
+
+                return result.Skip(skipSize).Take(pageSize).ToList();
+            }
+            var item = db.SearchKhoaHoc(pSearchString).OrderByDescending(x => x.MaKhoaHoc).ToList();
+            total = item.Count();
+            return item.Skip(skipSize).Take(pageSize).ToList();
+        }
+
+        public IEnumerable<KhoaHoc> TimKiemKhoaHocTheoTheLoai(int pMaTheLoai, string pSearchString)
+        {
+            if (string.IsNullOrEmpty(pSearchString))
+                return db.KhoaHocs.Where(x => x.MaLoai == pMaTheLoai).OrderByDescending(x => x.MaKhoaHoc);
+            var item = db.SearchKhoaHocTheoTheLoai(pMaTheLoai, pSearchString);
+            return item;
+        }
+
+        public IEnumerable<KhoaHoc> TimKiemKhoaHocTheoTheLoaiPaging(
+            int pMaTheLoai,
+            string pSearchString,
+            out int total,
+            int page = 1,
+            int pageSize = 12)
+        {
+            if (string.IsNullOrEmpty(pSearchString))
+            {
+                var result = db.KhoaHocs.Where(x => x.MaLoai == pMaTheLoai).OrderByDescending(x => x.MaKhoaHoc).ToList();
+                total = result.Count();
+                return result;
+            }
+            int SkipSize = (page-1) * pageSize;
+            var item = db.SearchKhoaHocTheoTheLoai(pMaTheLoai, pSearchString).OrderByDescending(x => x.MaKhoaHoc).ToList();
+            total = item.Count();
+            return item.Skip(SkipSize ).Take(pageSize).ToList();
         }
     }
 }

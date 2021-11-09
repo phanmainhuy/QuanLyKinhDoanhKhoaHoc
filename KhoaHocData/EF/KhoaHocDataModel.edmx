@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="QL_KHOAHOCModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="QL_KHOAHOCModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="BaiHoc">
           <Key>
             <PropertyRef Name="MaBaiHoc" />
@@ -506,6 +506,16 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="SearchKhoaHoc" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="TieuDe" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="SearchKhoaHocTheoTheLoai" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MaTheLoai" Type="int" Mode="In" />
+          <Parameter Name="TieuDe" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="TinhTongTienMua" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MaKhoaHoc" Type="int" Mode="In" />
+        </Function>
         <EntityContainer Name="QL_KHOAHOCModelStoreContainer">
           <EntitySet Name="BaiHoc" EntityType="Self.BaiHoc" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BaiTap" EntityType="Self.BaiTap" Schema="dbo" store:Type="Tables" />
@@ -625,8 +635,7 @@
             <End Role="TichDiem" EntitySet="TichDiem" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="QL_KHOAHOCModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -1295,7 +1304,41 @@
             <End Role="NguoiDung" EntitySet="NguoiDungs" />
             <End Role="TichDiem" EntitySet="TichDiems" />
           </AssociationSet>
+          <FunctionImport Name="SearchKhoaHoc" EntitySet="KhoaHocs" ReturnType="Collection(QL_KHOAHOCModel.KhoaHoc)">
+          <Parameter Name="TieuDe" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="TinhTongTienMua" ReturnType="Collection(Decimal)">
+          <Parameter Name="MaKhoaHoc" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SearchKhoaHocTheoTheLoai" EntitySet="KhoaHocs" ReturnType="Collection(QL_KHOAHOCModel.KhoaHoc)">
+            <Parameter Name="MaTheLoai" Mode="In" Type="Int32" />
+            <Parameter Name="TieuDe" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
+        <ComplexType Name="SearchKhoaHoc_Result">
+          <Property Type="Int32" Name="MaKhoaHoc" Nullable="false" />
+          <Property Type="Int32" Name="MaLoai" Nullable="true" />
+          <Property Type="String" Name="TenKhoaHoc" Nullable="true" MaxLength="200" />
+          <Property Type="Decimal" Name="DonGia" Nullable="true" Precision="19" />
+          <Property Type="Int32" Name="SoLuongMua" Nullable="true" />
+          <Property Type="Int32" Name="ThoiHanHoanTien" Nullable="true" />
+          <Property Type="Boolean" Name="TrangThai" Nullable="true" />
+          <Property Type="String" Name="HinhAnh" Nullable="true" MaxLength="300" />
+          <Property Type="Int32" Name="MaGV" Nullable="true" />
+          <Property Type="String" Name="MOTAKHOAHOC" Nullable="true" MaxLength="500" />
+        </ComplexType>
+        <ComplexType Name="SearchKhoaHocTheoTheLoai_Result">
+          <Property Type="Int32" Name="MaKhoaHoc" Nullable="false" />
+          <Property Type="Int32" Name="MaLoai" Nullable="true" />
+          <Property Type="String" Name="TenKhoaHoc" Nullable="true" MaxLength="200" />
+          <Property Type="Decimal" Name="DonGia" Nullable="true" Precision="19" />
+          <Property Type="Int32" Name="SoLuongMua" Nullable="true" />
+          <Property Type="Int32" Name="ThoiHanHoanTien" Nullable="true" />
+          <Property Type="Boolean" Name="TrangThai" Nullable="true" />
+          <Property Type="String" Name="HinhAnh" Nullable="true" MaxLength="300" />
+          <Property Type="Int32" Name="MaGV" Nullable="true" />
+          <Property Type="String" Name="MOTAKHOAHOC" Nullable="true" MaxLength="500" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1533,6 +1576,11 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SearchKhoaHoc" FunctionName="QL_KHOAHOCModel.Store.SearchKhoaHoc">
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="TinhTongTienMua" FunctionName="QL_KHOAHOCModel.Store.TinhTongTienMua" />
+          <FunctionImportMapping FunctionImportName="SearchKhoaHocTheoTheLoai" FunctionName="QL_KHOAHOCModel.Store.SearchKhoaHocTheoTheLoai">
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

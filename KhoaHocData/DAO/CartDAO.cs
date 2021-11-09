@@ -89,6 +89,27 @@ namespace KhoaHocData.DAO
             else
                 return AddCartItemResult.ThemGioHangThatbai;
         }
+
+        public bool DeleteCartItem(int maGioHang, int maKhoaHoc)
+        {
+            var item = db.CT_GioHang.SingleOrDefault(x => x.MaGioHang == maGioHang && x.MaKhoaHoc == maKhoaHoc);
+            if(item  != null)
+            {
+                try
+                {
+                    db.GioHangs.Single(x => x.MaGioHang == item.MaGioHang).TongTien -= item.DonGia;
+                    db.CT_GioHang.Remove(item);
+                    db.SaveChanges();
+                    return true;
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+            return false;
+        }
+
         public GioHang LayGioHangTheoID(int pId)
         {
             return db.GioHangs.SingleOrDefault(x => x.MaGioHang == pId);

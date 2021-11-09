@@ -11,5 +11,6 @@ namespace KhoaHocAPI.Models
         public string TenDanhMuc { get; set; }
         public string  HinhAnh { get; set; }
         public int TongSoKhoaHoc { get; set; }
+        public List<TheLoaiVM> DanhSachTheLoai { get; set; }
     }
 }

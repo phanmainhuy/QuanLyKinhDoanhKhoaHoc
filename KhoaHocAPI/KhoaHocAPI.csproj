@@ -170,6 +170,7 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\CartItemController.cs" />
     <Compile Include="Controllers\CustomKhoaHocController.cs" />
+    <Compile Include="Controllers\ThanhToanController.cs" />
     <Compile Include="Controllers\HocVienController.cs" />
     <Compile Include="Controllers\IdentityController.cs" />
     <Compile Include="Controllers\KhoaHocController.cs" />
@@ -179,12 +180,17 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Mapper\CartMapper.cs" />
+    <Compile Include="Mapper\CategoryMapper.cs" />
     <Compile Include="Mapper\CourseMapper.cs" />
     <Compile Include="Mapper\UserMapper.cs" />
     <Compile Include="Models\CartItemVM.cs" />
     <Compile Include="Models\CourseCartVM.cs" />
     <Compile Include="Models\CourseVM.cs" />
+    <Compile Include="Models\PagingVM.cs" />
+    <Compile Include="Models\PaymentItem.cs" />
     <Compile Include="Models\DanhMucVM.cs" />
+    <Compile Include="Models\HoaDonVM.cs" />
+    <Compile Include="Models\TheLoaiVM.cs" />
     <Compile Include="Models\UserLogin.cs" />
     <Compile Include="Models\UserLogon.cs" />
     <Compile Include="Models\UserViewModel.cs" />

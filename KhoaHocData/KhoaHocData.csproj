@@ -56,6 +56,7 @@
     <Compile Include="DAO\GetDAO.cs" />
     <Compile Include="DAO\KhoaHocDAO.cs" />
     <Compile Include="DAO\NguoiDungDAO.cs" />
+    <Compile Include="DAO\Payment.cs" />
     <Compile Include="EF\BaiHoc.cs">
       <DependentUpon>KhoaHocDataModel.tt</DependentUpon>
     </Compile>
@@ -123,6 +124,12 @@
       <DependentUpon>KhoaHocDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\NhomNguoiDung.cs">
+      <DependentUpon>KhoaHocDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\SearchKhoaHocTheoTheLoai_Result.cs">
+      <DependentUpon>KhoaHocDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\SearchKhoaHoc_Result.cs">
       <DependentUpon>KhoaHocDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\SoDuTaiKhoan.cs">
