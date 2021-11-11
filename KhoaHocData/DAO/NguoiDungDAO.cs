@@ -16,23 +16,23 @@ namespace KhoaHocData.DAO
         {
             db = new QL_KHOAHOCEntities();
         }
-        public AllEnum.LoginResult DangKy(NguoiDung nd)
+        public AllEnum.RegisterResult DangKy(NguoiDung nd)
         {
             var item = db.NguoiDungs.SingleOrDefault(x => x.TenDN == nd.TenDN);
             if (item != null)
-                return LoginResult.DaTonTai;
+                return RegisterResult.DaTonTai;
             else
             {
                 try
                 {
                 db.NguoiDungs.Add(nd);
                 db.SaveChanges();
-                return LoginResult.ThanhCong;
+                return RegisterResult.ThanhCong;
 
                 }
                 catch
                 {
-                    return LoginResult.ThatBai;
+                    return RegisterResult.ThatBai;
                 }
             }
         }

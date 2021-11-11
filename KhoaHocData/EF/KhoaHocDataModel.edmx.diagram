@@ -50,6 +50,8 @@
         <AssociationConnector Association="QL_KHOAHOCModel.FK_NguoiDung_NhomNguoiDung" ManuallyRouted="false" />
         <AssociationConnector Association="QL_KHOAHOCModel.FK_SoDuTaiKhoan_NguoiDung" ManuallyRouted="false" />
         <AssociationConnector Association="QL_KHOAHOCModel.FK_TichDiem_NguoiDung" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="QL_KHOAHOCModel.Quyen" Width="1.5" PointX="0.75" PointY="19.75" />
+        <AssociationConnector Association="QL_KHOAHOCModel.Quyen_NhomNguoiDung" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

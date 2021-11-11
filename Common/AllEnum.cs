@@ -9,11 +9,16 @@
             Teacher,
             Employee
         }
-        public enum LoginResult
+        public enum RegisterResult
         {
             DaTonTai,
             ThanhCong,
             ThatBai
+        }
+        public enum LoginResult
+        {
+            ThanhCong,
+            SaiTaiKhoanMatKhau
         }
         public enum AddCartItemResult
         {

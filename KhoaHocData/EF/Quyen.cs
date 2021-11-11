@@ -12,22 +12,18 @@ namespace KhoaHocData.EF
     using System;
     using System.Collections.Generic;
     
-    public partial class NhomNguoiDung
+    public partial class Quyen
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public NhomNguoiDung()
+        public Quyen()
         {
-            this.NguoiDungs = new HashSet<NguoiDung>();
-            this.Quyens = new HashSet<Quyen>();
+            this.NhomNguoiDungs = new HashSet<NhomNguoiDung>();
         }
     
-        public int MaNhomNguoiDung { get; set; }
-        public string TenNhomNguoiDung { get; set; }
-        public string HinhAnh { get; set; }
+        public int MaQuyen { get; set; }
+        public string TenQuyen { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<NguoiDung> NguoiDungs { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Quyen> Quyens { get; set; }
+        public virtual ICollection<NhomNguoiDung> NhomNguoiDungs { get; set; }
     }
 }

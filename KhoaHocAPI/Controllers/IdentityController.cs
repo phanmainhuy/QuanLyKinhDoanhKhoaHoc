@@ -16,12 +16,12 @@ namespace KhoaHocAPI.Controllers
         [HttpPost]
         public HttpResponseMessage Login(HttpRequestMessage request, UserLogin model)
         {
-                var kq = new Account().Login(model.UserName, model.Password);
-                if (kq != null)
-                {
-                    return request.CreateResponse(HttpStatusCode.OK, Mapper.UserMapper.MapUserLogon(kq));
-                }
-            return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Error");
+            var kq = new Account().Login(model.UserName, model.Password);
+            if (kq != null)
+            {
+                return request.CreateResponse(HttpStatusCode.OK, Mapper.UserMapper.MapUserLogon(kq));
+            }
+            return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Tài khoản hoặc mật khẩu không chính xác");
         }
 
         [HttpGet]

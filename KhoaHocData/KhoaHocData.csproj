@@ -126,6 +126,9 @@
     <Compile Include="EF\NhomNguoiDung.cs">
       <DependentUpon>KhoaHocDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="EF\Quyen.cs">
+      <DependentUpon>KhoaHocDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="EF\SearchKhoaHocTheoTheLoai_Result.cs">
       <DependentUpon>KhoaHocDataModel.tt</DependentUpon>
     </Compile>
