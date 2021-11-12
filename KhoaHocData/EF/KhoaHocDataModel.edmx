@@ -920,7 +920,6 @@
           <Property Name="MaNhomNguoiDung" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TenNhomNguoiDung" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="HinhAnh" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="NguoiDungs" Relationship="Self.FK_NguoiDung_NhomNguoiDung" FromRole="NhomNguoiDung" ToRole="NguoiDung" />
           <NavigationProperty Name="Quyens" Relationship="QL_KHOAHOCModel.Quyen_NhomNguoiDung" FromRole="NhomNguoiDung" ToRole="Quyen" />
         </EntityType>
         <EntityType Name="SoDuTaiKhoan">

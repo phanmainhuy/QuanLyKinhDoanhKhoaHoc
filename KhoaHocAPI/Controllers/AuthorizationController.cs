@@ -37,6 +37,10 @@ namespace KhoaHocAPI.Controllers
         }
         public async Task<HttpResponseMessage> Post([FromBody] PermissionGroupVM model)
         {
+            if(model == null)
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Dữ liệu không chính xác");
+            if (model.TenNhomNguoiDung == null)
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Tên nhóm người dùng trống");
             var result = await db.ThemNhomNguoiDung(model.TenNhomNguoiDung, Mapper.RoleMapper.MapListQuyen( model.DanhSachQuyen));
             if(result)
             {
@@ -44,7 +48,7 @@ namespace KhoaHocAPI.Controllers
             }
             else
             {
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Lỗi bất ngờ");
+                return Request.CreateErrorResponse(HttpStatusCode.NotAcceptable, "Lỗi bất ngờ");
             }
         }
         public async Task<HttpResponseMessage> Put(int UserID, int GroupID)

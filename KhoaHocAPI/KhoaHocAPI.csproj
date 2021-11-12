@@ -170,6 +170,7 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AuthorizationController.cs" />
     <Compile Include="Controllers\CartItemController.cs" />
+    <Compile Include="Controllers\CustomAPIController.cs" />
     <Compile Include="Controllers\CustomKhoaHocController.cs" />
     <Compile Include="Controllers\ThanhToanController.cs" />
     <Compile Include="Controllers\HocVienController.cs" />
@@ -183,6 +184,7 @@
     <Compile Include="Mapper\CartMapper.cs" />
     <Compile Include="Mapper\CategoryMapper.cs" />
     <Compile Include="Mapper\CourseMapper.cs" />
+    <Compile Include="Mapper\OtherMapper.cs" />
     <Compile Include="Mapper\RoleMapper.cs" />
     <Compile Include="Mapper\UserMapper.cs" />
     <Compile Include="Models\CartItemVM.cs" />
@@ -195,6 +197,7 @@
     <Compile Include="Models\PermissionGroupVM.cs" />
     <Compile Include="Models\QuyenVM.cs" />
     <Compile Include="Models\TheLoaiVM.cs" />
+    <Compile Include="Models\UserGroupVM.cs" />
     <Compile Include="Models\UserLogin.cs" />
     <Compile Include="Models\UserLogon.cs" />
     <Compile Include="Models\UserViewModel.cs" />
