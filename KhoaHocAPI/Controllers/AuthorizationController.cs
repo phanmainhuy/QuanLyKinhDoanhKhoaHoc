@@ -21,7 +21,7 @@ namespace KhoaHocAPI.Controllers
             var result = db.LayTatCaQuyen();
             if (result == null)
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Lỗi lạ");
-            return Request.CreateResponse( Mapper.RoleMapper.MapListRole(result));
+            return Request.CreateResponse(Mapper.RoleMapper.MapListRole(result));
         }
         public HttpResponseMessage Get(int maND, int maQuyen)
         {
@@ -37,12 +37,12 @@ namespace KhoaHocAPI.Controllers
         }
         public async Task<HttpResponseMessage> Post([FromBody] PermissionGroupVM model)
         {
-            if(model == null)
+            if (model == null)
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Dữ liệu không chính xác");
             if (model.TenNhomNguoiDung == null)
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Tên nhóm người dùng trống");
-            var result = await db.ThemNhomNguoiDung(model.TenNhomNguoiDung, Mapper.RoleMapper.MapListQuyen( model.DanhSachQuyen));
-            if(result)
+            var result = await db.ThemNhomNguoiDung(model.TenNhomNguoiDung, Mapper.RoleMapper.MapListQuyen(model.DanhSachQuyen));
+            if (result)
             {
                 return Request.CreateResponse(HttpStatusCode.Created);
             }
@@ -54,9 +54,33 @@ namespace KhoaHocAPI.Controllers
         public async Task<HttpResponseMessage> Put(int UserID, int GroupID)
         {
             var result = await db.ThayDoiNhomNguoiDung(UserID, GroupID);
-            if(result)
+            if (result)
             {
                 return Request.CreateResponse(HttpStatusCode.OK);
+            }
+            else
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Lỗi bất ngờ");
+            }
+        }
+        public async Task<HttpResponseMessage> Post([FromBody] IEnumerable<UserViewModel> Users, [FromUri]int MaNhomNguoiDung)
+        {
+            var result = Mapper.UserMapper.MapListUser( await db.ThayDoiNhomNhieuNguoiDung(Mapper.UserMapper.MapListUserReverse(Users), MaNhomNguoiDung));
+            if (result != null && result.Count() != 0)
+            {
+                return Request.CreateResponse(HttpStatusCode.Created, result);
+            }
+            else
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Lỗi bất ngờ");
+            }
+        }
+        public HttpResponseMessage Get(int maNhomNguoiDung)
+        {
+            var result = Mapper.RoleMapper.MapListRole(db.GetRolesByGroupID(maNhomNguoiDung));
+            if (result != null || result.Count() == 0)
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, result);
             }
             else
             {

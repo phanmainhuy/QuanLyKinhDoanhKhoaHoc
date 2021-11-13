@@ -1,4 +1,5 @@
-﻿using KhoaHocData.DAO;
+﻿using KhoaHocAPI.Models;
+using KhoaHocData.DAO;
 using KhoaHocData.EF;
 using System;
 using System.Collections.Generic;
@@ -17,10 +18,10 @@ namespace KhoaHocAPI.Controllers
         private readonly NguoiDungDAO ndDAO = new NguoiDungDAO();
         // GET: NguoiDung
         [System.Web.Http.HttpGet]
-        public IEnumerable<NguoiDung> Get()
+        public HttpResponseMessage Get()
         {
-            var result =  ndDAO.LayDanhSachHocVien();
-            return result;
+            var result =  Mapper.UserMapper.MapListUser( ndDAO.LayHetNguoiDung());
+            return Request.CreateResponse(System.Net.HttpStatusCode.OK, result);
         }
         [System.Web.Http.HttpPost]
         public HttpResponseMessage Post(HttpRequestMessage request, NguoiDung model)
@@ -32,9 +33,9 @@ namespace KhoaHocAPI.Controllers
                 return new HttpResponseMessage(System.Net.HttpStatusCode.BadRequest);
         }
         [System.Web.Http.HttpGet]
-        public IEnumerable<NguoiDung> GetHocVien(int pMaNhomNguoiDung)
+        public HttpResponseMessage GetHocVien(int pMaNhomNguoiDung)
         {
-            return this.ndDAO.LayDanhSachTheoMaNhom(pMaNhomNguoiDung);
+            return Request.CreateResponse(System.Net.HttpStatusCode.OK,  Mapper.UserMapper.MapListUser( this.ndDAO.LayDanhSachTheoMaNhom(pMaNhomNguoiDung)));
         }
     }
 }

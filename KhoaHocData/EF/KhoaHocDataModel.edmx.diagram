@@ -4,28 +4,30 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="c2907cee70174a38908f17a534084c0e" Name="Diagram1">
-        <EntityTypeShape EntityType="QL_KHOAHOCModel.BaiHoc" Width="1.5" PointX="10.5" PointY="11.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="QL_KHOAHOCModel.BaiTap" Width="1.5" PointX="12.75" PointY="11.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="QL_KHOAHOCModel.ChamSocKhachHang" Width="1.5" PointX="5.25" PointY="12.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="QL_KHOAHOCModel.CT_GioHang" Width="1.5" PointX="7.5" PointY="19" IsExpanded="true" />
-        <EntityTypeShape EntityType="QL_KHOAHOCModel.CT_HoaDon" Width="1.5" PointX="10.5" PointY="17" IsExpanded="true" />
-        <EntityTypeShape EntityType="QL_KHOAHOCModel.DanhGiaKhoaHoc" Width="1.5" PointX="8.25" PointY="15.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="QL_KHOAHOCModel.DanhMucKhoaHoc" Width="1.5" PointX="3.75" PointY="9" IsExpanded="true" />
-        <EntityTypeShape EntityType="QL_KHOAHOCModel.GioHang" Width="1.5" PointX="5.25" PointY="17" IsExpanded="true" />
-        <EntityTypeShape EntityType="QL_KHOAHOCModel.HoaDon" Width="1.5" PointX="7.5" PointY="22" IsExpanded="true" />
-        <EntityTypeShape EntityType="QL_KHOAHOCModel.KhoaHoc" Width="1.5" PointX="8.25" PointY="10.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="QL_KHOAHOCModel.KhuyenMai" Width="1.5" PointX="5.25" PointY="28.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="QL_KHOAHOCModel.KhuyenMai_KhachHang" Width="1.5" PointX="10.5" PointY="21.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="QL_KHOAHOCModel.LichSuLuong" Width="1.5" PointX="7.5" PointY="31.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="QL_KHOAHOCModel.LoaiKhoaHoc" Width="1.5" PointX="6" PointY="8.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="QL_KHOAHOCModel.LoaiVanDe" Width="1.5" PointX="3" PointY="6.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="QL_KHOAHOCModel.Luong" Width="1.5" PointX="5.25" PointY="31.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="QL_KHOAHOCModel.NguoiDung" Width="1.5" PointX="3" PointY="14.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="QL_KHOAHOCModel.NhomNguoiDung" Width="1.5" PointX="0.75" PointY="16" IsExpanded="true" />
-        <EntityTypeShape EntityType="QL_KHOAHOCModel.SoDuTaiKhoan" Width="1.5" PointX="5.25" PointY="34.875" IsExpanded="true" />
+      <Diagram DiagramId="4097b1052f3d48b8ba9e93e96f5a97ec" Name="Diagram1">
+        <EntityTypeShape EntityType="QL_KHOAHOCModel.BaiHoc" Width="1.5" PointX="10.5" PointY="12.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="QL_KHOAHOCModel.BaiTap" Width="1.5" PointX="12.75" PointY="12.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="QL_KHOAHOCModel.ChamSocKhachHang" Width="1.5" PointX="5.25" PointY="14" IsExpanded="true" />
+        <EntityTypeShape EntityType="QL_KHOAHOCModel.CT_GioHang" Width="1.5" PointX="7.5" PointY="20.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="QL_KHOAHOCModel.CT_HoaDon" Width="1.5" PointX="10.5" PointY="18.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="QL_KHOAHOCModel.DanhGiaKhoaHoc" Width="1.5" PointX="8.25" PointY="17.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="QL_KHOAHOCModel.DanhMucKhoaHoc" Width="1.5" PointX="3.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QL_KHOAHOCModel.GioHang" Width="1.5" PointX="5.25" PointY="18.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="QL_KHOAHOCModel.HoaDon" Width="1.5" PointX="7.5" PointY="24" IsExpanded="true" />
+        <EntityTypeShape EntityType="QL_KHOAHOCModel.KhoaHoc" Width="1.5" PointX="8.25" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="QL_KHOAHOCModel.KhuyenMai" Width="1.5" PointX="5.25" PointY="30.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QL_KHOAHOCModel.KhuyenMai_KhachHang" Width="1.5" PointX="10.5" PointY="23.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="QL_KHOAHOCModel.LichSuLuong" Width="1.5" PointX="7.5" PointY="34" IsExpanded="true" />
+        <EntityTypeShape EntityType="QL_KHOAHOCModel.LoaiKhoaHoc" Width="1.5" PointX="6" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="QL_KHOAHOCModel.LoaiVanDe" Width="1.5" PointX="3" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QL_KHOAHOCModel.Luong" Width="1.5" PointX="5.25" PointY="34" IsExpanded="true" />
+        <EntityTypeShape EntityType="QL_KHOAHOCModel.NguoiDung" Width="1.5" PointX="3" PointY="16" IsExpanded="true" />
+        <EntityTypeShape EntityType="QL_KHOAHOCModel.NhomNguoiDung" Width="1.5" PointX="0.75" PointY="17.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="QL_KHOAHOCModel.Quyen" Width="1.5" PointX="0.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QL_KHOAHOCModel.Quyen_NhomNguoiDung" Width="1.5" PointX="3" PointY="12.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="QL_KHOAHOCModel.SoDuTaiKhoan" Width="1.5" PointX="5.25" PointY="36.875" IsExpanded="true" />
         <EntityTypeShape EntityType="QL_KHOAHOCModel.sysdiagram" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="QL_KHOAHOCModel.TichDiem" Width="1.5" PointX="5.25" PointY="37.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QL_KHOAHOCModel.TichDiem" Width="1.5" PointX="5.25" PointY="39.875" IsExpanded="true" />
         <AssociationConnector Association="QL_KHOAHOCModel.FK_BaiHoc_KhoaHoc" ManuallyRouted="false" />
         <AssociationConnector Association="QL_KHOAHOCModel.FK_BaiTap_BaiHoc" ManuallyRouted="false" />
         <AssociationConnector Association="QL_KHOAHOCModel.FK_ChamSocKhachHang_Loaivande" ManuallyRouted="false" />
@@ -50,8 +52,8 @@
         <AssociationConnector Association="QL_KHOAHOCModel.FK_NguoiDung_NhomNguoiDung" ManuallyRouted="false" />
         <AssociationConnector Association="QL_KHOAHOCModel.FK_SoDuTaiKhoan_NguoiDung" ManuallyRouted="false" />
         <AssociationConnector Association="QL_KHOAHOCModel.FK_TichDiem_NguoiDung" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="QL_KHOAHOCModel.Quyen" Width="1.5" PointX="0.75" PointY="19.75" />
-        <AssociationConnector Association="QL_KHOAHOCModel.Quyen_NhomNguoiDung" />
+        <AssociationConnector Association="QL_KHOAHOCModel.FK_Quyen_NhomNguoiDung_NhomNguoiDung" ManuallyRouted="false" />
+        <AssociationConnector Association="QL_KHOAHOCModel.FK_Quyen_NhomNguoiDung_Quyen" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

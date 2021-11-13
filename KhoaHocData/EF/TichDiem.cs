@@ -16,7 +16,5 @@ namespace KhoaHocData.EF
     {
         public int MaND { get; set; }
         public Nullable<int> SoDiem { get; set; }
-    
-        public virtual NguoiDung NguoiDung { get; set; }
     }
 }

@@ -18,5 +18,7 @@ namespace KhoaHocData.EF
         public Nullable<int> MaDanhMuc { get; set; }
         public string TenLoai { get; set; }
         public string HinhAnh { get; set; }
+    
+        public virtual DanhMucKhoaHoc DanhMucKhoaHoc { get; set; }
     }
 }

@@ -14,5 +14,8 @@ namespace KhoaHocAPI.Models
         public DateTime DoB { get; set; }
         public string Gender { get; set; }
         public string Address { get; set; }
+        public string Number { get; set; }
+        public int GroupID { get; set; }
+        public string GroupName { get; set; }
     }
 }

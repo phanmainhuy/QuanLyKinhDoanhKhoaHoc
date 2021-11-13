@@ -130,10 +130,19 @@
     <Compile Include="EF\Quyen.cs">
       <DependentUpon>KhoaHocDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="EF\Quyen_NhomNguoiDung.cs">
+      <DependentUpon>KhoaHocDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\SearchKhoahocNangCao_Result.cs">
+      <DependentUpon>KhoaHocDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="EF\SearchKhoaHocTheoTheLoai_Result.cs">
       <DependentUpon>KhoaHocDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\SearchKhoaHoc_Result.cs">
+      <DependentUpon>KhoaHocDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\SearchTenKhoahocNangCao_Result.cs">
       <DependentUpon>KhoaHocDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\SoDuTaiKhoan.cs">

@@ -45,10 +45,11 @@ namespace KhoaHocData.EF
         public virtual DbSet<Luong> Luongs { get; set; }
         public virtual DbSet<NguoiDung> NguoiDungs { get; set; }
         public virtual DbSet<NhomNguoiDung> NhomNguoiDungs { get; set; }
+        public virtual DbSet<Quyen> Quyens { get; set; }
+        public virtual DbSet<Quyen_NhomNguoiDung> Quyen_NhomNguoiDung { get; set; }
         public virtual DbSet<SoDuTaiKhoan> SoDuTaiKhoans { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<TichDiem> TichDiems { get; set; }
-        public virtual DbSet<Quyen> Quyens { get; set; }
     
         public virtual ObjectResult<KhoaHoc> SearchKhoaHoc(string tieuDe)
         {
@@ -68,13 +69,30 @@ namespace KhoaHocData.EF
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<KhoaHoc>("SearchKhoaHoc", mergeOption, tieuDeParameter);
         }
     
-        public virtual ObjectResult<Nullable<decimal>> TinhTongTienMua(Nullable<int> maKhoaHoc)
+        public virtual ObjectResult<KhoaHoc> SearchKhoahocNangCao(string tenKhoaHoc, string tenTheLoai)
         {
-            var maKhoaHocParameter = maKhoaHoc.HasValue ?
-                new ObjectParameter("MaKhoaHoc", maKhoaHoc) :
-                new ObjectParameter("MaKhoaHoc", typeof(int));
+            var tenKhoaHocParameter = tenKhoaHoc != null ?
+                new ObjectParameter("TenKhoaHoc", tenKhoaHoc) :
+                new ObjectParameter("TenKhoaHoc", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("TinhTongTienMua", maKhoaHocParameter);
+            var tenTheLoaiParameter = tenTheLoai != null ?
+                new ObjectParameter("TenTheLoai", tenTheLoai) :
+                new ObjectParameter("TenTheLoai", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<KhoaHoc>("SearchKhoahocNangCao", tenKhoaHocParameter, tenTheLoaiParameter);
+        }
+    
+        public virtual ObjectResult<KhoaHoc> SearchKhoahocNangCao(string tenKhoaHoc, string tenTheLoai, MergeOption mergeOption)
+        {
+            var tenKhoaHocParameter = tenKhoaHoc != null ?
+                new ObjectParameter("TenKhoaHoc", tenKhoaHoc) :
+                new ObjectParameter("TenKhoaHoc", typeof(string));
+    
+            var tenTheLoaiParameter = tenTheLoai != null ?
+                new ObjectParameter("TenTheLoai", tenTheLoai) :
+                new ObjectParameter("TenTheLoai", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<KhoaHoc>("SearchKhoahocNangCao", mergeOption, tenKhoaHocParameter, tenTheLoaiParameter);
         }
     
         public virtual ObjectResult<KhoaHoc> SearchKhoaHocTheoTheLoai(Nullable<int> maTheLoai, string tieuDe)
@@ -101,6 +119,19 @@ namespace KhoaHocData.EF
                 new ObjectParameter("TieuDe", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<KhoaHoc>("SearchKhoaHocTheoTheLoai", mergeOption, maTheLoaiParameter, tieuDeParameter);
+        }
+    
+        public virtual ObjectResult<string> SearchTenKhoahocNangCao(string tenKhoaHoc, string tenTheLoai)
+        {
+            var tenKhoaHocParameter = tenKhoaHoc != null ?
+                new ObjectParameter("TenKhoaHoc", tenKhoaHoc) :
+                new ObjectParameter("TenKhoaHoc", typeof(string));
+    
+            var tenTheLoaiParameter = tenTheLoai != null ?
+                new ObjectParameter("TenTheLoai", tenTheLoai) :
+                new ObjectParameter("TenTheLoai", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SearchTenKhoahocNangCao", tenKhoaHocParameter, tenTheLoaiParameter);
         }
     }
 }

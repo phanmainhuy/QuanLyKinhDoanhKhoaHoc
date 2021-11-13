@@ -11,7 +11,7 @@ namespace KhoaHocData.EF
 {
     using System;
     
-    public partial class SearchKhoaHocTheoTheLoai_Result
+    public partial class SearchKhoahocNangCao_Result
     {
         public int MaKhoaHoc { get; set; }
         public Nullable<int> MaLoai { get; set; }

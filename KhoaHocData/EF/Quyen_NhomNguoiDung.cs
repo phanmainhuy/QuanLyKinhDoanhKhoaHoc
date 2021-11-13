@@ -12,11 +12,13 @@ namespace KhoaHocData.EF
     using System;
     using System.Collections.Generic;
     
-    public partial class DanhGiaKhoaHoc
+    public partial class Quyen_NhomNguoiDung
     {
-        public int MaKhoaHoc { get; set; }
-        public Nullable<int> MaND { get; set; }
-        public Nullable<int> Diem { get; set; }
-        public string NoiDung { get; set; }
+        public int MaQuyen { get; set; }
+        public int MaNhomNguoiDung { get; set; }
+        public Nullable<bool> DuocTruyCap { get; set; }
+    
+        public virtual NhomNguoiDung NhomNguoiDung { get; set; }
+        public virtual Quyen Quyen { get; set; }
     }
 }

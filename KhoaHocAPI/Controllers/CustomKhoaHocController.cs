@@ -84,5 +84,9 @@ namespace KhoaHocAPI.Controllers
             else
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Error");
         }
+        //public HttpResponseMessage SearchTenKhoaHoc([FromUri] string searchString)
+        //{
+        //    var item = 
+        //}
     }
 }

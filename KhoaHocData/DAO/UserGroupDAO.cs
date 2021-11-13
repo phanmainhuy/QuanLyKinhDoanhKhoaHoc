@@ -18,5 +18,9 @@ namespace KhoaHocData.DAO
         {
             return db.NhomNguoiDungs;
         }
+        public NhomNguoiDung LayNhomTheoMa(int pMaNhomNguoiDung)
+        {
+            return db.NhomNguoiDungs.SingleOrDefault(x => x.MaNhomNguoiDung == pMaNhomNguoiDung);
+        }
     }
 }

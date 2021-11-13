@@ -23,5 +23,7 @@ namespace KhoaHocData.EF
         public string HinhAnh { get; set; }
         public Nullable<int> MaGV { get; set; }
         public string MOTAKHOAHOC { get; set; }
+        public Nullable<System.DateTime> NgayTao { get; set; }
+        public Nullable<System.DateTime> NgayChapThuan { get; set; }
     }
 }

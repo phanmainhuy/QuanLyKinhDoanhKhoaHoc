@@ -10,13 +10,10 @@
 namespace KhoaHocData.EF
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class DanhGiaKhoaHoc
+    public partial class SearchTenKhoahocNangCao_Result
     {
         public int MaKhoaHoc { get; set; }
-        public Nullable<int> MaND { get; set; }
-        public Nullable<int> Diem { get; set; }
-        public string NoiDung { get; set; }
+        public string TenKhoaHoc { get; set; }
     }
 }

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="QL_KHOAHOCModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="QL_KHOAHOCModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="BaiHoc">
           <Key>
             <PropertyRef Name="MaBaiHoc" />
@@ -207,6 +207,7 @@
           </Key>
           <Property Name="MaQuyen" Type="int" Nullable="false" />
           <Property Name="MaNhomNguoiDung" Type="int" Nullable="false" />
+          <Property Name="DuocTruyCap" Type="bit" />
         </EntityType>
         <EntityType Name="SoDuTaiKhoan">
           <Key>
@@ -550,12 +551,17 @@
         <Function Name="SearchKhoaHoc" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="TieuDe" Type="nvarchar" Mode="In" />
         </Function>
+        <Function Name="SearchKhoahocNangCao" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="TenKhoaHoc" Type="nvarchar" Mode="In" />
+          <Parameter Name="TenTheLoai" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="SearchKhoaHocTheoTheLoai" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="MaTheLoai" Type="int" Mode="In" />
           <Parameter Name="TieuDe" Type="nvarchar" Mode="In" />
         </Function>
-        <Function Name="TinhTongTienMua" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="MaKhoaHoc" Type="int" Mode="In" />
+        <Function Name="SearchTenKhoahocNangCao" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="TenKhoaHoc" Type="nvarchar" Mode="In" />
+          <Parameter Name="TenTheLoai" Type="nvarchar" Mode="In" />
         </Function>
         <EntityContainer Name="QL_KHOAHOCModelStoreContainer">
           <EntitySet Name="BaiHoc" EntityType="Self.BaiHoc" Schema="dbo" store:Type="Tables" />
@@ -686,7 +692,8 @@
             <End Role="TichDiem" EntitySet="TichDiem" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="QL_KHOAHOCModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -759,8 +766,6 @@
           <Property Name="MaND" Type="Int32" />
           <Property Name="Diem" Type="Int32" />
           <Property Name="NoiDung" Type="String" MaxLength="1500" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="KhoaHoc" Relationship="Self.FK_DanhGiaKhoaHoc_KhoaHoc" FromRole="DanhGiaKhoaHoc" ToRole="KhoaHoc" />
-          <NavigationProperty Name="NguoiDung" Relationship="Self.FK_DanhGiaKhoaHoc_NguoiDung" FromRole="DanhGiaKhoaHoc" ToRole="NguoiDung" />
         </EntityType>
         <EntityType Name="DanhMucKhoaHoc">
           <Key>
@@ -812,14 +817,14 @@
           <Property Name="HinhAnh" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
           <Property Name="MaGV" Type="Int32" />
           <Property Name="MOTAKHOAHOC" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="NgayTao" Type="DateTime" Precision="0" />
+          <Property Name="NgayChapThuan" Type="DateTime" Precision="0" />
           <NavigationProperty Name="BaiHocs" Relationship="Self.FK_BaiHoc_KhoaHoc" FromRole="KhoaHoc" ToRole="BaiHoc" />
           <NavigationProperty Name="CT_GioHang" Relationship="Self.FK_CTGioHang" FromRole="KhoaHoc" ToRole="CT_GioHang" />
           <NavigationProperty Name="CT_HoaDon" Relationship="Self.FK_CTHoaDon" FromRole="KhoaHoc" ToRole="CT_HoaDon" />
           <NavigationProperty Name="DanhGiaKhoaHoc" Relationship="Self.FK_DanhGiaKhoaHoc_KhoaHoc" FromRole="KhoaHoc" ToRole="DanhGiaKhoaHoc" />
           <NavigationProperty Name="NguoiDung" Relationship="Self.FK_KHOAHOC_GIAOVIEN" FromRole="KhoaHoc" ToRole="NguoiDung" />
           <NavigationProperty Name="LoaiKhoaHoc" Relationship="Self.FK_KhoaHoc_LoaiKhoaHoc" FromRole="KhoaHoc" ToRole="LoaiKhoaHoc" />
-          <Property Name="NgayTao" Type="DateTime" Precision="0" />
-          <Property Name="NgayChapThuan" Type="DateTime" Precision="0" />
         </EntityType>
         <EntityType Name="KhuyenMai">
           <Key>
@@ -866,6 +871,7 @@
           <Property Name="MaDanhMuc" Type="Int32" />
           <Property Name="TenLoai" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="HinhAnh" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="DanhMucKhoaHoc" Relationship="Self.FK_LoaiKhoaHoc_DanhMucKH" FromRole="LoaiKhoaHoc" ToRole="DanhMucKhoaHoc" />
         </EntityType>
         <EntityType Name="LoaiVanDe">
           <Key>
@@ -884,7 +890,6 @@
           <Property Name="Luong1" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="NgayTinhLuong" Type="DateTime" Precision="0" />
           <NavigationProperty Name="LichSuLuongs" Relationship="Self.FK_LichSuLuong_Luong" FromRole="Luong" ToRole="LichSuLuong" />
-          <NavigationProperty Name="NguoiDung" Relationship="Self.FK_Luong_NguoiDung" FromRole="Luong" ToRole="NguoiDung" />
         </EntityType>
         <EntityType Name="NguoiDung">
           <Key>
@@ -902,16 +907,11 @@
           <Property Name="NgaySinh" Type="DateTime" Precision="0" />
           <Property Name="Diachi" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="ChamSocKhachHangs" Relationship="Self.FK_ChamSocKhachHang_NguoiDung" FromRole="NguoiDung" ToRole="ChamSocKhachHang" />
-          <NavigationProperty Name="DanhGiaKhoaHocs" Relationship="Self.FK_DanhGiaKhoaHoc_NguoiDung" FromRole="NguoiDung" ToRole="DanhGiaKhoaHoc" />
           <NavigationProperty Name="GioHangs" Relationship="Self.FK_DonHang_NguoiDung" FromRole="NguoiDung" ToRole="GioHang" />
           <NavigationProperty Name="HoaDons" Relationship="Self.FK_HoaDon_NguoiDung" FromRole="NguoiDung" ToRole="HoaDon" />
           <NavigationProperty Name="KhoaHocs" Relationship="Self.FK_KHOAHOC_GIAOVIEN" FromRole="NguoiDung" ToRole="KhoaHoc" />
-          <NavigationProperty Name="KhuyenMais" Relationship="Self.FK_KhuyenMai_NguoiDung" FromRole="NguoiDung" ToRole="KhuyenMai" />
-          <NavigationProperty Name="KhuyenMai_KhachHang" Relationship="Self.FK_KhuyenMaiKH_NguoiDung" FromRole="NguoiDung" ToRole="KhuyenMai_KhachHang" />
           <NavigationProperty Name="Luongs" Relationship="Self.FK_Luong_NguoiDung" FromRole="NguoiDung" ToRole="Luong" />
           <NavigationProperty Name="NhomNguoiDung" Relationship="Self.FK_NguoiDung_NhomNguoiDung" FromRole="NguoiDung" ToRole="NhomNguoiDung" />
-          <NavigationProperty Name="SoDuTaiKhoans" Relationship="Self.FK_SoDuTaiKhoan_NguoiDung" FromRole="NguoiDung" ToRole="SoDuTaiKhoan" />
-          <NavigationProperty Name="TichDiem" Relationship="Self.FK_TichDiem_NguoiDung" FromRole="NguoiDung" ToRole="TichDiem" />
         </EntityType>
         <EntityType Name="NhomNguoiDung">
           <Key>
@@ -920,7 +920,26 @@
           <Property Name="MaNhomNguoiDung" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TenNhomNguoiDung" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="HinhAnh" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Quyens" Relationship="QL_KHOAHOCModel.Quyen_NhomNguoiDung" FromRole="NhomNguoiDung" ToRole="Quyen" />
+          <NavigationProperty Name="Quyen_NhomNguoiDung" Relationship="Self.FK_Quyen_NhomNguoiDung_NhomNguoiDung" FromRole="NhomNguoiDung" ToRole="Quyen_NhomNguoiDung" />
+        </EntityType>
+        <EntityType Name="Quyen">
+          <Key>
+            <PropertyRef Name="MaQuyen" />
+          </Key>
+          <Property Name="MaQuyen" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenQuyen" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Quyen_NhomNguoiDung" Relationship="Self.FK_Quyen_NhomNguoiDung_Quyen" FromRole="Quyen" ToRole="Quyen_NhomNguoiDung" />
+        </EntityType>
+        <EntityType Name="Quyen_NhomNguoiDung">
+          <Key>
+            <PropertyRef Name="MaQuyen" />
+            <PropertyRef Name="MaNhomNguoiDung" />
+          </Key>
+          <Property Name="MaQuyen" Type="Int32" Nullable="false" />
+          <Property Name="MaNhomNguoiDung" Type="Int32" Nullable="false" />
+          <Property Name="DuocTruyCap" Type="Boolean" />
+          <NavigationProperty Name="NhomNguoiDung" Relationship="Self.FK_Quyen_NhomNguoiDung_NhomNguoiDung" FromRole="Quyen_NhomNguoiDung" ToRole="NhomNguoiDung" />
+          <NavigationProperty Name="Quyen" Relationship="Self.FK_Quyen_NhomNguoiDung_Quyen" FromRole="Quyen_NhomNguoiDung" ToRole="Quyen" />
         </EntityType>
         <EntityType Name="SoDuTaiKhoan">
           <Key>
@@ -931,7 +950,6 @@
           <Property Name="SoDu" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="NgayNap" Type="DateTime" Precision="0" />
           <Property Name="NoiDung" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="NguoiDung" Relationship="Self.FK_SoDuTaiKhoan_NguoiDung" FromRole="SoDuTaiKhoan" ToRole="NguoiDung" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -949,7 +967,6 @@
           </Key>
           <Property Name="MaND" Type="Int32" Nullable="false" />
           <Property Name="SoDiem" Type="Int32" />
-          <NavigationProperty Name="NguoiDung" Relationship="Self.FK_TichDiem_NguoiDung" FromRole="TichDiem" ToRole="NguoiDung" />
         </EntityType>
         <Association Name="FK_BaiHoc_KhoaHoc">
           <End Role="KhoaHoc" Type="Self.KhoaHoc" Multiplicity="0..1" />
@@ -1239,7 +1256,31 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="QL_KHOAHOCEntities" annotation:LazyLoadingEnabled="true">
+        <Association Name="FK_Quyen_NhomNguoiDung_NhomNguoiDung">
+          <End Role="NhomNguoiDung" Type="Self.NhomNguoiDung" Multiplicity="1" />
+          <End Role="Quyen_NhomNguoiDung" Type="Self.Quyen_NhomNguoiDung" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NhomNguoiDung">
+              <PropertyRef Name="MaNhomNguoiDung" />
+            </Principal>
+            <Dependent Role="Quyen_NhomNguoiDung">
+              <PropertyRef Name="MaNhomNguoiDung" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Quyen_NhomNguoiDung_Quyen">
+          <End Role="Quyen" Type="Self.Quyen" Multiplicity="1" />
+          <End Role="Quyen_NhomNguoiDung" Type="Self.Quyen_NhomNguoiDung" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Quyen">
+              <PropertyRef Name="MaQuyen" />
+            </Principal>
+            <Dependent Role="Quyen_NhomNguoiDung">
+              <PropertyRef Name="MaQuyen" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="BaiHocs" EntityType="Self.BaiHoc" />
           <EntitySet Name="BaiTaps" EntityType="Self.BaiTap" />
           <EntitySet Name="ChamSocKhachHangs" EntityType="Self.ChamSocKhachHang" />
@@ -1258,6 +1299,8 @@
           <EntitySet Name="Luongs" EntityType="Self.Luong" />
           <EntitySet Name="NguoiDungs" EntityType="Self.NguoiDung" />
           <EntitySet Name="NhomNguoiDungs" EntityType="Self.NhomNguoiDung" />
+          <EntitySet Name="Quyens" EntityType="Self.Quyen" />
+          <EntitySet Name="Quyen_NhomNguoiDung" EntityType="Self.Quyen_NhomNguoiDung" />
           <EntitySet Name="SoDuTaiKhoans" EntityType="Self.SoDuTaiKhoan" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="TichDiems" EntityType="Self.TichDiem" />
@@ -1357,21 +1400,29 @@
             <End Role="NguoiDung" EntitySet="NguoiDungs" />
             <End Role="TichDiem" EntitySet="TichDiems" />
           </AssociationSet>
+          <AssociationSet Name="FK_Quyen_NhomNguoiDung_NhomNguoiDung" Association="Self.FK_Quyen_NhomNguoiDung_NhomNguoiDung">
+            <End Role="NhomNguoiDung" EntitySet="NhomNguoiDungs" />
+            <End Role="Quyen_NhomNguoiDung" EntitySet="Quyen_NhomNguoiDung" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Quyen_NhomNguoiDung_Quyen" Association="Self.FK_Quyen_NhomNguoiDung_Quyen">
+            <End Role="Quyen" EntitySet="Quyens" />
+            <End Role="Quyen_NhomNguoiDung" EntitySet="Quyen_NhomNguoiDung" />
+          </AssociationSet>
           <FunctionImport Name="SearchKhoaHoc" EntitySet="KhoaHocs" ReturnType="Collection(QL_KHOAHOCModel.KhoaHoc)">
-          <Parameter Name="TieuDe" Mode="In" Type="String" />
+            <Parameter Name="TieuDe" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="TinhTongTienMua" ReturnType="Collection(Decimal)">
-          <Parameter Name="MaKhoaHoc" Mode="In" Type="Int32" />
+          <FunctionImport Name="SearchKhoahocNangCao" EntitySet="KhoaHocs" ReturnType="Collection(QL_KHOAHOCModel.KhoaHoc)">
+            <Parameter Name="TenKhoaHoc" Mode="In" Type="String" />
+            <Parameter Name="TenTheLoai" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="SearchKhoaHocTheoTheLoai" EntitySet="KhoaHocs" ReturnType="Collection(QL_KHOAHOCModel.KhoaHoc)">
             <Parameter Name="MaTheLoai" Mode="In" Type="Int32" />
             <Parameter Name="TieuDe" Mode="In" Type="String" />
           </FunctionImport>
-          <EntitySet Name="Quyens" EntityType="QL_KHOAHOCModel.Quyen" />
-          <AssociationSet Name="Quyen_NhomNguoiDung" Association="QL_KHOAHOCModel.Quyen_NhomNguoiDung">
-            <End Role="NhomNguoiDung" EntitySet="NhomNguoiDungs" />
-            <End Role="Quyen" EntitySet="Quyens" />
-          </AssociationSet>
+          <FunctionImport Name="SearchTenKhoahocNangCao" ReturnType="Collection(String)">
+            <Parameter Name="TenKhoaHoc" Mode="In" Type="String" />
+            <Parameter Name="TenTheLoai" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="SearchKhoaHoc_Result">
           <Property Type="Int32" Name="MaKhoaHoc" Nullable="false" />
@@ -1384,6 +1435,22 @@
           <Property Type="String" Name="HinhAnh" Nullable="true" MaxLength="300" />
           <Property Type="Int32" Name="MaGV" Nullable="true" />
           <Property Type="String" Name="MOTAKHOAHOC" Nullable="true" MaxLength="500" />
+          <Property Type="DateTime" Name="NgayTao" Nullable="true" />
+          <Property Type="DateTime" Name="NgayChapThuan" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="SearchKhoahocNangCao_Result">
+          <Property Type="Int32" Name="MaKhoaHoc" Nullable="false" />
+          <Property Type="Int32" Name="MaLoai" Nullable="true" />
+          <Property Type="String" Name="TenKhoaHoc" Nullable="true" MaxLength="200" />
+          <Property Type="Decimal" Name="DonGia" Nullable="true" Precision="19" />
+          <Property Type="Int32" Name="SoLuongMua" Nullable="true" />
+          <Property Type="Int32" Name="ThoiHanHoanTien" Nullable="true" />
+          <Property Type="Boolean" Name="TrangThai" Nullable="true" />
+          <Property Type="String" Name="HinhAnh" Nullable="true" MaxLength="300" />
+          <Property Type="Int32" Name="MaGV" Nullable="true" />
+          <Property Type="String" Name="MOTAKHOAHOC" Nullable="true" MaxLength="500" />
+          <Property Type="DateTime" Name="NgayTao" Nullable="true" />
+          <Property Type="DateTime" Name="NgayChapThuan" Nullable="true" />
         </ComplexType>
         <ComplexType Name="SearchKhoaHocTheoTheLoai_Result">
           <Property Type="Int32" Name="MaKhoaHoc" Nullable="false" />
@@ -1396,25 +1463,19 @@
           <Property Type="String" Name="HinhAnh" Nullable="true" MaxLength="300" />
           <Property Type="Int32" Name="MaGV" Nullable="true" />
           <Property Type="String" Name="MOTAKHOAHOC" Nullable="true" MaxLength="500" />
+          <Property Type="DateTime" Name="NgayTao" Nullable="true" />
+          <Property Type="DateTime" Name="NgayChapThuan" Nullable="true" />
         </ComplexType>
-        <EntityType Name="Quyen">
-          <Key>
-            <PropertyRef Name="MaQuyen" />
-          </Key>
-          <Property Name="MaQuyen" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TenQuyen" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="NhomNguoiDungs" Relationship="QL_KHOAHOCModel.Quyen_NhomNguoiDung" FromRole="Quyen" ToRole="NhomNguoiDung" />
-        </EntityType>
-        <Association Name="Quyen_NhomNguoiDung">
-          <End Type="QL_KHOAHOCModel.NhomNguoiDung" Role="NhomNguoiDung" Multiplicity="*" />
-          <End Type="QL_KHOAHOCModel.Quyen" Role="Quyen" Multiplicity="*" />
-        </Association>
+        <ComplexType Name="SearchTenKhoahocNangCao_Result">
+          <Property Type="Int32" Name="MaKhoaHoc" Nullable="false" />
+          <Property Type="String" Name="TenKhoaHoc" Nullable="true" MaxLength="200" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="QL_KHOAHOCModelStoreContainer" CdmEntityContainer="QL_KHOAHOCEntities">
+        <EntityContainerMapping StorageEntityContainer="QL_KHOAHOCModelStoreContainer" CdmEntityContainer="Entities">
           <EntitySetMapping Name="BaiHocs">
             <EntityTypeMapping TypeName="QL_KHOAHOCModel.BaiHoc">
               <MappingFragment StoreEntitySet="BaiHoc">
@@ -1517,8 +1578,6 @@
           <EntitySetMapping Name="KhoaHocs">
             <EntityTypeMapping TypeName="QL_KHOAHOCModel.KhoaHoc">
               <MappingFragment StoreEntitySet="KhoaHoc">
-                <ScalarProperty Name="NgayChapThuan" ColumnName="NgayChapThuan" />
-                <ScalarProperty Name="NgayTao" ColumnName="NgayTao" />
                 <ScalarProperty Name="MaKhoaHoc" ColumnName="MaKhoaHoc" />
                 <ScalarProperty Name="MaLoai" ColumnName="MaLoai" />
                 <ScalarProperty Name="TenKhoaHoc" ColumnName="TenKhoaHoc" />
@@ -1529,6 +1588,8 @@
                 <ScalarProperty Name="HinhAnh" ColumnName="HinhAnh" />
                 <ScalarProperty Name="MaGV" ColumnName="MaGV" />
                 <ScalarProperty Name="MOTAKHOAHOC" ColumnName="MOTAKHOAHOC" />
+                <ScalarProperty Name="NgayTao" ColumnName="NgayTao" />
+                <ScalarProperty Name="NgayChapThuan" ColumnName="NgayChapThuan" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1618,6 +1679,23 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Quyens">
+            <EntityTypeMapping TypeName="QL_KHOAHOCModel.Quyen">
+              <MappingFragment StoreEntitySet="Quyen">
+                <ScalarProperty Name="MaQuyen" ColumnName="MaQuyen" />
+                <ScalarProperty Name="TenQuyen" ColumnName="TenQuyen" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Quyen_NhomNguoiDung">
+            <EntityTypeMapping TypeName="QL_KHOAHOCModel.Quyen_NhomNguoiDung">
+              <MappingFragment StoreEntitySet="Quyen_NhomNguoiDung">
+                <ScalarProperty Name="MaQuyen" ColumnName="MaQuyen" />
+                <ScalarProperty Name="MaNhomNguoiDung" ColumnName="MaNhomNguoiDung" />
+                <ScalarProperty Name="DuocTruyCap" ColumnName="DuocTruyCap" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="SoDuTaiKhoans">
             <EntityTypeMapping TypeName="QL_KHOAHOCModel.SoDuTaiKhoan">
               <MappingFragment StoreEntitySet="SoDuTaiKhoan">
@@ -1650,25 +1728,12 @@
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="SearchKhoaHoc" FunctionName="QL_KHOAHOCModel.Store.SearchKhoaHoc">
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="TinhTongTienMua" FunctionName="QL_KHOAHOCModel.Store.TinhTongTienMua" />
+          <FunctionImportMapping FunctionImportName="SearchKhoahocNangCao" FunctionName="QL_KHOAHOCModel.Store.SearchKhoahocNangCao">
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="SearchKhoaHocTheoTheLoai" FunctionName="QL_KHOAHOCModel.Store.SearchKhoaHocTheoTheLoai">
           </FunctionImportMapping>
-          <EntitySetMapping Name="Quyens">
-            <EntityTypeMapping TypeName="QL_KHOAHOCModel.Quyen">
-              <MappingFragment StoreEntitySet="Quyen">
-                <ScalarProperty Name="TenQuyen" ColumnName="TenQuyen" />
-                <ScalarProperty Name="MaQuyen" ColumnName="MaQuyen" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <AssociationSetMapping Name="Quyen_NhomNguoiDung" TypeName="QL_KHOAHOCModel.Quyen_NhomNguoiDung" StoreEntitySet="Quyen_NhomNguoiDung">
-            <EndProperty Name="Quyen">
-              <ScalarProperty Name="MaQuyen" ColumnName="MaQuyen" />
-            </EndProperty>
-            <EndProperty Name="NhomNguoiDung">
-              <ScalarProperty Name="MaNhomNguoiDung" ColumnName="MaNhomNguoiDung" />
-            </EndProperty>
-          </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="SearchTenKhoahocNangCao" FunctionName="QL_KHOAHOCModel.Store.SearchTenKhoahocNangCao">
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
