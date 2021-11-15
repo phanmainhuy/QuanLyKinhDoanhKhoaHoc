@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="QL_KHOAHOCModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="QL_KHOAHOCModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="BaiHoc">
           <Key>
             <PropertyRef Name="MaBaiHoc" />
@@ -153,6 +153,13 @@
           <Property Name="TenLoai" Type="nvarchar" MaxLength="50" />
           <Property Name="HinhAnh" Type="nvarchar" MaxLength="300" />
         </EntityType>
+        <EntityType Name="LOAIQUYEN">
+          <Key>
+            <PropertyRef Name="MaLoaiQuyen" />
+          </Key>
+          <Property Name="MaLoaiQuyen" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenLoaiQuyen" Type="nvarchar" MaxLength="100" />
+        </EntityType>
         <EntityType Name="LoaiVanDe">
           <Key>
             <PropertyRef Name="MaLoaiVanDe" />
@@ -199,6 +206,9 @@
           </Key>
           <Property Name="MaQuyen" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TenQuyen" Type="nvarchar" MaxLength="100" />
+          <Property Name="MaLoaiQuyen" Type="int" />
+          <Property Name="MetaLink" Type="varchar" MaxLength="100" />
+          <Property Name="icon" Type="varchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="Quyen_NhomNguoiDung">
           <Key>
@@ -500,6 +510,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_QUYEN_LOAIQUYEN">
+          <End Role="LOAIQUYEN" Type="Self.LOAIQUYEN" Multiplicity="0..1" />
+          <End Role="Quyen" Type="Self.Quyen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LOAIQUYEN">
+              <PropertyRef Name="MaLoaiQuyen" />
+            </Principal>
+            <Dependent Role="Quyen">
+              <PropertyRef Name="MaLoaiQuyen" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Quyen_NhomNguoiDung_NhomNguoiDung">
           <End Role="NhomNguoiDung" Type="Self.NhomNguoiDung" Multiplicity="1" />
           <End Role="Quyen_NhomNguoiDung" Type="Self.Quyen_NhomNguoiDung" Multiplicity="*" />
@@ -548,6 +570,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
         <Function Name="SearchKhoaHoc" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="TieuDe" Type="nvarchar" Mode="In" />
         </Function>
@@ -559,9 +582,46 @@
           <Parameter Name="MaTheLoai" Type="int" Mode="In" />
           <Parameter Name="TieuDe" Type="nvarchar" Mode="In" />
         </Function>
+        <Function Name="SearchTenKhoahoc" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="TenKhoaHoc" Type="nvarchar" Mode="In" />
+          <Parameter Name="TenTheLoai" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="SearchTenKhoahocNangCao" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="TenKhoaHoc" Type="nvarchar" Mode="In" />
           <Parameter Name="TenTheLoai" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="TinhTongTienMua" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MaKhoaHoc" Type="int" Mode="In" />
         </Function>
         <EntityContainer Name="QL_KHOAHOCModelStoreContainer">
           <EntitySet Name="BaiHoc" EntityType="Self.BaiHoc" Schema="dbo" store:Type="Tables" />
@@ -578,6 +638,7 @@
           <EntitySet Name="KhuyenMai_KhachHang" EntityType="Self.KhuyenMai_KhachHang" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LichSuLuong" EntityType="Self.LichSuLuong" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LoaiKhoaHoc" EntityType="Self.LoaiKhoaHoc" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LOAIQUYEN" EntityType="Self.LOAIQUYEN" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LoaiVanDe" EntityType="Self.LoaiVanDe" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Luong" EntityType="Self.Luong" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NguoiDung" EntityType="Self.NguoiDung" Schema="dbo" store:Type="Tables" />
@@ -675,6 +736,10 @@
             <End Role="NhomNguoiDung" EntitySet="NhomNguoiDung" />
             <End Role="NguoiDung" EntitySet="NguoiDung" />
           </AssociationSet>
+          <AssociationSet Name="FK_QUYEN_LOAIQUYEN" Association="Self.FK_QUYEN_LOAIQUYEN">
+            <End Role="LOAIQUYEN" EntitySet="LOAIQUYEN" />
+            <End Role="Quyen" EntitySet="Quyen" />
+          </AssociationSet>
           <AssociationSet Name="FK_Quyen_NhomNguoiDung_NhomNguoiDung" Association="Self.FK_Quyen_NhomNguoiDung_NhomNguoiDung">
             <End Role="NhomNguoiDung" EntitySet="NhomNguoiDung" />
             <End Role="Quyen_NhomNguoiDung" EntitySet="Quyen_NhomNguoiDung" />
@@ -692,8 +757,7 @@
             <End Role="TichDiem" EntitySet="TichDiem" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="QL_KHOAHOCModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -766,6 +830,8 @@
           <Property Name="MaND" Type="Int32" />
           <Property Name="Diem" Type="Int32" />
           <Property Name="NoiDung" Type="String" MaxLength="1500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="KhoaHoc" Relationship="Self.FK_DanhGiaKhoaHoc_KhoaHoc" FromRole="DanhGiaKhoaHoc" ToRole="KhoaHoc" />
+          <NavigationProperty Name="NguoiDung" Relationship="Self.FK_DanhGiaKhoaHoc_NguoiDung" FromRole="DanhGiaKhoaHoc" ToRole="NguoiDung" />
         </EntityType>
         <EntityType Name="DanhMucKhoaHoc">
           <Key>
@@ -872,6 +938,15 @@
           <Property Name="TenLoai" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="HinhAnh" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="DanhMucKhoaHoc" Relationship="Self.FK_LoaiKhoaHoc_DanhMucKH" FromRole="LoaiKhoaHoc" ToRole="DanhMucKhoaHoc" />
+          <NavigationProperty Name="KhoaHocs" Relationship="Self.FK_KhoaHoc_LoaiKhoaHoc" FromRole="LoaiKhoaHoc" ToRole="KhoaHoc" />
+        </EntityType>
+        <EntityType Name="LOAIQUYEN">
+          <Key>
+            <PropertyRef Name="MaLoaiQuyen" />
+          </Key>
+          <Property Name="MaLoaiQuyen" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenLoaiQuyen" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Quyens" Relationship="Self.FK_QUYEN_LOAIQUYEN" FromRole="LOAIQUYEN" ToRole="Quyen" />
         </EntityType>
         <EntityType Name="LoaiVanDe">
           <Key>
@@ -890,6 +965,7 @@
           <Property Name="Luong1" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="NgayTinhLuong" Type="DateTime" Precision="0" />
           <NavigationProperty Name="LichSuLuongs" Relationship="Self.FK_LichSuLuong_Luong" FromRole="Luong" ToRole="LichSuLuong" />
+          <NavigationProperty Name="NguoiDung" Relationship="Self.FK_Luong_NguoiDung" FromRole="Luong" ToRole="NguoiDung" />
         </EntityType>
         <EntityType Name="NguoiDung">
           <Key>
@@ -907,11 +983,16 @@
           <Property Name="NgaySinh" Type="DateTime" Precision="0" />
           <Property Name="Diachi" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="ChamSocKhachHangs" Relationship="Self.FK_ChamSocKhachHang_NguoiDung" FromRole="NguoiDung" ToRole="ChamSocKhachHang" />
+          <NavigationProperty Name="DanhGiaKhoaHocs" Relationship="Self.FK_DanhGiaKhoaHoc_NguoiDung" FromRole="NguoiDung" ToRole="DanhGiaKhoaHoc" />
           <NavigationProperty Name="GioHangs" Relationship="Self.FK_DonHang_NguoiDung" FromRole="NguoiDung" ToRole="GioHang" />
           <NavigationProperty Name="HoaDons" Relationship="Self.FK_HoaDon_NguoiDung" FromRole="NguoiDung" ToRole="HoaDon" />
           <NavigationProperty Name="KhoaHocs" Relationship="Self.FK_KHOAHOC_GIAOVIEN" FromRole="NguoiDung" ToRole="KhoaHoc" />
+          <NavigationProperty Name="KhuyenMais" Relationship="Self.FK_KhuyenMai_NguoiDung" FromRole="NguoiDung" ToRole="KhuyenMai" />
+          <NavigationProperty Name="KhuyenMai_KhachHang" Relationship="Self.FK_KhuyenMaiKH_NguoiDung" FromRole="NguoiDung" ToRole="KhuyenMai_KhachHang" />
           <NavigationProperty Name="Luongs" Relationship="Self.FK_Luong_NguoiDung" FromRole="NguoiDung" ToRole="Luong" />
           <NavigationProperty Name="NhomNguoiDung" Relationship="Self.FK_NguoiDung_NhomNguoiDung" FromRole="NguoiDung" ToRole="NhomNguoiDung" />
+          <NavigationProperty Name="SoDuTaiKhoans" Relationship="Self.FK_SoDuTaiKhoan_NguoiDung" FromRole="NguoiDung" ToRole="SoDuTaiKhoan" />
+          <NavigationProperty Name="TichDiem" Relationship="Self.FK_TichDiem_NguoiDung" FromRole="NguoiDung" ToRole="TichDiem" />
         </EntityType>
         <EntityType Name="NhomNguoiDung">
           <Key>
@@ -920,6 +1001,7 @@
           <Property Name="MaNhomNguoiDung" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TenNhomNguoiDung" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="HinhAnh" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="NguoiDungs" Relationship="Self.FK_NguoiDung_NhomNguoiDung" FromRole="NhomNguoiDung" ToRole="NguoiDung" />
           <NavigationProperty Name="Quyen_NhomNguoiDung" Relationship="Self.FK_Quyen_NhomNguoiDung_NhomNguoiDung" FromRole="NhomNguoiDung" ToRole="Quyen_NhomNguoiDung" />
         </EntityType>
         <EntityType Name="Quyen">
@@ -928,7 +1010,9 @@
           </Key>
           <Property Name="MaQuyen" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TenQuyen" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Quyen_NhomNguoiDung" Relationship="Self.FK_Quyen_NhomNguoiDung_Quyen" FromRole="Quyen" ToRole="Quyen_NhomNguoiDung" />
+          <Property Name="MaLoaiQuyen" Type="Int32" />
+          <Property Name="MetaLink" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="icon" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Quyen_NhomNguoiDung">
           <Key>
@@ -950,6 +1034,7 @@
           <Property Name="SoDu" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="NgayNap" Type="DateTime" Precision="0" />
           <Property Name="NoiDung" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="NguoiDung" Relationship="Self.FK_SoDuTaiKhoan_NguoiDung" FromRole="SoDuTaiKhoan" ToRole="NguoiDung" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -967,6 +1052,7 @@
           </Key>
           <Property Name="MaND" Type="Int32" Nullable="false" />
           <Property Name="SoDiem" Type="Int32" />
+          <NavigationProperty Name="NguoiDung" Relationship="Self.FK_TichDiem_NguoiDung" FromRole="TichDiem" ToRole="NguoiDung" />
         </EntityType>
         <Association Name="FK_BaiHoc_KhoaHoc">
           <End Role="KhoaHoc" Type="Self.KhoaHoc" Multiplicity="0..1" />
@@ -1208,6 +1294,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_QUYEN_LOAIQUYEN">
+          <End Role="LOAIQUYEN" Type="Self.LOAIQUYEN" Multiplicity="0..1" />
+          <End Role="Quyen" Type="Self.Quyen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LOAIQUYEN">
+              <PropertyRef Name="MaLoaiQuyen" />
+            </Principal>
+            <Dependent Role="Quyen">
+              <PropertyRef Name="MaLoaiQuyen" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Luong_NguoiDung">
           <End Role="NguoiDung" Type="Self.NguoiDung" Multiplicity="0..1" />
           <End Role="Luong" Type="Self.Luong" Multiplicity="*" />
@@ -1280,7 +1378,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="QL_KHOAHOCEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="BaiHocs" EntityType="Self.BaiHoc" />
           <EntitySet Name="BaiTaps" EntityType="Self.BaiTap" />
           <EntitySet Name="ChamSocKhachHangs" EntityType="Self.ChamSocKhachHang" />
@@ -1295,6 +1393,7 @@
           <EntitySet Name="KhuyenMai_KhachHang" EntityType="Self.KhuyenMai_KhachHang" />
           <EntitySet Name="LichSuLuongs" EntityType="Self.LichSuLuong" />
           <EntitySet Name="LoaiKhoaHocs" EntityType="Self.LoaiKhoaHoc" />
+          <EntitySet Name="LOAIQUYENs" EntityType="Self.LOAIQUYEN" />
           <EntitySet Name="LoaiVanDes" EntityType="Self.LoaiVanDe" />
           <EntitySet Name="Luongs" EntityType="Self.Luong" />
           <EntitySet Name="NguoiDungs" EntityType="Self.NguoiDung" />
@@ -1384,6 +1483,10 @@
             <End Role="Luong" EntitySet="Luongs" />
             <End Role="LichSuLuong" EntitySet="LichSuLuongs" />
           </AssociationSet>
+          <AssociationSet Name="FK_QUYEN_LOAIQUYEN" Association="Self.FK_QUYEN_LOAIQUYEN">
+            <End Role="LOAIQUYEN" EntitySet="LOAIQUYENs" />
+            <End Role="Quyen" EntitySet="Quyens" />
+          </AssociationSet>
           <AssociationSet Name="FK_Luong_NguoiDung" Association="Self.FK_Luong_NguoiDung">
             <End Role="NguoiDung" EntitySet="NguoiDungs" />
             <End Role="Luong" EntitySet="Luongs" />
@@ -1409,7 +1512,7 @@
             <End Role="Quyen_NhomNguoiDung" EntitySet="Quyen_NhomNguoiDung" />
           </AssociationSet>
           <FunctionImport Name="SearchKhoaHoc" EntitySet="KhoaHocs" ReturnType="Collection(QL_KHOAHOCModel.KhoaHoc)">
-            <Parameter Name="TieuDe" Mode="In" Type="String" />
+          <Parameter Name="TieuDe" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="SearchKhoahocNangCao" EntitySet="KhoaHocs" ReturnType="Collection(QL_KHOAHOCModel.KhoaHoc)">
             <Parameter Name="TenKhoaHoc" Mode="In" Type="String" />
@@ -1419,9 +1522,46 @@
             <Parameter Name="MaTheLoai" Mode="In" Type="Int32" />
             <Parameter Name="TieuDe" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="SearchTenKhoahoc" ReturnType="Collection(String)">
+            <Parameter Name="TenKhoaHoc" Mode="In" Type="String" />
+            <Parameter Name="TenTheLoai" Mode="In" Type="String" />
+          </FunctionImport>
           <FunctionImport Name="SearchTenKhoahocNangCao" ReturnType="Collection(String)">
             <Parameter Name="TenKhoaHoc" Mode="In" Type="String" />
             <Parameter Name="TenTheLoai" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(QL_KHOAHOCModel.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(QL_KHOAHOCModel.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
+          <FunctionImport Name="TinhTongTienMua" ReturnType="Collection(Decimal)">
+          <Parameter Name="MaKhoaHoc" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="SearchKhoaHoc_Result">
@@ -1466,16 +1606,41 @@
           <Property Type="DateTime" Name="NgayTao" Nullable="true" />
           <Property Type="DateTime" Name="NgayChapThuan" Nullable="true" />
         </ComplexType>
+        <ComplexType Name="SearchTenKhoahoc_Result">
+          <Property Type="Int32" Name="MaKhoaHoc" Nullable="false" />
+          <Property Type="Int32" Name="MaLoai" Nullable="true" />
+          <Property Type="String" Name="TenKhoaHoc" Nullable="true" MaxLength="200" />
+          <Property Type="Decimal" Name="DonGia" Nullable="true" Precision="19" />
+          <Property Type="Int32" Name="SoLuongMua" Nullable="true" />
+          <Property Type="Int32" Name="ThoiHanHoanTien" Nullable="true" />
+          <Property Type="Boolean" Name="TrangThai" Nullable="true" />
+          <Property Type="String" Name="HinhAnh" Nullable="true" MaxLength="300" />
+          <Property Type="Int32" Name="MaGV" Nullable="true" />
+          <Property Type="String" Name="MOTAKHOAHOC" Nullable="true" MaxLength="500" />
+          <Property Type="DateTime" Name="NgayTao" Nullable="true" />
+          <Property Type="DateTime" Name="NgayChapThuan" Nullable="true" />
+        </ComplexType>
         <ComplexType Name="SearchTenKhoahocNangCao_Result">
           <Property Type="Int32" Name="MaKhoaHoc" Nullable="false" />
           <Property Type="String" Name="TenKhoaHoc" Nullable="true" MaxLength="200" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="QL_KHOAHOCModelStoreContainer" CdmEntityContainer="Entities">
+        <EntityContainerMapping StorageEntityContainer="QL_KHOAHOCModelStoreContainer" CdmEntityContainer="QL_KHOAHOCEntities">
           <EntitySetMapping Name="BaiHocs">
             <EntityTypeMapping TypeName="QL_KHOAHOCModel.BaiHoc">
               <MappingFragment StoreEntitySet="BaiHoc">
@@ -1635,6 +1800,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="LOAIQUYENs">
+            <EntityTypeMapping TypeName="QL_KHOAHOCModel.LOAIQUYEN">
+              <MappingFragment StoreEntitySet="LOAIQUYEN">
+                <ScalarProperty Name="MaLoaiQuyen" ColumnName="MaLoaiQuyen" />
+                <ScalarProperty Name="TenLoaiQuyen" ColumnName="TenLoaiQuyen" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="LoaiVanDes">
             <EntityTypeMapping TypeName="QL_KHOAHOCModel.LoaiVanDe">
               <MappingFragment StoreEntitySet="LoaiVanDe">
@@ -1682,8 +1855,11 @@
           <EntitySetMapping Name="Quyens">
             <EntityTypeMapping TypeName="QL_KHOAHOCModel.Quyen">
               <MappingFragment StoreEntitySet="Quyen">
+                <ScalarProperty Name="icon" ColumnName="icon" />
+                <ScalarProperty Name="MetaLink" ColumnName="MetaLink" />
                 <ScalarProperty Name="MaQuyen" ColumnName="MaQuyen" />
                 <ScalarProperty Name="TenQuyen" ColumnName="TenQuyen" />
+                <ScalarProperty Name="MaLoaiQuyen" ColumnName="MaLoaiQuyen" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1732,8 +1908,35 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="SearchKhoaHocTheoTheLoai" FunctionName="QL_KHOAHOCModel.Store.SearchKhoaHocTheoTheLoai">
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SearchTenKhoahoc" FunctionName="QL_KHOAHOCModel.Store.SearchTenKhoahoc">
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="SearchTenKhoahocNangCao" FunctionName="QL_KHOAHOCModel.Store.SearchTenKhoahocNangCao">
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="QL_KHOAHOCModel.Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="QL_KHOAHOCModel.Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="QL_KHOAHOCModel.Store.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="QL_KHOAHOCModel.Store.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="QL_KHOAHOCModel.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="QL_KHOAHOCModel.Store.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="QL_KHOAHOCModel.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="QL_KHOAHOCModel.Store.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="QL_KHOAHOCModel.Store.sp_upgraddiagrams" />
+          <FunctionImportMapping FunctionImportName="TinhTongTienMua" FunctionName="QL_KHOAHOCModel.Store.TinhTongTienMua" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

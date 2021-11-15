@@ -10,13 +10,10 @@
 namespace KhoaHocData.EF
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class TichDiem
+    public partial class sp_helpdiagramdefinition_Result
     {
-        public int MaND { get; set; }
-        public Nullable<int> SoDiem { get; set; }
-    
-        public virtual NguoiDung NguoiDung { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

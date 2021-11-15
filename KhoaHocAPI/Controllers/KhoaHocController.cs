@@ -51,8 +51,9 @@ namespace KhoaHocAPI.Controllers
             else
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "No content");
         }
+        
         [HttpGet]
-        public HttpResponseMessage GetByParentIDPaging(int maLoai, PagingVM paging)
+        public HttpResponseMessage GetByParentIDPaging([FromUri]int maLoai, [FromUri]PagingVM paging)
         {
             int total;
             var items = Mapper.CourseMapper.MapListCourse(khDAO.LayRaKhoaHocTheoMaLoaiKhoaHocPaging(maLoai, paging.page, paging.pageSize, out total));

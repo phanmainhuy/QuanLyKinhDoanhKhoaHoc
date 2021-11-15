@@ -168,6 +168,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\Admin\AdminMenuController.cs" />
     <Compile Include="Controllers\AuthorizationController.cs" />
     <Compile Include="Controllers\CartItemController.cs" />
     <Compile Include="Controllers\CustomAPIController.cs" />
@@ -184,12 +185,14 @@
     <Compile Include="Mapper\CartMapper.cs" />
     <Compile Include="Mapper\CategoryMapper.cs" />
     <Compile Include="Mapper\CourseMapper.cs" />
+    <Compile Include="Mapper\MenuTypeMapper.cs" />
     <Compile Include="Mapper\OtherMapper.cs" />
     <Compile Include="Mapper\RoleMapper.cs" />
     <Compile Include="Mapper\UserMapper.cs" />
     <Compile Include="Models\CartItemVM.cs" />
     <Compile Include="Models\CourseCartVM.cs" />
     <Compile Include="Models\CourseVM.cs" />
+    <Compile Include="Models\MenuTypeVM.cs" />
     <Compile Include="Models\PagingVM.cs" />
     <Compile Include="Models\PaymentItem.cs" />
     <Compile Include="Models\DanhMucVM.cs" />

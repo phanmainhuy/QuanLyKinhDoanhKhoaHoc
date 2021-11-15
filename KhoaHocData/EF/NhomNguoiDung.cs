@@ -17,6 +17,7 @@ namespace KhoaHocData.EF
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public NhomNguoiDung()
         {
+            this.NguoiDungs = new HashSet<NguoiDung>();
             this.Quyen_NhomNguoiDung = new HashSet<Quyen_NhomNguoiDung>();
         }
     
@@ -24,6 +25,8 @@ namespace KhoaHocData.EF
         public string TenNhomNguoiDung { get; set; }
         public string HinhAnh { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<NguoiDung> NguoiDungs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Quyen_NhomNguoiDung> Quyen_NhomNguoiDung { get; set; }
     }

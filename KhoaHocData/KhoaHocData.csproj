@@ -55,115 +55,128 @@
     <Compile Include="DAO\CategoryDAO.cs" />
     <Compile Include="DAO\GetDAO.cs" />
     <Compile Include="DAO\KhoaHocDAO.cs" />
+    <Compile Include="DAO\MenuDAO.cs" />
     <Compile Include="DAO\NguoiDungDAO.cs" />
     <Compile Include="DAO\Payment.cs" />
     <Compile Include="DAO\UserGroupDAO.cs" />
     <Compile Include="EF\BaiHoc.cs">
-      <DependentUpon>KhoaHocDataModel.tt</DependentUpon>
+      <DependentUpon>QLKhoaHocDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\BaiTap.cs">
-      <DependentUpon>KhoaHocDataModel.tt</DependentUpon>
+      <DependentUpon>QLKhoaHocDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\ChamSocKhachHang.cs">
-      <DependentUpon>KhoaHocDataModel.tt</DependentUpon>
+      <DependentUpon>QLKhoaHocDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\CT_GioHang.cs">
-      <DependentUpon>KhoaHocDataModel.tt</DependentUpon>
+      <DependentUpon>QLKhoaHocDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\CT_HoaDon.cs">
-      <DependentUpon>KhoaHocDataModel.tt</DependentUpon>
+      <DependentUpon>QLKhoaHocDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\DanhGiaKhoaHoc.cs">
-      <DependentUpon>KhoaHocDataModel.tt</DependentUpon>
+      <DependentUpon>QLKhoaHocDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\DanhMucKhoaHoc.cs">
-      <DependentUpon>KhoaHocDataModel.tt</DependentUpon>
+      <DependentUpon>QLKhoaHocDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\GioHang.cs">
-      <DependentUpon>KhoaHocDataModel.tt</DependentUpon>
+      <DependentUpon>QLKhoaHocDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\HoaDon.cs">
-      <DependentUpon>KhoaHocDataModel.tt</DependentUpon>
+      <DependentUpon>QLKhoaHocDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\KhoaHoc.cs">
-      <DependentUpon>KhoaHocDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EF\KhoaHocDataModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>KhoaHocDataModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EF\KhoaHocDataModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>KhoaHocDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EF\KhoaHocDataModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>KhoaHocDataModel.edmx</DependentUpon>
+      <DependentUpon>QLKhoaHocDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\KhuyenMai.cs">
-      <DependentUpon>KhoaHocDataModel.tt</DependentUpon>
+      <DependentUpon>QLKhoaHocDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\KhuyenMai_KhachHang.cs">
-      <DependentUpon>KhoaHocDataModel.tt</DependentUpon>
+      <DependentUpon>QLKhoaHocDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\LichSuLuong.cs">
-      <DependentUpon>KhoaHocDataModel.tt</DependentUpon>
+      <DependentUpon>QLKhoaHocDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\LoaiKhoaHoc.cs">
-      <DependentUpon>KhoaHocDataModel.tt</DependentUpon>
+      <DependentUpon>QLKhoaHocDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\LOAIQUYEN.cs">
+      <DependentUpon>QLKhoaHocDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\LoaiVanDe.cs">
-      <DependentUpon>KhoaHocDataModel.tt</DependentUpon>
+      <DependentUpon>QLKhoaHocDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\Luong.cs">
-      <DependentUpon>KhoaHocDataModel.tt</DependentUpon>
+      <DependentUpon>QLKhoaHocDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\NguoiDung.cs">
-      <DependentUpon>KhoaHocDataModel.tt</DependentUpon>
+      <DependentUpon>QLKhoaHocDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\NhomNguoiDung.cs">
-      <DependentUpon>KhoaHocDataModel.tt</DependentUpon>
+      <DependentUpon>QLKhoaHocDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\QLKhoaHocDataModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>QLKhoaHocDataModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\QLKhoaHocDataModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>QLKhoaHocDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\QLKhoaHocDataModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>QLKhoaHocDataModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="EF\Quyen.cs">
-      <DependentUpon>KhoaHocDataModel.tt</DependentUpon>
+      <DependentUpon>QLKhoaHocDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\Quyen_NhomNguoiDung.cs">
-      <DependentUpon>KhoaHocDataModel.tt</DependentUpon>
+      <DependentUpon>QLKhoaHocDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\SearchKhoahocNangCao_Result.cs">
-      <DependentUpon>KhoaHocDataModel.tt</DependentUpon>
+      <DependentUpon>QLKhoaHocDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\SearchKhoaHocTheoTheLoai_Result.cs">
-      <DependentUpon>KhoaHocDataModel.tt</DependentUpon>
+      <DependentUpon>QLKhoaHocDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\SearchKhoaHoc_Result.cs">
-      <DependentUpon>KhoaHocDataModel.tt</DependentUpon>
+      <DependentUpon>QLKhoaHocDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\SearchTenKhoahocNangCao_Result.cs">
-      <DependentUpon>KhoaHocDataModel.tt</DependentUpon>
+      <DependentUpon>QLKhoaHocDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\SearchTenKhoahoc_Result.cs">
+      <DependentUpon>QLKhoaHocDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\SoDuTaiKhoan.cs">
-      <DependentUpon>KhoaHocDataModel.tt</DependentUpon>
+      <DependentUpon>QLKhoaHocDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>QLKhoaHocDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\sp_helpdiagrams_Result.cs">
+      <DependentUpon>QLKhoaHocDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\sysdiagram.cs">
-      <DependentUpon>KhoaHocDataModel.tt</DependentUpon>
+      <DependentUpon>QLKhoaHocDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\TichDiem.cs">
-      <DependentUpon>KhoaHocDataModel.tt</DependentUpon>
+      <DependentUpon>QLKhoaHocDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
-    <EntityDeploy Include="EF\KhoaHocDataModel.edmx">
+    <EntityDeploy Include="EF\QLKhoaHocDataModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>KhoaHocDataModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>QLKhoaHocDataModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="EF\KhoaHocDataModel.edmx.diagram">
-      <DependentUpon>KhoaHocDataModel.edmx</DependentUpon>
+    <None Include="EF\QLKhoaHocDataModel.edmx.diagram">
+      <DependentUpon>QLKhoaHocDataModel.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
@@ -177,15 +190,15 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="EF\KhoaHocDataModel.Context.tt">
+    <Content Include="EF\QLKhoaHocDataModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>KhoaHocDataModel.edmx</DependentUpon>
-      <LastGenOutput>KhoaHocDataModel.Context.cs</LastGenOutput>
+      <DependentUpon>QLKhoaHocDataModel.edmx</DependentUpon>
+      <LastGenOutput>QLKhoaHocDataModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="EF\KhoaHocDataModel.tt">
+    <Content Include="EF\QLKhoaHocDataModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>KhoaHocDataModel.edmx</DependentUpon>
-      <LastGenOutput>KhoaHocDataModel.cs</LastGenOutput>
+      <DependentUpon>QLKhoaHocDataModel.edmx</DependentUpon>
+      <LastGenOutput>QLKhoaHocDataModel.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -24,6 +24,14 @@
         {
             ThanhCong, ThemGioHangThatbai, ThatBai, DaTonTai
         }
+        public enum SortingType
+        {
+            MostLearn,
+            HighestRate,
+            Latest,
+            Cheapest,
+            MostExpensive
+        }
     }
     
 }

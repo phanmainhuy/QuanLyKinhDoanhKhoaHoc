@@ -9,5 +9,7 @@ namespace KhoaHocAPI.Models
     {
         public int MaQuyen { get; set; }
         public string TenQuyen { get; set; }
+        public string MetaLink { get; set; }
+        public string Icon { get; set; }
     }
 }

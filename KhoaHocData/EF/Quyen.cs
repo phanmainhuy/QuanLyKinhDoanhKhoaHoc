@@ -14,16 +14,10 @@ namespace KhoaHocData.EF
     
     public partial class Quyen
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Quyen()
-        {
-            this.Quyen_NhomNguoiDung = new HashSet<Quyen_NhomNguoiDung>();
-        }
-    
         public int MaQuyen { get; set; }
         public string TenQuyen { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Quyen_NhomNguoiDung> Quyen_NhomNguoiDung { get; set; }
+        public Nullable<int> MaLoaiQuyen { get; set; }
+        public string MetaLink { get; set; }
+        public string icon { get; set; }
     }
 }

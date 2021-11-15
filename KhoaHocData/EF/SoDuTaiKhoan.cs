@@ -19,5 +19,7 @@ namespace KhoaHocData.EF
         public Nullable<decimal> SoDu { get; set; }
         public Nullable<System.DateTime> NgayNap { get; set; }
         public string NoiDung { get; set; }
+    
+        public virtual NguoiDung NguoiDung { get; set; }
     }
 }

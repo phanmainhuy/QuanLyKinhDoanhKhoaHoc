@@ -12,21 +12,18 @@ namespace KhoaHocData.EF
     using System;
     using System.Collections.Generic;
     
-    public partial class LoaiKhoaHoc
+    public partial class LOAIQUYEN
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public LoaiKhoaHoc()
+        public LOAIQUYEN()
         {
-            this.KhoaHocs = new HashSet<KhoaHoc>();
+            this.Quyens = new HashSet<Quyen>();
         }
     
-        public int MaLoai { get; set; }
-        public Nullable<int> MaDanhMuc { get; set; }
-        public string TenLoai { get; set; }
-        public string HinhAnh { get; set; }
+        public int MaLoaiQuyen { get; set; }
+        public string TenLoaiQuyen { get; set; }
     
-        public virtual DanhMucKhoaHoc DanhMucKhoaHoc { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<KhoaHoc> KhoaHocs { get; set; }
+        public virtual ICollection<Quyen> Quyens { get; set; }
     }
 }

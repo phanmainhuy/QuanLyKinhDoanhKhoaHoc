@@ -25,6 +25,8 @@ namespace KhoaHocAPI.Controllers
         }
         public HttpResponseMessage Get(int maND, int maQuyen)
         {
+            if(maND == -1)
+                return Request.CreateErrorResponse(HttpStatusCode.Forbidden, "Không có quyền");
             var result = db.hasPermission(maND, maQuyen);
             if (result)
             {
