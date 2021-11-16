@@ -77,9 +77,12 @@ namespace KhoaHocAPI.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Lỗi bất ngờ");
             }
         }
-        public HttpResponseMessage Get(int maNhomNguoiDung)
+        [HttpGet]
+        public HttpResponseMessage Get([FromUri]int UserID)
         {
-            var result = Mapper.RoleMapper.MapListRole(db.GetRolesByGroupID(maNhomNguoiDung));
+            if (UserID == -1)
+                return Request.CreateErrorResponse(HttpStatusCode.Forbidden, "Không có quyền");
+            var result = Mapper.RoleMapper.MapListRole(db.GetRolesByUserID(UserID));
             if (result != null || result.Count() == 0)
             {
                 return Request.CreateResponse(HttpStatusCode.OK, result);

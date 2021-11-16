@@ -14,6 +14,14 @@ namespace KhoaHocAPI.Controllers
     public class HocVienController : ApiController
     {
         private readonly NguoiDungDAO db = new NguoiDungDAO();
+        public HttpResponseMessage Get()
+        {
+            var result = ( Mapper.UserMapper.MapListUser(db.LayDanhSachHocVien()));
+            if (result == null)
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Không có dữ liệu");
+            else
+                return Request.CreateResponse(HttpStatusCode.OK, result);
+        }
         [HttpGet]
         public HttpResponseMessage Get(HttpRequestMessage request, int userId)
         {

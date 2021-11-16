@@ -40,6 +40,10 @@ namespace KhoaHocData.DAO
         {
             return db.NguoiDungs.ToList();
         }
+        public IEnumerable<NguoiDung> LayHetHeThong()
+        {
+            return db.NguoiDungs.Where(x => x.MaNhomNguoiDung != (int)MaNhomNguoiDung.Student).OrderBy(x => x.MaNhomNguoiDung);
+        }
         public IEnumerable<NguoiDung> LayNguoiDungPaging(int pPage, int pPageSize, out int pTotalPage)
         {
             int SkipCount = pPage * pPageSize;

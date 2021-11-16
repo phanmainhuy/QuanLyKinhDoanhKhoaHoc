@@ -191,6 +191,7 @@
           <Property Name="Email" Type="varchar" MaxLength="64" />
           <Property Name="NgaySinh" Type="date" />
           <Property Name="Diachi" Type="nvarchar" MaxLength="100" />
+          <Property Name="TrangThai" Type="bit" />
         </EntityType>
         <EntityType Name="NhomNguoiDung">
           <Key>
@@ -982,18 +983,8 @@
           <Property Name="Email" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
           <Property Name="NgaySinh" Type="DateTime" Precision="0" />
           <Property Name="Diachi" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="ChamSocKhachHangs" Relationship="Self.FK_ChamSocKhachHang_NguoiDung" FromRole="NguoiDung" ToRole="ChamSocKhachHang" />
-          <NavigationProperty Name="DanhGiaKhoaHocs" Relationship="Self.FK_DanhGiaKhoaHoc_NguoiDung" FromRole="NguoiDung" ToRole="DanhGiaKhoaHoc" />
-          <NavigationProperty Name="GioHangs" Relationship="Self.FK_DonHang_NguoiDung" FromRole="NguoiDung" ToRole="GioHang" />
-          <NavigationProperty Name="HoaDons" Relationship="Self.FK_HoaDon_NguoiDung" FromRole="NguoiDung" ToRole="HoaDon" />
-          <NavigationProperty Name="KhoaHocs" Relationship="Self.FK_KHOAHOC_GIAOVIEN" FromRole="NguoiDung" ToRole="KhoaHoc" />
-          <NavigationProperty Name="KhuyenMais" Relationship="Self.FK_KhuyenMai_NguoiDung" FromRole="NguoiDung" ToRole="KhuyenMai" />
-          <NavigationProperty Name="KhuyenMai_KhachHang" Relationship="Self.FK_KhuyenMaiKH_NguoiDung" FromRole="NguoiDung" ToRole="KhuyenMai_KhachHang" />
-          <NavigationProperty Name="Luongs" Relationship="Self.FK_Luong_NguoiDung" FromRole="NguoiDung" ToRole="Luong" />
-          <NavigationProperty Name="NhomNguoiDung" Relationship="Self.FK_NguoiDung_NhomNguoiDung" FromRole="NguoiDung" ToRole="NhomNguoiDung" />
-          <NavigationProperty Name="SoDuTaiKhoans" Relationship="Self.FK_SoDuTaiKhoan_NguoiDung" FromRole="NguoiDung" ToRole="SoDuTaiKhoan" />
-          <NavigationProperty Name="TichDiem" Relationship="Self.FK_TichDiem_NguoiDung" FromRole="NguoiDung" ToRole="TichDiem" />
-        </EntityType>
+          <Property Name="TrangThai" Type="Boolean" />
+          </EntityType>
         <EntityType Name="NhomNguoiDung">
           <Key>
             <PropertyRef Name="MaNhomNguoiDung" />
@@ -1001,7 +992,6 @@
           <Property Name="MaNhomNguoiDung" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TenNhomNguoiDung" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="HinhAnh" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="NguoiDungs" Relationship="Self.FK_NguoiDung_NhomNguoiDung" FromRole="NhomNguoiDung" ToRole="NguoiDung" />
           <NavigationProperty Name="Quyen_NhomNguoiDung" Relationship="Self.FK_Quyen_NhomNguoiDung_NhomNguoiDung" FromRole="NhomNguoiDung" ToRole="Quyen_NhomNguoiDung" />
         </EntityType>
         <EntityType Name="Quyen">
@@ -1829,6 +1819,7 @@
           <EntitySetMapping Name="NguoiDungs">
             <EntityTypeMapping TypeName="QL_KHOAHOCModel.NguoiDung">
               <MappingFragment StoreEntitySet="NguoiDung">
+                <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
                 <ScalarProperty Name="MaND" ColumnName="MaND" />
                 <ScalarProperty Name="MaNhomNguoiDung" ColumnName="MaNhomNguoiDung" />
                 <ScalarProperty Name="TenDN" ColumnName="TenDN" />

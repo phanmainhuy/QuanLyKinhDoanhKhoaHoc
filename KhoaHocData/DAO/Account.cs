@@ -102,5 +102,13 @@ namespace KhoaHocData.DAO
             lstQuyen.AddRange(db.Quyens.Where(x => lstQuyenNND.Contains(x.MaQuyen)));
             return lstQuyen;
         }
+        public IEnumerable<Quyen> GetRolesByUserID(int pMaND)
+        {
+            var MaNhomNguoiDung = db.NguoiDungs.Single(x => x.MaND == pMaND).MaNhomNguoiDung;
+            var lstQuyenNND = db.Quyen_NhomNguoiDung.Where(x => x.MaNhomNguoiDung == MaNhomNguoiDung).Select(x => x.MaQuyen);
+            List<Quyen> lstQuyen = new List<Quyen>();
+            lstQuyen.AddRange(db.Quyens.Where(x => lstQuyenNND.Contains(x.MaQuyen)));
+            return lstQuyen;
+        }
     }
 }

@@ -17,5 +17,6 @@ namespace KhoaHocAPI.Models
         public string Number { get; set; }
         public int GroupID { get; set; }
         public string GroupName { get; set; }
+        public bool Status { get; set; }
     }
 }

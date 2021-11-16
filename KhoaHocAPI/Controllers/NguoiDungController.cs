@@ -23,6 +23,14 @@ namespace KhoaHocAPI.Controllers
             var result =  Mapper.UserMapper.MapListUser( ndDAO.LayHetNguoiDung());
             return Request.CreateResponse(System.Net.HttpStatusCode.OK, result);
         }
+
+        [System.Web.Http.HttpGet]
+        [System.Web.Http.Route("api/GetHeThong")]
+        public HttpResponseMessage GetHeThong()
+        {
+            var result = Mapper.UserMapper.MapListUser(ndDAO.LayHetHeThong());
+            return Request.CreateResponse(System.Net.HttpStatusCode.OK, result);
+        }
         [System.Web.Http.HttpPost]
         public HttpResponseMessage Post(HttpRequestMessage request, NguoiDung model)
         {
