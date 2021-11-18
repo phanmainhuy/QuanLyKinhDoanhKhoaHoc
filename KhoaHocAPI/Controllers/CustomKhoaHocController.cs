@@ -1,8 +1,11 @@
 ﻿using KhoaHocAPI.Models;
 using KhoaHocData.DAO;
 using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.IO;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.Cors;
@@ -24,7 +27,7 @@ namespace KhoaHocAPI.Controllers
             {
                 return request.CreateResponse(HttpStatusCode.OK, item);
             }
-            return new HttpResponseMessage(HttpStatusCode.NoContent);
+            return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "No content");
         }
         [Route("TopCategoryByID")]
         public HttpResponseMessage GetAllTopCategory(int ID)
@@ -129,7 +132,20 @@ namespace KhoaHocAPI.Controllers
             else
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Error");
         }
-        
+        [HttpGet]
+        [Route("GetFiles")]
+        public HttpResponseMessage GetFiles(string fileName)
+        {
+            string path = HttpContext.Current.Server.MapPath("~/others/" + fileName);
+            using (FileStream fs = new FileStream(path, FileMode.Open))
+            {
+                HttpResponseMessage response = new HttpResponseMessage();
+                response.Content = new StreamContent(fs);
+                response.Content.Headers.ContentType = new MediaTypeHeaderValue("plain/text");
+                return response;
+            }
+        }
+
         //public HttpResponseMessage SearchTenKhoaHoc([FromUri] string searchString)
         //{
         //    var item = 

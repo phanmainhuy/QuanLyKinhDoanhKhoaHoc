@@ -215,6 +215,17 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="others\anh-van-giao-tiep-cho-nguoi-hoan-toan-mat-goc_m_1555555777.jpg" />
+    <Content Include="others\anhdaidien.jpg" />
+    <Content Include="others\bag-2.svg" />
+    <Content Include="others\Banner-2-mobile.jpg" />
+    <Content Include="others\bootstrap.css" />
+    <Content Include="others\close-up-hand-taking-notes.jpg" />
+    <Content Include="others\dangnhapbackground.jpg" />
+    <Content Include="others\download-chplay.png" />
+    <Content Include="others\logo.png" />
+    <Content Include="others\online-free-course-education-banner-design-templates.jpg" />
+    <Content Include="others\small.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\HelpPage\Views\Web.config" />
