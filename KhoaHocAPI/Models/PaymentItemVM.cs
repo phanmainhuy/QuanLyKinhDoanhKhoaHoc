@@ -5,13 +5,13 @@ using System.Web;
 
 namespace KhoaHocAPI.Models
 {
-    public class PaymentItem
+    public class PaymentItemVM
     {
-        public int UserID { get; set; }
+        public int PayMentID { get; set; }
         public int CourseID { get; set; }
+        public int ItemID { get; set; }
         public string CourseName { get; set; }
-        public decimal OriginPrice { get; set; }
-        public decimal AfterPrice { get; set; }
+        public decimal LastPrice { get; set; }
         public int TeacherId { get; set; }
         public string TeacherName { get; set; }
         public string ImageName { get; set; }
