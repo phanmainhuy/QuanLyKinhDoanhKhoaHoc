@@ -571,9 +571,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Function Name="BackUpDataBase" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="Path" Type="nvarchar" Mode="In" />
-        </Function>
         <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
         <Function Name="SearchKhoaHoc" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="TieuDe" Type="nvarchar" Mode="In" />
@@ -1556,9 +1553,6 @@
           <FunctionImport Name="TinhTongTienMua" ReturnType="Collection(Decimal)">
           <Parameter Name="MaKhoaHoc" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="BackUpDataBase">
-            <Parameter Name="Path" Mode="In" Type="String" />
-          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="SearchKhoaHoc_Result">
           <Property Type="Int32" Name="MaKhoaHoc" Nullable="false" />
@@ -1934,7 +1928,6 @@
           <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="QL_KHOAHOCModel.Store.sp_renamediagram" />
           <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="QL_KHOAHOCModel.Store.sp_upgraddiagrams" />
           <FunctionImportMapping FunctionImportName="TinhTongTienMua" FunctionName="QL_KHOAHOCModel.Store.TinhTongTienMua" />
-          <FunctionImportMapping FunctionImportName="BackUpDataBase" FunctionName="QL_KHOAHOCModel.Store.BackUpDataBase" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
