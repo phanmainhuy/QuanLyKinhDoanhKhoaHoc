@@ -1,18 +1,16 @@
 ﻿using Common;
 using KhoaHocData.EF;
-using System;
-using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace KhoaHocData.DAO
 {
-    public  class GetDAO
+    public class GetDAO
     {
-        private  QL_KHOAHOCEntities db = new QL_KHOAHOCEntities();
-        
-        public  NguoiDung GetGiaoVienTheoMa(int pMaGV)
+        private QL_KHOAHOCEntities db = new QL_KHOAHOCEntities();
+
+        public NguoiDung GetGiaoVienTheoMa(int pMaGV)
         {
             var item = db.NguoiDungs
                 .Where(x => x.MaND == (int)AllEnum.MaNhomNguoiDung.Teacher)
@@ -22,13 +20,45 @@ namespace KhoaHocData.DAO
             else
                 return item;
         }
-        public  decimal GetDanhGiaKhoaHoc(int pMaKhoaHoc)
+
+        public decimal GetDanhGiaKhoaHoc(int pMaKhoaHoc)
         {
             int TongDanhGia = 0;
             int SoLuongDanhGia = 0;
-            TongDanhGia = db.DanhGiaKhoaHocs.Where(x=>x.MaKhoaHoc == pMaKhoaHoc).Sum(x => x.Diem).Value;
+            TongDanhGia = db.DanhGiaKhoaHocs.Where(x => x.MaKhoaHoc == pMaKhoaHoc).Sum(x => x.Diem).Value;
             SoLuongDanhGia = db.DanhGiaKhoaHocs.Where(x => x.MaKhoaHoc == pMaKhoaHoc).Count();
             return (decimal)TongDanhGia / SoLuongDanhGia;
+        }
+
+        public async Task<int> BackupDatabase(string fileName)
+        {
+            return await db.Database.ExecuteSqlCommandAsync(TransactionalBehavior.DoNotEnsureTransaction, @"EXEC [dbo].[BackUpDataBase] @Path = N'" + fileName + "'");
+        }
+
+        public async Task<int> RestoreDatabase(string fileName)
+        {
+            try
+            {
+                using (var context = new QL_KHOAHOCEntities())
+                    using (var commandDB = context.Database.Connection.CreateCommand())
+                    {
+
+                        commandDB.CommandText = "IF DB_ID('QL_KhoaHoc') IS NOT NULL ALTER DATABASE [QL_KhoaHoc] SET SINGLE_USER WITH ROLLBACK IMMEDIATE";
+                        await context.Database.Connection.OpenAsync();
+                        commandDB.ExecuteNonQuery();
+
+
+                        commandDB.CommandText = "use master restore database QL_KHOAHOC FROM DISK ='" + fileName + "'";
+                        commandDB.ExecuteNonQuery();
+
+                           commandDB.CommandText = "ALTER DATABASE [QL_KhoaHoc] SET MULTI_USER";
+                        return 0;
+                    }
+            }
+            catch(System.Exception ex )
+            {
+                return -1;
+            }
         }
     }
 }
