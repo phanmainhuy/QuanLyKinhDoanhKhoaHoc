@@ -40,22 +40,18 @@ namespace KhoaHocData.DAO
             try
             {
                 using (var context = new QL_KHOAHOCEntities())
-                    using (var commandDB = context.Database.Connection.CreateCommand())
-                    {
-
-                        commandDB.CommandText = "IF DB_ID('QL_KhoaHoc') IS NOT NULL ALTER DATABASE [QL_KhoaHoc] SET SINGLE_USER WITH ROLLBACK IMMEDIATE";
-                        await context.Database.Connection.OpenAsync();
-                        commandDB.ExecuteNonQuery();
-
-
-                        commandDB.CommandText = "use master restore database QL_KHOAHOC FROM DISK ='" + fileName + "'";
-                        commandDB.ExecuteNonQuery();
-
-                           commandDB.CommandText = "ALTER DATABASE [QL_KhoaHoc] SET MULTI_USER";
-                        return 0;
-                    }
+                using (var commandDB = context.Database.Connection.CreateCommand())
+                {
+                    commandDB.CommandText = "IF DB_ID('QL_KhoaHoc') IS NOT NULL ALTER DATABASE [QL_KhoaHoc] SET SINGLE_USER WITH ROLLBACK IMMEDIATE";
+                    await context.Database.Connection.OpenAsync();
+                    commandDB.ExecuteNonQuery();
+                    commandDB.CommandText = "use master restore database QL_KHOAHOC FROM DISK ='" + fileName + "'";
+                    commandDB.ExecuteNonQuery();
+                    commandDB.CommandText = "ALTER DATABASE [QL_KhoaHoc] SET MULTI_USER";
+                    return 0;
+                }
             }
-            catch(System.Exception ex )
+            catch (System.Exception ex)
             {
                 return -1;
             }
