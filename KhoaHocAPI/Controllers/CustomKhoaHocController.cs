@@ -1,15 +1,10 @@
 ﻿using KhoaHocAPI.Models;
 using KhoaHocData.DAO;
 using Newtonsoft.Json;
-using System.Collections.Generic;
-using System.IO;
 using System.Net;
 using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Web;
 using System.Web.Http;
 using System.Web.Http.Cors;
-using static Common.AllEnum;
 
 namespace KhoaHocAPI.Controllers
 {
@@ -29,6 +24,7 @@ namespace KhoaHocAPI.Controllers
             }
             return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "No content");
         }
+
         [Route("TopCategoryByID")]
         public HttpResponseMessage GetAllTopCategory(int ID)
         {
@@ -51,6 +47,7 @@ namespace KhoaHocAPI.Controllers
             }
             return request.CreateErrorResponse(HttpStatusCode.BadRequest, "Error");
         }
+
         [Route("MostBuyCourse")]
         public HttpResponseMessage GetMostBuyCourse(int limit)
         {
@@ -63,8 +60,9 @@ namespace KhoaHocAPI.Controllers
             else
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Error");
         }
+
         [Route("Search")]
-        public HttpResponseMessage GetKhoaHocTheoTenPaging([FromUri]string searchString, [FromUri] PagingVM paging)
+        public HttpResponseMessage GetKhoaHocTheoTenPaging([FromUri] string searchString, [FromUri] PagingVM paging)
         {
             int total;
             var item = khDB.TimKiemKhoaHocPaging(searchString, out total, paging.page, paging.pageSize);
@@ -79,6 +77,7 @@ namespace KhoaHocAPI.Controllers
             else
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Error");
         }
+
         [Route("Search")]
         public HttpResponseMessage GetKhoaHocTheoTenPaging([FromUri] string searchString, [FromUri] PagingVM paging, [FromUri] int type)
         {
@@ -98,7 +97,7 @@ namespace KhoaHocAPI.Controllers
 
         [Route("SearchTheoLoai")]
         [HttpGet]
-        public HttpResponseMessage SearchKhoaHocTheoMaTheLoaiPaging([FromUri] int maTheLoai, [FromUri]string searchString, [FromUri] PagingVM paging)
+        public HttpResponseMessage SearchKhoaHocTheoMaTheLoaiPaging([FromUri] int maTheLoai, [FromUri] string searchString, [FromUri] PagingVM paging)
         {
             int total;
             var item = khDB.TimKiemKhoaHocTheoTheLoaiPaging(maTheLoai, searchString, out total, paging.page, paging.pageSize);
@@ -106,7 +105,7 @@ namespace KhoaHocAPI.Controllers
             {
                 var lstCourseVM = Mapper.CourseMapper.MapListCourse(item);
                 var response = Request.CreateResponse(HttpStatusCode.OK, lstCourseVM);
-                
+
                 response.Content.Headers.Add("Access-Control-Expose-Headers", "pagingheader");
                 response.Content.Headers.Add("pagingheader", JsonConvert.SerializeObject(total));
                 return response;
@@ -114,6 +113,7 @@ namespace KhoaHocAPI.Controllers
             else
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Error");
         }
+
         [Route("SearchTheoLoai")]
         [HttpGet]
         public HttpResponseMessage SearchKhoaHocTheoMaTheLoaiPaging([FromUri] int maTheLoai, [FromUri] string searchString, [FromUri] PagingVM paging, [FromUri] int type)
@@ -132,23 +132,10 @@ namespace KhoaHocAPI.Controllers
             else
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Error");
         }
-        [HttpGet]
-        [Route("GetFiles")]
-        public HttpResponseMessage GetFiles(string fileName)
-        {
-            string path = HttpContext.Current.Server.MapPath("~/others/" + fileName);
-            using (FileStream fs = new FileStream(path, FileMode.Open))
-            {
-                HttpResponseMessage response = new HttpResponseMessage();
-                response.Content = new StreamContent(fs);
-                response.Content.Headers.ContentType = new MediaTypeHeaderValue("plain/text");
-                return response;
-            }
-        }
 
         //public HttpResponseMessage SearchTenKhoaHoc([FromUri] string searchString)
         //{
-        //    var item = 
+        //    var item =
         //}
     }
 }

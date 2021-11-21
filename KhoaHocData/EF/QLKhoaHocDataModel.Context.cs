@@ -259,5 +259,14 @@ namespace KhoaHocData.EF
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("TinhTongTienMua", maKhoaHocParameter);
         }
+    
+        public virtual int BackUpDataBase(string path)
+        {
+            var pathParameter = path != null ?
+                new ObjectParameter("Path", path) :
+                new ObjectParameter("Path", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("BackUpDataBase", pathParameter);
+        }
     }
 }
