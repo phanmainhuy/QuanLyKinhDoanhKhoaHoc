@@ -188,6 +188,7 @@
     <Compile Include="Controllers\CartItemController.cs" />
     <Compile Include="Controllers\CustomAPIController.cs" />
     <Compile Include="Controllers\CustomKhoaHocController.cs" />
+    <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Controllers\ThanhToanController.cs" />
     <Compile Include="Controllers\HocVienController.cs" />
     <Compile Include="Controllers\IdentityController.cs" />

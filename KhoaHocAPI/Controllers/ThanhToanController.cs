@@ -10,10 +10,10 @@ namespace KhoaHocAPI.Controllers
 {
     public class ThanhToanController : ApiController
     {
-        private Payment db;
+        private PaymentDAO db;
         public ThanhToanController()
         {
-            db = new Payment();
+            db = new PaymentDAO();
         }
         //[HttpPost]
         //public HttpResponseMessage AddHoaDon()

@@ -26,6 +26,7 @@ namespace KhoaHocData.EF
         public string MaApDung { get; set; }
         public string TenKM { get; set; }
         public string HinhAnh { get; set; }
+        public Nullable<decimal> GiaTri { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HoaDon> HoaDons { get; set; }

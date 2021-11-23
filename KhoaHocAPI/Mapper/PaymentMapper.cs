@@ -8,9 +8,9 @@ namespace KhoaHocAPI.Mapper
 {
     public class PaymentMapper
     {
-        private GetDAO getDAODB = new GetDAO();
+        private static GetDAO getDAODB = new GetDAO();
 
-        public PaymentItemVM MapPaymentItem(CT_HoaDon cthd)
+        public static PaymentItemVM MapPaymentItem(CT_HoaDon cthd)
         {
             return new PaymentItemVM()
             {
@@ -24,7 +24,7 @@ namespace KhoaHocAPI.Mapper
                 TeacherName = getDAODB.GetGiaoVienTheoMa(cthd.KhoaHoc.MaGV.Value).HoTen
             };
         }
-        public IEnumerable<PaymentItemVM> MapListPaymentItem(IEnumerable<CT_HoaDon> lstCT)
+        public static IEnumerable<PaymentItemVM> MapListPaymentItem(IEnumerable<CT_HoaDon> lstCT)
         {
             List<PaymentItemVM> lstReturn = new List<PaymentItemVM>();
             foreach (var item in lstCT.ToList())
@@ -33,7 +33,18 @@ namespace KhoaHocAPI.Mapper
             }
             return lstReturn;
         }
-        public CT_HoaDon MapPaymentItemReverse(PaymentItemVM model)
+        public static HoaDonVM MapOrder(HoaDon hoaDon)
+        {
+            return new HoaDonVM()
+            {
+                MaND = hoaDon.MaND.Value,
+                DanhSachHangHoa = MapListPaymentItem(hoaDon.CT_HoaDon.ToList()).ToList(),
+                HinhThucThanhToan = hoaDon.HinhThucThanhToan,
+                TongThanhToan = hoaDon.TongTien.Value,
+                MaHoaDon = hoaDon.MaHD
+            };
+        }
+        public static CT_HoaDon MapPaymentItemReverse(PaymentItemVM model)
         {
             return new CT_HoaDon()
             {
@@ -41,7 +52,7 @@ namespace KhoaHocAPI.Mapper
                 DonGia = model.LastPrice
             };
         }
-        public IEnumerable<CT_HoaDon> MapListPaymentItemReverse(IEnumerable<PaymentItemVM> lstModel)
+        public static IEnumerable<CT_HoaDon> MapListPaymentItemReverse(IEnumerable<PaymentItemVM> lstModel)
         {
             List<CT_HoaDon> lstReturn = new List<CT_HoaDon>();
             foreach(var item in lstModel.ToList())

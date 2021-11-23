@@ -122,6 +122,7 @@
           <Property Name="MaApDung" Type="varchar" MaxLength="20" />
           <Property Name="TenKM" Type="nvarchar" MaxLength="50" />
           <Property Name="HinhAnh" Type="nvarchar" MaxLength="300" />
+          <Property Name="GiaTri" Type="money" />
         </EntityType>
         <EntityType Name="KhuyenMai_KhachHang">
           <Key>
@@ -908,6 +909,7 @@
           <NavigationProperty Name="HoaDons" Relationship="Self.FK_HoaDon_KhuyenMai" FromRole="KhuyenMai" ToRole="HoaDon" />
           <NavigationProperty Name="NguoiDung" Relationship="Self.FK_KhuyenMai_NguoiDung" FromRole="KhuyenMai" ToRole="NguoiDung" />
           <NavigationProperty Name="KhuyenMai_KhachHang" Relationship="Self.FK_KhuyenMaiKH_KhuyenMai" FromRole="KhuyenMai" ToRole="KhuyenMai_KhachHang" />
+          <Property Name="GiaTri" Type="Decimal" Precision="19" Scale="4" />
         </EntityType>
         <EntityType Name="KhuyenMai_KhachHang">
           <Key>
@@ -1557,7 +1559,7 @@
           <Parameter Name="MaKhoaHoc" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="BackUpDataBase">
-            <Parameter Name="Path" Mode="In" Type="String" />
+          <Parameter Name="Path" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="SearchKhoaHoc_Result">
@@ -1757,6 +1759,7 @@
           <EntitySetMapping Name="KhuyenMais">
             <EntityTypeMapping TypeName="QL_KHOAHOCModel.KhuyenMai">
               <MappingFragment StoreEntitySet="KhuyenMai">
+                <ScalarProperty Name="GiaTri" ColumnName="GiaTri" />
                 <ScalarProperty Name="MaKM" ColumnName="MaKM" />
                 <ScalarProperty Name="MaND" ColumnName="MaND" />
                 <ScalarProperty Name="MaApDung" ColumnName="MaApDung" />

@@ -13,6 +13,7 @@ namespace KhoaHocAPI.Models
         public DateTime NgayTaoHoaDon { get; set; }
         public string HinhThucThanhToan { get; set; }
         public bool TrangThai { get; set; }
+        public int MaGioHang { get; set; }
         public List<PaymentItemVM> DanhSachHangHoa { get; set; }
 
     }
