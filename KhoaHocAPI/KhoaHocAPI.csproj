@@ -209,6 +209,7 @@
     <Compile Include="Models\CartItemVM.cs" />
     <Compile Include="Models\CourseCartVM.cs" />
     <Compile Include="Models\CourseVM.cs" />
+    <Compile Include="Models\DonThuHoVM.cs" />
     <Compile Include="Models\MenuTypeVM.cs" />
     <Compile Include="Models\PagingVM.cs" />
     <Compile Include="Models\PaymentItemVM.cs" />

@@ -29,14 +29,22 @@ namespace KhoaHocAPI.Controllers
         }
         public HttpResponseMessage Post(HoaDonVM model)
         {
-            var result = db_payment.AddHoaDon(model.MaND, 0, "", "Chưa chọn", model.MaGioHang);
-            if(result != -1)
+            int result = -1;
+            if (model.MaKhoaHoc == null)
+                result = db_payment.AddHoaDon(model.MaND, 0, "", "Chưa chọn", model.MaGioHang);
+            else
+                result = db_payment.TaoHoaDon1KhoaHoc(model.MaND, 0, "", "Chưa chọn", model.MaKhoaHoc.Value);
+            if (result == -1)
             {
-                return Request.CreateResponse(HttpStatusCode.Created, result);
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Lỗi khi tạo hóa đơn");
+            }
+            else if(result == -2)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.Unauthorized, "Vui lòng đăng nhập");
             }
             else
             {
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Lỗi khi tạo hóa đơn");
+                return Request.CreateResponse(HttpStatusCode.OK, result);
             }
         }
         [Route("api/Payment/CancelOther")]
@@ -51,6 +59,24 @@ namespace KhoaHocAPI.Controllers
             {
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Lỗi khi hủy hóa đơn");
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model">
+        /// Truyền vào mã người dùng(Mã khách hàng), mã hóa đơn, Số điện thoại gọi khi thu tiền, Số tiền đơn hàng 
+        /// </param>
+        /// <returns>Trả về mã 200 khi thành công và 400 khi thất bại với Message lỗi</returns>
+        [HttpPost]
+        [Route("api/Payment/ReceiptOrder")]
+        public HttpResponseMessage Post([FromBody]DonThuHoVM model)
+        {
+            var result = db_payment.TaoDonThuTien(model.MaKH, model.MaHD, model.DiaChiThu, model.SDTThu, "", model.SoTienThu, 0, null, "");
+            if (result == 1)
+                return Request.CreateResponse(HttpStatusCode.OK);
+            else
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Tạo đơn thu tiền không thành công");
         }
     }
 }

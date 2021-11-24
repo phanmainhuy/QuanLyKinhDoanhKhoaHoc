@@ -56,6 +56,10 @@
         <AssociationConnector Association="QL_KHOAHOCModel.FK_TichDiem_NguoiDung" ManuallyRouted="false" />
         <AssociationConnector Association="QL_KHOAHOCModel.FK_Quyen_NhomNguoiDung_NhomNguoiDung" ManuallyRouted="false" />
         <AssociationConnector Association="QL_KHOAHOCModel.FK_Quyen_NhomNguoiDung_Quyen" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="QL_KHOAHOCModel.DonThuTien" Width="1.5" PointX="5.25" PointY="22.125" />
+        <AssociationConnector Association="QL_KHOAHOCModel.FK_DonThuTien_MaKH" />
+        <AssociationConnector Association="QL_KHOAHOCModel.FK_DonThuTien_MaNVHoTro" />
+        <AssociationConnector Association="QL_KHOAHOCModel.FK_DonThuTien_MaHD" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

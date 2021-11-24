@@ -25,6 +25,8 @@ namespace KhoaHocAPI.Controllers
         [HttpGet]
         public HttpResponseMessage Get(HttpRequestMessage request, int userId)
         {
+            if (userId == -1)
+                return request.CreateErrorResponse(HttpStatusCode.BadRequest, "Người dùng không tồn tại");
             var item = db.LayNguoiDungTheoId(userId);
             if (item != null)
                 return request.CreateResponse(HttpStatusCode.OK, UserMapper.MapUser(item));

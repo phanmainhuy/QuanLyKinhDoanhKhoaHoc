@@ -74,6 +74,24 @@
           <Property Name="TenDanhMuc" Type="nvarchar" MaxLength="50" />
           <Property Name="HinhAnh" Type="nvarchar" MaxLength="300" />
         </EntityType>
+        <EntityType Name="DonThuTien">
+          <Key>
+            <PropertyRef Name="MaDonThuTien" />
+          </Key>
+          <Property Name="MaDonThuTien" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MaKH" Type="int" />
+          <Property Name="MaNVHoTro" Type="int" />
+          <Property Name="DonViThuHo" Type="nvarchar" MaxLength="100" />
+          <Property Name="DiaChiThu" Type="nvarchar" MaxLength="200" />
+          <Property Name="SoTienThu" Type="money" />
+          <Property Name="PhiThuHo" Type="money" />
+          <Property Name="NgayTao" Type="date" />
+          <Property Name="NgayDuKienThu" Type="date" />
+          <Property Name="TrangThai" Type="nvarchar" MaxLength="100" />
+          <Property Name="GhiChu" Type="nvarchar" MaxLength="500" />
+          <Property Name="SDTThu" Type="char" MaxLength="11" />
+          <Property Name="MaHD" Type="int" />
+        </EntityType>
         <EntityType Name="GioHang">
           <Key>
             <PropertyRef Name="MaGioHang" />
@@ -380,6 +398,42 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_DonThuTien_MaHD">
+          <End Role="HoaDon" Type="Self.HoaDon" Multiplicity="0..1" />
+          <End Role="DonThuTien" Type="Self.DonThuTien" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HoaDon">
+              <PropertyRef Name="MaHD" />
+            </Principal>
+            <Dependent Role="DonThuTien">
+              <PropertyRef Name="MaHD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DonThuTien_MaKH">
+          <End Role="NguoiDung" Type="Self.NguoiDung" Multiplicity="0..1" />
+          <End Role="DonThuTien" Type="Self.DonThuTien" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NguoiDung">
+              <PropertyRef Name="MaND" />
+            </Principal>
+            <Dependent Role="DonThuTien">
+              <PropertyRef Name="MaKH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DonThuTien_MaNVHoTro">
+          <End Role="NguoiDung" Type="Self.NguoiDung" Multiplicity="0..1" />
+          <End Role="DonThuTien" Type="Self.DonThuTien" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NguoiDung">
+              <PropertyRef Name="MaND" />
+            </Principal>
+            <Dependent Role="DonThuTien">
+              <PropertyRef Name="MaNVHoTro" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_HoaDon_KhuyenMai">
           <End Role="KhuyenMai" Type="Self.KhuyenMai" Multiplicity="0..1" />
           <End Role="HoaDon" Type="Self.HoaDon" Multiplicity="*" />
@@ -636,6 +690,7 @@
           <EntitySet Name="CT_HoaDon" EntityType="Self.CT_HoaDon" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DanhGiaKhoaHoc" EntityType="Self.DanhGiaKhoaHoc" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DanhMucKhoaHoc" EntityType="Self.DanhMucKhoaHoc" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DonThuTien" EntityType="Self.DonThuTien" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GioHang" EntityType="Self.GioHang" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HoaDon" EntityType="Self.HoaDon" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="KhoaHoc" EntityType="Self.KhoaHoc" Schema="dbo" store:Type="Tables" />
@@ -696,6 +751,18 @@
           <AssociationSet Name="FK_DonHang_NguoiDung" Association="Self.FK_DonHang_NguoiDung">
             <End Role="NguoiDung" EntitySet="NguoiDung" />
             <End Role="GioHang" EntitySet="GioHang" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DonThuTien_MaHD" Association="Self.FK_DonThuTien_MaHD">
+            <End Role="HoaDon" EntitySet="HoaDon" />
+            <End Role="DonThuTien" EntitySet="DonThuTien" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DonThuTien_MaKH" Association="Self.FK_DonThuTien_MaKH">
+            <End Role="NguoiDung" EntitySet="NguoiDung" />
+            <End Role="DonThuTien" EntitySet="DonThuTien" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DonThuTien_MaNVHoTro" Association="Self.FK_DonThuTien_MaNVHoTro">
+            <End Role="NguoiDung" EntitySet="NguoiDung" />
+            <End Role="DonThuTien" EntitySet="DonThuTien" />
           </AssociationSet>
           <AssociationSet Name="FK_HoaDon_KhuyenMai" Association="Self.FK_HoaDon_KhuyenMai">
             <End Role="KhuyenMai" EntitySet="KhuyenMai" />
@@ -873,6 +940,7 @@
           <NavigationProperty Name="CT_HoaDon" Relationship="Self.FK_CTHoaDon_HoaDon" FromRole="HoaDon" ToRole="CT_HoaDon" />
           <NavigationProperty Name="KhuyenMai" Relationship="Self.FK_HoaDon_KhuyenMai" FromRole="HoaDon" ToRole="KhuyenMai" />
           <NavigationProperty Name="NguoiDung" Relationship="Self.FK_HoaDon_NguoiDung" FromRole="HoaDon" ToRole="NguoiDung" />
+          <NavigationProperty Name="DonThuTiens" Relationship="QL_KHOAHOCModel.FK_DonThuTien_MaHD" FromRole="HoaDon" ToRole="DonThuTien" />
         </EntityType>
         <EntityType Name="KhoaHoc">
           <Key>
@@ -989,6 +1057,8 @@
           <Property Name="NgaySinh" Type="DateTime" Precision="0" />
           <Property Name="Diachi" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="TrangThai" Type="Boolean" />
+          <NavigationProperty Name="DonThuTiens" Relationship="QL_KHOAHOCModel.FK_DonThuTien_MaKH" FromRole="NguoiDung" ToRole="DonThuTien" />
+          <NavigationProperty Name="DonThuTiens1" Relationship="QL_KHOAHOCModel.FK_DonThuTien_MaNVHoTro" FromRole="NguoiDung" ToRole="DonThuTien" />
           </EntityType>
         <EntityType Name="NhomNguoiDung">
           <Key>
@@ -1561,6 +1631,19 @@
           <FunctionImport Name="BackUpDataBase">
           <Parameter Name="Path" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="DonThuTiens" EntityType="QL_KHOAHOCModel.DonThuTien" />
+          <AssociationSet Name="FK_DonThuTien_MaKH" Association="QL_KHOAHOCModel.FK_DonThuTien_MaKH">
+            <End Role="NguoiDung" EntitySet="NguoiDungs" />
+            <End Role="DonThuTien" EntitySet="DonThuTiens" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DonThuTien_MaNVHoTro" Association="QL_KHOAHOCModel.FK_DonThuTien_MaNVHoTro">
+            <End Role="NguoiDung" EntitySet="NguoiDungs" />
+            <End Role="DonThuTien" EntitySet="DonThuTiens" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DonThuTien_MaHD" Association="QL_KHOAHOCModel.FK_DonThuTien_MaHD">
+            <End Role="HoaDon" EntitySet="HoaDons" />
+            <End Role="DonThuTien" EntitySet="DonThuTiens" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="SearchKhoaHoc_Result">
           <Property Type="Int32" Name="MaKhoaHoc" Nullable="false" />
@@ -1633,6 +1716,63 @@
           <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
           <Property Type="Int32" Name="OwnerID" Nullable="false" />
         </ComplexType>
+        <EntityType Name="DonThuTien">
+          <Key>
+            <PropertyRef Name="MaDonThuTien" />
+          </Key>
+          <Property Name="MaDonThuTien" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MaKH" Type="Int32" />
+          <Property Name="MaNVHoTro" Type="Int32" />
+          <Property Name="DonViThuHo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="DiaChiThu" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="SoTienThu" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="PhiThuHo" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="NgayTao" Type="DateTime" Precision="0" />
+          <Property Name="NgayDuKienThu" Type="DateTime" Precision="0" />
+          <Property Name="TrangThai" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="GhiChu" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="NguoiDung" Relationship="QL_KHOAHOCModel.FK_DonThuTien_MaKH" FromRole="DonThuTien" ToRole="NguoiDung" />
+          <NavigationProperty Name="NguoiDung1" Relationship="QL_KHOAHOCModel.FK_DonThuTien_MaNVHoTro" FromRole="DonThuTien" ToRole="NguoiDung" />
+          <Property Name="SDTThu" Type="String" MaxLength="11" FixedLength="true" Unicode="false" />
+          <Property Name="MaHD" Type="Int32" />
+          <NavigationProperty Name="HoaDon" Relationship="QL_KHOAHOCModel.FK_DonThuTien_MaHD" FromRole="DonThuTien" ToRole="HoaDon" />
+        </EntityType>
+        <Association Name="FK_DonThuTien_MaKH">
+          <End Type="QL_KHOAHOCModel.NguoiDung" Role="NguoiDung" Multiplicity="0..1" />
+          <End Type="QL_KHOAHOCModel.DonThuTien" Role="DonThuTien" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NguoiDung">
+              <PropertyRef Name="MaND" />
+            </Principal>
+            <Dependent Role="DonThuTien">
+              <PropertyRef Name="MaKH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DonThuTien_MaNVHoTro">
+          <End Type="QL_KHOAHOCModel.NguoiDung" Role="NguoiDung" Multiplicity="0..1" />
+          <End Type="QL_KHOAHOCModel.DonThuTien" Role="DonThuTien" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NguoiDung">
+              <PropertyRef Name="MaND" />
+            </Principal>
+            <Dependent Role="DonThuTien">
+              <PropertyRef Name="MaNVHoTro" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DonThuTien_MaHD">
+          <End Type="QL_KHOAHOCModel.HoaDon" Role="HoaDon" Multiplicity="0..1" />
+          <End Type="QL_KHOAHOCModel.DonThuTien" Role="DonThuTien" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HoaDon">
+              <PropertyRef Name="MaHD" />
+            </Principal>
+            <Dependent Role="DonThuTien">
+              <PropertyRef Name="MaHD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1938,6 +2078,25 @@
           <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="QL_KHOAHOCModel.Store.sp_upgraddiagrams" />
           <FunctionImportMapping FunctionImportName="TinhTongTienMua" FunctionName="QL_KHOAHOCModel.Store.TinhTongTienMua" />
           <FunctionImportMapping FunctionImportName="BackUpDataBase" FunctionName="QL_KHOAHOCModel.Store.BackUpDataBase" />
+          <EntitySetMapping Name="DonThuTiens">
+            <EntityTypeMapping TypeName="QL_KHOAHOCModel.DonThuTien">
+              <MappingFragment StoreEntitySet="DonThuTien">
+                <ScalarProperty Name="MaHD" ColumnName="MaHD" />
+                <ScalarProperty Name="SDTThu" ColumnName="SDTThu" />
+                <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
+                <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
+                <ScalarProperty Name="NgayDuKienThu" ColumnName="NgayDuKienThu" />
+                <ScalarProperty Name="NgayTao" ColumnName="NgayTao" />
+                <ScalarProperty Name="PhiThuHo" ColumnName="PhiThuHo" />
+                <ScalarProperty Name="SoTienThu" ColumnName="SoTienThu" />
+                <ScalarProperty Name="DiaChiThu" ColumnName="DiaChiThu" />
+                <ScalarProperty Name="DonViThuHo" ColumnName="DonViThuHo" />
+                <ScalarProperty Name="MaNVHoTro" ColumnName="MaNVHoTro" />
+                <ScalarProperty Name="MaKH" ColumnName="MaKH" />
+                <ScalarProperty Name="MaDonThuTien" ColumnName="MaDonThuTien" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

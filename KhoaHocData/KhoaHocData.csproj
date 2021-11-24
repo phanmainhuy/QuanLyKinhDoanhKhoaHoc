@@ -80,6 +80,9 @@
     <Compile Include="EF\DanhMucKhoaHoc.cs">
       <DependentUpon>QLKhoaHocDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="EF\DonThuTien.cs">
+      <DependentUpon>QLKhoaHocDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="EF\GioHang.cs">
       <DependentUpon>QLKhoaHocDataModel.tt</DependentUpon>
     </Compile>
