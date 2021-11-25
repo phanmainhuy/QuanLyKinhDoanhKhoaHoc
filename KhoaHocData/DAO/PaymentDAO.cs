@@ -196,5 +196,27 @@ namespace KhoaHocData.DAO
                 return false;
             }
         }
+        public IEnumerable<HoaDon> LayToanBoHoaDonPaging(bool isThanhToan, int page, int pageSize, out int total)
+        {
+            int skipSize = (page - 1) * pageSize;
+
+            var item = db.HoaDons.Where(x => x.ThanhToan == isThanhToan).OrderByDescending(x => x.MaHD);
+            total = item.Count();
+            return item.Skip(skipSize).Take(pageSize).ToList();
+        }
+        public IEnumerable<HoaDon> LayToanBoHoaDonDieuKienPaging(bool isThanhToan, int? MaKH, DateTime? NgayBatDau, DateTime? NgayKetThuc, int page, int pageSize, out int total)
+        {
+            int skipSize = (page - 1) * pageSize;
+            var item = db.HoaDons.Where(x => x.ThanhToan == isThanhToan).OrderByDescending(x => x.MaHD).ToList();
+            if (MaKH != null)
+                item = item.Where(x => x.MaND == MaKH.Value).ToList();
+            if(NgayBatDau != null && NgayKetThuc != null)
+                item = item.Where(x => 
+                DateTime.Compare(x.NgayLap.Value, NgayBatDau.Value) >= 0 &&
+                DateTime.Compare(x.NgayLap.Value, NgayKetThuc.Value) <= 0
+                ).ToList();
+            total = item.Count();
+            return item.Skip(skipSize).Take(pageSize).ToList();
+        }
     }
 }

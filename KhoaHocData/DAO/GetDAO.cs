@@ -20,7 +20,10 @@ namespace KhoaHocData.DAO
             else
                 return item;
         }
-
+        public string GetTenNguoiDung(int pMaND)
+        {
+            return db.NguoiDungs.SingleOrDefault(x => x.MaND == pMaND).HoTen;
+        }
         public decimal GetDanhGiaKhoaHoc(int pMaKhoaHoc)
         {
             int TongDanhGia = 0;

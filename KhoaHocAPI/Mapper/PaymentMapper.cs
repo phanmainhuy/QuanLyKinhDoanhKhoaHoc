@@ -44,6 +44,45 @@ namespace KhoaHocAPI.Mapper
                 MaHoaDon = hoaDon.MaHD
             };
         }
+        public static List<HoaDonVM> MapListOrder(IEnumerable<HoaDon> lstHoaDon)
+        {
+            List<HoaDonVM> lstReturn = new List<HoaDonVM>();
+            foreach (var item in lstHoaDon)
+            {
+                lstReturn.Add(new HoaDonVM()
+                {
+                    MaND = item.MaND.Value,
+                    DanhSachHangHoa = MapListPaymentItem(item.CT_HoaDon.ToList()).ToList(),
+                    HinhThucThanhToan = item.HinhThucThanhToan,
+                    TongThanhToan = item.TongTien.Value,
+                    MaHoaDon = item.MaHD
+                });
+            }
+            return lstReturn;
+        }
+        public static SimpleHoaDonVM MapSimpleOrder(HoaDon hoaDon)
+        {
+            return new SimpleHoaDonVM()
+            {
+                MaND = hoaDon.MaND.Value,
+                HinhThucThanhToan = hoaDon.HinhThucThanhToan,
+                TongThanhToan = hoaDon.TongTien.Value,
+                MaHoaDon = hoaDon.MaHD,
+                TrangThai = hoaDon.TrangThai,
+                NgayTaoHoaDon = hoaDon.NgayLap.Value,
+                TenND = new GetDAO().GetTenNguoiDung(hoaDon.MaND.Value)
+            };
+        }
+        public static List<SimpleHoaDonVM> MapListSimpleOrder(IEnumerable<HoaDon> lstHoaDon)
+        {
+            List<SimpleHoaDonVM> lstReturn = new List<SimpleHoaDonVM>();
+            foreach (var item in lstHoaDon)
+            {
+                lstReturn.Add(MapSimpleOrder(item));
+            }
+            return lstReturn;
+
+        }
         public static CT_HoaDon MapPaymentItemReverse(PaymentItemVM model)
         {
             return new CT_HoaDon()
@@ -55,7 +94,7 @@ namespace KhoaHocAPI.Mapper
         public static IEnumerable<CT_HoaDon> MapListPaymentItemReverse(IEnumerable<PaymentItemVM> lstModel)
         {
             List<CT_HoaDon> lstReturn = new List<CT_HoaDon>();
-            foreach(var item in lstModel.ToList())
+            foreach (var item in lstModel.ToList())
             {
                 lstReturn.Add(MapPaymentItemReverse(item));
             }
