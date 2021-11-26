@@ -12,7 +12,7 @@ using System.Web.Mvc;
 
 namespace KhoaHocAPI.Controllers
 {
-    [EnableCors(origins: "http://localhost:8080", headers: "*", methods: "*")]
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class NguoiDungController : ApiController
     {
         private readonly NguoiDungDAO ndDAO = new NguoiDungDAO();

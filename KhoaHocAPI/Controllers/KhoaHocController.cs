@@ -13,7 +13,7 @@ using System.Web.Http.Cors;
 
 namespace KhoaHocAPI.Controllers
 {
-    [EnableCors(origins: "http://localhost:8080", headers: "*", methods: "*")]
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class KhoaHocController : ApiController
     {
         private readonly KhoaHocDAO khDAO = new KhoaHocDAO();

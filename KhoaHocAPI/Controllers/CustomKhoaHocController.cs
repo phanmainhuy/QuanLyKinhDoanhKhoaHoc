@@ -8,7 +8,7 @@ using System.Web.Http.Cors;
 
 namespace KhoaHocAPI.Controllers
 {
-    [EnableCors(origins: "http://localhost:8080", headers: "*", methods: "*")]
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class CustomKhoaHocController : ApiController
     {
         private readonly CategoryDAO db = new CategoryDAO();

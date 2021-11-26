@@ -5,9 +5,11 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace KhoaHocAPI.Controllers.Admin
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class AdminMenuController : ApiController
     {
         MenuDAO db_Menu = new MenuDAO();
