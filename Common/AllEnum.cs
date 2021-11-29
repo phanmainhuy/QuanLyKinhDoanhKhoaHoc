@@ -2,6 +2,15 @@
 {
     public class AllEnum
     {
+        public enum KetQuaTraVeDanhMuc
+        {
+            ThatBai, ThanhCong, DanhMucKhongTonTai, DanhMucDaTonTai, TheLoaiDaTonTai
+        }
+        public enum KetQuaTraVeKhoaHoc
+        {
+            ThatBai, ThanhCong, TheLoaiKhongTonTai, KhoaHocDaTonTai
+        }
+
         public enum MaNhomNguoiDung
         {
             Admin,

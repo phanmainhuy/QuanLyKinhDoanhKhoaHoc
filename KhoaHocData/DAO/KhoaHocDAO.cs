@@ -1,4 +1,5 @@
-﻿using KhoaHocData.EF;
+﻿using Common;
+using KhoaHocData.EF;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -103,7 +104,7 @@ namespace KhoaHocData.DAO
             if (type == SortingType.Cheapest)
                 return input.OrderBy(x => x.DonGia);
             if (type == SortingType.HighestRate)
-                return input.OrderByDescending(x => x.DanhGiaKhoaHoc);
+                return input.OrderByDescending(x => x.DanhGiaKhoaHoc.Diem);
             if (type == SortingType.MostExpensive)
                 return input.OrderByDescending(x => x.DonGia);
             if (type == SortingType.MostLearn)
@@ -154,6 +155,36 @@ namespace KhoaHocData.DAO
             var item = SortingBy(db.SearchKhoaHocTheoTheLoai(pMaTheLoai, pSearchString).OrderByDescending(x => x.MaKhoaHoc).ToList(), (SortingType)type);
             total = item.Count();
             return item.Skip(SkipSize ).Take(pageSize).ToList();
+        }
+        public AllEnum.KetQuaTraVeKhoaHoc ThemKhoaHoc(int pMaLoai, string pTenKhoaHoc, decimal pDonGia, string pHinhAnh, int pMaGV, string pMoTa)
+        {
+            if (!db.LoaiKhoaHocs.Any(x => x.MaLoai == pMaLoai))
+                return KetQuaTraVeKhoaHoc.TheLoaiKhongTonTai;
+            if (db.KhoaHocs.SingleOrDefault(x => x.TenKhoaHoc.ToLower() == pTenKhoaHoc.Trim().ToLower()) != null)
+                return KetQuaTraVeKhoaHoc.KhoaHocDaTonTai;
+            db.KhoaHocs.Add(new KhoaHoc()
+            {
+                MaLoai = pMaLoai,
+                TenKhoaHoc = pTenKhoaHoc,
+                DonGia = pDonGia,
+                HinhAnh = pHinhAnh,
+                MaGV = pMaGV,
+                MOTAKHOAHOC = pMoTa,
+                SoLuongMua = 0,
+                TrangThai = false,
+                NgayTao = DateTime.Now.Date,
+                NgayChapThuan = DateTime.MinValue.Date
+            });
+            try
+            {
+                db.SaveChanges();
+                return KetQuaTraVeKhoaHoc.ThanhCong;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return KetQuaTraVeKhoaHoc.ThatBai;
+            }
         }
     }
 }

@@ -35,7 +35,27 @@ namespace KhoaHocAPI.Mapper
                 TrangThai = item.TrangThai.Value,
                 DanhGia = getDAODB.GetDanhGiaKhoaHoc(item.MaKhoaHoc),
                 GioiThieu = item.MOTAKHOAHOC,
-                TenGV = item.NguoiDung.HoTen
+                TenGV = item.NguoiDung.HoTen,
+                NgayTao = item.NgayTao.Value,
+                NgayChapThuan = item.NgayChapThuan.Value
+            };
+        }
+        public static KhoaHoc MapCourseReverse(CourseVM item)
+        {
+            GetDAO getDAODB = new GetDAO();
+            return new KhoaHoc()
+            {
+                DonGia = item.DonGia,
+                HinhAnh = item.HinhAnh,
+                MaGV = item.MaGV,
+                MaKhoaHoc = item.MaKhoaHoc,
+                MaLoai = item.MaLoai,
+                SoLuongMua = item.SoLuongMua,
+                TenKhoaHoc = item.TenKhoaHoc,
+                TrangThai = item.TrangThai,
+                MOTAKHOAHOC = item.GioiThieu,
+                NgayTao = item.NgayTao.Value,
+                NgayChapThuan = item.NgayChapThuan.Value
             };
         }
     }

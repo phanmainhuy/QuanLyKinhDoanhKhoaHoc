@@ -66,7 +66,7 @@ namespace KhoaHocAPI.Controllers
             }
         }
         public async Task<HttpResponseMessage> Post([FromBody] IEnumerable<UserViewModel> Users, [FromUri]int MaNhomNguoiDung)
-        {
+            {
             var result = Mapper.UserMapper.MapListUser( await db.ThayDoiNhomNhieuNguoiDung(Mapper.UserMapper.MapListUserReverse(Users), MaNhomNguoiDung));
             if (result != null && result.Count() != 0)
             {
@@ -83,6 +83,22 @@ namespace KhoaHocAPI.Controllers
             if (UserID == -1)
                 return Request.CreateErrorResponse(HttpStatusCode.Forbidden, "Không có quyền");
             var result = Mapper.RoleMapper.MapListRole(db.GetRolesByUserID(UserID));
+            if (result != null || result.Count() == 0)
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, result);
+            }
+            else
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Lỗi bất ngờ");
+            }
+        }
+        [Route("api/authorization/bygroupid")]
+        [HttpGet]
+        public HttpResponseMessage Get2([FromUri] int GroupID)
+        {
+            if (GroupID == -1)
+                return Request.CreateErrorResponse(HttpStatusCode.Forbidden, "Không có quyền");
+            var result = Mapper.RoleMapper.MapListRole(db.GetRolesByGroupID(GroupID));
             if (result != null || result.Count() == 0)
             {
                 return Request.CreateResponse(HttpStatusCode.OK, result);

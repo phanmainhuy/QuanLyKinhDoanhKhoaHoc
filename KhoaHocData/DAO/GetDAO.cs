@@ -1,5 +1,6 @@
 ﻿using Common;
 using KhoaHocData.EF;
+using System;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
@@ -28,8 +29,17 @@ namespace KhoaHocData.DAO
         {
             int TongDanhGia = 0;
             int SoLuongDanhGia = 0;
-            TongDanhGia = db.DanhGiaKhoaHocs.Where(x => x.MaKhoaHoc == pMaKhoaHoc).Sum(x => x.Diem).Value;
-            SoLuongDanhGia = db.DanhGiaKhoaHocs.Where(x => x.MaKhoaHoc == pMaKhoaHoc).Count();
+            try
+            {
+                TongDanhGia = db.DanhGiaKhoaHocs.Where(x => x.MaKhoaHoc == pMaKhoaHoc).Sum(x => x.Diem).Value;
+                SoLuongDanhGia = db.DanhGiaKhoaHocs.Where(x => x.MaKhoaHoc == pMaKhoaHoc).Count();
+
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return 0;
+            }
             return (decimal)TongDanhGia / SoLuongDanhGia;
         }
 
