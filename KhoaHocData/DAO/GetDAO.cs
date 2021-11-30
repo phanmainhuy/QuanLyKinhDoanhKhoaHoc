@@ -42,7 +42,10 @@ namespace KhoaHocData.DAO
             }
             return (decimal)TongDanhGia / SoLuongDanhGia;
         }
-
+        public KhoaHoc GetKhoaHocTheoMa(int pMaKhoaHoc)
+        {
+            return db.KhoaHocs.SingleOrDefault(x => x.MaKhoaHoc == pMaKhoaHoc);
+        }
         public async Task<int> BackupDatabase(string fileName)
         {
             return await db.Database.ExecuteSqlCommandAsync(TransactionalBehavior.DoNotEnsureTransaction, @"EXEC [dbo].[BackUpDataBase] @Path = N'" + fileName + "'");

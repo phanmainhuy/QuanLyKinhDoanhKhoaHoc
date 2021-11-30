@@ -8,7 +8,11 @@
         }
         public enum KetQuaTraVeKhoaHoc
         {
-            ThatBai, ThanhCong, TheLoaiKhongTonTai, KhoaHocDaTonTai
+            ThatBai, ThanhCong, TheLoaiKhongTonTai, DaTonTai, KhongTonTai
+        }
+        public enum KetQuaTraVe
+        {
+            ThatBai, ThanhCong, ChaKhongTonTai, DaTonTai, KhongTonTai
         }
 
         public enum MaNhomNguoiDung

@@ -67,7 +67,7 @@ namespace KhoaHocAPI.Controllers
             var resust = khDAO.ThemKhoaHoc(model.MaLoai, model.TenKhoaHoc, model.DonGia, model.HinhAnh, model.MaGV, model.GioiThieu);
             if (resust == Common.AllEnum.KetQuaTraVeKhoaHoc.ThanhCong)
                 return Request.CreateResponse(HttpStatusCode.Created);
-            else if (resust == Common.AllEnum.KetQuaTraVeKhoaHoc.KhoaHocDaTonTai)
+            else if (resust == Common.AllEnum.KetQuaTraVeKhoaHoc.DaTonTai)
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Khóa học đã tồn tại");
             else if (resust == Common.AllEnum.KetQuaTraVeKhoaHoc.TheLoaiKhongTonTai)
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Thể loại không tồn tại");

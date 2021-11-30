@@ -52,6 +52,7 @@ namespace KhoaHocData.EF
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<TichDiem> TichDiems { get; set; }
         public virtual DbSet<DonThuTien> DonThuTiens { get; set; }
+        public virtual DbSet<Chuong> Chuongs { get; set; }
     
         public virtual ObjectResult<KhoaHoc> SearchKhoaHoc(string tieuDe)
         {

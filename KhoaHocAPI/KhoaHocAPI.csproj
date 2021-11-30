@@ -187,7 +187,9 @@
     <Compile Include="Controllers\Admin\CategoryController.cs" />
     <Compile Include="Controllers\Admin\StatisticController.cs" />
     <Compile Include="Controllers\AuthorizationController.cs" />
+    <Compile Include="Controllers\BaiHocController.cs" />
     <Compile Include="Controllers\CartItemController.cs" />
+    <Compile Include="Controllers\ChuongController.cs" />
     <Compile Include="Controllers\CustomAPIController.cs" />
     <Compile Include="Controllers\CustomKhoaHocController.cs" />
     <Compile Include="Controllers\PaymentController.cs" />
@@ -203,12 +205,15 @@
     <Compile Include="Mapper\CartMapper.cs" />
     <Compile Include="Mapper\CategoryMapper.cs" />
     <Compile Include="Mapper\CourseMapper.cs" />
+    <Compile Include="Mapper\UnitMapper.cs" />
     <Compile Include="Mapper\MenuTypeMapper.cs" />
     <Compile Include="Mapper\OtherMapper.cs" />
     <Compile Include="Mapper\PaymentMapper.cs" />
     <Compile Include="Mapper\RoleMapper.cs" />
     <Compile Include="Mapper\UserMapper.cs" />
+    <Compile Include="Models\BaiHocVM.cs" />
     <Compile Include="Models\CartItemVM.cs" />
+    <Compile Include="Models\ChuongVM.cs" />
     <Compile Include="Models\CourseCartVM.cs" />
     <Compile Include="Models\CourseVM.cs" />
     <Compile Include="Models\DonThuHoVM.cs" />

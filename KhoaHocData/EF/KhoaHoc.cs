@@ -17,9 +17,9 @@ namespace KhoaHocData.EF
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public KhoaHoc()
         {
-            this.BaiHocs = new HashSet<BaiHoc>();
             this.CT_GioHang = new HashSet<CT_GioHang>();
             this.CT_HoaDon = new HashSet<CT_HoaDon>();
+            this.Chuongs = new HashSet<Chuong>();
         }
     
         public int MaKhoaHoc { get; set; }
@@ -36,13 +36,13 @@ namespace KhoaHocData.EF
         public Nullable<System.DateTime> NgayChapThuan { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<BaiHoc> BaiHocs { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CT_GioHang> CT_GioHang { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CT_HoaDon> CT_HoaDon { get; set; }
         public virtual DanhGiaKhoaHoc DanhGiaKhoaHoc { get; set; }
         public virtual NguoiDung NguoiDung { get; set; }
         public virtual LoaiKhoaHoc LoaiKhoaHoc { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Chuong> Chuongs { get; set; }
     }
 }

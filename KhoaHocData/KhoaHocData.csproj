@@ -102,6 +102,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DAO\Account.cs" />
+    <Compile Include="DAO\BaiHocDAO.cs" />
     <Compile Include="DAO\CartDAO.cs" />
     <Compile Include="DAO\CategoryDAO.cs" />
     <Compile Include="DAO\GetDAO.cs" />
@@ -117,6 +118,9 @@
       <DependentUpon>QLKhoaHocDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\ChamSocKhachHang.cs">
+      <DependentUpon>QLKhoaHocDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\Chuong.cs">
       <DependentUpon>QLKhoaHocDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\CT_GioHang.cs">

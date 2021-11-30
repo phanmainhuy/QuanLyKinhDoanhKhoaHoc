@@ -161,7 +161,7 @@ namespace KhoaHocData.DAO
             if (!db.LoaiKhoaHocs.Any(x => x.MaLoai == pMaLoai))
                 return KetQuaTraVeKhoaHoc.TheLoaiKhongTonTai;
             if (db.KhoaHocs.SingleOrDefault(x => x.TenKhoaHoc.ToLower() == pTenKhoaHoc.Trim().ToLower()) != null)
-                return KetQuaTraVeKhoaHoc.KhoaHocDaTonTai;
+                return KetQuaTraVeKhoaHoc.DaTonTai;
             db.KhoaHocs.Add(new KhoaHoc()
             {
                 MaLoai = pMaLoai,
