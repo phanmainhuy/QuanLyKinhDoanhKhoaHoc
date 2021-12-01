@@ -11,5 +11,6 @@ namespace KhoaHocAPI.Models
         public string TenQuyen { get; set; }
         public string MetaLink { get; set; }
         public string Icon { get; set; }
+        public bool HienThi { get; set; }
     }
 }

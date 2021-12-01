@@ -95,7 +95,7 @@ namespace KhoaHocData.DAO
             {
                 return AllEnum.KetQuaTraVe.ChaKhongTonTai;
             }
-            if (!db.BaiHocs.Any(x => x.MaChuong == pMaChuong && x.TenBaiHoc.Trim().ToLower() == pTenBaiHoc.Trim().ToLower()))
+            if (db.BaiHocs.Any(x => x.MaChuong == pMaChuong && x.TenBaiHoc.Trim().ToLower() == pTenBaiHoc.Trim().ToLower()))
             {
                 return AllEnum.KetQuaTraVe.DaTonTai;
             }
@@ -144,6 +144,11 @@ namespace KhoaHocData.DAO
             {
                 return AllEnum.KetQuaTraVe.KhongTonTai;
             }
+            if(item.BaiTaps.Count()>0)
+            {
+                db.BaiTaps.RemoveRange(item.BaiTaps);
+            }
+
             db.BaiHocs.Remove(item);
             try
             {

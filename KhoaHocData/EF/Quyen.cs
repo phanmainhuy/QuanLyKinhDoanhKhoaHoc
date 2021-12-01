@@ -19,5 +19,6 @@ namespace KhoaHocData.EF
         public Nullable<int> MaLoaiQuyen { get; set; }
         public string MetaLink { get; set; }
         public string icon { get; set; }
+        public Nullable<bool> HienThi { get; set; }
     }
 }

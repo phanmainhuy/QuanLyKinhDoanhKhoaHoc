@@ -16,7 +16,8 @@ namespace KhoaHocAPI.Mapper
                 MaQuyen = quyen.MaQuyen,
                 TenQuyen = quyen.TenQuyen,
                 MetaLink = quyen.MetaLink,
-                Icon = quyen.icon
+                Icon = quyen.icon,
+                HienThi = quyen.HienThi.Value
             };
         }
         public static IEnumerable<QuyenVM> MapListRole(IEnumerable<Quyen> quyens)

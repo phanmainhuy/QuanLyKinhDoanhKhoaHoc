@@ -12,6 +12,7 @@ namespace KhoaHocAPI.Controllers
     public class KhoaHocController : ApiController
     {
         private readonly KhoaHocDAO khDAO = new KhoaHocDAO();
+        private readonly NguoiDungDAO ndDAO = new NguoiDungDAO();
 
         [HttpGet]
         public IHttpActionResult GetAll()
@@ -35,6 +36,17 @@ namespace KhoaHocAPI.Controllers
             }
             else
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "No content");
+        }
+        [HttpGet]
+        public HttpResponseMessage GetPermission(int MaND, int MaKhoaHoc)
+        {
+            var result = ndDAO.DaMuaKhoaHoc(MaND, MaKhoaHoc);
+            if (result)
+            {
+                return Request.CreateResponse(HttpStatusCode.OK);
+            }
+            else
+                return Request.CreateErrorResponse(HttpStatusCode.Forbidden, "Không có quyền");
         }
 
         [HttpGet]

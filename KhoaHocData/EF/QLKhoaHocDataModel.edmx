@@ -238,6 +238,7 @@
           <Property Name="MaLoaiQuyen" Type="int" />
           <Property Name="MetaLink" Type="varchar" MaxLength="100" />
           <Property Name="icon" Type="varchar" MaxLength="100" />
+          <Property Name="HienThi" Type="bit" />
         </EntityType>
         <EntityType Name="Quyen_NhomNguoiDung">
           <Key>
@@ -1122,6 +1123,7 @@
           <Property Name="MaLoaiQuyen" Type="Int32" />
           <Property Name="MetaLink" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="icon" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="HienThi" Type="Boolean" />
         </EntityType>
         <EntityType Name="Quyen_NhomNguoiDung">
           <Key>
@@ -2082,6 +2084,7 @@
           <EntitySetMapping Name="Quyens">
             <EntityTypeMapping TypeName="QL_KHOAHOCModel.Quyen">
               <MappingFragment StoreEntitySet="Quyen">
+                <ScalarProperty Name="HienThi" ColumnName="HienThi" />
                 <ScalarProperty Name="icon" ColumnName="icon" />
                 <ScalarProperty Name="MetaLink" ColumnName="MetaLink" />
                 <ScalarProperty Name="MaQuyen" ColumnName="MaQuyen" />

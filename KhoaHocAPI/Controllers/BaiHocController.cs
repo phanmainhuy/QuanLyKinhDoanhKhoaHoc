@@ -40,6 +40,7 @@ namespace KhoaHocAPI.Controllers
                 return Request.CreateResponse(HttpStatusCode.OK, Mapper.UnitMapper.MapLesson(result));
             }
         }
+        
 
         [HttpPost]
         public HttpResponseMessage PostBaiHoc(BaiHocVM model)
