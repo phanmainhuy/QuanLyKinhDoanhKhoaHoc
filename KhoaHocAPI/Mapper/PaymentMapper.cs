@@ -41,8 +41,35 @@ namespace KhoaHocAPI.Mapper
                 DanhSachHangHoa = MapListPaymentItem(hoaDon.CT_HoaDon.ToList()).ToList(),
                 HinhThucThanhToan = hoaDon.HinhThucThanhToan,
                 TongThanhToan = hoaDon.TongTien.Value,
-                MaHoaDon = hoaDon.MaHD
+                MaHoaDon = hoaDon.MaHD,
+                TrangThai = hoaDon.ThanhToan.Value?true:false
             };
+        }
+        public static HoaDonDuyetVM MapOrderToAccept(HoaDon hoadon, DonThuTien donThuTien)
+        {
+            return new HoaDonDuyetVM()
+            {
+                MaND = hoadon.MaND.Value,
+                DanhSachKhoaHoc = MapListPaymentItem(hoadon.CT_HoaDon.ToList()).ToList(),
+                TongThanhToan = hoadon.TongTien.Value,
+                MaHoaDon = hoadon.MaHD,
+                TrangThai = hoadon.ThanhToan.Value ? true : false,
+                DiaChiThuTien = donThuTien == null ? "": donThuTien.DiaChiThu,
+                NgayTaoHoaDon = hoadon.NgayLap.Value,
+                SDTDat = donThuTien.SDTThu == null ? "": donThuTien.SDTThu
+            };
+        }
+        public static List<HoaDonDuyetVM> MapListOrderToAccept(IEnumerable<HoaDon> lstHoaDon)
+        {
+            List<HoaDonDuyetVM> lstReturn = new List<HoaDonDuyetVM>();
+            foreach (var item in lstHoaDon.ToList())
+            {
+                var donThuTien = new GetDAO().GetDonThuTienTheoMaHoaDon(item.MaHD);
+                if (donThuTien == null)
+                    continue;
+                lstReturn.Add(MapOrderToAccept(item, donThuTien));
+            }
+            return lstReturn;
         }
         public static List<HoaDonVM> MapListOrder(IEnumerable<HoaDon> lstHoaDon)
         {

@@ -107,10 +107,13 @@
     <Compile Include="DAO\CategoryDAO.cs" />
     <Compile Include="DAO\GetDAO.cs" />
     <Compile Include="DAO\KhoaHocDAO.cs" />
+    <Compile Include="DAO\KhuyenMaiDAO.cs" />
+    <Compile Include="DAO\LearnDAO.cs" />
     <Compile Include="DAO\MenuDAO.cs" />
     <Compile Include="DAO\NguoiDungDAO.cs" />
     <Compile Include="DAO\PaymentDAO.cs" />
     <Compile Include="DAO\UserGroupDAO.cs" />
+    <Compile Include="DAO\XuLy.cs" />
     <Compile Include="EF\BaiHoc.cs">
       <DependentUpon>QLKhoaHocDataModel.tt</DependentUpon>
     </Compile>
@@ -226,7 +229,6 @@
       <DependentUpon>QLKhoaHocDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SqlServerTypes\Loader.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
@@ -258,19 +260,6 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>QLKhoaHocDataModel.edmx</DependentUpon>
       <LastGenOutput>QLKhoaHocDataModel.cs</LastGenOutput>
-    </Content>
-    <Content Include="SqlServerTypes\readme.htm" />
-    <Content Include="SqlServerTypes\x64\msvcr120.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="SqlServerTypes\x64\SqlServerSpatial140.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="SqlServerTypes\x86\msvcr120.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="SqlServerTypes\x86\SqlServerSpatial140.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

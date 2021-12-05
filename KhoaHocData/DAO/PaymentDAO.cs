@@ -1,4 +1,5 @@
-﻿using KhoaHocData.EF;
+﻿using Common;
+using KhoaHocData.EF;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -92,10 +93,14 @@ namespace KhoaHocData.DAO
         public bool CancelOrder(int MaHD)
         {
             var HoaDon = db.HoaDons.SingleOrDefault(x => x.MaHD == MaHD);
+            var DonThuTien = db.DonThuTiens.SingleOrDefault(x => x.MaHD == MaHD);
             if (HoaDon == null)
                 return false;
             if (HoaDon.ThanhToan.Value)
                 return false;
+            if (DonThuTien != null)
+                return true;
+
             foreach (var item in db.CT_HoaDon.ToList())
             {
                 if (item.MaHD == MaHD)
@@ -139,10 +144,40 @@ namespace KhoaHocData.DAO
             else
                 return -1;
         }
-
-        public int TaoDonThuTien(int MaKH, int MaHD, string DiaChiThu, string SDTThu, string DonViThuHo, double SoTienThu, double PhiThuHo, DateTime? NgayDuKienThu, string GhiChu)
+        public AllEnum.KetQuaTraVe ThanhToanHoaDon(int pMaHD)
         {
-            
+            var hd = db.HoaDons.SingleOrDefault(x => x.MaHD == pMaHD);
+            if (hd == null)
+                return AllEnum.KetQuaTraVe.KhongTonTai;
+            hd.ThanhToan = true;
+            var td = db.TichDiems.SingleOrDefault(x => x.MaND == hd.MaND);
+            if(td == null)
+            {
+                TichDiem tdMoi = new TichDiem();
+                tdMoi.MaND = hd.MaND.Value;
+                tdMoi.SoDiem += (int)(hd.TongTien / 100);
+                db.TichDiems.Add(tdMoi);
+            }
+            else
+            {
+                td.SoDiem += (int)(hd.TongTien / 100);
+            }
+            try
+            {
+                db.SaveChanges();
+                return AllEnum.KetQuaTraVe.ThanhCong;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return AllEnum.KetQuaTraVe.ThatBai;
+            }
+
+        }
+        public AllEnum.KetQuaTraVe TaoDonThuTien(int MaKH, int MaHD, string DiaChiThu, string SDTThu, string DonViThuHo, double SoTienThu, double PhiThuHo, DateTime? NgayDuKienThu, string GhiChu)
+        {
+            if (db.DonThuTiens.Any(x => x.MaHD == MaHD))
+                return AllEnum.KetQuaTraVe.DaTonTai;
             db.DonThuTiens.Add(new DonThuTien()
             {
                 MaHD = MaHD,
@@ -159,9 +194,9 @@ namespace KhoaHocData.DAO
             });
             if (SaveAll())
             {
-                return 1;
+                return AllEnum.KetQuaTraVe.ThanhCong;
             }
-            return 0;
+            return AllEnum.KetQuaTraVe.ThatBai;
         }
 
         public double TinhCuocThuHo(double GiaMatHang)
@@ -193,6 +228,7 @@ namespace KhoaHocData.DAO
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 return false;
             }
         }

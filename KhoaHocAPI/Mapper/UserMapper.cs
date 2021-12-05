@@ -21,6 +21,10 @@ namespace KhoaHocAPI.Mapper
         }
         public static UserViewModel MapUser(NguoiDung nd)
         {
+            int diem = 0;
+            var Diem = new GetDAO().LayDiemTheoMaNguoiDung(nd.MaND);
+            if (Diem != null)
+                diem = Diem.Value;
             UserViewModel user = new UserViewModel()
             {
                 UserId = nd.MaND,
@@ -33,7 +37,9 @@ namespace KhoaHocAPI.Mapper
                 GroupID = nd.MaNhomNguoiDung.Value,
                 GroupName = new UserGroupDAO().LayNhomTheoMa(nd.MaNhomNguoiDung.Value).TenNhomNguoiDung,
                 Number = nd.SDT,
-                Status = nd.TrangThai.Value
+                Status = nd.TrangThai.Value,
+                HinhAnh = nd.HinhAnh,
+                DiemTichLuy = diem
             };
             return user;
         }
@@ -56,7 +62,8 @@ namespace KhoaHocAPI.Mapper
                 Diachi = model.Address,
                 NgaySinh = model.DoB,
                 MaNhomNguoiDung = model.GroupID,
-                SDT = model.Number
+                SDT = model.Number,
+                HinhAnh = model.HinhAnh
             };
         }
         public static IEnumerable<NguoiDung> MapListUserReverse(IEnumerable<UserViewModel> nguoidungs)

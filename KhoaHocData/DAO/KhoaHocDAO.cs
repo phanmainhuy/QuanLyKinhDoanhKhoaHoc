@@ -57,7 +57,10 @@ namespace KhoaHocData.DAO
         {
             return db.KhoaHocs.OrderByDescending(x => x.MaKhoaHoc).Take(limit);
         }
-
+        public IEnumerable<KhoaHoc> LayKhoaHocTheoMaGiaoVien(int pMaGiaoVien)
+        {
+            return db.KhoaHocs.Where(x => x.MaGV == pMaGiaoVien).OrderByDescending(x => x.MaKhoaHoc).ToList();
+        }
         public IEnumerable<KhoaHoc> LayKhoaHocMuaNhieu(int pLimit)
         {
             return db.KhoaHocs.OrderByDescending(x => x.SoLuongMua.Value).Take(pLimit);
@@ -185,6 +188,11 @@ namespace KhoaHocData.DAO
                 Console.WriteLine(ex.Message);
                 return KetQuaTraVeKhoaHoc.ThatBai;
             }
+        }
+    
+        public List<string> TimKiemTenKhoaHoc(string searchString)
+        {
+            return db.SearchTenKhoahoc(searchString, searchString).Take(10).ToList();
         }
     }
 }

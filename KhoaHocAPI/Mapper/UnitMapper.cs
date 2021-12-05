@@ -10,6 +10,24 @@ namespace KhoaHocAPI.Mapper
 {
     public static class UnitMapper
     {
+        public static BaiTapVM MapHomeWork(BaiTap item)
+        {
+            return new BaiTapVM()
+            {
+                MaBaiTap = item.MaBaiTap,
+                LinkPDF = item.FileLink,
+                TenBaiTap = item.TenBaiTap
+            };
+        }
+        public static List<BaiTapVM> MapListHomeWork(IEnumerable<BaiTap> lstBaiTap)
+        {
+            List<BaiTapVM> lstReturn = new List<BaiTapVM>();
+            foreach (var item in lstBaiTap.ToList())
+            {
+                lstReturn.Add(MapHomeWork(item));
+            }
+            return lstReturn;
+        }
         public static BaiHocVM MapLesson(BaiHoc item)
         {
             return new BaiHocVM()
@@ -17,7 +35,9 @@ namespace KhoaHocAPI.Mapper
                 MaBaiHoc = item.MaBaiHoc,
                 MaChuong = item.MaChuong.Value,
                 TenBaiHoc = item.TenBaiHoc,
-                TenChuong = item.Chuong.TenChuong
+                TenChuong = item.Chuong.TenChuong,
+                VideoName = item.VideoLink,
+                DanhSachBaiTap = MapListHomeWork(item.BaiTaps)
             };
         }
         public static List<BaiHocVM> MapListLesson(IEnumerable<BaiHoc> lstBaiHoc)

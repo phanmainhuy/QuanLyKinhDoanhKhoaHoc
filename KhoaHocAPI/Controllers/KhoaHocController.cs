@@ -37,6 +37,19 @@ namespace KhoaHocAPI.Controllers
             else
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "No content");
         }
+        [Route("api/hockhoahoc")]
+        [HttpGet]
+        public HttpResponseMessage GetKhoaHocLearn(int maKhoa)
+        {
+            var item = Mapper.LearnMapper.MapLearnVM(khDAO.LayKhoaHocTheoMa(maKhoa));
+            if (item != null)
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, item);
+            }
+            else
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "No content");
+        }
+
         [HttpGet]
         public HttpResponseMessage GetPermission(int MaND, int MaKhoaHoc)
         {

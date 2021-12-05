@@ -36,6 +36,20 @@ namespace KhoaHocAPI.Controllers
                 return Request.CreateResponse(HttpStatusCode.OK, result);
             }
         }
+        [Route("KhoaHocTheoGiaoVien")]
+        [HttpGet]
+        public HttpResponseMessage GetKhoaHocTheoGiaoVien(int MaGV)
+        {
+            var result = new KhoaHocDAO().LayKhoaHocTheoMaGiaoVien(MaGV);
+            if (result == null)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Không có khóa học nào");
+            }
+            else
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, Mapper.CourseMapper.MapListCourse(result));
+            }
+        }
 
         [HttpGet]
         [Route("Backup")]

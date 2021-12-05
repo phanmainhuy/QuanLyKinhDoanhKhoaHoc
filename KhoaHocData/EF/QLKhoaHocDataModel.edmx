@@ -150,6 +150,8 @@
           <Property Name="TenKM" Type="nvarchar" MaxLength="50" />
           <Property Name="HinhAnh" Type="nvarchar" MaxLength="300" />
           <Property Name="GiaTri" Type="money" />
+          <Property Name="ThoiGianKeoDai" Type="int" />
+          <Property Name="Diem" Type="int" />
         </EntityType>
         <EntityType Name="KhuyenMai_KhachHang">
           <Key>
@@ -1023,6 +1025,8 @@
           <NavigationProperty Name="NguoiDung" Relationship="Self.FK_KhuyenMai_NguoiDung" FromRole="KhuyenMai" ToRole="NguoiDung" />
           <NavigationProperty Name="KhuyenMai_KhachHang" Relationship="Self.FK_KhuyenMaiKH_KhuyenMai" FromRole="KhuyenMai" ToRole="KhuyenMai_KhachHang" />
           <Property Name="GiaTri" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="ThoiGianKeoDai" Type="Int32" />
+          <Property Name="Diem" Type="Int32" />
         </EntityType>
         <EntityType Name="KhuyenMai_KhachHang">
           <Key>
@@ -1988,6 +1992,8 @@
           <EntitySetMapping Name="KhuyenMais">
             <EntityTypeMapping TypeName="QL_KHOAHOCModel.KhuyenMai">
               <MappingFragment StoreEntitySet="KhuyenMai">
+                <ScalarProperty Name="Diem" ColumnName="Diem" />
+                <ScalarProperty Name="ThoiGianKeoDai" ColumnName="ThoiGianKeoDai" />
                 <ScalarProperty Name="GiaTri" ColumnName="GiaTri" />
                 <ScalarProperty Name="MaKM" ColumnName="MaKM" />
                 <ScalarProperty Name="MaND" ColumnName="MaND" />

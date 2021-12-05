@@ -1,6 +1,8 @@
 ﻿using Common;
 using KhoaHocData.EF;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
@@ -42,6 +44,14 @@ namespace KhoaHocData.DAO
             }
             return (decimal)TongDanhGia / SoLuongDanhGia;
         }
+        public DonThuTien GetDonThuTienTheoMaHoaDon(int pMaHoaDon)
+        {
+            return db.DonThuTiens.SingleOrDefault(x => x.MaHD == pMaHoaDon);
+        }
+        public int? LayDiemTheoMaNguoiDung(int pMaND)
+        {
+            return db.TichDiems.SingleOrDefault(x => x.MaND == pMaND).SoDiem;
+        }
         public KhoaHoc GetKhoaHocTheoMa(int pMaKhoaHoc)
         {
             return db.KhoaHocs.SingleOrDefault(x => x.MaKhoaHoc == pMaKhoaHoc);
@@ -69,6 +79,7 @@ namespace KhoaHocData.DAO
             }
             catch (System.Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 return -1;
             }
         }

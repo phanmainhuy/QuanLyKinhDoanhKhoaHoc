@@ -185,6 +185,7 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\Admin\AdminMenuController.cs" />
     <Compile Include="Controllers\Admin\CategoryController.cs" />
+    <Compile Include="Controllers\Admin\OrderController.cs" />
     <Compile Include="Controllers\Admin\StatisticController.cs" />
     <Compile Include="Controllers\AuthorizationController.cs" />
     <Compile Include="Controllers\BaiHocController.cs" />
@@ -192,6 +193,7 @@
     <Compile Include="Controllers\ChuongController.cs" />
     <Compile Include="Controllers\CustomAPIController.cs" />
     <Compile Include="Controllers\CustomKhoaHocController.cs" />
+    <Compile Include="Controllers\KhuyenMaiController.cs" />
     <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Controllers\ThanhToanController.cs" />
     <Compile Include="Controllers\HocVienController.cs" />
@@ -205,6 +207,8 @@
     <Compile Include="Mapper\CartMapper.cs" />
     <Compile Include="Mapper\CategoryMapper.cs" />
     <Compile Include="Mapper\CourseMapper.cs" />
+    <Compile Include="Mapper\SaleMapper.cs" />
+    <Compile Include="Mapper\LearnMapper.cs" />
     <Compile Include="Mapper\UnitMapper.cs" />
     <Compile Include="Mapper\MenuTypeMapper.cs" />
     <Compile Include="Mapper\OtherMapper.cs" />
@@ -212,11 +216,16 @@
     <Compile Include="Mapper\RoleMapper.cs" />
     <Compile Include="Mapper\UserMapper.cs" />
     <Compile Include="Models\BaiHocVM.cs" />
+    <Compile Include="Models\BaiTapVM.cs" />
     <Compile Include="Models\CartItemVM.cs" />
     <Compile Include="Models\ChuongVM.cs" />
     <Compile Include="Models\CourseCartVM.cs" />
     <Compile Include="Models\CourseVM.cs" />
     <Compile Include="Models\DonThuHoVM.cs" />
+    <Compile Include="Models\HoaDonDuyetVM.cs" />
+    <Compile Include="Models\KhuyenMaiVM.cs" />
+    <Compile Include="Models\KhuyenMai_NguoiDungVM.cs" />
+    <Compile Include="Models\LearnVM.cs" />
     <Compile Include="Models\MenuTypeVM.cs" />
     <Compile Include="Models\PagingVM.cs" />
     <Compile Include="Models\PaymentItemVM.cs" />
@@ -508,7 +517,14 @@
     <Content Include="Assets\images\users\Admin1.jpg" />
     <Content Include="Assets\images\users\adminuser.png" />
     <Content Include="Assets\images\users\HocVien1.jpg" />
+    <Content Include="Assets\images\users\lona.jpg" />
     <Content Include="Assets\images\users\userdefault.png" />
+    <Content Include="Assets\video\video1.mp4" />
+    <Content Include="Assets\video\video2.mp4" />
+    <Content Include="Assets\video\video3.mp4" />
+    <Content Include="Assets\video\video5.mp4" />
+    <Content Include="Assets\video\video6.mp4" />
+    <Content Include="Assets\video\video7.mp4" />
     <Content Include="Assets\video\Đen-TaCứĐiCùngNhauft.LinhCáo%28Prod.byiTễu%29[M-V].mp4" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -538,6 +554,7 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\CollectionModelDescription.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
+    <Content Include="Assets\PDF\đề-thi-SHGK.pdf" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\KhoaHocAPITestDemo - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />

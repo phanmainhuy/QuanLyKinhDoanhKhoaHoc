@@ -73,8 +73,10 @@ namespace KhoaHocAPI.Controllers
         public HttpResponseMessage Post([FromBody]DonThuHoVM model)
         {
             var result = db_payment.TaoDonThuTien(model.MaKH, model.MaHD, model.DiaChiThu, model.SDTThu, "", model.SoTienThu, 0, null, "");
-            if (result == 1)
+            if (result == Common.AllEnum.KetQuaTraVe.ThanhCong)
                 return Request.CreateResponse(HttpStatusCode.OK);
+            else if(result == Common.AllEnum.KetQuaTraVe.DaTonTai)
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Đã tạo rồi, vui lòng không tạo lại");
             else
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Tạo đơn thu tiền không thành công");
         }

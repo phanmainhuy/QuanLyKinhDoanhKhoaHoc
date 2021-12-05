@@ -132,6 +132,13 @@ namespace KhoaHocAPI.Controllers
             else
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Error");
         }
+        [Route("SimpleSearch")]
+        [HttpGet]
+        public HttpResponseMessage SearchTenKhoaHoc(string searchString)
+        {
+            var result = khDB.TimKiemTenKhoaHoc(searchString);
+            return Request.CreateResponse(HttpStatusCode.OK, result);
+        }
 
         //public HttpResponseMessage SearchTenKhoaHoc([FromUri] string searchString)
         //{
