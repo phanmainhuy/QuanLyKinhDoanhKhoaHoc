@@ -20,5 +20,6 @@ namespace KhoaHocAPI.Models
         public bool Status { get; set; }
         public string HinhAnh { get; set; }
         public int DiemTichLuy { get; set; }
+        public string CMND { get; set; }
     }
 }

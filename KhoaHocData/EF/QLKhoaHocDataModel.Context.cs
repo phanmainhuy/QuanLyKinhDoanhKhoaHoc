@@ -270,5 +270,23 @@ namespace KhoaHocData.EF
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("BackUpDataBase", pathParameter);
         }
+    
+        public virtual ObjectResult<KhoaHoc> KhoaHocCuaToi(Nullable<int> maHocVien)
+        {
+            var maHocVienParameter = maHocVien.HasValue ?
+                new ObjectParameter("MaHocVien", maHocVien) :
+                new ObjectParameter("MaHocVien", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<KhoaHoc>("KhoaHocCuaToi", maHocVienParameter);
+        }
+    
+        public virtual ObjectResult<KhoaHoc> KhoaHocCuaToi(Nullable<int> maHocVien, MergeOption mergeOption)
+        {
+            var maHocVienParameter = maHocVien.HasValue ?
+                new ObjectParameter("MaHocVien", maHocVien) :
+                new ObjectParameter("MaHocVien", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<KhoaHoc>("KhoaHocCuaToi", mergeOption, maHocVienParameter);
+        }
     }
 }

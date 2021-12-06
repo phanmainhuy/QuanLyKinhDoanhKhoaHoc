@@ -666,6 +666,9 @@
           <Parameter Name="Path" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="KhoaHocCuaToi" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MaHocVien" Type="int" Mode="In" />
+        </Function>
         <Function Name="SearchKhoaHoc" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="TieuDe" Type="nvarchar" Mode="In" />
         </Function>
@@ -1703,6 +1706,9 @@
             <End Role="KhoaHoc" EntitySet="KhoaHocs" />
             <End Role="Chuong" EntitySet="Chuongs" />
           </AssociationSet>
+          <FunctionImport Name="KhoaHocCuaToi" EntitySet="KhoaHocs" ReturnType="Collection(QL_KHOAHOCModel.KhoaHoc)">
+            <Parameter Name="MaHocVien" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="SearchKhoaHoc_Result">
           <Property Type="Int32" Name="MaKhoaHoc" Nullable="false" />
@@ -1865,6 +1871,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="KhoaHocCuaToi_Result">
+          <Property Type="Int32" Name="MaKhoaHoc" Nullable="false" />
+          <Property Type="Int32" Name="MaLoai" Nullable="true" />
+          <Property Type="String" Name="TenKhoaHoc" Nullable="true" MaxLength="200" />
+          <Property Type="Decimal" Name="DonGia" Nullable="true" Precision="19" />
+          <Property Type="Int32" Name="SoLuongMua" Nullable="true" />
+          <Property Type="Int32" Name="ThoiHanHoanTien" Nullable="true" />
+          <Property Type="Boolean" Name="TrangThai" Nullable="true" />
+          <Property Type="String" Name="HinhAnh" Nullable="true" MaxLength="300" />
+          <Property Type="Int32" Name="MaGV" Nullable="true" />
+          <Property Type="String" Name="MOTAKHOAHOC" Nullable="true" MaxLength="500" />
+          <Property Type="DateTime" Name="NgayTao" Nullable="true" />
+          <Property Type="DateTime" Name="NgayChapThuan" Nullable="true" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2202,6 +2222,8 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="KhoaHocCuaToi" FunctionName="QL_KHOAHOCModel.Store.KhoaHocCuaToi">
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

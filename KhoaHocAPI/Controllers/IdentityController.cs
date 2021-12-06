@@ -27,13 +27,35 @@ namespace KhoaHocAPI.Controllers
         [HttpGet]
         public HttpResponseMessage GetPhanQuyen(HttpRequestMessage request, string userName)
         {
-            if(userName != null)
+            if (userName != null)
             {
                 var result = new Account().GetRoles(userName);
                 if (result != null)
                     return request.CreateResponse(HttpStatusCode.OK, result);
             }
             return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Lỗi lúc get phân quyền");
+        }
+        [HttpPost]
+        public HttpResponseMessage SignUpStudent(UserLogin model)
+        {
+            var kq = new Account().Register(model.UserName, model.Password);
+            if (kq != null)
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, Mapper.UserMapper.MapUserLogon(kq));
+            }
+            return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Tài khoản hoặc mật khẩu không chính xác");
+        }
+        [HttpPost]
+        [Route("api/Identity/employee")]
+        public HttpResponseMessage CreateEmployee(UserViewModel model)
+        {
+            var kq = new Account().RegisterEmployee(model.UserName, model.GroupID, model.Name, model.CMND, model.HinhAnh
+                , model.Number, model.Email, model.DoB, model.Address);
+            if (kq != null)
+            {
+                return Request.CreateResponse(HttpStatusCode.Created, Mapper.UserMapper.MapUser(kq));
+            }
+            return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Không thành công");
         }
     }
 }

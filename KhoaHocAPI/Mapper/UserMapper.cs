@@ -43,6 +43,23 @@ namespace KhoaHocAPI.Mapper
             };
             return user;
         }
+        public static UserGroupVM MapUserGroup(NhomNguoiDung nhomnguoidung)
+        {
+            return new UserGroupVM()
+            {
+                MaNhomNguoiDung = nhomnguoidung.MaNhomNguoiDung,
+                TenNhomNguoiDung = nhomnguoidung.TenNhomNguoiDung
+            };
+        }
+        public static IEnumerable<UserGroupVM> MapListUserGroup(IEnumerable<NhomNguoiDung> lstNhomNguoiDung)
+        {
+            List<UserGroupVM> lstReturn = new List<UserGroupVM>();
+            foreach (var item in lstNhomNguoiDung.ToList())
+            {
+                lstReturn.Add(MapUserGroup(item));
+            }
+            return lstReturn;
+        }
         public static IEnumerable<UserViewModel> MapListUser(IEnumerable<NguoiDung> nguoidungs)
         {
             List<UserViewModel> lstReturn = new List<UserViewModel>();

@@ -1,4 +1,6 @@
-﻿using KhoaHocData.EF;
+﻿using Common;
+using KhoaHocData.EF;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -19,6 +21,56 @@ namespace KhoaHocData.DAO
             return db.NguoiDungs.SingleOrDefault(x => x.TenDN == username && x.MatKhau == password);
         }
 
+        public NguoiDung Register(string userName, string Password)
+        {
+            NguoiDung nd = new NguoiDung()
+            {
+                TenDN = userName,
+                MatKhau = Password
+            };
+            nd.MaNhomNguoiDung = (int)AllEnum.MaNhomNguoiDung.Student;
+            db.NguoiDungs.Add(nd);
+            try
+            {
+                db.SaveChanges();
+                return nd;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
+            }
+        }
+        public NguoiDung RegisterEmployee(  string userName, int pMaNhomNguoiDung, string HoTen, string CMND,
+                                            string HinhAnh, string SDT, string Email, DateTime NgaySinh, 
+                                            string DiaChi)
+        {
+            NguoiDung nd = new NguoiDung()
+            {
+                TenDN = userName,
+                MatKhau = userName
+            };
+            
+            nd.MaNhomNguoiDung = pMaNhomNguoiDung;
+            nd.HoTen = HoTen;
+            nd.CMND = CMND;
+            nd.HinhAnh = HinhAnh;
+            nd.SDT = SDT;
+            nd.Email = Email;
+            nd.NgaySinh = NgaySinh;
+            nd.Diachi = DiaChi;
+            db.NguoiDungs.Add(nd);
+            try
+            {
+                db.SaveChanges();
+                return nd;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
+            }
+        }
         public int[] GetRoles(string pTenDN)
         {
             int nhomnd = db.NguoiDungs.Single(x => x.TenDN == pTenDN).MaNhomNguoiDung.Value;

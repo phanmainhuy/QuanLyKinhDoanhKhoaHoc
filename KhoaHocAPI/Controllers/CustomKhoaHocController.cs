@@ -139,10 +139,19 @@ namespace KhoaHocAPI.Controllers
             var result = khDB.TimKiemTenKhoaHoc(searchString);
             return Request.CreateResponse(HttpStatusCode.OK, result);
         }
-
-        //public HttpResponseMessage SearchTenKhoaHoc([FromUri] string searchString)
-        //{
-        //    var item =
-        //}
+        [HttpGet]
+        [Route("api/KhoaHocTheoHocVien")]
+        public HttpResponseMessage GetKhoaHocTheoHocVien(int MaHV)
+        {
+            var result = khDB.LayKhoaHocTheoHocVien(MaHV);
+            if (result == null || result.Count == 0)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Không có khóa học nào");
+            }
+            else
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, Mapper.CourseMapper.MapListCourse( result));
+            }
+        }
     }
 }

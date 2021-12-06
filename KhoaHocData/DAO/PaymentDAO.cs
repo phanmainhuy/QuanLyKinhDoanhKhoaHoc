@@ -113,8 +113,11 @@ namespace KhoaHocData.DAO
 
         public int TaoHoaDon1KhoaHoc(int MaND, int MaKM, string TrangThai, string HinhThucThanhToan, int MaKH)
         {
+            
             if (MaND == -1)
                 return -2;
+            if (db.KhoaHocCuaToi(MaND).Any(x => x.MaKhoaHoc == MaKH))
+                return -3;
             var KhuyenMai = db.KhuyenMais.SingleOrDefault(x => x.MaKM == MaKM);
             var KhoaHoc = db.KhoaHocs.SingleOrDefault(x => x.MaKhoaHoc == MaKH);
             if (KhoaHoc == null)

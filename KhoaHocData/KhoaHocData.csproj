@@ -150,6 +150,9 @@
     <Compile Include="EF\KhoaHoc.cs">
       <DependentUpon>QLKhoaHocDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="EF\KhoaHocCuaToi_Result.cs">
+      <DependentUpon>QLKhoaHocDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="EF\KhuyenMai.cs">
       <DependentUpon>QLKhoaHocDataModel.tt</DependentUpon>
     </Compile>

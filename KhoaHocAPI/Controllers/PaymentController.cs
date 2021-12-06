@@ -42,6 +42,10 @@ namespace KhoaHocAPI.Controllers
             {
                 return Request.CreateErrorResponse(HttpStatusCode.Unauthorized, "Vui lòng đăng nhập");
             }
+            else if (result == -3)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.Conflict, "Đã mua khóa học này rồi");
+            }
             else
             {
                 return Request.CreateResponse(HttpStatusCode.OK, result);

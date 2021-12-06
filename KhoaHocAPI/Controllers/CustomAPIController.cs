@@ -118,5 +118,16 @@ namespace KhoaHocAPI.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, e);
             }
         }
+        [HttpGet]
+        [Route("api/NhomNguoiDung/GetAll")]
+        public HttpResponseMessage GetNhomNguoiDung()
+        {
+            var result = new UserGroupDAO().LayTatCaNhomNguoiDung();
+            if (result == null)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Không có dữ liệu");
+            }
+            return Request.CreateResponse(HttpStatusCode.OK, Mapper.UserMapper.MapListUserGroup(result));
+        }
     }
 }

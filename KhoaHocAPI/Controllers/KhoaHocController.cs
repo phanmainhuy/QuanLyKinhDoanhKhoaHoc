@@ -89,7 +89,7 @@ namespace KhoaHocAPI.Controllers
 
         public HttpResponseMessage Post(CourseVM model)
         {
-            var resust = khDAO.ThemKhoaHoc(model.MaLoai, model.TenKhoaHoc, model.DonGia, model.HinhAnh, model.MaGV, model.GioiThieu);
+            var resust = khDAO.ThemKhoaHoc(model.MaLoai.Value, model.TenKhoaHoc, model.DonGia.Value, model.HinhAnh, model.MaGV.Value, model.GioiThieu);
             if (resust == Common.AllEnum.KetQuaTraVeKhoaHoc.ThanhCong)
                 return Request.CreateResponse(HttpStatusCode.Created);
             else if (resust == Common.AllEnum.KetQuaTraVeKhoaHoc.DaTonTai)
@@ -97,6 +97,16 @@ namespace KhoaHocAPI.Controllers
             else if (resust == Common.AllEnum.KetQuaTraVeKhoaHoc.TheLoaiKhongTonTai)
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Thể loại không tồn tại");
             return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Thêm khóa học không thành công");
+        }
+        [HttpPut]
+        public HttpResponseMessage PutThongTinKhoaHoc(CourseVM model)
+        {
+            var resust = khDAO.ThayDoiThongTinKhoaHoc(model.MaKhoaHoc, model.MaLoai, model.TenKhoaHoc, model.DonGia, model.HinhAnh, model.MaGV, model.GioiThieu);
+            if (resust == Common.AllEnum.KetQuaTraVe.ThanhCong)
+                return Request.CreateResponse(HttpStatusCode.OK);
+            else if (resust == Common.AllEnum.KetQuaTraVe.ChaKhongTonTai)
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Vui lòng kiểm tra lại dữ liệu");
+            return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Thay đổi thông tin khóa học không thành công");
         }
     }
 }

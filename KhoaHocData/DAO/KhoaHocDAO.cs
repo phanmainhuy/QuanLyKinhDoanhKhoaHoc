@@ -39,7 +39,44 @@ namespace KhoaHocData.DAO
             total = result.Count();
             return result.Skip(skipSize).Take(pageSize).ToList();
         }
-
+        public KetQuaTraVe ThayDoiThongTinKhoaHoc(int pMaKH, int? pMaLoai, string pTenKhoaHoc, decimal? pDonGia, string pHinhAnh, int? pMaGV, string pMoTa)
+        {
+            var kh = db.KhoaHocs.SingleOrDefault(x => x.MaKhoaHoc == pMaKH);
+            if (kh == null)
+                return KetQuaTraVe.KhongTonTai;
+            if (pMaLoai != null)
+            {
+                if(db.LoaiKhoaHocs.Any(x => x.MaLoai == pMaLoai))
+                    kh.MaLoai = pMaLoai;
+                else
+                    return KetQuaTraVe.ChaKhongTonTai;
+            }
+            if (pTenKhoaHoc != null)
+                kh.TenKhoaHoc = pTenKhoaHoc;
+            if (pDonGia != null)
+                kh.DonGia = pDonGia;
+            if (pHinhAnh != null)
+                kh.HinhAnh = pHinhAnh;
+            if (pMaGV != null)
+            {
+                if (db.NguoiDungs.Any(x => x.MaND == pMaGV && x.MaNhomNguoiDung == (int)AllEnum.MaNhomNguoiDung.Teacher))
+                    kh.MaGV = pMaGV;
+                else
+                    return KetQuaTraVe.ChaKhongTonTai;
+            }
+            if (pMoTa != null)
+                kh.MOTAKHOAHOC = pMoTa;
+            try
+            {
+                db.SaveChanges();
+                return KetQuaTraVe.ThanhCong;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return KetQuaTraVe.ThatBai;
+            }
+        }
         public IEnumerable<KhoaHoc> LayRaKhoaHocTheoMaLoaiKhoaHoc(int maLoai, int limit)
         {
             return db.KhoaHocs.Where(x => x.MaLoai == maLoai).OrderByDescending(x => x.MaKhoaHoc).Take(limit);
@@ -193,6 +230,10 @@ namespace KhoaHocData.DAO
         public List<string> TimKiemTenKhoaHoc(string searchString)
         {
             return db.SearchTenKhoahoc(searchString, searchString).Take(10).ToList();
+        }
+        public List<KhoaHoc> LayKhoaHocTheoHocVien(int pMaHV)
+        {
+            return db.KhoaHocCuaToi(pMaHV).ToList();
         }
     }
 }
