@@ -30,6 +30,5 @@ namespace KhoaHocData.EF
     
         public virtual NguoiDung NguoiDung { get; set; }
         public virtual NguoiDung NguoiDung1 { get; set; }
-        public virtual HoaDon HoaDon { get; set; }
     }
 }

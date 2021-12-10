@@ -20,6 +20,21 @@ namespace KhoaHocData.DAO
         {
             return db.KhuyenMais.SingleOrDefault(x => x.MaKM == pMaKM);
         }
+        public KhuyenMai Lay1KhuyenMaiTheoMaNguoiDung(int pMaND, int pMaKM)
+        {
+            return db.KhuyenMais.SingleOrDefault(x =>x.MaND == pMaND && x.MaKM == pMaKM);
+        }
+        public IEnumerable<KhuyenMai> LayTatCaKhuyenMaiTheoMaNguoiDung(int pMaND)
+        {
+            var lstKhuyenMaiKhachHang = db.KhuyenMai_KhachHang.Where(x => x.MaND == pMaND).ToList();
+            List<KhuyenMai> lstReturn = new List<KhuyenMai>();
+            foreach (var item in db.KhuyenMais.ToList())
+            {
+                if (lstKhuyenMaiKhachHang.Any(x => x.MaKM == item.MaKM))
+                    lstReturn.Add(item);
+            }
+            return lstReturn;
+        }
         public AllEnum.KetQuaTraVe ThemKhuyenMai(int pMaNguoiTao, string pTenKM, string pHinhAnh, decimal pGiaTri)
         {
             KhuyenMai km = new KhuyenMai();

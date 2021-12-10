@@ -30,5 +30,26 @@ namespace KhoaHocAPI.Mapper
             }
             return lstReturn;   
         }
+        public static KhuyenMai_NguoiDungVM MapSaleBought(KhuyenMai khuyenMai)
+        {
+            return new KhuyenMai_NguoiDungVM()
+            {
+                MaKM = khuyenMai.MaKM,
+                TenKM = khuyenMai.TenKM,
+                GiaTri = khuyenMai.GiaTri.Value,
+                HinhAnh = khuyenMai.HinhAnh,
+                MaApDung = khuyenMai.MaApDung,
+                MaHV = khuyenMai.MaND.Value
+            };
+        }
+        public static IEnumerable<KhuyenMai_NguoiDungVM> MapListSaleBought(IEnumerable<KhuyenMai> lstKhuyenMai)
+        {
+            List<KhuyenMai_NguoiDungVM> lstReturn = new List<KhuyenMai_NguoiDungVM>();
+            foreach (var item in lstKhuyenMai.ToList())
+            {
+                lstReturn.Add(MapSaleBought(item));
+            }
+            return lstReturn;
+        }
     }
 }

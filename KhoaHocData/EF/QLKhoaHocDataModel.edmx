@@ -990,7 +990,6 @@
           <NavigationProperty Name="CT_HoaDon" Relationship="Self.FK_CTHoaDon_HoaDon" FromRole="HoaDon" ToRole="CT_HoaDon" />
           <NavigationProperty Name="KhuyenMai" Relationship="Self.FK_HoaDon_KhuyenMai" FromRole="HoaDon" ToRole="KhuyenMai" />
           <NavigationProperty Name="NguoiDung" Relationship="Self.FK_HoaDon_NguoiDung" FromRole="HoaDon" ToRole="NguoiDung" />
-          <NavigationProperty Name="DonThuTiens" Relationship="QL_KHOAHOCModel.FK_DonThuTien_MaHD" FromRole="HoaDon" ToRole="DonThuTien" />
         </EntityType>
         <EntityType Name="KhoaHoc">
           <Key>
@@ -1800,7 +1799,6 @@
           <NavigationProperty Name="NguoiDung1" Relationship="QL_KHOAHOCModel.FK_DonThuTien_MaNVHoTro" FromRole="DonThuTien" ToRole="NguoiDung" />
           <Property Name="SDTThu" Type="String" MaxLength="11" FixedLength="true" Unicode="false" />
           <Property Name="MaHD" Type="Int32" />
-          <NavigationProperty Name="HoaDon" Relationship="QL_KHOAHOCModel.FK_DonThuTien_MaHD" FromRole="DonThuTien" ToRole="HoaDon" />
         </EntityType>
         <Association Name="FK_DonThuTien_MaKH">
           <End Type="QL_KHOAHOCModel.NguoiDung" Role="NguoiDung" Multiplicity="0..1" />

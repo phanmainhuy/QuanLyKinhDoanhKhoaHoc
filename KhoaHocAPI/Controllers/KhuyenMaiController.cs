@@ -32,6 +32,29 @@ namespace KhoaHocAPI.Controllers
             else
                 return Request.CreateResponse(HttpStatusCode.OK, Mapper.SaleMapper.MapSale(result));
         }
+        [HttpGet]
+        public HttpResponseMessage GetKhuyenMaiDaMuaById(int MaND, int MaKM)
+        {
+            var result = db_km.Lay1KhuyenMaiTheoMaNguoiDung(MaND, MaKM);
+            if (result == null)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Bạn không sở hữu khuyến mãi này");
+            }
+            else
+                return Request.CreateResponse(HttpStatusCode.OK, Mapper.SaleMapper.MapSaleBought(result));
+        }
+        [HttpGet]
+        [Route("api/KhuyenMaiDaMua")]
+        public HttpResponseMessage GetKhuyenMaiDaMuaByUserId(int MaND)
+        {
+            var result = db_km.LayTatCaKhuyenMaiTheoMaNguoiDung(MaND);
+            if (result == null)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Bạn không có khuyến mãi nào");
+            }
+            else
+                return Request.CreateResponse(HttpStatusCode.OK, Mapper.SaleMapper.MapListSaleBought(result));
+        }
         [Route("api/KhuyenMai/TaoKhuyenMai")]
         [HttpPost]
         public HttpResponseMessage TaoKhuyenMai(KhuyenMaiVM model)

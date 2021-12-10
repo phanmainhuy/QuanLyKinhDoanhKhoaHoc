@@ -18,7 +18,6 @@ namespace KhoaHocData.EF
         public HoaDon()
         {
             this.CT_HoaDon = new HashSet<CT_HoaDon>();
-            this.DonThuTiens = new HashSet<DonThuTien>();
         }
     
         public int MaHD { get; set; }
@@ -35,7 +34,5 @@ namespace KhoaHocData.EF
         public virtual ICollection<CT_HoaDon> CT_HoaDon { get; set; }
         public virtual KhuyenMai KhuyenMai { get; set; }
         public virtual NguoiDung NguoiDung { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DonThuTien> DonThuTiens { get; set; }
     }
 }

@@ -31,7 +31,19 @@ namespace KhoaHocData.DAO
             totalPage = db.HoaDons.Count();
             return db.HoaDons.OrderBy(x => x.MaHD).Skip(skipSize).Take(pageSize);
         }
-
+        public IEnumerable<HoaDon> LayToanBoHoaDonChoDuyetPaging(int page, int pageSize, out int totalPage)
+        {
+            int skipSize = page * pageSize;
+            totalPage = db.HoaDons.Count();
+            var lstDonThuTien = db.DonThuTiens.ToList();
+            List<HoaDon> lstHoaDon = new List<HoaDon>();
+            foreach (var item in db.HoaDons.Where(x => !x.ThanhToan.Value).ToList())
+            {
+                if (lstDonThuTien.Any(x => x.MaHD == item.MaHD)) ;
+                lstHoaDon.Add(item);
+            }
+            return lstHoaDon;
+        }
         //public bool AddHoaDon(int MaND, int MaKM, string TrangThai, string HinhThucThanhToan, IEnumerable< CT_HoaDon> lstChiTietHoaDon)
         //{
         //    HoaDon hd = new HoaDon()
@@ -67,7 +79,7 @@ namespace KhoaHocData.DAO
                 MaND = MaND,
                 NgayLap = DateTime.Now.Date,
                 TongTien = GioHang.TongTien.Value,
-                TrangThai = "Active",
+                TrangThai = "0",
                 ThanhToan = false,
                 GiamGia = KhuyenMai != null ? KhuyenMai.GiaTri.Value : 0
             };
@@ -129,7 +141,7 @@ namespace KhoaHocData.DAO
                 MaND = MaND,
                 NgayLap = DateTime.Now.Date,
                 TongTien = KhoaHoc != null ? KhoaHoc.DonGia.Value : 0,
-                TrangThai = "Active",
+                TrangThai = "0",
                 ThanhToan = false,
                 GiamGia = KhuyenMai != null ? KhuyenMai.GiaTri.Value : 0
             };
@@ -153,6 +165,7 @@ namespace KhoaHocData.DAO
             if (hd == null)
                 return AllEnum.KetQuaTraVe.KhongTonTai;
             hd.ThanhToan = true;
+            hd.TrangThai = "1";
             var td = db.TichDiems.SingleOrDefault(x => x.MaND == hd.MaND);
             if(td == null)
             {

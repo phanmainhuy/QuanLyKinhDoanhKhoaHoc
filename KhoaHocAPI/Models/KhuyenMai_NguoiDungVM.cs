@@ -9,5 +9,9 @@ namespace KhoaHocAPI.Models
     {
         public int MaKM { get; set; }
         public int MaHV { get; set; }
+        public string TenKM { get; set; }
+        public string HinhAnh { get; set; }
+        public decimal GiaTri { get; set; }
+        public string MaApDung { get; set; }
     }
 }

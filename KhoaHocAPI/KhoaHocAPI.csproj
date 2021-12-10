@@ -194,6 +194,7 @@
     <Compile Include="Controllers\CustomAPIController.cs" />
     <Compile Include="Controllers\CustomKhoaHocController.cs" />
     <Compile Include="Controllers\KhuyenMaiController.cs" />
+    <Compile Include="Controllers\OnlinePayment\VNPayController.cs" />
     <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Controllers\ThanhToanController.cs" />
     <Compile Include="Controllers\HocVienController.cs" />
@@ -239,6 +240,8 @@
     <Compile Include="Models\UserLogin.cs" />
     <Compile Include="Models\UserLogon.cs" />
     <Compile Include="Models\UserViewModel.cs" />
+    <Compile Include="Models\VNPay\VNPayConfirmVM.cs" />
+    <Compile Include="Models\VNPay\VNPayRequestVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -514,6 +517,7 @@
     <Content Include="Assets\images\others\online-free-course-education-banner-design-templates.jpg" />
     <Content Include="Assets\images\others\paypal.png" />
     <Content Include="Assets\images\others\small.png" />
+    <Content Include="Assets\images\others\vnpay.png" />
     <Content Include="Assets\images\users\Admin1.jpg" />
     <Content Include="Assets\images\users\adminuser.png" />
     <Content Include="Assets\images\users\HocVien1.jpg" />
