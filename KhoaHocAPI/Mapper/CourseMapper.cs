@@ -20,6 +20,16 @@ namespace KhoaHocAPI.Mapper
             }
             return lstReturn;
         }
+        public static IEnumerable<KhoaHoc> MapListCourseReverse(IEnumerable<CourseVM> lstKhoaHoc)
+        {
+            List<KhoaHoc> lstReturn = new List<KhoaHoc>();
+            foreach (var item in lstKhoaHoc)
+            {
+                var course = MapCourseReverse(item);
+                lstReturn.Add(course);
+            }
+            return lstReturn;
+        }
         public static CourseVM MapCourse(KhoaHoc item)
         {
             GetDAO getDAODB = new GetDAO();
@@ -40,7 +50,8 @@ namespace KhoaHocAPI.Mapper
                 TenGV = item.NguoiDung.HoTen,
                 NgayTao = item.NgayTao.Value,
                 NgayChapThuan = item.NgayChapThuan.Value,
-                MaDM = item.LoaiKhoaHoc.MaDanhMuc
+                MaDM = item.LoaiKhoaHoc.MaDanhMuc,
+                HienThi = item.HienThi
             };
         }
         public static KhoaHoc MapCourseReverse(CourseVM item)
@@ -58,7 +69,8 @@ namespace KhoaHocAPI.Mapper
                 TrangThai = item.TrangThai,
                 MOTAKHOAHOC = item.GioiThieu,
                 NgayTao = item.NgayTao.Value,
-                NgayChapThuan = item.NgayChapThuan.Value
+                NgayChapThuan = item.NgayChapThuan.Value,
+                HienThi = item.HienThi.Value
             };
         }
     }

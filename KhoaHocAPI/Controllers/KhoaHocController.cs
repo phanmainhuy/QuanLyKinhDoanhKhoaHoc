@@ -1,6 +1,7 @@
 ﻿using KhoaHocAPI.Models;
 using KhoaHocData.DAO;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
@@ -107,6 +108,19 @@ namespace KhoaHocAPI.Controllers
             else if (resust == Common.AllEnum.KetQuaTraVe.ChaKhongTonTai)
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Vui lòng kiểm tra lại dữ liệu");
             return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Thay đổi thông tin khóa học không thành công");
+        }
+        [HttpPatch]
+        public HttpResponseMessage PatchTrangThaiKhoaHoc([FromBody]IEnumerable<CourseVM> lstModel, bool isHienThi)
+        {
+            var resust = khDAO.ThayDoiTrangThaiKhoaHoc(Mapper.CourseMapper.MapListCourseReverse(lstModel), isHienThi);
+            if (resust == Common.AllEnum.KetQuaTraVe.ThatBai)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Không thành công");
+            }
+            else
+            {
+                return Request.CreateResponse(HttpStatusCode.OK);
+            }
         }
     }
 }

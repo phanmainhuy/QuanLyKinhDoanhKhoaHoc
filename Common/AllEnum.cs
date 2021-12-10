@@ -14,6 +14,18 @@
         {
             ThatBai, ThanhCong, ChaKhongTonTai, DaTonTai, KhongTonTai
         }
+        public enum TrangThaiDonThuTien
+        {
+            ChoThanhToan, DaThanhToan
+        }
+        public enum TrangThaiKhoaHoc
+        {
+            An, HienThi
+        }
+        public enum TrangThaiGioHang
+        {
+            ChoTaoHoaDon, DaTaoHoaDon
+        }
 
         public enum MaNhomNguoiDung
         {

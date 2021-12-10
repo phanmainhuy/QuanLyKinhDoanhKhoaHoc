@@ -108,6 +108,7 @@
           <Property Name="MaGioHang" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="MaND" Type="int" />
           <Property Name="TongTien" Type="money" />
+          <Property Name="TrangThai" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="HoaDon">
           <Key>
@@ -139,6 +140,7 @@
           <Property Name="MOTAKHOAHOC" Type="nvarchar" MaxLength="500" />
           <Property Name="NgayTao" Type="date" />
           <Property Name="NgayChapThuan" Type="date" />
+          <Property Name="HienThi" Type="bit" />
         </EntityType>
         <EntityType Name="KhuyenMai">
           <Key>
@@ -973,6 +975,7 @@
           <Property Name="TongTien" Type="Decimal" Precision="19" Scale="4" />
           <NavigationProperty Name="CT_GioHang" Relationship="Self.FK_CTGioHang_GioHang" FromRole="GioHang" ToRole="CT_GioHang" />
           <NavigationProperty Name="NguoiDung" Relationship="Self.FK_DonHang_NguoiDung" FromRole="GioHang" ToRole="NguoiDung" />
+          <Property Name="TrangThai" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="HoaDon">
           <Key>
@@ -1013,6 +1016,7 @@
           <NavigationProperty Name="NguoiDung" Relationship="Self.FK_KHOAHOC_GIAOVIEN" FromRole="KhoaHoc" ToRole="NguoiDung" />
           <NavigationProperty Name="LoaiKhoaHoc" Relationship="Self.FK_KhoaHoc_LoaiKhoaHoc" FromRole="KhoaHoc" ToRole="LoaiKhoaHoc" />
           <NavigationProperty Name="Chuongs" Relationship="QL_KHOAHOCModel.FK_Chuong_KhoaHoc" FromRole="KhoaHoc" ToRole="Chuong" />
+          <Property Name="HienThi" Type="Boolean" />
         </EntityType>
         <EntityType Name="KhuyenMai">
           <Key>
@@ -1706,7 +1710,7 @@
             <End Role="Chuong" EntitySet="Chuongs" />
           </AssociationSet>
           <FunctionImport Name="KhoaHocCuaToi" EntitySet="KhoaHocs" ReturnType="Collection(QL_KHOAHOCModel.KhoaHoc)">
-            <Parameter Name="MaHocVien" Mode="In" Type="Int32" />
+          <Parameter Name="MaHocVien" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="SearchKhoaHoc_Result">
@@ -1968,6 +1972,7 @@
           <EntitySetMapping Name="GioHangs">
             <EntityTypeMapping TypeName="QL_KHOAHOCModel.GioHang">
               <MappingFragment StoreEntitySet="GioHang">
+                <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
                 <ScalarProperty Name="MaGioHang" ColumnName="MaGioHang" />
                 <ScalarProperty Name="MaND" ColumnName="MaND" />
                 <ScalarProperty Name="TongTien" ColumnName="TongTien" />
@@ -1992,6 +1997,7 @@
           <EntitySetMapping Name="KhoaHocs">
             <EntityTypeMapping TypeName="QL_KHOAHOCModel.KhoaHoc">
               <MappingFragment StoreEntitySet="KhoaHoc">
+                <ScalarProperty Name="HienThi" ColumnName="HienThi" />
                 <ScalarProperty Name="MaKhoaHoc" ColumnName="MaKhoaHoc" />
                 <ScalarProperty Name="MaLoai" ColumnName="MaLoai" />
                 <ScalarProperty Name="TenKhoaHoc" ColumnName="TenKhoaHoc" />

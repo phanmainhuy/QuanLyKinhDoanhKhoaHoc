@@ -57,5 +57,26 @@ namespace KhoaHocAPI.Controllers.Admin
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Lỗi truy vấn");
             }
         }
+        [HttpPost]
+        public HttpResponseMessage ConfirmOrder(int OrderID)
+        {
+            var result = db_Payment.XacNhanThanhToanHoaDon(OrderID);
+            if (result == Common.AllEnum.KetQuaTraVe.ThanhCong)
+            {
+                return Request.CreateResponse(HttpStatusCode.OK);
+            }
+            else if(result == Common.AllEnum.KetQuaTraVe.ChaKhongTonTai)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Hóa đơn không tồn tại");
+            }
+            else if (result == Common.AllEnum.KetQuaTraVe.KhongTonTai)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Khách hàng chưa yêu cầu thanh toán, hóa đơn rác");
+            }
+            else
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Xác nhận đơn thất bại, vui lòng thử lại sau");
+            }
+        }
     }
 }

@@ -226,6 +226,23 @@ namespace KhoaHocData.DAO
                 return KetQuaTraVeKhoaHoc.ThatBai;
             }
         }
+        public KetQuaTraVe ThayDoiTrangThaiKhoaHoc(IEnumerable<KhoaHoc> lstKhoaHoc, bool isHienThi)
+        {
+            foreach (var item in lstKhoaHoc.ToList())
+            {
+                db.KhoaHocs.SingleOrDefault(x => x.MaKhoaHoc == item.MaKhoaHoc).HienThi = isHienThi;
+            }
+            try
+            {
+                db.SaveChanges();
+                return KetQuaTraVe.ThanhCong;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return KetQuaTraVe.ThatBai;
+            }
+        }
     
         public List<string> TimKiemTenKhoaHoc(string searchString)
         {

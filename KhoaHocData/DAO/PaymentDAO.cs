@@ -24,6 +24,29 @@ namespace KhoaHocData.DAO
         {
             return db.HoaDons.SingleOrDefault(x => x.MaHD == pMaHoaDon);
         }
+        public AllEnum.KetQuaTraVe XacNhanThanhToanHoaDon(int pMaHD)
+        {
+            var hd = db.HoaDons.SingleOrDefault(x => x.MaHD == pMaHD);
+            var dtt = db.DonThuTiens.SingleOrDefault(x => x.MaHD == pMaHD);
+
+            if (hd == null)
+                return AllEnum.KetQuaTraVe.ChaKhongTonTai;
+            if (dtt == null)
+                return AllEnum.KetQuaTraVe.KhongTonTai;
+            dtt.TrangThai = AllEnum.TrangThaiDonThuTien.DaThanhToan.ToString();
+            hd.TrangThai = "0";
+            hd.ThanhToan = true;
+            try
+            {
+                db.SaveChanges();
+                return AllEnum.KetQuaTraVe.ThanhCong;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return AllEnum.KetQuaTraVe.ThatBai;
+            }
+        }
 
         public IEnumerable<HoaDon> LayToanBoHoaDonPaging(int page, int pageSize, out int totalPage)
         {
@@ -66,12 +89,13 @@ namespace KhoaHocData.DAO
         //    db.CT_HoaDon.AddRange(lstChiTietHoaDon);
         //    return SaveAll();
         //}
-        public int AddHoaDon(int MaND, int MaKM, string TrangThai, string HinhThucThanhToan, int MaGioHang)
+        public int AddHoaDon(int MaND, int MaKM, string TrangThai, string HinhThucThanhToan, int MaGioHang, bool? isBlock = false)
         {
             if (MaND == -1)
                 return -2;
             var KhuyenMai = db.KhuyenMais.SingleOrDefault(x => x.MaKM == MaKM);
             var GioHang = db.GioHangs.SingleOrDefault(x => x.MaGioHang == MaGioHang);
+            
             HoaDon hd = new HoaDon()
             {
                 MaKM = MaKM,
@@ -79,13 +103,17 @@ namespace KhoaHocData.DAO
                 MaND = MaND,
                 NgayLap = DateTime.Now.Date,
                 TongTien = GioHang.TongTien.Value,
-                TrangThai = "0",
+                TrangThai = "1",
                 ThanhToan = false,
                 GiamGia = KhuyenMai != null ? KhuyenMai.GiaTri.Value : 0
             };
             db.HoaDons.Add(hd);
             var giohangItems = db.CT_GioHang.Where(x => x.MaGioHang == MaGioHang).ToList();
+            if (GioHang.TrangThai == AllEnum.TrangThaiGioHang.DaTaoHoaDon.ToString())
+                return -3;
+            GioHang.TrangThai = AllEnum.TrangThaiGioHang.DaTaoHoaDon.ToString();
             SaveAll();
+
 
             foreach (var item in giohangItems)
             {

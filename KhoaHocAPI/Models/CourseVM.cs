@@ -22,6 +22,7 @@ namespace KhoaHocAPI.Models
         public decimal DanhGia { get; set; }
         public string GioiThieu { get; set; }//
         public DateTime? NgayTao { get; set; }
+        public bool? HienThi { get; set; }
         public DateTime? NgayChapThuan { get; set; }
     }
 }

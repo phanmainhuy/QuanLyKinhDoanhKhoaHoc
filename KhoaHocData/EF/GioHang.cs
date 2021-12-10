@@ -23,6 +23,7 @@ namespace KhoaHocData.EF
         public int MaGioHang { get; set; }
         public Nullable<int> MaND { get; set; }
         public Nullable<decimal> TongTien { get; set; }
+        public string TrangThai { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CT_GioHang> CT_GioHang { get; set; }

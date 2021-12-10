@@ -34,6 +34,7 @@ namespace KhoaHocData.EF
         public string MOTAKHOAHOC { get; set; }
         public Nullable<System.DateTime> NgayTao { get; set; }
         public Nullable<System.DateTime> NgayChapThuan { get; set; }
+        public Nullable<bool> HienThi { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CT_GioHang> CT_GioHang { get; set; }
