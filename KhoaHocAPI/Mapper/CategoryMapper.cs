@@ -33,7 +33,7 @@ namespace KhoaHocAPI.Mapper
                 MaDanhMuc = dm.MaDanhMuc,
                 DanhSachTheLoai = MapListCategory(dm.LoaiKhoaHocs).ToList(),
                 TenDanhMuc = dm.TenDanhMuc,
-                HinhAnh = dm.HinhAnh
+                HinhAnh = dm.HinhAnh == null ? "" : dm.HinhAnh
             };
         }
         public static IEnumerable<DanhMucVM> MapListTopCategory(IEnumerable<DanhMucKhoaHoc> lkhs)

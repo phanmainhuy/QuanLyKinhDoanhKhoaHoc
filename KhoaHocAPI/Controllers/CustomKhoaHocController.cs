@@ -28,18 +28,18 @@ namespace KhoaHocAPI.Controllers
         [Route("TopCategoryByID")]
         public HttpResponseMessage GetAllTopCategory(int ID)
         {
-            var item = Mapper.CategoryMapper.MapTopCategory(db.LayDanhMucKhoaHocTheoMa(ID));
+            var item = db.LayDanhMucKhoaHocTheoMa(ID);
             if (item != null)
             {
-                return Request.CreateResponse(HttpStatusCode.OK, item);
+                return Request.CreateResponse(HttpStatusCode.OK, Mapper.CategoryMapper.MapTopCategory(item));
             }
             return Request.CreateErrorResponse(HttpStatusCode.NoContent, "Không có kết quả");
         }
 
         [Route("LatestCourse")]
-        public HttpResponseMessage GetLatestCourse(HttpRequestMessage request, int limit)
+        public HttpResponseMessage GetLatestCourse(HttpRequestMessage request, int limit, bool isShow = true)
         {
-            var item = khDB.LayKhoaHocMoiNhat(limit);
+            var item = khDB.LayKhoaHocMoiNhat(limit, isShow);
             if (item != null)
             {
                 var lstCourseCartVM = Mapper.CourseMapper.MapListCourse(item);
@@ -49,9 +49,9 @@ namespace KhoaHocAPI.Controllers
         }
 
         [Route("MostBuyCourse")]
-        public HttpResponseMessage GetMostBuyCourse(int limit)
+        public HttpResponseMessage GetMostBuyCourse(int limit, bool isShow = true)
         {
-            var item = khDB.LayKhoaHocMuaNhieu(limit);
+            var item = khDB.LayKhoaHocMuaNhieu(limit, isShow);
             if (item != null)
             {
                 var lstCourseVM = Mapper.CourseMapper.MapListCourse(item);
@@ -62,10 +62,10 @@ namespace KhoaHocAPI.Controllers
         }
 
         [Route("Search")]
-        public HttpResponseMessage GetKhoaHocTheoTenPaging([FromUri] string searchString, [FromUri] PagingVM paging)
+        public HttpResponseMessage GetKhoaHocTheoTenPaging([FromUri] string searchString, [FromUri] PagingVM paging, [FromUri] bool isShow = true)
         {
             int total;
-            var item = khDB.TimKiemKhoaHocPaging(searchString, out total, paging.page, paging.pageSize);
+            var item = khDB.TimKiemKhoaHocPaging(searchString, out total, paging.page, paging.pageSize, isShow);
             if (item != null)
             {
                 var lstCourseVM = Mapper.CourseMapper.MapListCourse(item);
@@ -79,10 +79,10 @@ namespace KhoaHocAPI.Controllers
         }
 
         [Route("Search")]
-        public HttpResponseMessage GetKhoaHocTheoTenPaging([FromUri] string searchString, [FromUri] PagingVM paging, [FromUri] int type)
+        public HttpResponseMessage GetKhoaHocTheoTenPaging([FromUri] string searchString, [FromUri] PagingVM paging, [FromUri] int type, [FromUri] bool isShow = true)
         {
             int total;
-            var item = khDB.TimKiemKhoaHocPagingSorting(searchString, out total, paging.page, paging.pageSize, type);
+            var item = khDB.TimKiemKhoaHocPagingSorting(searchString, out total, paging.page, paging.pageSize, type, isShow);
             if (item != null)
             {
                 var lstCourseVM = Mapper.CourseMapper.MapListCourse(item);
@@ -97,10 +97,10 @@ namespace KhoaHocAPI.Controllers
 
         [Route("SearchTheoLoai")]
         [HttpGet]
-        public HttpResponseMessage SearchKhoaHocTheoMaTheLoaiPaging([FromUri] int maTheLoai, [FromUri] string searchString, [FromUri] PagingVM paging)
+        public HttpResponseMessage SearchKhoaHocTheoMaTheLoaiPaging([FromUri] int maTheLoai, [FromUri] string searchString, [FromUri] PagingVM paging, [FromUri] bool isShow = true)
         {
             int total;
-            var item = khDB.TimKiemKhoaHocTheoTheLoaiPaging(maTheLoai, searchString, out total, paging.page, paging.pageSize);
+            var item = khDB.TimKiemKhoaHocTheoTheLoaiPaging(maTheLoai, searchString, out total, isShow, paging.page, paging.pageSize);
             if (item != null)
             {
                 var lstCourseVM = Mapper.CourseMapper.MapListCourse(item);
@@ -116,10 +116,10 @@ namespace KhoaHocAPI.Controllers
 
         [Route("SearchTheoLoai")]
         [HttpGet]
-        public HttpResponseMessage SearchKhoaHocTheoMaTheLoaiPaging([FromUri] int maTheLoai, [FromUri] string searchString, [FromUri] PagingVM paging, [FromUri] int type)
+        public HttpResponseMessage SearchKhoaHocTheoMaTheLoaiPaging([FromUri] int maTheLoai, [FromUri] string searchString, [FromUri] PagingVM paging, [FromUri] int type, [FromUri] bool isShow = true)
         {
             int total;
-            var item = khDB.TimKiemKhoaHocTheoTheLoaiPagingSorting(maTheLoai, searchString, out total, paging.page, paging.pageSize, type);
+            var item = khDB.TimKiemKhoaHocTheoTheLoaiPagingSorting(maTheLoai, searchString, out total, paging.page, paging.pageSize, type, isShow);
             if (item != null)
             {
                 var lstCourseVM = Mapper.CourseMapper.MapListCourse(item);
@@ -141,9 +141,9 @@ namespace KhoaHocAPI.Controllers
         }
         [HttpGet]
         [Route("api/KhoaHocTheoHocVien")]
-        public HttpResponseMessage GetKhoaHocTheoHocVien(int MaHV)
+        public HttpResponseMessage GetKhoaHocTheoHocVien(int MaHV, bool isShow = true)
         {
-            var result = khDB.LayKhoaHocTheoHocVien(MaHV);
+            var result = khDB.LayKhoaHocTheoHocVien(MaHV, isShow);
             if (result == null || result.Count == 0)
             {
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Không có khóa học nào");

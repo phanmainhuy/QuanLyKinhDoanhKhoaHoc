@@ -109,6 +109,39 @@ namespace KhoaHocData.DAO
             db.Quyen_NhomNguoiDung.AddRange(lstAdd);
             return (await db.SaveChangesAsync()) > 0;
         }
+        public async Task<bool> ThayDoiQuyenCuaNhom(int pMaNhom, IEnumerable<Quyen> lstQuyen)
+        {
+            var nhom = db.NhomNguoiDungs.SingleOrDefault(x => x.MaNhomNguoiDung == pMaNhom);
+            if (nhom == null)
+                return false;
+            var lstQuyenNhomNguoiDung = db.Quyen_NhomNguoiDung.Where(x => x.MaNhomNguoiDung == pMaNhom).ToList();
+            List<Quyen_NhomNguoiDung> newListQuyenNhomNguoiDung = new List<Quyen_NhomNguoiDung>();
+            db.Quyen_NhomNguoiDung.RemoveRange(lstQuyenNhomNguoiDung);
+            foreach (var item in lstQuyen.ToList())
+            {
+                newListQuyenNhomNguoiDung.Add(new Quyen_NhomNguoiDung()
+                {
+                    MaQuyen = item.MaQuyen,
+                    MaNhomNguoiDung = pMaNhom,
+                    DuocTruyCap = true
+                });
+            }
+            try
+            {
+                await db.SaveChangesAsync();
+                db.Quyen_NhomNguoiDung.AddRange(newListQuyenNhomNguoiDung);
+                await db.SaveChangesAsync();
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+
+            return true;
+
+        }
 
         public async Task<bool> ThayDoiNhomNguoiDung(int pMaND, int pMaNhom)
         {

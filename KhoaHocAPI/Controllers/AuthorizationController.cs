@@ -53,6 +53,20 @@ namespace KhoaHocAPI.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.NotAcceptable, "Lỗi bất ngờ");
             }
         }
+        [HttpPut]
+        public async Task<HttpResponseMessage> PutMultiple([FromBody] PermissionGroupVM model)
+        {
+            var result = await db.ThayDoiQuyenCuaNhom(model.MaNhomNguoiDung, Mapper.RoleMapper.MapListQuyen(model.DanhSachQuyen));
+            if (result)
+            {
+                return Request.CreateResponse(HttpStatusCode.OK);
+            }
+            else
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Lỗi bất ngờ");
+            }
+        }
+        [HttpPut]
         public async Task<HttpResponseMessage> Put(int UserID, int GroupID)
         {
             var result = await db.ThayDoiNhomNguoiDung(UserID, GroupID);

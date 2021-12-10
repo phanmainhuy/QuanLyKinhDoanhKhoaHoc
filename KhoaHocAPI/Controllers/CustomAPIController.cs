@@ -39,9 +39,9 @@ namespace KhoaHocAPI.Controllers
 
         [Route("KhoaHocTheoGiaoVien")]
         [HttpGet]
-        public HttpResponseMessage GetKhoaHocTheoGiaoVien(int MaGV)
+        public HttpResponseMessage GetKhoaHocTheoGiaoVien(int MaGV, bool isShow = true)
         {
-            var result = new KhoaHocDAO().LayKhoaHocTheoMaGiaoVien(MaGV);
+            var result = new KhoaHocDAO().LayKhoaHocTheoMaGiaoVien(MaGV, isShow);
             if (result == null)
             {
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Không có khóa học nào");

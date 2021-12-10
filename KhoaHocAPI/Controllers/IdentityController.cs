@@ -36,6 +36,7 @@ namespace KhoaHocAPI.Controllers
             return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Lỗi lúc get phân quyền");
         }
         [HttpPost]
+        [Route("api/Identity/student")]
         public HttpResponseMessage SignUpStudent(UserLogin model)
         {
             var kq = new Account().Register(model.UserName, model.Password);
