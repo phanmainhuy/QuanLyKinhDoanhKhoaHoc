@@ -45,5 +45,6 @@ namespace KhoaHocAPI.Controllers
         {
             return Request.CreateResponse(System.Net.HttpStatusCode.OK,  Mapper.UserMapper.MapListUser( this.ndDAO.LayDanhSachTheoMaNhom(pMaNhomNguoiDung)));
         }
+        
     }
 }

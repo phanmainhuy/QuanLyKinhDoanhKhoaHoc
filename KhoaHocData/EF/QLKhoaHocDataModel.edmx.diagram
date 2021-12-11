@@ -27,7 +27,6 @@
         <EntityTypeShape EntityType="QL_KHOAHOCModel.Quyen" Width="1.5" PointX="0.75" PointY="12.625" IsExpanded="true" />
         <EntityTypeShape EntityType="QL_KHOAHOCModel.Quyen_NhomNguoiDung" Width="1.5" PointX="3" PointY="12.625" IsExpanded="true" />
         <EntityTypeShape EntityType="QL_KHOAHOCModel.SoDuTaiKhoan" Width="1.5" PointX="5.25" PointY="36.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="QL_KHOAHOCModel.sysdiagram" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="QL_KHOAHOCModel.TichDiem" Width="1.5" PointX="5.25" PointY="39.875" IsExpanded="true" />
         <AssociationConnector Association="QL_KHOAHOCModel.FK_BaiHoc_KhoaHoc" ManuallyRouted="false" />
         <AssociationConnector Association="QL_KHOAHOCModel.FK_BaiTap_BaiHoc" ManuallyRouted="false" />

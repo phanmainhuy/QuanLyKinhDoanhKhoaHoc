@@ -35,6 +35,17 @@ namespace KhoaHocAPI.Controllers
             }
             return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Lỗi lúc get phân quyền");
         }
+
+        [HttpGet]
+        public HttpResponseMessage SignUpStudentMobile(string userName, string password)
+        {
+            var kq = new Account().Register(userName, password);
+            if (kq != null)
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, Mapper.UserMapper.MapUserLogon(kq));
+            }
+            return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Tài khoản hoặc mật khẩu không chính xác");
+        }
         [HttpPost]
         [Route("api/Identity/student")]
         public HttpResponseMessage SignUpStudent(UserLogin model)

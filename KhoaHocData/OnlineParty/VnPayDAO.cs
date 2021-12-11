@@ -1,21 +1,18 @@
 ﻿using KhoaHocData.EF;
 using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace KhoaHocData.OnlineParty
 {
-
     public class VnPayDAO
     {
-        QL_KHOAHOCEntities db = new QL_KHOAHOCEntities();
+        private QL_KHOAHOCEntities db = new QL_KHOAHOCEntities();
+
         public string GetPayURL(long OrderId, long Amount, string BankCode)
         {
-            string vnp_Returnurl = ConfigurationManager.AppSettings["vnp_Returnurl"]; //URL nhan ket qua tra ve 
-            string vnp_Url = ConfigurationManager.AppSettings["vnp_Url"]; //URL thanh toan cua VNPAY 
+            string vnp_Returnurl = ConfigurationManager.AppSettings["vnp_Returnurl"]; //URL nhan ket qua tra ve
+            string vnp_Url = ConfigurationManager.AppSettings["vnp_Url"]; //URL thanh toan cua VNPAY
             string vnp_TmnCode = ConfigurationManager.AppSettings["vnp_TmnCode"]; //Ma website
             string vnp_HashSecret = ConfigurationManager.AppSettings["vnp_HashSecret"]; //Chuoi bi mat
             string ThoiHanThanhToan = DateTime.Now.AddMinutes(15).ToString("yyyyMMddHHmmss");
@@ -69,6 +66,7 @@ namespace KhoaHocData.OnlineParty
 
             return paymentUrl;
         }
+
         public ReturnObject GetConfirmResult(long orderId, long vnp_Amount, string vnpayTranId, string vnp_ResponseCode,
                                         string vnp_TransactionStatus, string vnp_SecureHash
                                         , string vnp_BankCode, string vnp_CardType, string vnp_OrderInfo
@@ -95,10 +93,6 @@ namespace KhoaHocData.OnlineParty
             vnpay.AddResponseData("vnp_TransactionStatus", vnp_TransactionStatus);
             vnpay.AddResponseData("vnp_TxnRef", orderId.ToString());
 
-
-
-
-
             bool checkSignature = vnpay.ValidateSignature(vnp_SecureHash, vnp_HashSecret);
             if (checkSignature)
             {
@@ -110,7 +104,7 @@ namespace KhoaHocData.OnlineParty
                                                                                    //Kiem tra tinh trang Order
                 if (order != null)
                 {
-                    if (order.TongTien.Value == vnp_Amount/100)
+                    if (order.TongTien.Value == vnp_Amount / 100)
                     {
                         if (order.TrangThai == "0")
                         {
@@ -119,13 +113,13 @@ namespace KhoaHocData.OnlineParty
                                 //Thanh toan thanh cong
                                 order.TrangThai = "1";
                                 order.ThanhToan = true;
-                                
                             }
                             else
                             {
                                 order.TrangThai = "2";
                             }
-                            returnContent = new ReturnObject(){
+                            returnContent = new ReturnObject()
+                            {
                                 RspCode = "00",
                                 Message = "Confirm Success"
                             };
@@ -165,6 +159,7 @@ namespace KhoaHocData.OnlineParty
             return returnContent;
         }
     }
+
     public class ReturnObject
     {
         public string RspCode { get; set; }

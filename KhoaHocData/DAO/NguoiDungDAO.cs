@@ -92,6 +92,23 @@ namespace KhoaHocData.DAO
             }
             return false;
         }
+        public KetQuaTraVe DoiMatKhau(string pUserName, string pOldPassword, string pNewPassword)
+        {
+            var nd = db.NguoiDungs.SingleOrDefault(x => x.TenDN == pUserName && x.MatKhau == pOldPassword);
+            if (nd == null)
+                return KetQuaTraVe.KhongTonTai;
+            nd.MatKhau = pNewPassword;
+            try
+            {
+                db.SaveChanges();
+                return KetQuaTraVe.ThanhCong;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return KetQuaTraVe.ThatBai;
+            }
+        }
         //public bool CoQuyenChinhSua(int pMaND, int pMaQuyen)
     }
     

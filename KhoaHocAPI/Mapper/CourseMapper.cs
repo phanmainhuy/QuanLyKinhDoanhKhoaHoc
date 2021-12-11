@@ -70,7 +70,7 @@ namespace KhoaHocAPI.Mapper
                 MOTAKHOAHOC = item.GioiThieu,
                 NgayTao = item.NgayTao.Value,
                 NgayChapThuan = item.NgayChapThuan.Value,
-                HienThi = item.HienThi.Value
+                HienThi = item.HienThi == null ? false: item.HienThi.Value
             };
         }
     }

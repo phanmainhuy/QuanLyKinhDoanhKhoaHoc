@@ -222,6 +222,7 @@
     <Compile Include="Models\ChuongVM.cs" />
     <Compile Include="Models\CourseCartVM.cs" />
     <Compile Include="Models\CourseVM.cs" />
+    <Compile Include="Models\DoiMatKhauVM.cs" />
     <Compile Include="Models\DonThuHoVM.cs" />
     <Compile Include="Models\HoaDonDuyetVM.cs" />
     <Compile Include="Models\KhuyenMaiVM.cs" />
@@ -557,14 +558,7 @@
     <Content Include="Assets\images\users\Admin1.jpg" />
     <Content Include="Assets\images\users\adminuser.png" />
     <Content Include="Assets\images\users\HocVien1.jpg" />
-    <Content Include="Assets\images\users\lona.jpg" />
     <Content Include="Assets\images\users\userdefault.png" />
-    <Content Include="Assets\video\video1.mp4" />
-    <Content Include="Assets\video\video2.mp4" />
-    <Content Include="Assets\video\video3.mp4" />
-    <Content Include="Assets\video\video5.mp4" />
-    <Content Include="Assets\video\video6.mp4" />
-    <Content Include="Assets\video\video7.mp4" />
     <Content Include="Assets\video\Đen-TaCứĐiCùngNhauft.LinhCáo%28Prod.byiTễu%29[M-V].mp4" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -594,7 +588,6 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\CollectionModelDescription.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
-    <Content Include="Assets\PDF\đề-thi-SHGK.pdf" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\KhoaHocAPITestDemo - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
@@ -620,6 +613,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Assets\PDF\" />
     <Folder Include="Views\NguoiDung\" />
   </ItemGroup>
   <ItemGroup>

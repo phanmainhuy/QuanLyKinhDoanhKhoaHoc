@@ -15,6 +15,7 @@ namespace KhoaHocAPI.Controllers
     {
         private PaymentDAO db_payment = new PaymentDAO();
 
+        [HttpGet]
         public HttpResponseMessage Get(int MaHoaDon)
         {
             var result = db_payment.LayHoaDonTheoMa(MaHoaDon);
@@ -27,6 +28,7 @@ namespace KhoaHocAPI.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Không có hóa đơn này");
             }
         }
+        [HttpPost]
         public HttpResponseMessage Post(HoaDonVM model)
         {
             int result = -1;

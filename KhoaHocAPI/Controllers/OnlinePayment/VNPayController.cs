@@ -26,9 +26,9 @@ namespace KhoaHocAPI.Controllers.OnlinePayment
             else
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Vui lòng kiểm tra lại dữ liệu");
         }
-        [HttpGet]
+        [HttpPost]
         [Route("api/VNPay/vnpayreturn")]
-        public HttpResponseMessage GetXacNhanThanhToan([FromUri]VNPayConfirmVM model)
+        public HttpResponseMessage GetXacNhanThanhToan([FromBody]VNPayConfirmVM model)
         {
             var resultContent =  db.GetConfirmResult(model.vnp_TxnRef, model.vnp_Amount, model.vnp_TransactionNo, 
                 model.vnp_ResponseCode, model.vnp_TransactionStatus, model.vnp_SecureHash,

@@ -77,7 +77,22 @@ namespace KhoaHocAPI.Controllers
             else
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Error");
         }
-
+        [Route("SearchAll")]
+        public HttpResponseMessage GetAllKhoaHocTheoTenPaging([FromUri] string searchString, [FromUri] PagingVM paging)
+        {
+            int total;
+            var item = khDB.TimKiemTatCaKhoaHocPaging(searchString, out total, paging.page, paging.pageSize);
+            if (item != null)
+            {
+                var lstCourseVM = Mapper.CourseMapper.MapListCourse(item);
+                var response = Request.CreateResponse(HttpStatusCode.OK, lstCourseVM);
+                response.Content.Headers.Add("Access-Control-Expose-Headers", "pagingheader");
+                response.Content.Headers.Add("pagingheader", JsonConvert.SerializeObject(total));
+                return response;
+            }
+            else
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Error");
+        }
         [Route("Search")]
         public HttpResponseMessage GetKhoaHocTheoTenPaging([FromUri] string searchString, [FromUri] PagingVM paging, [FromUri] int type, [FromUri] bool isShow = true)
         {
@@ -94,7 +109,22 @@ namespace KhoaHocAPI.Controllers
             else
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Error");
         }
-
+        [Route("SearchAll")]
+        public HttpResponseMessage GetAllKhoaHocTheoTenPaging([FromUri] string searchString, [FromUri] PagingVM paging, [FromUri] int type, [FromUri] bool isShow = true)
+        {
+            int total;
+            var item = khDB.TimKiemTatCaKhoaHocPagingSorting(searchString, out total, paging.page, paging.pageSize, type);
+            if (item != null)
+            {
+                var lstCourseVM = Mapper.CourseMapper.MapListCourse(item);
+                var response = Request.CreateResponse(HttpStatusCode.OK, lstCourseVM);
+                response.Content.Headers.Add("Access-Control-Expose-Headers", "pagingheader");
+                response.Content.Headers.Add("pagingheader", JsonConvert.SerializeObject(total));
+                return response;
+            }
+            else
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Error");
+        }
         [Route("SearchTheoLoai")]
         [HttpGet]
         public HttpResponseMessage SearchKhoaHocTheoMaTheLoaiPaging([FromUri] int maTheLoai, [FromUri] string searchString, [FromUri] PagingVM paging, [FromUri] bool isShow = true)
@@ -113,7 +143,6 @@ namespace KhoaHocAPI.Controllers
             else
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Error");
         }
-
         [Route("SearchTheoLoai")]
         [HttpGet]
         public HttpResponseMessage SearchKhoaHocTheoMaTheLoaiPaging([FromUri] int maTheLoai, [FromUri] string searchString, [FromUri] PagingVM paging, [FromUri] int type, [FromUri] bool isShow = true)
@@ -139,6 +168,9 @@ namespace KhoaHocAPI.Controllers
             var result = khDB.TimKiemTenKhoaHoc(searchString);
             return Request.CreateResponse(HttpStatusCode.OK, result);
         }
+
+
+
         [HttpGet]
         [Route("api/KhoaHocTheoHocVien")]
         public HttpResponseMessage GetKhoaHocTheoHocVien(int MaHV, bool isShow = true)

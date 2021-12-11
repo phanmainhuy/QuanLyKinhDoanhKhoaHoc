@@ -1,4 +1,5 @@
-﻿using KhoaHocData.DAO;
+﻿using KhoaHocAPI.Models;
+using KhoaHocData.DAO;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -219,6 +220,19 @@ namespace KhoaHocAPI.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Gặp lỗi khi lưu video");
             }
             return Request.CreateResponse(HttpStatusCode.Created);
+        }
+        [HttpPost]
+        [Route("api/nguoidung/doimatkhau")]
+        public HttpResponseMessage PostDoiMatKhau(DoiMatKhauVM model)
+        {
+            var result = new NguoiDungDAO().DoiMatKhau(model.UserName, model.OldPassword, model.NewPassword);
+            if (result == Common.AllEnum.KetQuaTraVe.KhongTonTai)
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Tài khoản không tồn tại");
+            else if (result == Common.AllEnum.KetQuaTraVe.ThatBai)
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Đổi mật khẩu không thành công");
+            else
+                return Request.CreateResponse(HttpStatusCode.OK);
+
         }
     }
 }

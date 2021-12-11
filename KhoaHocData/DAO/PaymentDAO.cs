@@ -2,7 +2,9 @@
 using KhoaHocData.EF;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
+using System.Net.Mail;
 
 namespace KhoaHocData.DAO
 {
@@ -95,6 +97,8 @@ namespace KhoaHocData.DAO
                 return -2;
             var KhuyenMai = db.KhuyenMais.SingleOrDefault(x => x.MaKM == MaKM);
             var GioHang = db.GioHangs.SingleOrDefault(x => x.MaGioHang == MaGioHang);
+
+
             
             HoaDon hd = new HoaDon()
             {
@@ -297,6 +301,40 @@ namespace KhoaHocData.DAO
                 ).ToList();
             total = item.Count();
             return item.Skip(skipSize).Take(pageSize).ToList();
+        }
+        public AllEnum.KetQuaTraVe GuiMailSauKhiThanhToan(string reciepiantMailAddress)
+        {
+            string MyMail = ConfigurationManager.AppSettings["mymail"];
+            string MyMailPassword = ConfigurationManager.AppSettings["mymailpassword"];
+            string Subject = "Đơn hàng thanh toán thành công",
+            Body = "",
+            FromMail = "",
+            HostMail = "vu.vantuy.wt@gmail.com";
+
+            try
+            {
+
+                using (MailMessage mail = new MailMessage())
+                {
+                    mail.From = new MailAddress(FromMail);
+                    mail.To.Add(reciepiantMailAddress);
+                    mail.Subject = Subject;
+                    mail.Body = Body;
+                    mail.IsBodyHtml = true;
+                    using (SmtpClient client = new SmtpClient(HostMail))
+                    {
+                        client.Credentials = new System.Net.NetworkCredential(MyMail, MyMailPassword);
+                        client.EnableSsl = true;
+                        client.Send(mail);
+                        return AllEnum.KetQuaTraVe.ThanhCong;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return AllEnum.KetQuaTraVe.ThatBai;
+            }
         }
     }
 }

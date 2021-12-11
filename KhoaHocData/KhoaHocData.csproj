@@ -226,9 +226,6 @@
     <Compile Include="EF\sp_helpdiagrams_Result.cs">
       <DependentUpon>QLKhoaHocDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="EF\sysdiagram.cs">
-      <DependentUpon>QLKhoaHocDataModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="EF\TichDiem.cs">
       <DependentUpon>QLKhoaHocDataModel.tt</DependentUpon>
     </Compile>
