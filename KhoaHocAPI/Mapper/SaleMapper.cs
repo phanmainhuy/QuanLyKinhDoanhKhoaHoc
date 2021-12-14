@@ -18,7 +18,8 @@ namespace KhoaHocAPI.Mapper
                 GiaTri = khuyenMai.GiaTri.Value,
                 HinhAnh = khuyenMai.HinhAnh,
                 MaNguoiTao = khuyenMai.MaND.Value,
-                DiemCanMua = khuyenMai.Diem.Value
+                DiemCanMua = khuyenMai.Diem.Value,
+                ThoiGianKeoDai = khuyenMai.ThoiGianKeoDai.Value
             };
         }
         public static IEnumerable<KhuyenMaiVM> MapListSale(IEnumerable<KhuyenMai> lstKhuyenMai)
@@ -39,7 +40,9 @@ namespace KhoaHocAPI.Mapper
                 GiaTri = khuyenMai.GiaTri.Value,
                 HinhAnh = khuyenMai.HinhAnh,
                 MaApDung = khuyenMai.MaApDung,
-                MaHV = khuyenMai.MaND.Value
+                MaHV = khuyenMai.MaND.Value,
+                HanSuDung = khuyenMai.KhuyenMai_KhachHang.
+                SingleOrDefault(x => x.MaND == khuyenMai.MaND && x.IsSuDung == false).NgayKetThuc.Value
             };
         }
         public static IEnumerable<KhuyenMai_NguoiDungVM> MapListSaleBought(IEnumerable<KhuyenMai> lstKhuyenMai)

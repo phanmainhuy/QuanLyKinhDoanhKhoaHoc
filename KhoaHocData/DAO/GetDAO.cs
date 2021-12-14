@@ -50,7 +50,20 @@ namespace KhoaHocData.DAO
         }
         public int? LayDiemTheoMaNguoiDung(int pMaND)
         {
-            return db.TichDiems.SingleOrDefault(x => x.MaND == pMaND).SoDiem;
+            var TichDiem = db.TichDiems.SingleOrDefault(x => x.MaND == pMaND);
+
+            if (TichDiem != null)
+            {
+                return TichDiem.SoDiem;
+            }
+            else
+            {
+                TichDiem = new TichDiem();
+                TichDiem.MaND = pMaND;
+                TichDiem.SoDiem = 0;
+                return 0;
+            }
+
         }
         public KhoaHoc GetKhoaHocTheoMa(int pMaKhoaHoc)
         {

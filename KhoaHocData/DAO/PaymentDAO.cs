@@ -3,8 +3,11 @@ using KhoaHocData.EF;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.Net.Mail;
+using System.Reflection;
+using System.Web;
 
 namespace KhoaHocData.DAO
 {
@@ -64,8 +67,21 @@ namespace KhoaHocData.DAO
             List<HoaDon> lstHoaDon = new List<HoaDon>();
             foreach (var item in db.HoaDons.Where(x => !x.ThanhToan.Value).ToList())
             {
-                if (lstDonThuTien.Any(x => x.MaHD == item.MaHD)) ;
-                lstHoaDon.Add(item);
+                if (lstDonThuTien.Any(x => x.MaHD == item.MaHD)) 
+                    lstHoaDon.Add(item);
+            }
+            return lstHoaDon;
+        }
+        public IEnumerable<HoaDon> LayToanBoHoaDonDaDuyetPaging(int page, int pageSize, out int totalPage)
+        {
+            int skipSize = page * pageSize;
+            totalPage = db.HoaDons.Count();
+            var lstDonThuTien = db.DonThuTiens.ToList();
+            List<HoaDon> lstHoaDon = new List<HoaDon>();
+            foreach (var item in db.HoaDons.Where(x => x.ThanhToan.Value).ToList())
+            {
+                if (lstDonThuTien.Any(x => x.MaHD == item.MaHD)) 
+                    lstHoaDon.Add(item);
             }
             return lstHoaDon;
         }
@@ -302,18 +318,41 @@ namespace KhoaHocData.DAO
             total = item.Count();
             return item.Skip(skipSize).Take(pageSize).ToList();
         }
-        public AllEnum.KetQuaTraVe GuiMailSauKhiThanhToan(string reciepiantMailAddress)
+        public AllEnum.KetQuaTraVe GuiMailSauKhiThanhToan(string reciepiantMailAddress, IEnumerable<KhoaHoc> lstKhoaHoc)
         {
+
+            string assemblyFile = HttpContext.Current.Server.MapPath("~/File");
             string MyMail = ConfigurationManager.AppSettings["mymail"];
             string MyMailPassword = ConfigurationManager.AppSettings["mymailpassword"];
-            string Subject = "Đơn hàng thanh toán thành công",
-            Body = "",
-            FromMail = "",
-            HostMail = "vu.vantuy.wt@gmail.com";
-
+            string TenCongTy = "Học online cùng ONLEARN";
+            string DiaChiCongTy = "Xóm 3, thôn 2, xã IaKráj, huyện jayai, tỉnh Gia Lai";
+            string SDTCongTy = "0976763378";
+            string MaHoaDon = 12345.ToString();
+            decimal TongTien = 0;
+            string file = File.ReadAllText(assemblyFile + "/product.txt");
+            string mediaLink = "https://khoahocapi.conveyor.cloud/assets/images/courses/";
+            string danhSachSanPham = "";
+            foreach (var item in lstKhoaHoc.ToList())
+            {
+                TongTien += item.DonGia.Value;
+                var tempString = "";
+                 tempString = file.Replace("TENKHOAHOCCANTHAYTHE", item.TenKhoaHoc.ToString());
+                tempString = tempString.Replace("DONGIACANTHAYTHE", string.Format("{0:0,0 vnđ}",item.DonGia.Value));
+                tempString = tempString.Replace("HINHANHCANTHAYTHE", mediaLink + item.HinhAnh.ToString());
+                danhSachSanPham += tempString;
+            }
+            string Subject = "Đơn hàng thanh toán thành công",  
+            Body = File.ReadAllText(assemblyFile + "/mailtemplate.txt"),
+            FromMail = MyMail,
+            HostMail = "smtp.gmail.com";
+            Body = Body.Replace("DANHSACHKHOAHOCCANTHAYTHE", danhSachSanPham);
+            Body = Body.Replace("TONGTHANHTIENCANTHAYTHE", string.Format("{0:0,0 vnđ}", TongTien));
+            Body = Body.Replace("TENCONGTYCANTHAYTHE", TenCongTy);
+            Body = Body.Replace("DIACHICONGTYCANTHAYTHE", DiaChiCongTy);
+            Body = Body.Replace("SDTCONGTYCANTHAYTHE", SDTCongTy);
+            Body = Body.Replace("MAHOADONCANTHAYTHE", MaHoaDon);
             try
             {
-
                 using (MailMessage mail = new MailMessage())
                 {
                     mail.From = new MailAddress(FromMail);
@@ -321,7 +360,7 @@ namespace KhoaHocData.DAO
                     mail.Subject = Subject;
                     mail.Body = Body;
                     mail.IsBodyHtml = true;
-                    using (SmtpClient client = new SmtpClient(HostMail))
+                    using (SmtpClient client = new SmtpClient(HostMail, 587))
                     {
                         client.Credentials = new System.Net.NetworkCredential(MyMail, MyMailPassword);
                         client.EnableSsl = true;

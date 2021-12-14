@@ -38,17 +38,17 @@ namespace KhoaHocData.DAO
         }
         public IEnumerable<NguoiDung> LayHetNguoiDung()
         {
-            return db.NguoiDungs.ToList();
+            return db.NguoiDungs.Where(x=>!x.DaXoa.Value || x.DaXoa == null).ToList();
         }
         public IEnumerable<NguoiDung> LayHetHeThong()
         {
-            return db.NguoiDungs.Where(x => x.MaNhomNguoiDung != (int)MaNhomNguoiDung.Student).OrderBy(x => x.MaNhomNguoiDung);
+            return db.NguoiDungs.Where(x => x.MaNhomNguoiDung != (int)MaNhomNguoiDung.Student && (!x.DaXoa.Value || x.DaXoa == null)).OrderBy(x => x.MaNhomNguoiDung);
         }
         public IEnumerable<NguoiDung> LayNguoiDungPaging(int pPage, int pPageSize, out int pTotalPage)
         {
             int SkipCount = pPage * pPageSize;
             pTotalPage = db.NguoiDungs.Count();
-            return db.NguoiDungs.Skip(SkipCount - 1).ToList();
+            return db.NguoiDungs.Where(x=>!x.DaXoa.Value || x.DaXoa == null).Skip(SkipCount - 1).ToList();
         }
         public IEnumerable<NguoiDung> LayDanhSachHocVien()
         {
@@ -63,7 +63,7 @@ namespace KhoaHocData.DAO
         }
         public IEnumerable<NguoiDung> LayDanhSachTheoMaNhom(int pMaNhomNguoiDung)
         {
-            return db.NguoiDungs.Where(x => x.MaNhomNguoiDung == pMaNhomNguoiDung);
+            return db.NguoiDungs.Where(x => x.MaNhomNguoiDung == pMaNhomNguoiDung && !x.DaXoa.Value || x.DaXoa == null);
         }
         public NguoiDung LayNguoiDungTheoId(int pMaNguoiDung)
         {
@@ -110,6 +110,91 @@ namespace KhoaHocData.DAO
             }
         }
         //public bool CoQuyenChinhSua(int pMaND, int pMaQuyen)
+        public KetQuaTraVe ThayDoiThongTinNguoiDung(int pUserID, string pUserName, int pMaNhomNguoiDung, string pName, string pCMND, string HinhAnh,
+            string Number, string Email, DateTime DoB, string pAddress)
+        {
+            var nd = db.NguoiDungs.Where(x => x.MaND == pUserID).SingleOrDefault();
+            if (nd == null)
+                return KetQuaTraVe.KhongTonTai;
+            if (nd.MaNhomNguoiDung != pMaNhomNguoiDung)
+                nd.MaNhomNguoiDung = pMaNhomNguoiDung;
+            if (nd.TenDN != pUserName)
+                nd.TenDN = pUserName;
+            if (nd.HoTen != pName)
+                nd.HoTen = pName;
+            if (nd.CMND != pCMND)
+                nd.CMND = pCMND;
+            if (nd.SDT != Number)
+                nd.SDT = Number;
+            if (nd.HinhAnh != HinhAnh)
+                nd.HinhAnh = HinhAnh;
+            if (nd.Email != Email)
+                nd.Email = Email;
+            if (nd.NgaySinh.Value != DoB)
+                nd.NgaySinh = DoB;
+            if (nd.Diachi != pAddress)
+                nd.Diachi = pAddress;
+            try
+            {
+                db.SaveChanges();
+                return KetQuaTraVe.ThanhCong;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return KetQuaTraVe.ThatBai;
+            }
+        }
+        public KetQuaTraVe XoaNguoiDung(int pMaND)
+        {
+            var nd = db.NguoiDungs.SingleOrDefault(x => x.MaND == pMaND);
+            if (nd == null)
+                return KetQuaTraVe.ThanhCong;
+            if (nd.DaXoa != null)
+                if(nd.DaXoa.Value)
+                    return KetQuaTraVe.ThanhCong;
+            nd.DaXoa = true;
+            try
+            {
+                db.SaveChanges();
+                return KetQuaTraVe.ThanhCong;
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine(ex.Message);
+                return KetQuaTraVe.ThatBai;
+            }
+        }
+        public KetQuaTraVe XoaNhieuNguoiDung(IEnumerable<int> lstMaND)
+        {
+            var lstND = db.NguoiDungs.ToList();
+            List<NguoiDung> lstNguoiDung = new List<NguoiDung>();
+            int i = 0;
+            foreach(var item in lstND)
+            {
+                if (item.MaNhomNguoiDung == (int)AllEnum.MaNhomNguoiDung.Admin ||
+                    item.MaNhomNguoiDung == (int)AllEnum.MaNhomNguoiDung.Student)
+                    continue;
+                if (lstMaND.Contains(item.MaND))
+                {
+                    item.DaXoa = true;
+                    i++;
+                }
+                if (i == lstMaND.Count())
+                    break;
+            }
+            try
+            {
+                db.SaveChanges();
+                return KetQuaTraVe.ThanhCong;
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine(ex.Message);
+                return KetQuaTraVe.ThatBai;
+            }
+        }
     }
-    
 }

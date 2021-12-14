@@ -40,6 +40,10 @@ namespace KhoaHocData.DAO
         public AllEnum.KetQuaTraVe XoaChuong(int pMaChuong)
         {
             var item = db.Chuongs.SingleOrDefault(x => x.MaChuong == pMaChuong);
+            if (item == null)
+            {
+                return AllEnum.KetQuaTraVe.KhongTonTai;
+            }
             try
             {
                 if (item.BaiHocs.Count() > 0)
@@ -54,10 +58,6 @@ namespace KhoaHocData.DAO
             {
                 Console.WriteLine(ex.Message);
                 return AllEnum.KetQuaTraVe.ThatBai;
-            }
-            if (item == null)
-            {
-                return AllEnum.KetQuaTraVe.KhongTonTai;
             }
             db.Chuongs.Remove(item);
             try

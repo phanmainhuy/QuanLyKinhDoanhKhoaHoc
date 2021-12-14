@@ -45,6 +45,62 @@ namespace KhoaHocAPI.Controllers
         {
             return Request.CreateResponse(System.Net.HttpStatusCode.OK,  Mapper.UserMapper.MapListUser( this.ndDAO.LayDanhSachTheoMaNhom(pMaNhomNguoiDung)));
         }
+        [System.Web.Http.HttpPut]
+        public HttpResponseMessage ThayDoiThongTinNguoiDung(UserViewModel model)
+        {
+            var result = ndDAO.ThayDoiThongTinNguoiDung(
+                model.UserId,
+                model.UserName,
+                model.GroupID,
+                model.Name,
+                model.CMND,
+                model.HinhAnh,
+                model.Number,
+                model.Email,
+                model.DoB,
+                model.Address
+                );
+            if (result
+                 == Common.AllEnum.KetQuaTraVe.KhongTonTai)
+            {
+                return Request.CreateErrorResponse(System.Net.HttpStatusCode.BadRequest, "Người dùng không tồn tại");
+            }
+            else if (result == Common.AllEnum.KetQuaTraVe.ThatBai)
+            {
+                return Request.CreateErrorResponse(System.Net.HttpStatusCode.BadRequest, "Thay đổi thông tin không thành công");
+            }
+            else
+            {
+                return Request.CreateResponse(System.Net.HttpStatusCode.OK);
+            }
+        }
+        [System.Web.Http.HttpDelete]
+        public HttpResponseMessage XoaNhanVien(int MaND)
+        {
+            var result = ndDAO.XoaNguoiDung(MaND);
+            if (result == Common.AllEnum.KetQuaTraVe.ThanhCong)
+            {
+                return Request.CreateResponse(System.Net.HttpStatusCode.OK);
+            }
+            else
+            {
+                return Request.CreateErrorResponse(System.Net.HttpStatusCode.BadRequest, "Xóa người dùng thất bại");
+            }
+        }
+        [System.Web.Http.HttpPost]
+        [System.Web.Http.Route("api/nguoidung/xoanhieunhanvien")]
+        public HttpResponseMessage XoaNhieuNhanVien([FromBody]List<int> lstNguoiDung)
+        {
+            var result = ndDAO.XoaNhieuNguoiDung(lstNguoiDung);
+            if (result == Common.AllEnum.KetQuaTraVe.ThanhCong)
+            {
+                return Request.CreateResponse(System.Net.HttpStatusCode.OK);
+            }
+            else
+            {
+                return Request.CreateErrorResponse(System.Net.HttpStatusCode.BadRequest, "Xóa người dùng thất bại");
+            }
+        }
         
     }
 }

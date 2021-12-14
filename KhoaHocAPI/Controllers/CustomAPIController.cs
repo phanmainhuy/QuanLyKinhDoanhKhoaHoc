@@ -234,5 +234,12 @@ namespace KhoaHocAPI.Controllers
                 return Request.CreateResponse(HttpStatusCode.OK);
 
         }
+        [HttpGet]
+        [Route("testmailapi")]
+        public HttpResponseMessage testmail()
+        {
+            new PaymentDAO().GuiMailSauKhiThanhToan("vu.vantuy.wt@gmail.com", new KhoaHocDAO().LayKhoaHocMoiNhat(3, true));
+            return Request.CreateResponse(HttpStatusCode.OK);
+        }
     }
 }

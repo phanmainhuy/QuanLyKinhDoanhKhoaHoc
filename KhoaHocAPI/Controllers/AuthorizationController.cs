@@ -81,14 +81,39 @@ namespace KhoaHocAPI.Controllers
         }
         public async Task<HttpResponseMessage> Post([FromBody] IEnumerable<UserViewModel> Users, [FromUri]int MaNhomNguoiDung)
             {
-            var result = Mapper.UserMapper.MapListUser( await db.ThayDoiNhomNhieuNguoiDung(Mapper.UserMapper.MapListUserReverse(Users), MaNhomNguoiDung));
+            var result =  await db.ThayDoiNhomNhieuNguoiDung(Mapper.UserMapper.MapListUserReverse(Users), MaNhomNguoiDung);
             if (result != null && result.Count() != 0)
             {
-                return Request.CreateResponse(HttpStatusCode.Created, result);
+                return Request.CreateResponse(HttpStatusCode.Created, Mapper.UserMapper.MapListUser(result));
             }
             else
             {
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Lỗi bất ngờ");
+            }
+        }
+        [HttpDelete]
+        public async Task<HttpResponseMessage> DeleteNhomNguoiDung(int MaNhomNguoiDung)
+        {
+            var result =  await db.XoaNhomQuyen(MaNhomNguoiDung);
+            if(result == Common.AllEnum.KetQuaTraVe.KhongDuocPhep)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Không được xóa các nhóm mặc định");
+            }
+            else if (result == Common.AllEnum.KetQuaTraVe.KhongTonTai)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Nhóm người dùng vốn đã không tồn tại");
+            }
+            else if (result == Common.AllEnum.KetQuaTraVe.DaTonTai)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Các nhóm người dùng này đã được sử dụng, vui lòng kiểm tra lại trước");
+            }
+            else if(result == Common.AllEnum.KetQuaTraVe.ThatBai)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Xóa không thành công");
+            }
+            else
+            {
+                return Request.CreateResponse(HttpStatusCode.OK);
             }
         }
         [HttpGet]

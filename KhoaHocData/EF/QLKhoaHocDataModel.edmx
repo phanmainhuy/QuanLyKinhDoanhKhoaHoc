@@ -164,6 +164,7 @@
           <Property Name="MaKM" Type="int" Nullable="false" />
           <Property Name="NgayBatDau" Type="date" />
           <Property Name="NgayKetThuc" Type="date" />
+          <Property Name="IsSuDung" Type="bit" />
         </EntityType>
         <EntityType Name="LichSuLuong">
           <Key>
@@ -224,6 +225,7 @@
           <Property Name="NgaySinh" Type="date" />
           <Property Name="Diachi" Type="nvarchar" MaxLength="100" />
           <Property Name="TrangThai" Type="bit" />
+          <Property Name="DaXoa" Type="bit" />
         </EntityType>
         <EntityType Name="NhomNguoiDung">
           <Key>
@@ -1003,6 +1005,7 @@
           <Property Name="NgayKetThuc" Type="DateTime" Precision="0" />
           <NavigationProperty Name="KhuyenMai" Relationship="Self.FK_KhuyenMaiKH_KhuyenMai" FromRole="KhuyenMai_KhachHang" ToRole="KhuyenMai" />
           <NavigationProperty Name="NguoiDung" Relationship="Self.FK_KhuyenMaiKH_NguoiDung" FromRole="KhuyenMai_KhachHang" ToRole="NguoiDung" />
+          <Property Name="IsSuDung" Type="Boolean" />
         </EntityType>
         <EntityType Name="LichSuLuong">
           <Key>
@@ -1072,6 +1075,7 @@
           <Property Name="TrangThai" Type="Boolean" />
           <NavigationProperty Name="DonThuTiens" Relationship="QL_KHOAHOCModel.FK_DonThuTien_MaKH" FromRole="NguoiDung" ToRole="DonThuTien" />
           <NavigationProperty Name="DonThuTiens1" Relationship="QL_KHOAHOCModel.FK_DonThuTien_MaNVHoTro" FromRole="NguoiDung" ToRole="DonThuTien" />
+          <Property Name="DaXoa" Type="Boolean" />
           </EntityType>
         <EntityType Name="NhomNguoiDung">
           <Key>
@@ -1977,6 +1981,7 @@
           <EntitySetMapping Name="KhuyenMai_KhachHang">
             <EntityTypeMapping TypeName="QL_KHOAHOCModel.KhuyenMai_KhachHang">
               <MappingFragment StoreEntitySet="KhuyenMai_KhachHang">
+                <ScalarProperty Name="IsSuDung" ColumnName="IsSuDung" />
                 <ScalarProperty Name="MaND" ColumnName="MaND" />
                 <ScalarProperty Name="MaKM" ColumnName="MaKM" />
                 <ScalarProperty Name="NgayBatDau" ColumnName="NgayBatDau" />
@@ -2034,6 +2039,7 @@
           <EntitySetMapping Name="NguoiDungs">
             <EntityTypeMapping TypeName="QL_KHOAHOCModel.NguoiDung">
               <MappingFragment StoreEntitySet="NguoiDung">
+                <ScalarProperty Name="DaXoa" ColumnName="DaXoa" />
                 <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
                 <ScalarProperty Name="MaND" ColumnName="MaND" />
                 <ScalarProperty Name="MaNhomNguoiDung" ColumnName="MaNhomNguoiDung" />

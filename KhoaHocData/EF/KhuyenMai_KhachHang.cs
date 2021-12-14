@@ -18,6 +18,7 @@ namespace KhoaHocData.EF
         public int MaKM { get; set; }
         public Nullable<System.DateTime> NgayBatDau { get; set; }
         public Nullable<System.DateTime> NgayKetThuc { get; set; }
+        public Nullable<bool> IsSuDung { get; set; }
     
         public virtual KhuyenMai KhuyenMai { get; set; }
         public virtual NguoiDung NguoiDung { get; set; }

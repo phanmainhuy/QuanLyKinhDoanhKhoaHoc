@@ -37,9 +37,10 @@ namespace KhoaHocAPI.Mapper
                 GroupID = nd.MaNhomNguoiDung.Value,
                 GroupName = new UserGroupDAO().LayNhomTheoMa(nd.MaNhomNguoiDung.Value).TenNhomNguoiDung,
                 Number = nd.SDT,
-                Status = nd.TrangThai.Value,
+                Status = nd.TrangThai != null? nd.TrangThai.Value : false,
                 HinhAnh = nd.HinhAnh,
-                DiemTichLuy = diem
+                DiemTichLuy = diem,
+                CMND = nd.CMND
             };
             return user;
         }

@@ -63,7 +63,7 @@ namespace KhoaHocData.DAO
         }
         public AllEnum.KetQuaTraVe MuaKhuyenMai(int pMaND, int pMaKM)
         {
-            if (db.KhuyenMai_KhachHang.Any(x => x.MaND == pMaND && x.MaKM == pMaKM))
+            if (db.KhuyenMai_KhachHang.Any(x => x.MaND == pMaND && x.MaKM == pMaKM && x.IsSuDung.Value))
                 return AllEnum.KetQuaTraVe.DaTonTai;
             var km = db.KhuyenMais.SingleOrDefault(x => x.MaKM == pMaKM);
             var diem = db.TichDiems.SingleOrDefault(x => x.MaND == pMaND);

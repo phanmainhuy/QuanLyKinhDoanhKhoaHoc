@@ -13,5 +13,6 @@ namespace KhoaHocAPI.Models
         public string HinhAnh { get; set; }
         public decimal GiaTri { get; set; }
         public string MaApDung { get; set; }
+        public DateTime HanSuDung { get; set; }
     }
 }

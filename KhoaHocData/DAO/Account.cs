@@ -93,6 +93,8 @@ namespace KhoaHocData.DAO
         public async Task<bool> ThemNhomNguoiDung(string pTenNhomNguoiDung, IEnumerable<Quyen> pDanhSachQuyen)
         {
             NhomNguoiDung nnd = new NhomNguoiDung();
+            if (db.NhomNguoiDungs.Any(x => x.TenNhomNguoiDung.Trim().ToLower() == pTenNhomNguoiDung.Trim().ToLower()))
+                return false;
             nnd.TenNhomNguoiDung = pTenNhomNguoiDung;
             db.NhomNguoiDungs.Add(nnd);
             await db.SaveChangesAsync();
@@ -106,8 +108,19 @@ namespace KhoaHocData.DAO
                 };
                 lstAdd.Add(qnnd);
             }
-            db.Quyen_NhomNguoiDung.AddRange(lstAdd);
-            return (await db.SaveChangesAsync()) > 0;
+            if(lstAdd.Count() > 0)
+                db.Quyen_NhomNguoiDung.AddRange(lstAdd);
+            try
+            {
+                 await db.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine(ex.Message);
+                return false;
+            }
         }
         public async Task<bool> ThayDoiQuyenCuaNhom(int pMaNhom, IEnumerable<Quyen> lstQuyen)
         {
@@ -194,6 +207,33 @@ namespace KhoaHocData.DAO
             List<Quyen> lstQuyen = new List<Quyen>();
             lstQuyen.AddRange(db.Quyens.Where(x => lstQuyenNND.Contains(x.MaQuyen)));
             return lstQuyen;
+        }
+        public async Task<AllEnum.KetQuaTraVe> XoaNhomQuyen(int pMaNhomNguoiDung)
+        {
+            if (pMaNhomNguoiDung == (int)AllEnum.MaNhomNguoiDung.Admin ||
+                pMaNhomNguoiDung == (int)AllEnum.MaNhomNguoiDung.Employee ||
+                pMaNhomNguoiDung == (int)AllEnum.MaNhomNguoiDung.Student ||
+                pMaNhomNguoiDung == (int)AllEnum.MaNhomNguoiDung.Teacher
+                )
+                return AllEnum.KetQuaTraVe.KhongDuocPhep;
+            var nhomquyen = db.NhomNguoiDungs.SingleOrDefault(x => x.MaNhomNguoiDung == pMaNhomNguoiDung);
+            if (nhomquyen == null)
+                return AllEnum.KetQuaTraVe.KhongTonTai;
+            if (db.NguoiDungs.Any(x => x.MaNhomNguoiDung == pMaNhomNguoiDung))
+                return AllEnum.KetQuaTraVe.DaTonTai;
+            db.Quyen_NhomNguoiDung.RemoveRange(db.Quyen_NhomNguoiDung.Where(x => x.MaNhomNguoiDung == pMaNhomNguoiDung));
+            await db.SaveChangesAsync();
+            db.NhomNguoiDungs.Remove(nhomquyen);
+            try
+            {
+                await db.SaveChangesAsync();
+                return AllEnum.KetQuaTraVe.ThanhCong;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return AllEnum.KetQuaTraVe.ThatBai;
+            }
         }
     }
 }
