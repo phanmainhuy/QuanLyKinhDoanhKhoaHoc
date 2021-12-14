@@ -33,7 +33,7 @@ namespace KhoaHocAPI.Mapper
                 Email = nd.Email,
                 Address = nd.Diachi,
                 DoB = nd.NgaySinh.Value,
-                Gender = "Nam",
+                Gender = nd.GioiTinh,
                 GroupID = nd.MaNhomNguoiDung.Value,
                 GroupName = new UserGroupDAO().LayNhomTheoMa(nd.MaNhomNguoiDung.Value).TenNhomNguoiDung,
                 Number = nd.SDT,
@@ -81,7 +81,8 @@ namespace KhoaHocAPI.Mapper
                 NgaySinh = model.DoB,
                 MaNhomNguoiDung = model.GroupID,
                 SDT = model.Number,
-                HinhAnh = model.HinhAnh
+                HinhAnh = model.HinhAnh,
+                GioiTinh = model.Gender
             };
         }
         public static IEnumerable<NguoiDung> MapListUserReverse(IEnumerable<UserViewModel> nguoidungs)

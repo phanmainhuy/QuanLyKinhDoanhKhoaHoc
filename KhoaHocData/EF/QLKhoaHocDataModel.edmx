@@ -226,6 +226,7 @@
           <Property Name="Diachi" Type="nvarchar" MaxLength="100" />
           <Property Name="TrangThai" Type="bit" />
           <Property Name="DaXoa" Type="bit" />
+          <Property Name="GioiTinh" Type="nvarchar" MaxLength="4" />
         </EntityType>
         <EntityType Name="NhomNguoiDung">
           <Key>
@@ -1076,6 +1077,7 @@
           <NavigationProperty Name="DonThuTiens" Relationship="QL_KHOAHOCModel.FK_DonThuTien_MaKH" FromRole="NguoiDung" ToRole="DonThuTien" />
           <NavigationProperty Name="DonThuTiens1" Relationship="QL_KHOAHOCModel.FK_DonThuTien_MaNVHoTro" FromRole="NguoiDung" ToRole="DonThuTien" />
           <Property Name="DaXoa" Type="Boolean" />
+          <Property Name="GioiTinh" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
           </EntityType>
         <EntityType Name="NhomNguoiDung">
           <Key>
@@ -2039,6 +2041,7 @@
           <EntitySetMapping Name="NguoiDungs">
             <EntityTypeMapping TypeName="QL_KHOAHOCModel.NguoiDung">
               <MappingFragment StoreEntitySet="NguoiDung">
+                <ScalarProperty Name="GioiTinh" ColumnName="GioiTinh" />
                 <ScalarProperty Name="DaXoa" ColumnName="DaXoa" />
                 <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
                 <ScalarProperty Name="MaND" ColumnName="MaND" />
