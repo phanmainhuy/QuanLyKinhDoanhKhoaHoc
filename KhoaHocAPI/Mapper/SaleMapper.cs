@@ -33,6 +33,11 @@ namespace KhoaHocAPI.Mapper
         }
         public static KhuyenMai_NguoiDungVM MapSaleBought(KhuyenMai khuyenMai)
         {
+            var kmkh = khuyenMai.KhuyenMai_KhachHang.
+                SingleOrDefault(x => x.MaND == khuyenMai.MaND && (x.IsSuDung == false || x.IsSuDung == null));
+            var hsd = DateTime.Today.AddDays(-1);
+            if(kmkh != null)
+                hsd = kmkh.NgayKetThuc.Value;
             return new KhuyenMai_NguoiDungVM()
             {
                 MaKM = khuyenMai.MaKM,
@@ -41,8 +46,7 @@ namespace KhoaHocAPI.Mapper
                 HinhAnh = khuyenMai.HinhAnh,
                 MaApDung = khuyenMai.MaApDung,
                 MaHV = khuyenMai.MaND.Value,
-                HanSuDung = khuyenMai.KhuyenMai_KhachHang.
-                SingleOrDefault(x => x.MaND == khuyenMai.MaND && x.IsSuDung == false).NgayKetThuc.Value
+                HanSuDung = hsd
             };
         }
         public static IEnumerable<KhuyenMai_NguoiDungVM> MapListSaleBought(IEnumerable<KhuyenMai> lstKhuyenMai)
