@@ -10,6 +10,35 @@ namespace KhoaHocAPI.Mapper
 {
     public static class CourseMapper
     {
+        public static BoughtCourseVM MapBoughtCourse(KhoaHoc item, int MaND)
+        {
+            GetDAO getDAODB = new GetDAO();
+            var date = getDAODB.GetNgayTaoHoaDon(MaND, item.MaKhoaHoc);
+
+            return new BoughtCourseVM()
+            {
+                DonGia = item.DonGia.Value,
+                HinhAnh = item.HinhAnh,
+                MaGV = item.MaGV.Value,
+                MaKhoaHoc = item.MaKhoaHoc,
+                TenKhoaHoc = item.TenKhoaHoc,
+                TrangThai = item.TrangThai.Value,
+                DanhGia = getDAODB.GetDanhGiaKhoaHoc(item.MaKhoaHoc),
+                GioiThieu = item.MOTAKHOAHOC,
+                TenGV = item.NguoiDung.HoTen,
+                HienThi = item.HienThi,
+                NgayMua = date == null? DateTime.MinValue: date.Value
+            };
+        }
+        public static IEnumerable<BoughtCourseVM> MapListBoughtCourse(IEnumerable<KhoaHoc> lstKhoaHoc, int MaND)
+        {
+            List<BoughtCourseVM> lstReturn = new List<BoughtCourseVM>();
+            foreach (var item in lstKhoaHoc.ToList())
+            {
+                lstReturn.Add(MapBoughtCourse(item, MaND));
+            }
+            return lstReturn;
+        }
         public static IEnumerable<CourseVM> MapListCourse(IEnumerable<KhoaHoc> lstKhoaHoc)
         {
             List<CourseVM> lstReturn = new List<CourseVM>();
@@ -40,7 +69,6 @@ namespace KhoaHocAPI.Mapper
                 MaGV = item.MaGV.Value,
                 MaKhoaHoc = item.MaKhoaHoc,
                 MaLoai = item.MaLoai.Value,
-                SoLuongMua = item.SoLuongMua.Value,
                 TenKhoaHoc = item.TenKhoaHoc,
                 TenLoai = item.LoaiKhoaHoc.TenLoai,
                 TenDanhMuc = item.LoaiKhoaHoc.DanhMucKhoaHoc.TenDanhMuc,
@@ -64,7 +92,6 @@ namespace KhoaHocAPI.Mapper
                 MaGV = item.MaGV,
                 MaKhoaHoc = item.MaKhoaHoc,
                 MaLoai = item.MaLoai,
-                SoLuongMua = item.SoLuongMua,
                 TenKhoaHoc = item.TenKhoaHoc,
                 TrangThai = item.TrangThai,
                 MOTAKHOAHOC = item.GioiThieu,

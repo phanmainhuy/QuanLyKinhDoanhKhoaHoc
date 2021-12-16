@@ -113,6 +113,7 @@
     <Compile Include="DAO\MenuDAO.cs" />
     <Compile Include="DAO\NguoiDungDAO.cs" />
     <Compile Include="DAO\PaymentDAO.cs" />
+    <Compile Include="DAO\SalaryDAO.cs" />
     <Compile Include="DAO\UserGroupDAO.cs" />
     <Compile Include="DAO\XuLy.cs" />
     <Compile Include="EF\BaiHoc.cs">

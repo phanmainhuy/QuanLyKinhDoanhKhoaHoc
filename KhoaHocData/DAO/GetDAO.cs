@@ -12,7 +12,10 @@ namespace KhoaHocData.DAO
     public class GetDAO
     {
         private QL_KHOAHOCEntities db = new QL_KHOAHOCEntities();
-
+        public DateTime? GetNgayTaoHoaDon(int pMaND, int pMaKH)
+        {
+            return db.NgayMuaKhoaHoc(pMaND, pMaKH).FirstOrDefault();
+        }
         public NguoiDung GetGiaoVienTheoMa(int pMaGV)
         {
             var item = db.NguoiDungs
@@ -65,6 +68,22 @@ namespace KhoaHocData.DAO
             }
 
         }
+        public decimal? LayLuongTheoMaNguoiDung(int pMaND)
+        {
+            var Luong = db.Luongs.SingleOrDefault(x => x.MaND == pMaND);
+
+            if (Luong != null)
+            {
+                return Luong.Luong1;
+            }
+            else
+            {
+                Luong = new Luong();
+                Luong.MaND = pMaND;
+                Luong.Luong1 = 0;
+                return 0;
+            }
+        }
         public KhoaHoc GetKhoaHocTheoMa(int pMaKhoaHoc)
         {
             return db.KhoaHocs.SingleOrDefault(x => x.MaKhoaHoc == pMaKhoaHoc);
@@ -95,6 +114,15 @@ namespace KhoaHocData.DAO
                 Console.WriteLine(ex.Message);
                 return -1;
             }
+        }
+
+        public NhomNguoiDung GetNhomNguoiDung(int pMaNhomNguoiDung)
+        {
+            return db.NhomNguoiDungs.SingleOrDefault(x => x.MaNhomNguoiDung == pMaNhomNguoiDung);
+        }
+        public Luong GetLuong(int pMaND)
+        {
+            return db.Luongs.FirstOrDefault(x => x.MaND == pMaND);
         }
     }
 }

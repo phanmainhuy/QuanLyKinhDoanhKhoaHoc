@@ -663,6 +663,10 @@
         <Function Name="KhoaHocCuaToi" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="MaHocVien" Type="int" Mode="In" />
         </Function>
+        <Function Name="NgayMuaKhoaHoc" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MaND" Type="int" Mode="In" />
+          <Parameter Name="MaKH" Type="int" Mode="In" />
+        </Function>
         <Function Name="SearchKhoaHoc" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="TieuDe" Type="nvarchar" Mode="In" />
         </Function>
@@ -1665,6 +1669,10 @@
           <FunctionImport Name="KhoaHocCuaToi" EntitySet="KhoaHocs" ReturnType="Collection(QL_KHOAHOCModel.KhoaHoc)">
           <Parameter Name="MaHocVien" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="NgayMuaKhoaHoc" ReturnType="Collection(DateTime)">
+            <Parameter Name="MaND" Mode="In" Type="Int32" />
+            <Parameter Name="MaKH" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="SearchKhoaHoc_Result">
           <Property Type="Int32" Name="MaKhoaHoc" Nullable="false" />
@@ -2149,6 +2157,7 @@
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="KhoaHocCuaToi" FunctionName="QL_KHOAHOCModel.Store.KhoaHocCuaToi">
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="NgayMuaKhoaHoc" FunctionName="QL_KHOAHOCModel.Store.NgayMuaKhoaHoc" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

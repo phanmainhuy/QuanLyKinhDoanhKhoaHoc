@@ -17,5 +17,6 @@ namespace KhoaHocAPI.Models
         public double PhiThuHo { get; set; }
         public DateTime? NgayDuKienThu { get; set; }
         public string GhiChu { get; set; }
+        public string MaApDung { get; set; }
     }
 }

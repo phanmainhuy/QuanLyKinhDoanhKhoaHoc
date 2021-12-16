@@ -41,16 +41,19 @@ namespace KhoaHocData.DAO
                 return null;
             }
         }
-        public NguoiDung RegisterEmployee(  string userName, int pMaNhomNguoiDung, string HoTen, string CMND,
+        public async Task<NguoiDung> RegisterEmployee(  string userName, int pMaNhomNguoiDung, string HoTen, string CMND,
                                             string HinhAnh, string SDT, string Email, DateTime NgaySinh, 
-                                            string DiaChi)
+                                            string DiaChi, decimal Luong)
         {
             NguoiDung nd = new NguoiDung()
             {
                 TenDN = userName,
                 MatKhau = userName
             };
-            
+            Luong luong = new Luong()
+            {
+                Luong1 = Luong
+            };
             nd.MaNhomNguoiDung = pMaNhomNguoiDung;
             nd.HoTen = HoTen;
             nd.CMND = CMND;
@@ -60,9 +63,13 @@ namespace KhoaHocData.DAO
             nd.NgaySinh = NgaySinh;
             nd.Diachi = DiaChi;
             db.NguoiDungs.Add(nd);
+
             try
             {
-                db.SaveChanges();
+                await db.SaveChangesAsync();
+                luong.MaND = nd.MaND;
+                db.Luongs.Add(luong);
+                await db.SaveChangesAsync();
                 return nd;
             }
             catch (Exception ex)

@@ -9,8 +9,20 @@ namespace KhoaHocData.OnlineParty
     {
         private QL_KHOAHOCEntities db = new QL_KHOAHOCEntities();
 
-        public string GetPayURL(long OrderId, long Amount, string BankCode)
+        public string GetPayURL(long OrderId, long Amount, string BankCode, string MaApDung = null)
         {
+            var hd = db.HoaDons.FirstOrDefault(x => x.MaHD == OrderId);
+            
+            var km = db.KhuyenMais.FirstOrDefault(x => x.MaApDung == MaApDung);
+            var km_kh = db.KhuyenMai_KhachHang.FirstOrDefault(x => x.MaND == hd.MaND && x.MaKM == km.MaKM);
+            if (km_kh != null)
+            {
+                Amount = Amount - (long)km.GiaTri.Value > 10000 ? Amount - (long)km.GiaTri.Value :
+                    10000;
+                km_kh.IsSuDung = true;
+                hd.MaKM = km.MaKM;
+                db.SaveChanges();
+            }
             string vnp_Returnurl = ConfigurationManager.AppSettings["vnp_Returnurl"]; //URL nhan ket qua tra ve
             string vnp_Url = ConfigurationManager.AppSettings["vnp_Url"]; //URL thanh toan cua VNPAY
             string vnp_TmnCode = ConfigurationManager.AppSettings["vnp_TmnCode"]; //Ma website
@@ -104,7 +116,8 @@ namespace KhoaHocData.OnlineParty
                                                                                    //Kiem tra tinh trang Order
                 if (order != null)
                 {
-                    if (order.TongTien.Value == vnp_Amount / 100)
+                    var km = db.KhuyenMais.FirstOrDefault(x => x.MaKM == order.MaKM);
+                    if (order.TongTien.Value - km.GiaTri.Value == vnp_Amount / 100)
                     {
                         if (order.TrangThai == "0")
                         {

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
@@ -59,10 +60,10 @@ namespace KhoaHocAPI.Controllers
         }
         [HttpPost]
         [Route("api/Identity/employee")]
-        public HttpResponseMessage CreateEmployee(UserViewModel model)
+        public async Task<HttpResponseMessage> CreateEmployee(UserViewModel model)
         {
-            var kq = new Account().RegisterEmployee(model.UserName, model.GroupID, model.Name, model.CMND, model.HinhAnh
-                , model.Number, model.Email, model.DoB, model.Address);
+            var kq = await new Account().RegisterEmployee(model.UserName, model.GroupID, model.Name, model.CMND, model.HinhAnh
+                , model.Number, model.Email, model.DoB, model.Address, model.Salary);
             if (kq != null)
             {
                 return Request.CreateResponse(HttpStatusCode.Created, Mapper.UserMapper.MapUser(kq));

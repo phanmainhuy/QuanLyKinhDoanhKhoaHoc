@@ -74,6 +74,24 @@ namespace KhoaHocAPI.Controllers
                 return Request.CreateResponse(System.Net.HttpStatusCode.OK);
             }
         }
+        [System.Web.Http.HttpPatch]
+        public HttpResponseMessage ThayDoiTrangThaiNguoiDung(int MaND, bool TrangThai)
+        {
+            var result = ndDAO.ThayDoiTrangThaiNguoiDung(MaND, TrangThai);
+            if (result == Common.AllEnum.KetQuaTraVe.KhongTonTai)
+            {
+                return Request.CreateErrorResponse(System.Net.HttpStatusCode.BadRequest, "Người dùng không tồn tại");
+            }
+            else if (result == Common.AllEnum.KetQuaTraVe.ThatBai)
+            {
+                return Request.CreateErrorResponse(System.Net.HttpStatusCode.BadRequest, "Không thành công");
+            }
+            else
+            {
+                return Request.CreateResponse(System.Net.HttpStatusCode.OK);
+            }
+
+        }
         [System.Web.Http.HttpDelete]
         public HttpResponseMessage XoaNhanVien(int MaND)
         {

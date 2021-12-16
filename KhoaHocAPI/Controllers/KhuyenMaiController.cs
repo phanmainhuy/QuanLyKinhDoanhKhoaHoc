@@ -97,6 +97,13 @@ namespace KhoaHocAPI.Controllers
             else
                 return Request.CreateResponse(HttpStatusCode.OK);
         }
+        [HttpGet]
+        [Route("api/khuyenMai/DiemCuaToi")]
+        public HttpResponseMessage GetDiemTichLuyNguoiDung(int MaHV)
+        {
+            var result = db_km.LayDiemTheoNguoiDung(MaHV);
+            return Request.CreateResponse(HttpStatusCode.OK, result);
+        }
     }
 }
 

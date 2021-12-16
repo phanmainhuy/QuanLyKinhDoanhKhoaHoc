@@ -25,6 +25,10 @@ namespace KhoaHocAPI.Mapper
             var Diem = new GetDAO().LayDiemTheoMaNguoiDung(nd.MaND);
             if (Diem != null)
                 diem = Diem.Value;
+            var luong = (decimal)0;
+            var Luong = new GetDAO().LayLuongTheoMaNguoiDung(nd.MaND);
+            if (Luong != null)
+                luong = Luong.Value;
             UserViewModel user = new UserViewModel()
             {
                 UserId = nd.MaND,
@@ -37,10 +41,11 @@ namespace KhoaHocAPI.Mapper
                 GroupID = nd.MaNhomNguoiDung.Value,
                 GroupName = new UserGroupDAO().LayNhomTheoMa(nd.MaNhomNguoiDung.Value).TenNhomNguoiDung,
                 Number = nd.SDT,
-                Status = nd.TrangThai != null? nd.TrangThai.Value : false,
+                Status = nd.TrangThai != null ? nd.TrangThai.Value : false,
                 HinhAnh = nd.HinhAnh,
                 DiemTichLuy = diem,
-                CMND = nd.CMND
+                CMND = nd.CMND,
+                Salary = luong
             };
             return user;
         }
@@ -91,6 +96,31 @@ namespace KhoaHocAPI.Mapper
             foreach (var item in nguoidungs)
             {
                 lstReturn.Add(MapUserReverse(item));
+            }
+            return lstReturn;
+        }
+        public static UserSalaryVM MapUserSalary(NguoiDung nguoidung)
+        {
+            GetDAO db = new GetDAO();
+            var nhomNguoiDung = db.GetNhomNguoiDung(nguoidung.MaNhomNguoiDung.Value);
+            var luong = db.GetLuong(nguoidung.MaND);
+            return new UserSalaryVM()
+            {
+                UserId = nguoidung.MaND,
+                GroupID = nhomNguoiDung.MaNhomNguoiDung,
+                GroupName = nhomNguoiDung.TenNhomNguoiDung,
+                HinhAnh = nguoidung.HinhAnh,
+                Name = nguoidung.HoTen,
+                Status = nguoidung.TrangThai.Value,
+                Salary = luong.Luong1.Value
+            };
+        }
+        public static IEnumerable<UserSalaryVM> MapListUserSalary(IEnumerable<NguoiDung> lstNguoiDung)
+        {
+            List<UserSalaryVM> lstReturn = new List<UserSalaryVM>();
+            foreach (var item in lstNguoiDung.ToList())
+            {
+                lstReturn.Add(MapUserSalary(item));
             }
             return lstReturn;
         }

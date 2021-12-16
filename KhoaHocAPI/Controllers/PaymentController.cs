@@ -78,7 +78,10 @@ namespace KhoaHocAPI.Controllers
         [Route("api/Payment/ReceiptOrder")]
         public HttpResponseMessage Post([FromBody]DonThuHoVM model)
         {
-            var result = db_payment.TaoDonThuTien(model.MaKH, model.MaHD, model.DiaChiThu, model.SDTThu, "", model.SoTienThu, 0, null, "");
+            string km = null;
+            if (!string.IsNullOrEmpty(model.MaApDung))
+                km = model.MaApDung;
+            var result = db_payment.TaoDonThuTien(model.MaKH, model.MaHD, model.DiaChiThu, model.SDTThu, "", model.SoTienThu, 0, null, "", km);
             if (result == Common.AllEnum.KetQuaTraVe.ThanhCong)
                 return Request.CreateResponse(HttpStatusCode.OK);
             else if(result == Common.AllEnum.KetQuaTraVe.DaTonTai)

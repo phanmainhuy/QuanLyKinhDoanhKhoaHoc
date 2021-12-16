@@ -6,7 +6,6 @@ using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Net.Mail;
-using System.Reflection;
 using System.Web;
 
 namespace KhoaHocData.DAO
@@ -29,6 +28,7 @@ namespace KhoaHocData.DAO
         {
             return db.HoaDons.SingleOrDefault(x => x.MaHD == pMaHoaDon);
         }
+
         public AllEnum.KetQuaTraVe XacNhanThanhToanHoaDon(int pMaHD)
         {
             var hd = db.HoaDons.SingleOrDefault(x => x.MaHD == pMaHD);
@@ -59,6 +59,7 @@ namespace KhoaHocData.DAO
             totalPage = db.HoaDons.Count();
             return db.HoaDons.OrderBy(x => x.MaHD).Skip(skipSize).Take(pageSize);
         }
+
         public IEnumerable<HoaDon> LayToanBoHoaDonChoDuyetPaging(int page, int pageSize, out int totalPage)
         {
             int skipSize = page * pageSize;
@@ -67,11 +68,12 @@ namespace KhoaHocData.DAO
             List<HoaDon> lstHoaDon = new List<HoaDon>();
             foreach (var item in db.HoaDons.Where(x => !x.ThanhToan.Value).ToList())
             {
-                if (lstDonThuTien.Any(x => x.MaHD == item.MaHD)) 
+                if (lstDonThuTien.Any(x => x.MaHD == item.MaHD))
                     lstHoaDon.Add(item);
             }
             return lstHoaDon;
         }
+
         public IEnumerable<HoaDon> LayToanBoHoaDonDaDuyetPaging(int page, int pageSize, out int totalPage)
         {
             int skipSize = page * pageSize;
@@ -80,11 +82,12 @@ namespace KhoaHocData.DAO
             List<HoaDon> lstHoaDon = new List<HoaDon>();
             foreach (var item in db.HoaDons.Where(x => x.ThanhToan.Value).ToList())
             {
-                if (lstDonThuTien.Any(x => x.MaHD == item.MaHD)) 
+                if (lstDonThuTien.Any(x => x.MaHD == item.MaHD))
                     lstHoaDon.Add(item);
             }
             return lstHoaDon;
         }
+
         //public bool AddHoaDon(int MaND, int MaKM, string TrangThai, string HinhThucThanhToan, IEnumerable< CT_HoaDon> lstChiTietHoaDon)
         //{
         //    HoaDon hd = new HoaDon()
@@ -114,8 +117,6 @@ namespace KhoaHocData.DAO
             var KhuyenMai = db.KhuyenMais.SingleOrDefault(x => x.MaKM == MaKM);
             var GioHang = db.GioHangs.SingleOrDefault(x => x.MaGioHang == MaGioHang);
 
-
-            
             HoaDon hd = new HoaDon()
             {
                 MaKM = MaKM,
@@ -133,7 +134,6 @@ namespace KhoaHocData.DAO
                 return -3;
             GioHang.TrangThai = AllEnum.TrangThaiGioHang.DaTaoHoaDon.ToString();
             SaveAll();
-
 
             foreach (var item in giohangItems)
             {
@@ -173,7 +173,6 @@ namespace KhoaHocData.DAO
 
         public int TaoHoaDon1KhoaHoc(int MaND, int MaKM, string TrangThai, string HinhThucThanhToan, int MaKH)
         {
-            
             if (MaND == -1)
                 return -2;
             if (db.KhoaHocCuaToi(MaND).Any(x => x.MaKhoaHoc == MaKH))
@@ -207,6 +206,7 @@ namespace KhoaHocData.DAO
             else
                 return -1;
         }
+
         public AllEnum.KetQuaTraVe ThanhToanHoaDon(int pMaHD)
         {
             var hd = db.HoaDons.SingleOrDefault(x => x.MaHD == pMaHD);
@@ -215,7 +215,7 @@ namespace KhoaHocData.DAO
             hd.ThanhToan = true;
             hd.TrangThai = "1";
             var td = db.TichDiems.SingleOrDefault(x => x.MaND == hd.MaND);
-            if(td == null)
+            if (td == null)
             {
                 TichDiem tdMoi = new TichDiem();
                 tdMoi.MaND = hd.MaND.Value;
@@ -236,12 +236,24 @@ namespace KhoaHocData.DAO
                 Console.WriteLine(ex.Message);
                 return AllEnum.KetQuaTraVe.ThatBai;
             }
-
         }
-        public AllEnum.KetQuaTraVe TaoDonThuTien(int MaKH, int MaHD, string DiaChiThu, string SDTThu, string DonViThuHo, double SoTienThu, double PhiThuHo, DateTime? NgayDuKienThu, string GhiChu)
+
+        public AllEnum.KetQuaTraVe TaoDonThuTien(int MaKH, int MaHD, string DiaChiThu,
+            string SDTThu, string DonViThuHo, double SoTienThu, double PhiThuHo,
+            DateTime? NgayDuKienThu, string GhiChu, string MaApDung = null)
         {
             if (db.DonThuTiens.Any(x => x.MaHD == MaHD))
                 return AllEnum.KetQuaTraVe.DaTonTai;
+            var km = db.KhuyenMais.FirstOrDefault(x => x.MaApDung == MaApDung);
+            var km_kh = db.KhuyenMai_KhachHang.FirstOrDefault(x => x.MaND == MaKH && x.MaKM == km.MaKM);
+            if (km_kh != null)
+            {
+                SoTienThu = SoTienThu - (double)km.GiaTri.Value > 10000 ? SoTienThu - (double)km.GiaTri.Value :
+                    10000;
+                km_kh.IsSuDung = true;
+            }
+            
+
             db.DonThuTiens.Add(new DonThuTien()
             {
                 MaHD = MaHD,
@@ -268,18 +280,18 @@ namespace KhoaHocData.DAO
             var CodRate1 = 0.01;
             var CodRate2 = 0.012;
             var OtherRate = 0.001;
-            var COD = GiaMatHang > 1000000 
-                ? ((GiaMatHang * CodRate1) > 15000 
-                    ? (GiaMatHang * CodRate1) 
-                    : 15000) 
-                : ((GiaMatHang * CodRate2) > 18000 
-                    ? (GiaMatHang * CodRate2) 
+            var COD = GiaMatHang > 1000000
+                ? ((GiaMatHang * CodRate1) > 15000
+                    ? (GiaMatHang * CodRate1)
+                    : 15000)
+                : ((GiaMatHang * CodRate2) > 18000
+                    ? (GiaMatHang * CodRate2)
                     : 18000);
             var ServiceFee = 10000;
-            var OtherFee = (GiaMatHang * OtherRate) > 10000 
-                ? (GiaMatHang * OtherRate) 
+            var OtherFee = (GiaMatHang * OtherRate) > 10000
+                ? (GiaMatHang * OtherRate)
                 : 10000;
-            OtherFee =OtherFee > 100000 ? 10000 : OtherFee;
+            OtherFee = OtherFee > 100000 ? 10000 : OtherFee;
             return COD + ServiceFee + OtherFee;
         }
 
@@ -296,6 +308,7 @@ namespace KhoaHocData.DAO
                 return false;
             }
         }
+
         public IEnumerable<HoaDon> LayToanBoHoaDonPaging(bool isThanhToan, int page, int pageSize, out int total)
         {
             int skipSize = (page - 1) * pageSize;
@@ -304,23 +317,24 @@ namespace KhoaHocData.DAO
             total = item.Count();
             return item.Skip(skipSize).Take(pageSize).ToList();
         }
+
         public IEnumerable<HoaDon> LayToanBoHoaDonDieuKienPaging(bool isThanhToan, int? MaKH, DateTime? NgayBatDau, DateTime? NgayKetThuc, int page, int pageSize, out int total)
         {
             int skipSize = (page - 1) * pageSize;
             var item = db.HoaDons.Where(x => x.ThanhToan == isThanhToan).OrderByDescending(x => x.MaHD).ToList();
             if (MaKH != null)
                 item = item.Where(x => x.MaND == MaKH.Value).ToList();
-            if(NgayBatDau != null && NgayKetThuc != null)
-                item = item.Where(x => 
+            if (NgayBatDau != null && NgayKetThuc != null)
+                item = item.Where(x =>
                 DateTime.Compare(x.NgayLap.Value, NgayBatDau.Value) >= 0 &&
                 DateTime.Compare(x.NgayLap.Value, NgayKetThuc.Value) <= 0
                 ).ToList();
             total = item.Count();
             return item.Skip(skipSize).Take(pageSize).ToList();
         }
+
         public AllEnum.KetQuaTraVe GuiMailSauKhiThanhToan(string reciepiantMailAddress, IEnumerable<KhoaHoc> lstKhoaHoc)
         {
-
             string assemblyFile = HttpContext.Current.Server.MapPath("~/File");
             string MyMail = ConfigurationManager.AppSettings["mymail"];
             string MyMailPassword = ConfigurationManager.AppSettings["mymailpassword"];
@@ -336,12 +350,12 @@ namespace KhoaHocData.DAO
             {
                 TongTien += item.DonGia.Value;
                 var tempString = "";
-                 tempString = file.Replace("TENKHOAHOCCANTHAYTHE", item.TenKhoaHoc.ToString());
-                tempString = tempString.Replace("DONGIACANTHAYTHE", string.Format("{0:0,0 vnđ}",item.DonGia.Value));
+                tempString = file.Replace("TENKHOAHOCCANTHAYTHE", item.TenKhoaHoc.ToString());
+                tempString = tempString.Replace("DONGIACANTHAYTHE", string.Format("{0:0,0 vnđ}", item.DonGia.Value));
                 tempString = tempString.Replace("HINHANHCANTHAYTHE", mediaLink + item.HinhAnh.ToString());
                 danhSachSanPham += tempString;
             }
-            string Subject = "Đơn hàng thanh toán thành công",  
+            string Subject = "Đơn hàng thanh toán thành công",
             Body = File.ReadAllText(assemblyFile + "/mailtemplate.txt"),
             FromMail = MyMail,
             HostMail = "smtp.gmail.com";

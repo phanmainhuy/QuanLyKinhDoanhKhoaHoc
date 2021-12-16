@@ -194,6 +194,7 @@
     <Compile Include="Controllers\CustomAPIController.cs" />
     <Compile Include="Controllers\CustomKhoaHocController.cs" />
     <Compile Include="Controllers\KhuyenMaiController.cs" />
+    <Compile Include="Controllers\LuongController.cs" />
     <Compile Include="Controllers\OnlinePayment\VNPayController.cs" />
     <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Controllers\ThanhToanController.cs" />
@@ -208,6 +209,7 @@
     <Compile Include="Mapper\CartMapper.cs" />
     <Compile Include="Mapper\CategoryMapper.cs" />
     <Compile Include="Mapper\CourseMapper.cs" />
+    <Compile Include="Mapper\SalaryMapper.cs" />
     <Compile Include="Mapper\SaleMapper.cs" />
     <Compile Include="Mapper\LearnMapper.cs" />
     <Compile Include="Mapper\UnitMapper.cs" />
@@ -218,6 +220,7 @@
     <Compile Include="Mapper\UserMapper.cs" />
     <Compile Include="Models\BaiHocVM.cs" />
     <Compile Include="Models\BaiTapVM.cs" />
+    <Compile Include="Models\BoughtCourseVM.cs" />
     <Compile Include="Models\CartItemVM.cs" />
     <Compile Include="Models\ChuongVM.cs" />
     <Compile Include="Models\CourseCartVM.cs" />
@@ -235,11 +238,14 @@
     <Compile Include="Models\HoaDonVM.cs" />
     <Compile Include="Models\PermissionGroupVM.cs" />
     <Compile Include="Models\QuyenVM.cs" />
+    <Compile Include="Models\SalaryHistoryItemVM.cs" />
+    <Compile Include="Models\SalaryVM.cs" />
     <Compile Include="Models\SimpleHoaDonVM.cs" />
     <Compile Include="Models\TheLoaiVM.cs" />
     <Compile Include="Models\UserGroupVM.cs" />
     <Compile Include="Models\UserLogin.cs" />
     <Compile Include="Models\UserLogon.cs" />
+    <Compile Include="Models\UserSalaryVM.cs" />
     <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Models\VNPay\VNPayConfirmVM.cs" />
     <Compile Include="Models\VNPay\VNPayRequestVM.cs" />
@@ -558,6 +564,7 @@
     <Content Include="Assets\images\users\Admin1.jpg" />
     <Content Include="Assets\images\users\adminuser.png" />
     <Content Include="Assets\images\users\HocVien1.jpg" />
+    <Content Include="Assets\images\users\NhanVien1.jpg" />
     <Content Include="Assets\images\users\userdefault.png" />
     <Content Include="Assets\video\Đen-TaCứĐiCùngNhauft.LinhCáo%28Prod.byiTễu%29[M-V].mp4" />
     <Content Include="Content\bootstrap-theme.css" />

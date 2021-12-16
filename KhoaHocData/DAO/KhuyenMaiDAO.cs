@@ -24,9 +24,14 @@ namespace KhoaHocData.DAO
         {
             return db.KhuyenMais.SingleOrDefault(x =>x.MaND == pMaND && x.MaKM == pMaKM);
         }
+        public int LayDiemTheoNguoiDung(int pMaND)
+        {
+            var diem = db.TichDiems.FirstOrDefault(x => x.MaND == pMaND);
+            return diem == null ? 0 : diem.SoDiem.Value;
+        }
         public IEnumerable<KhuyenMai> LayTatCaKhuyenMaiTheoMaNguoiDung(int pMaND)
         {
-            var lstKhuyenMaiKhachHang = db.KhuyenMai_KhachHang.Where(x => x.MaND == pMaND).ToList();
+            var lstKhuyenMaiKhachHang = db.KhuyenMai_KhachHang.Where(x => x.MaND == pMaND && !x.IsSuDung.Value).ToList();
             List<KhuyenMai> lstReturn = new List<KhuyenMai>();
             foreach (var item in db.KhuyenMais.ToList())
             {

@@ -287,5 +287,18 @@ namespace KhoaHocData.EF
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<KhoaHoc>("KhoaHocCuaToi", mergeOption, maHocVienParameter);
         }
+    
+        public virtual ObjectResult<Nullable<System.DateTime>> NgayMuaKhoaHoc(Nullable<int> maND, Nullable<int> maKH)
+        {
+            var maNDParameter = maND.HasValue ?
+                new ObjectParameter("MaND", maND) :
+                new ObjectParameter("MaND", typeof(int));
+    
+            var maKHParameter = maKH.HasValue ?
+                new ObjectParameter("MaKH", maKH) :
+                new ObjectParameter("MaKH", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<System.DateTime>>("NgayMuaKhoaHoc", maNDParameter, maKHParameter);
+        }
     }
 }

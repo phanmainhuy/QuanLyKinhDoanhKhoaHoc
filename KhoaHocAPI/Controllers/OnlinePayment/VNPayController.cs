@@ -18,7 +18,7 @@ namespace KhoaHocAPI.Controllers.OnlinePayment
         [HttpPost]
         public HttpResponseMessage PostThanhToanRequest([FromBody]VNPayRequestVM model)
         {
-            string result = db.GetPayURL(model.OrderId, model.Amount, model.BankCode);
+            string result = db.GetPayURL(model.OrderId, model.Amount, model.BankCode, model.MaApDung);
             if (result != null)
             {
                 return Request.CreateResponse(HttpStatusCode.OK, result);

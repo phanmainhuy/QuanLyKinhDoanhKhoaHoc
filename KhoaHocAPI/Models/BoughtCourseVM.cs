@@ -5,7 +5,7 @@ using System.Web;
 
 namespace KhoaHocAPI.Models
 {
-    public class CourseVM
+    public class BoughtCourseVM
     {
         public int MaKhoaHoc { get; set; }
         public int? MaLoai { get; set; }//
@@ -20,8 +20,7 @@ namespace KhoaHocAPI.Models
         public string TenGV { get; set; }
         public decimal DanhGia { get; set; }
         public string GioiThieu { get; set; }//
-        public DateTime? NgayTao { get; set; }
         public bool? HienThi { get; set; }
-        public DateTime? NgayChapThuan { get; set; }
+        public DateTime NgayMua { get; set; }
     }
 }

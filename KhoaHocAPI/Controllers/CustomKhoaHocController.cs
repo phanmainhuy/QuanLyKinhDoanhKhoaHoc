@@ -182,7 +182,7 @@ namespace KhoaHocAPI.Controllers
             }
             else
             {
-                return Request.CreateResponse(HttpStatusCode.OK, Mapper.CourseMapper.MapListCourse( result));
+                return Request.CreateResponse(HttpStatusCode.OK, Mapper.CourseMapper.MapListBoughtCourse(result, MaHV));
             }
         }
     }
