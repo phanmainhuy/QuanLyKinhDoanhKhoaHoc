@@ -42,7 +42,20 @@ namespace KhoaHocAPI.Controllers
                 return Request.CreateResponse(HttpStatusCode.OK, Mapper.UnitMapper.MapLesson(result));
             }
         }
-        
+        [HttpGet]
+        [Route("api/BaiHoc/GetByParentId")]
+        public HttpResponseMessage GetByParentId(int MaChuong)
+        {
+            var result = db_BaiHoc.LayBaiHocTheoChuong(MaChuong);
+            if (result == null)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Lỗi khi lấy dữ liệu");
+            }
+            else
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, result);
+            }
+        }
 
         [HttpPost]
         public HttpResponseMessage PostBaiHoc(BaiHocVM model)
