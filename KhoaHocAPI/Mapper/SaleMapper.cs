@@ -19,7 +19,8 @@ namespace KhoaHocAPI.Mapper
                 HinhAnh = khuyenMai.HinhAnh,
                 MaNguoiTao = khuyenMai.MaND.Value,
                 DiemCanMua = khuyenMai.Diem.Value,
-                ThoiGianKeoDai = khuyenMai.ThoiGianKeoDai.Value
+                ThoiGianKeoDai = khuyenMai.ThoiGianKeoDai.Value,
+                DangMoBan = khuyenMai.DangMoBan == null?false: khuyenMai.DangMoBan.Value
             };
         }
         public static IEnumerable<KhuyenMaiVM> MapListSale(IEnumerable<KhuyenMai> lstKhuyenMai)

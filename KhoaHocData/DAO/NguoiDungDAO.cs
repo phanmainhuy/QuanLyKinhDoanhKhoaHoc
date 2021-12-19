@@ -63,7 +63,7 @@ namespace KhoaHocData.DAO
         }
         public IEnumerable<NguoiDung> LayDanhSachTheoMaNhom(int pMaNhomNguoiDung)
         {
-            return db.NguoiDungs.Where(x => x.MaNhomNguoiDung == pMaNhomNguoiDung && !x.DaXoa.Value || x.DaXoa == null);
+            return db.NguoiDungs.Where(x => x.MaNhomNguoiDung == pMaNhomNguoiDung && (!x.DaXoa.Value || x.DaXoa == null));
         }
         public NguoiDung LayNguoiDungTheoId(int pMaNguoiDung)
         {

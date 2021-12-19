@@ -510,6 +510,7 @@
     <Content Include="Assets\images\courses\Yoga5.jpg" />
     <Content Include="Assets\images\courses\Yoga7.jpg" />
     <Content Include="Assets\images\courses\Yoga8.jpg" />
+    <Content Include="Assets\images\defaultcoupon.png" />
     <Content Include="Assets\images\others\airpay.jpg" />
     <Content Include="Assets\images\others\anh-van-giao-tiep-cho-nguoi-hoan-toan-mat-goc_m_1555555777.jpg" />
     <Content Include="Assets\images\others\anhdaidien.jpg" />
@@ -539,6 +540,7 @@
     <Content Include="Assets\images\sales\congratulation.png" />
     <Content Include="Assets\images\sales\congratulation1.png" />
     <Content Include="Assets\images\sales\coupon1.png" />
+    <Content Include="Assets\images\sales\defaultcoupon.png" />
     <Content Include="Assets\images\sales\giangsinh.png" />
     <Content Include="Assets\images\sales\giangsinh1.png" />
     <Content Include="Assets\images\sales\happy-new-year.png" />

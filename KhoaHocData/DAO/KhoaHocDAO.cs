@@ -9,12 +9,7 @@ namespace KhoaHocData.DAO
 {
     public class KhoaHocDAO
     {
-        private QL_KHOAHOCEntities db;
-
-        public KhoaHocDAO()
-        {
-            db = new QL_KHOAHOCEntities();
-        }
+        private QL_KHOAHOCEntities db = new QL_KHOAHOCEntities();
 
         public KhoaHoc LayKhoaHocTheoMa(int maKhoaHoc)
         {
@@ -66,8 +61,10 @@ namespace KhoaHocData.DAO
             }
             if (pMoTa != null)
                 kh.MOTAKHOAHOC = pMoTa;
+            
             try
             {
+                db.Entry<KhoaHoc>(kh).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
                 return KetQuaTraVe.ThanhCong;
             }
@@ -92,7 +89,7 @@ namespace KhoaHocData.DAO
 
         public IEnumerable<KhoaHoc> LayKhoaHocMoiNhat(int limit, bool isShow)
         {
-            return db.KhoaHocs.Where(x=>x.HienThi.Value == isShow).OrderByDescending(x => x.MaKhoaHoc).Take(limit);
+            return db.KhoaHocs.Where(x=>x.HienThi != null).Where(x=>x.HienThi.Value == isShow).OrderByDescending(x => x.MaKhoaHoc).Take(limit);
         }
         public IEnumerable<KhoaHoc> LayKhoaHocTheoMaGiaoVien(int pMaGiaoVien, bool isShow)
         {
@@ -131,7 +128,7 @@ namespace KhoaHocData.DAO
             int skipSize = (page - 1) * pageSize;
             if (string.IsNullOrEmpty(pSearchString))
             {
-                var result = db.KhoaHocs.OrderByDescending(x => x.MaKhoaHoc).ToList();
+                var result = db.KhoaHocs.Where(x=>x.HienThi.Value).OrderByDescending(x => x.MaKhoaHoc).ToList();
                 total = result.Count();
 
 
@@ -161,11 +158,11 @@ namespace KhoaHocData.DAO
             int skipSize = (page - 1) * pageSize;
             if (string.IsNullOrEmpty(pSearchString))
             {
-                var result = SortingBy(db.KhoaHocs.OrderByDescending(x => x.MaKhoaHoc).ToList(), (SortingType)type);
+                var result = SortingBy(db.KhoaHocs.Where(x=>x.HienThi != null).Where(x=>x.HienThi != null).Where(x=>x.HienThi.Value).OrderByDescending(x => x.MaKhoaHoc).ToList(), (SortingType)type);
                 total = result.Count();
                 return result.Skip(skipSize).Take(pageSize).ToList();
             }
-            var item = SortingBy(db.SearchKhoaHoc(pSearchString).OrderByDescending(x => x.MaKhoaHoc).ToList(), (SortingType)type);
+            var item = SortingBy(db.SearchKhoaHoc(pSearchString).Where(x=>x.HienThi != null).Where(x=>x.HienThi.Value).OrderByDescending(x => x.MaKhoaHoc).ToList(), (SortingType)type);
             total = item.Count();
             return item.Skip(skipSize).Take(pageSize).ToList();
         }
@@ -242,7 +239,6 @@ namespace KhoaHocData.DAO
                 HinhAnh = pHinhAnh,
                 MaGV = pMaGV,
                 MOTAKHOAHOC = pMoTa,
-                SoLuongMua = 0,
                 TrangThai = false,
                 NgayTao = DateTime.Now.Date,
                 NgayChapThuan = DateTime.MinValue.Date

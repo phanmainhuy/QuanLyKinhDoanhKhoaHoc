@@ -332,6 +332,17 @@ namespace KhoaHocData.DAO
             total = item.Count();
             return item.Skip(skipSize).Take(pageSize).ToList();
         }
+        public IEnumerable<HoaDon> LayToanBoHoaDonDieuKien(DateTime? NgayBatDau, DateTime? NgayKetThuc)
+        {
+            var item = db.HoaDons.Where(x => x.ThanhToan == true).OrderByDescending(x => x.MaHD).ToList();
+            
+            if (NgayBatDau != null && NgayKetThuc != null)
+                item = item.Where(x =>
+                DateTime.Compare(x.NgayLap.Value, NgayBatDau.Value) >= 0 &&
+                DateTime.Compare(x.NgayLap.Value, NgayKetThuc.Value) <= 0
+                ).ToList();
+            return item;
+        }
 
         public AllEnum.KetQuaTraVe GuiMailSauKhiThanhToan(string reciepiantMailAddress, IEnumerable<KhoaHoc> lstKhoaHoc)
         {

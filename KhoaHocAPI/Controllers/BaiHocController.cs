@@ -53,7 +53,7 @@ namespace KhoaHocAPI.Controllers
             }
             else
             {
-                return Request.CreateResponse(HttpStatusCode.OK, result);
+                return Request.CreateResponse(HttpStatusCode.OK, Mapper.UnitMapper.MapListLesson(result));
             }
         }
 

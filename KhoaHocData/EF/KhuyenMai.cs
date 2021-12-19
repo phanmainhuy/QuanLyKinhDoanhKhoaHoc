@@ -29,6 +29,7 @@ namespace KhoaHocData.EF
         public Nullable<decimal> GiaTri { get; set; }
         public Nullable<int> ThoiGianKeoDai { get; set; }
         public Nullable<int> Diem { get; set; }
+        public Nullable<bool> DangMoBan { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HoaDon> HoaDons { get; set; }

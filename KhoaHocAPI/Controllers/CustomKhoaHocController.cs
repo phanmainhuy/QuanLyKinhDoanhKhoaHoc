@@ -110,7 +110,7 @@ namespace KhoaHocAPI.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Error");
         }
         [Route("SearchAll")]
-        public HttpResponseMessage GetAllKhoaHocTheoTenPaging([FromUri] string searchString, [FromUri] PagingVM paging, [FromUri] int type, [FromUri] bool isShow = true)
+        public HttpResponseMessage GetAllKhoaHocTheoTenPaging([FromUri] string searchString, [FromUri] PagingVM paging, [FromUri] int type)
         {
             int total;
             var item = khDB.TimKiemTatCaKhoaHocPagingSorting(searchString, out total, paging.page, paging.pageSize, type);

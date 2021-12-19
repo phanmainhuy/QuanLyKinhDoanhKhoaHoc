@@ -132,7 +132,6 @@
           <Property Name="MaLoai" Type="int" />
           <Property Name="TenKhoaHoc" Type="nvarchar" MaxLength="200" />
           <Property Name="DonGia" Type="money" />
-          <Property Name="SoLuongMua" Type="int" />
           <Property Name="ThoiHanHoanTien" Type="int" />
           <Property Name="TrangThai" Type="bit" />
           <Property Name="HinhAnh" Type="nvarchar" MaxLength="300" />
@@ -141,6 +140,7 @@
           <Property Name="NgayTao" Type="date" />
           <Property Name="NgayChapThuan" Type="date" />
           <Property Name="HienThi" Type="bit" />
+          <Property Name="SoLuongMua" Type="int" />
         </EntityType>
         <EntityType Name="KhuyenMai">
           <Key>
@@ -154,6 +154,7 @@
           <Property Name="GiaTri" Type="money" />
           <Property Name="ThoiGianKeoDai" Type="int" />
           <Property Name="Diem" Type="int" />
+          <Property Name="DangMoBan" Type="bit" />
         </EntityType>
         <EntityType Name="KhuyenMai_KhachHang">
           <Key>
@@ -227,6 +228,7 @@
           <Property Name="TrangThai" Type="bit" />
           <Property Name="DaXoa" Type="bit" />
           <Property Name="GioiTinh" Type="nvarchar" MaxLength="4" />
+          <Property Name="NgayTao" Type="date" />
         </EntityType>
         <EntityType Name="NhomNguoiDung">
           <Key>
@@ -967,7 +969,6 @@
           <Property Name="MaLoai" Type="Int32" />
           <Property Name="TenKhoaHoc" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="DonGia" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="SoLuongMua" Type="Int32" />
           <Property Name="ThoiHanHoanTien" Type="Int32" />
           <Property Name="TrangThai" Type="Boolean" />
           <Property Name="HinhAnh" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
@@ -982,6 +983,7 @@
           <NavigationProperty Name="LoaiKhoaHoc" Relationship="Self.FK_KhoaHoc_LoaiKhoaHoc" FromRole="KhoaHoc" ToRole="LoaiKhoaHoc" />
           <NavigationProperty Name="Chuongs" Relationship="QL_KHOAHOCModel.FK_Chuong_KhoaHoc" FromRole="KhoaHoc" ToRole="Chuong" />
           <Property Name="HienThi" Type="Boolean" />
+          <Property Name="SoLuongMua" Type="Int32" />
         </EntityType>
         <EntityType Name="KhuyenMai">
           <Key>
@@ -998,6 +1000,7 @@
           <Property Name="GiaTri" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="ThoiGianKeoDai" Type="Int32" />
           <Property Name="Diem" Type="Int32" />
+          <Property Name="DangMoBan" Type="Boolean" />
         </EntityType>
         <EntityType Name="KhuyenMai_KhachHang">
           <Key>
@@ -1082,6 +1085,7 @@
           <NavigationProperty Name="DonThuTiens1" Relationship="QL_KHOAHOCModel.FK_DonThuTien_MaNVHoTro" FromRole="NguoiDung" ToRole="DonThuTien" />
           <Property Name="DaXoa" Type="Boolean" />
           <Property Name="GioiTinh" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Name="NgayTao" Type="DateTime" Precision="0" />
           </EntityType>
         <EntityType Name="NhomNguoiDung">
           <Key>
@@ -1958,12 +1962,12 @@
           <EntitySetMapping Name="KhoaHocs">
             <EntityTypeMapping TypeName="QL_KHOAHOCModel.KhoaHoc">
               <MappingFragment StoreEntitySet="KhoaHoc">
+                <ScalarProperty Name="SoLuongMua" ColumnName="SoLuongMua" />
                 <ScalarProperty Name="HienThi" ColumnName="HienThi" />
                 <ScalarProperty Name="MaKhoaHoc" ColumnName="MaKhoaHoc" />
                 <ScalarProperty Name="MaLoai" ColumnName="MaLoai" />
                 <ScalarProperty Name="TenKhoaHoc" ColumnName="TenKhoaHoc" />
                 <ScalarProperty Name="DonGia" ColumnName="DonGia" />
-                <ScalarProperty Name="SoLuongMua" ColumnName="SoLuongMua" />
                 <ScalarProperty Name="ThoiHanHoanTien" ColumnName="ThoiHanHoanTien" />
                 <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
                 <ScalarProperty Name="HinhAnh" ColumnName="HinhAnh" />
@@ -1977,6 +1981,7 @@
           <EntitySetMapping Name="KhuyenMais">
             <EntityTypeMapping TypeName="QL_KHOAHOCModel.KhuyenMai">
               <MappingFragment StoreEntitySet="KhuyenMai">
+                <ScalarProperty Name="DangMoBan" ColumnName="DangMoBan" />
                 <ScalarProperty Name="Diem" ColumnName="Diem" />
                 <ScalarProperty Name="ThoiGianKeoDai" ColumnName="ThoiGianKeoDai" />
                 <ScalarProperty Name="GiaTri" ColumnName="GiaTri" />
@@ -2049,6 +2054,7 @@
           <EntitySetMapping Name="NguoiDungs">
             <EntityTypeMapping TypeName="QL_KHOAHOCModel.NguoiDung">
               <MappingFragment StoreEntitySet="NguoiDung">
+                <ScalarProperty Name="NgayTao" ColumnName="NgayTao" />
                 <ScalarProperty Name="GioiTinh" ColumnName="GioiTinh" />
                 <ScalarProperty Name="DaXoa" ColumnName="DaXoa" />
                 <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />

@@ -59,7 +59,8 @@ namespace KhoaHocAPI.Controllers
         [HttpPost]
         public HttpResponseMessage TaoKhuyenMai(KhuyenMaiVM model)
         {
-            var result = db_km.ThemKhuyenMai(model.MaNguoiTao, model.TenKM, model.HinhAnh, model.GiaTri);
+            var result = db_km.ThemKhuyenMai(model.MaNguoiTao, model.TenKM, model.HinhAnh, 
+                model.GiaTri, model.DiemCanMua, model.ThoiGianKeoDai);
             if (result == Common.AllEnum.KetQuaTraVe.DaTonTai)
             {
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Tên khóa học không được trùng");
@@ -67,7 +68,7 @@ namespace KhoaHocAPI.Controllers
             else if (result == Common.AllEnum.KetQuaTraVe.ThatBai)
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Tạo khóa học thất bại");
             else
-                return Request.CreateResponse(HttpStatusCode.OK);
+                return Request.CreateResponse(HttpStatusCode.Created);
         }
         
         [HttpPost]
@@ -103,6 +104,24 @@ namespace KhoaHocAPI.Controllers
         {
             var result = db_km.LayDiemTheoNguoiDung(MaHV);
             return Request.CreateResponse(HttpStatusCode.OK, result);
+        }
+        
+        [HttpPatch]
+        public HttpResponseMessage ThayDoiTrangThaiBanKhuyenMai([FromBody]List<int> MaKM, bool TrangThai)
+        {
+            var result = db_km.ThayDoiTrangThaiBanKhuyenMai(MaKM, TrangThai);
+            if (result == Common.AllEnum.KetQuaTraVe.KhongTonTai)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Khuyến mãi không tồn tại");
+            }
+            else if (result == Common.AllEnum.KetQuaTraVe.ThatBai)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Thao tác không thành công");
+            }
+            else
+            {
+                return Request.CreateResponse(HttpStatusCode.OK);
+            }
         }
     }
 }

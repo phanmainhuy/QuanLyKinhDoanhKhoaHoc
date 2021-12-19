@@ -165,6 +165,7 @@ namespace KhoaHocData.DAO
         {
             return db.BaiHocs.SingleOrDefault(x => x.MaBaiHoc == pMaBaiHoc);
         }
+        
         public List<BaiHoc> LayToanBoBaiHoc()
         {
             return db.BaiHocs.ToList();

@@ -14,14 +14,17 @@ namespace KhoaHocData.OnlineParty
             var hd = db.HoaDons.FirstOrDefault(x => x.MaHD == OrderId);
             
             var km = db.KhuyenMais.FirstOrDefault(x => x.MaApDung == MaApDung);
-            var km_kh = db.KhuyenMai_KhachHang.FirstOrDefault(x => x.MaND == hd.MaND && x.MaKM == km.MaKM);
-            if (km_kh != null)
+            if (km != null)
             {
-                Amount = Amount - (long)km.GiaTri.Value > 10000 ? Amount - (long)km.GiaTri.Value :
-                    10000;
-                km_kh.IsSuDung = true;
-                hd.MaKM = km.MaKM;
-                db.SaveChanges();
+                var km_kh = db.KhuyenMai_KhachHang.FirstOrDefault(x => x.MaND == hd.MaND && x.MaKM == km.MaKM);
+                if (km_kh != null)
+                {
+                    Amount = Amount - (long)km.GiaTri.Value > 10000 ? Amount - (long)km.GiaTri.Value :
+                        10000;
+                    km_kh.IsSuDung = true;
+                    hd.MaKM = km.MaKM;
+                    db.SaveChanges();
+                }
             }
             string vnp_Returnurl = ConfigurationManager.AppSettings["vnp_Returnurl"]; //URL nhan ket qua tra ve
             string vnp_Url = ConfigurationManager.AppSettings["vnp_Url"]; //URL thanh toan cua VNPAY
@@ -117,7 +120,10 @@ namespace KhoaHocData.OnlineParty
                 if (order != null)
                 {
                     var km = db.KhuyenMais.FirstOrDefault(x => x.MaKM == order.MaKM);
-                    if (order.TongTien.Value - km.GiaTri.Value == vnp_Amount / 100)
+                    decimal giatri = 0;
+                    if (db.KhuyenMai_KhachHang.Any(x => x.MaKM == km.MaKM && order.MaND == x.MaND))
+                        giatri = km.GiaTri.Value;
+                    if (order.TongTien.Value - giatri == vnp_Amount / 100)
                     {
                         if (order.TrangThai == "0")
                         {

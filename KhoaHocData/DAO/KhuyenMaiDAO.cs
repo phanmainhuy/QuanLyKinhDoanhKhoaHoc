@@ -29,6 +29,29 @@ namespace KhoaHocData.DAO
             var diem = db.TichDiems.FirstOrDefault(x => x.MaND == pMaND);
             return diem == null ? 0 : diem.SoDiem.Value;
         }
+        public AllEnum.KetQuaTraVe ThayDoiTrangThaiBanKhuyenMai(List<int> pListMaKM, bool pTrangThai)
+        {
+            var lstKhuyenMai = db.KhuyenMais.ToList();
+            foreach (var item in lstKhuyenMai)
+            {
+                if (pListMaKM.Contains(item.MaKM))
+                {
+                    if (item == null)
+                        continue;
+                    item.DangMoBan = pTrangThai;
+                }
+            }
+            try
+            {
+                db.SaveChanges();
+                return AllEnum.KetQuaTraVe.ThanhCong;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return AllEnum.KetQuaTraVe.ThatBai;
+            }
+        }
         public IEnumerable<KhuyenMai> LayTatCaKhuyenMaiTheoMaNguoiDung(int pMaND)
         {
             var lstKhuyenMaiKhachHang = db.KhuyenMai_KhachHang.Where(x => x.MaND == pMaND && !x.IsSuDung.Value).ToList();
@@ -40,8 +63,16 @@ namespace KhoaHocData.DAO
             }
             return lstReturn;
         }
-        public AllEnum.KetQuaTraVe ThemKhuyenMai(int pMaNguoiTao, string pTenKM, string pHinhAnh, decimal pGiaTri)
+        public AllEnum.KetQuaTraVe ThemKhuyenMai(int pMaNguoiTao, string pTenKM, string pHinhAnh, 
+            decimal pGiaTri, int DiemCanMua, int ThoiGianKeoDai)
         {
+            string random = "";
+            int length = 7;
+            Random r = new Random();
+            for (int i = 0; i < length; i++)
+            {
+                random += r.Next(9);
+            }
             KhuyenMai km = new KhuyenMai();
             km.MaND = pMaNguoiTao;
             if (!string.IsNullOrEmpty(pTenKM))
@@ -53,7 +84,15 @@ namespace KhoaHocData.DAO
                 pHinhAnh = "";
                 km.HinhAnh = pHinhAnh;
             }
+            if (string.IsNullOrEmpty(pHinhAnh))
+            {
+                km.HinhAnh = "defaultcoupon.png";
+            }
+            km.MaApDung = random;
+            km.Diem = DiemCanMua;
+            km.ThoiGianKeoDai = ThoiGianKeoDai == 0 ? 10 :ThoiGianKeoDai;
             km.GiaTri = pGiaTri;
+            km.DangMoBan = false;
             db.KhuyenMais.Add(km);
             try
             {

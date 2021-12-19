@@ -1,6 +1,7 @@
 ﻿using KhoaHocAPI.Models;
 using KhoaHocData.DAO;
 using KhoaHocData.EF;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -76,13 +77,16 @@ namespace KhoaHocAPI.Mapper
             List<HoaDonVM> lstReturn = new List<HoaDonVM>();
             foreach (var item in lstHoaDon)
             {
+                NguoiDung nd = new NguoiDungDAO().LayNguoiDungTheoId(item.MaND.Value);
                 lstReturn.Add(new HoaDonVM()
                 {
                     MaND = item.MaND.Value,
                     DanhSachHangHoa = MapListPaymentItem(item.CT_HoaDon.ToList()).ToList(),
                     HinhThucThanhToan = item.HinhThucThanhToan,
                     TongThanhToan = item.TongTien.Value,
-                    MaHoaDon = item.MaHD
+                    MaHoaDon = item.MaHD,
+                    NgayTaoHoaDon = item.NgayLap == null? DateTime.MinValue: item.NgayLap.Value,
+                    TenND = nd.HoTen
                 });
             }
             return lstReturn;

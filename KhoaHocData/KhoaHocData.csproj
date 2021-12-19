@@ -114,7 +114,9 @@
     <Compile Include="DAO\NguoiDungDAO.cs" />
     <Compile Include="DAO\PaymentDAO.cs" />
     <Compile Include="DAO\SalaryDAO.cs" />
+    <Compile Include="DAO\ThongKeClass.cs" />
     <Compile Include="DAO\UserGroupDAO.cs" />
+    <Compile Include="DAO\XuatExcel.cs" />
     <Compile Include="DAO\XuLy.cs" />
     <Compile Include="EF\BaiHoc.cs">
       <DependentUpon>QLKhoaHocDataModel.tt</DependentUpon>

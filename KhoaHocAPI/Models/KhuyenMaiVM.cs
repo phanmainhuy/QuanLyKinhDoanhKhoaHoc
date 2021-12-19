@@ -14,5 +14,6 @@ namespace KhoaHocAPI.Models
         public decimal GiaTri { get; set; }
         public int DiemCanMua { get; set; }
         public int ThoiGianKeoDai { get; set; }
+        public bool DangMoBan { get; set; }
     }
 }
