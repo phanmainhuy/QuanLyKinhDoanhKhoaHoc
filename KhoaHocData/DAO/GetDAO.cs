@@ -124,5 +124,9 @@ namespace KhoaHocData.DAO
         {
             return db.Luongs.FirstOrDefault(x => x.MaND == pMaND);
         }
+        public int GetSLKHTheoMaLoai(int pMaLoai)
+        {
+            return db.KhoaHocs.Where(x => x.MaLoai == pMaLoai).ToList().Count();
+        }
     }
 }

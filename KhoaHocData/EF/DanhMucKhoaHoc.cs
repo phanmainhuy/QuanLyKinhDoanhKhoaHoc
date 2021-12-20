@@ -23,6 +23,7 @@ namespace KhoaHocData.EF
         public int MaDanhMuc { get; set; }
         public string TenDanhMuc { get; set; }
         public string HinhAnh { get; set; }
+        public Nullable<bool> HienThi { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LoaiKhoaHoc> LoaiKhoaHocs { get; set; }

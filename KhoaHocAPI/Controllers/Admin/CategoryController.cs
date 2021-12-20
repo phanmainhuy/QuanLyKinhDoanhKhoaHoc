@@ -12,33 +12,18 @@ namespace KhoaHocAPI.Controllers.Admin
     {
         private CategoryDAO db_DanhMuc = new CategoryDAO();
         [HttpPost]
-        public HttpResponseMessage PostDanhMuc(string TenDanhMuc)
-        {
-            var result = db_DanhMuc.TaoDanhMuc(TenDanhMuc);
-            if (result == Common.AllEnum.KetQuaTraVeDanhMuc.ThanhCong)
-            {
-                return Request.CreateResponse(HttpStatusCode.Created);
-            }
-            else if (result == Common.AllEnum.KetQuaTraVeDanhMuc.DanhMucDaTonTai)
-            {
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Danh mục đã tồn tại");
-            }
-            return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Thêm danh mục không thành công");
-        }
-
-        [HttpPost]
         public HttpResponseMessage PostTheLoai(int MaDanhMuc, string TenTheLoai)
         {
             var result = db_DanhMuc.ThemTheLoai(MaDanhMuc, TenTheLoai);
-            if (result == Common.AllEnum.KetQuaTraVeDanhMuc.ThanhCong)
+            if (result == Common.AllEnum.KetQuaTraVe.ThanhCong)
             {
                 return Request.CreateResponse(HttpStatusCode.Created);
             }
-            else if (result == Common.AllEnum.KetQuaTraVeDanhMuc.DanhMucKhongTonTai)
+            else if (result == Common.AllEnum.KetQuaTraVe.KhongTonTai)
             {
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Danh mục không tồn tại");
             }
-            else if (result == Common.AllEnum.KetQuaTraVeDanhMuc.TheLoaiDaTonTai)
+            else if (result == Common.AllEnum.KetQuaTraVe.DaTonTai)
             {
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Thể loại đã tồn tại");
 

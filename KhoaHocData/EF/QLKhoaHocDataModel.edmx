@@ -82,6 +82,7 @@
           <Property Name="MaDanhMuc" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TenDanhMuc" Type="nvarchar" MaxLength="50" />
           <Property Name="HinhAnh" Type="nvarchar" MaxLength="300" />
+          <Property Name="HienThi" Type="bit" />
         </EntityType>
         <EntityType Name="DonThuTien">
           <Key>
@@ -186,6 +187,7 @@
           <Property Name="MaDanhMuc" Type="int" />
           <Property Name="TenLoai" Type="nvarchar" MaxLength="50" />
           <Property Name="HinhAnh" Type="nvarchar" MaxLength="300" />
+          <Property Name="HienThi" Type="bit" />
         </EntityType>
         <EntityType Name="LOAIQUYEN">
           <Key>
@@ -932,6 +934,7 @@
           <Property Name="TenDanhMuc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="HinhAnh" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="LoaiKhoaHocs" Relationship="Self.FK_LoaiKhoaHoc_DanhMucKH" FromRole="DanhMucKhoaHoc" ToRole="LoaiKhoaHoc" />
+          <Property Name="HienThi" Type="Boolean" />
         </EntityType>
         <EntityType Name="GioHang">
           <Key>
@@ -1037,6 +1040,7 @@
           <Property Name="HinhAnh" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="DanhMucKhoaHoc" Relationship="Self.FK_LoaiKhoaHoc_DanhMucKH" FromRole="LoaiKhoaHoc" ToRole="DanhMucKhoaHoc" />
           <NavigationProperty Name="KhoaHocs" Relationship="Self.FK_KhoaHoc_LoaiKhoaHoc" FromRole="LoaiKhoaHoc" ToRole="KhoaHoc" />
+          <Property Name="HienThi" Type="Boolean" />
         </EntityType>
         <EntityType Name="LOAIQUYEN">
           <Key>
@@ -1928,6 +1932,7 @@
           <EntitySetMapping Name="DanhMucKhoaHocs">
             <EntityTypeMapping TypeName="QL_KHOAHOCModel.DanhMucKhoaHoc">
               <MappingFragment StoreEntitySet="DanhMucKhoaHoc">
+                <ScalarProperty Name="HienThi" ColumnName="HienThi" />
                 <ScalarProperty Name="MaDanhMuc" ColumnName="MaDanhMuc" />
                 <ScalarProperty Name="TenDanhMuc" ColumnName="TenDanhMuc" />
                 <ScalarProperty Name="HinhAnh" ColumnName="HinhAnh" />
@@ -2018,6 +2023,7 @@
           <EntitySetMapping Name="LoaiKhoaHocs">
             <EntityTypeMapping TypeName="QL_KHOAHOCModel.LoaiKhoaHoc">
               <MappingFragment StoreEntitySet="LoaiKhoaHoc">
+                <ScalarProperty Name="HienThi" ColumnName="HienThi" />
                 <ScalarProperty Name="MaLoai" ColumnName="MaLoai" />
                 <ScalarProperty Name="MaDanhMuc" ColumnName="MaDanhMuc" />
                 <ScalarProperty Name="TenLoai" ColumnName="TenLoai" />

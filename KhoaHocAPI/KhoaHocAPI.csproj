@@ -193,6 +193,7 @@
     <Compile Include="Controllers\ChuongController.cs" />
     <Compile Include="Controllers\CustomAPIController.cs" />
     <Compile Include="Controllers\CustomKhoaHocController.cs" />
+    <Compile Include="Controllers\DirectoryController.cs" />
     <Compile Include="Controllers\KhuyenMaiController.cs" />
     <Compile Include="Controllers\LuongController.cs" />
     <Compile Include="Controllers\OnlinePayment\VNPayController.cs" />

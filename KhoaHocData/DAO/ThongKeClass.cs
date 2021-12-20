@@ -38,6 +38,10 @@ namespace KhoaHocData.DAO
             && x.NgayTao <= end
             && x.MaNhomNguoiDung == (int)AllEnum.MaNhomNguoiDung.Student).ToList();
             List<DailyAccessStatistic> lstDailyAccess = new List<DailyAccessStatistic>();
+            if (start.Month != end.Month)
+            {
+                return lstDailyAccess;
+            }
             for (int i = start.Day; i <= end.Day; i++)
             {
                 DailyAccessStatistic dl = new DailyAccessStatistic();

@@ -24,6 +24,7 @@ namespace KhoaHocData.EF
         public Nullable<int> MaDanhMuc { get; set; }
         public string TenLoai { get; set; }
         public string HinhAnh { get; set; }
+        public Nullable<bool> HienThi { get; set; }
     
         public virtual DanhMucKhoaHoc DanhMucKhoaHoc { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
