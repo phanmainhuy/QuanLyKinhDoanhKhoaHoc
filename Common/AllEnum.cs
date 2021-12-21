@@ -12,7 +12,8 @@
         }
         public enum KetQuaTraVe
         {
-            ThatBai, ThanhCong, ChaKhongTonTai, DaTonTai, KhongTonTai, KhongDuocPhep
+            ThatBai, ThanhCong, ChaKhongTonTai, DaTonTai, KhongTonTai, KhongDuocPhep,
+            KhongHopLe
         }
         public enum TrangThaiDonThuTien
         {

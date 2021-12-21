@@ -106,6 +106,7 @@
     <Compile Include="DAO\BaiHocDAO.cs" />
     <Compile Include="DAO\CartDAO.cs" />
     <Compile Include="DAO\CategoryDAO.cs" />
+    <Compile Include="DAO\DanhGiaDAO.cs" />
     <Compile Include="DAO\GetDAO.cs" />
     <Compile Include="DAO\KhoaHocDAO.cs" />
     <Compile Include="DAO\KhuyenMaiDAO.cs" />

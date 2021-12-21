@@ -30,6 +30,14 @@ namespace KhoaHocData.DAO
         {
             return db.NguoiDungs.SingleOrDefault(x => x.MaND == pMaND).HoTen;
         }
+        public string GetTenKhoaHoc(int pMaKhoaHoc)
+        {
+            return db.KhoaHocs.FirstOrDefault(x=>x.MaKhoaHoc == pMaKhoaHoc).TenKhoaHoc;
+        }
+        public string GetHinhAnhNguoiDung(int pMaND)
+        {
+            return db.NguoiDungs.SingleOrDefault(x => x.MaND == pMaND).HinhAnh;
+        }
         public decimal GetDanhGiaKhoaHoc(int pMaKhoaHoc)
         {
             int TongDanhGia = 0;
