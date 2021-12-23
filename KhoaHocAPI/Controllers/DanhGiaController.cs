@@ -27,7 +27,19 @@ namespace KhoaHocAPI.Controllers
             }
             else
             {
-                return Request.CreateResponse(HttpStatusCode.OK, result);
+                return Request.CreateResponse(HttpStatusCode.OK, Mapper.RatingMapper.MapListRating(result));
+            }
+        }
+        public HttpResponseMessage GetById2(int MaND, int MaKhoaHoc)
+        {
+            var result = db.LayDanhGiaDaDanhGia(MaND, MaKhoaHoc);
+            if (result == null)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Không có dữ liệu");
+            }
+            else
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, Mapper.RatingMapper.MapRating(result));
             }
         }
         public HttpResponseMessage PostDanhGia(RatingVM model)

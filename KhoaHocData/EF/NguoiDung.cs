@@ -19,6 +19,7 @@ namespace KhoaHocData.EF
         {
             this.DonThuTiens = new HashSet<DonThuTien>();
             this.DonThuTiens1 = new HashSet<DonThuTien>();
+            this.DanhGiaKhoaHocs = new HashSet<DanhGiaKhoaHoc>();
         }
     
         public int MaND { get; set; }
@@ -41,5 +42,7 @@ namespace KhoaHocData.EF
         public virtual ICollection<DonThuTien> DonThuTiens { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DonThuTien> DonThuTiens1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DanhGiaKhoaHoc> DanhGiaKhoaHocs { get; set; }
     }
 }

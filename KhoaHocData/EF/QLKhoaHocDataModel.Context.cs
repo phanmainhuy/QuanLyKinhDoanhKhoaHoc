@@ -32,7 +32,6 @@ namespace KhoaHocData.EF
         public virtual DbSet<ChamSocKhachHang> ChamSocKhachHangs { get; set; }
         public virtual DbSet<CT_GioHang> CT_GioHang { get; set; }
         public virtual DbSet<CT_HoaDon> CT_HoaDon { get; set; }
-        public virtual DbSet<DanhGiaKhoaHoc> DanhGiaKhoaHocs { get; set; }
         public virtual DbSet<DanhMucKhoaHoc> DanhMucKhoaHocs { get; set; }
         public virtual DbSet<GioHang> GioHangs { get; set; }
         public virtual DbSet<HoaDon> HoaDons { get; set; }
@@ -52,6 +51,7 @@ namespace KhoaHocData.EF
         public virtual DbSet<TichDiem> TichDiems { get; set; }
         public virtual DbSet<DonThuTien> DonThuTiens { get; set; }
         public virtual DbSet<Chuong> Chuongs { get; set; }
+        public virtual DbSet<DanhGiaKhoaHoc> DanhGiaKhoaHocs { get; set; }
     
         public virtual ObjectResult<KhoaHoc> SearchKhoaHoc(string tieuDe)
         {

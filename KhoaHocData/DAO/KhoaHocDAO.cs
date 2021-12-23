@@ -171,7 +171,7 @@ namespace KhoaHocData.DAO
             if (type == SortingType.Cheapest)
                 return input.OrderBy(x => x.DonGia);
             if (type == SortingType.HighestRate)
-                return input.OrderByDescending(x => x.DanhGiaKhoaHoc.Diem);
+                return input.ToList().OrderByDescending(x => new GetDAO().GetDanhGiaKhoaHoc(x.MaKhoaHoc));
             if (type == SortingType.MostExpensive)
                 return input.OrderByDescending(x => x.DonGia);
             if (type == SortingType.MostLearn)

@@ -145,14 +145,16 @@ namespace KhoaHocData.DAO
                 return KetQuaTraVe.ThatBai;
             }
         }
-        public KetQuaTraVe ThayDoiTrangThaiNguoiDung(int pUserID, bool pTrangThai)
+        public KetQuaTraVe ThayDoiTrangThaiNguoiDung(List<int> pUserID, bool pTrangThai)
         {
-            var nd = db.NguoiDungs.FirstOrDefault(x => x.MaND == pUserID);
-            if (nd == null)
-                return KetQuaTraVe.KhongTonTai;
-            if (nd.TrangThai.Value == pTrangThai)
-                return KetQuaTraVe.ThanhCong;
-            nd.TrangThai = pTrangThai;
+            var lstND = db.NguoiDungs.ToList();
+            foreach (var item in lstND)
+            {
+                if (pUserID.Contains(item.MaND))
+                {
+                    item.TrangThai = pTrangThai;
+                }
+            }
             try
             {
                 db.SaveChanges();

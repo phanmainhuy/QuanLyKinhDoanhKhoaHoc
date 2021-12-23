@@ -16,12 +16,15 @@ namespace KhoaHocAPI.Mapper
             return new RatingVM()
             {
                 MaKhoaHoc = danhgia.MaKhoaHoc,
-                MaND = danhgia.MaND.Value,
-                TenND = db.GetTenNguoiDung(danhgia.MaND.Value),
+                MaND = danhgia.MaND,
+                TenND = db.GetTenNguoiDung(danhgia.MaND),
                 TongDiem = db.GetDanhGiaKhoaHoc(danhgia.MaKhoaHoc),
-                HinhAnh = db.GetHinhAnhNguoiDung(danhgia.MaND.Value),
+                Diem = danhgia.Diem == null?0:danhgia.Diem.Value,
+                HinhAnh = db.GetHinhAnhNguoiDung(danhgia.MaND),
                 NoiDung = danhgia.NoiDung,
-                TenKhoaHoc = db.GetTenKhoaHoc(danhgia.MaKhoaHoc)
+                TenKhoaHoc = db.GetTenKhoaHoc(danhgia.MaKhoaHoc),
+                NgayDanhGia = danhgia.NgayDanhGia,
+                MaDanhGia = danhgia.MaDanhGia
             };
         }
         public static IEnumerable<RatingVM> MapListRating(IEnumerable<DanhGiaKhoaHoc> lstDanhGia)

@@ -13,6 +13,7 @@ namespace KhoaHocData.DAO
         private QL_KHOAHOCEntities db = new QL_KHOAHOCEntities();
         public IEnumerable<DanhGiaKhoaHoc> LayDanhGiaKhoaHocTheoMaKhoaHoc(int pMaKhoaHoc)
         {
+            var item = db.DanhGiaKhoaHocs.ToList();
             return db.DanhGiaKhoaHocs.Where(x => x.MaKhoaHoc == pMaKhoaHoc).ToList();
         }
         public KetQuaTraVe ThemMoiDanhGia(int pMaND, int pMaKhoaHoc, string pNoiDung, int pDiem)
@@ -87,6 +88,10 @@ namespace KhoaHocData.DAO
                 Console.WriteLine(ex.Message);
                 return KetQuaTraVe.ThatBai;
             }
+        }
+        public DanhGiaKhoaHoc LayDanhGiaDaDanhGia(int pMaND, int pMaKhoaHoc)
+        {
+            return db.DanhGiaKhoaHocs.FirstOrDefault(x => x.MaND == pMaND && x.MaKhoaHoc == pMaKhoaHoc);
         }
     }
 }

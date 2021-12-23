@@ -7,6 +7,7 @@ namespace KhoaHocAPI.Models
 {
     public class RatingVM
     {
+        public int MaDanhGia { get; set; }
         public int MaND { get; set; }
         public int MaKhoaHoc { get; set; }
         public string TenKhoaHoc { get; set; }
@@ -15,5 +16,6 @@ namespace KhoaHocAPI.Models
         public string NoiDung { get; set; }
         public string TenND { get; set; }
         public string HinhAnh { get; set; }
+        public DateTime? NgayDanhGia { get; set; }
     }
 }

@@ -75,7 +75,7 @@ namespace KhoaHocAPI.Controllers
             }
         }
         [System.Web.Http.HttpPatch]
-        public HttpResponseMessage ThayDoiTrangThaiNguoiDung(int MaND, bool TrangThai)
+        public HttpResponseMessage ThayDoiTrangThaiNguoiDung([FromBody]List<int> MaND, bool TrangThai)
         {
             var result = ndDAO.ThayDoiTrangThaiNguoiDung(MaND, TrangThai);
             if (result == Common.AllEnum.KetQuaTraVe.KhongTonTai)

@@ -15,11 +15,10 @@ namespace KhoaHocData.EF
     public partial class DanhGiaKhoaHoc
     {
         public int MaKhoaHoc { get; set; }
-        public Nullable<int> MaND { get; set; }
+        public int MaND { get; set; }
         public Nullable<int> Diem { get; set; }
         public string NoiDung { get; set; }
-    
-        public virtual KhoaHoc KhoaHoc { get; set; }
-        public virtual NguoiDung NguoiDung { get; set; }
+        public Nullable<System.DateTime> NgayDanhGia { get; set; }
+        public int MaDanhGia { get; set; }
     }
 }
