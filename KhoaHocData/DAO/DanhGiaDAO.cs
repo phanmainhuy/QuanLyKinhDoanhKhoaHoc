@@ -33,7 +33,9 @@ namespace KhoaHocData.DAO
             dg.MaKhoaHoc = pMaKhoaHoc;
             dg.NoiDung = pNoiDung;
             dg.Diem = pDiem;
+            dg.NgayDanhGia = DateTime.Now.Date;
             db.DanhGiaKhoaHocs.Add(dg);
+            
             try
             {
                 db.SaveChanges();

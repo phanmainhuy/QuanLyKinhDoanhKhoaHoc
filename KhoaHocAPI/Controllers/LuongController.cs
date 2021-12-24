@@ -1,4 +1,5 @@
-﻿using KhoaHocData.DAO;
+﻿using KhoaHocAPI.Models;
+using KhoaHocData.DAO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,7 +37,23 @@ namespace KhoaHocAPI.Controllers
             {
                 return Request.CreateResponse(HttpStatusCode.OK, Mapper.UserMapper.MapListUserSalary(result));
             }
+        }
+        public HttpResponseMessage PostLuong(SalaryHistoryItemVM model)
+        {
+            var result = db.ThemLuong(model.MaLuong, model.TienPhat, model.GhiChu);
+            if (result == Common.AllEnum.KetQuaTraVe.KhongTonTai)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Kiểm tra lại người dùng này");
+            }
+            else if (result == Common.AllEnum.KetQuaTraVe.ThatBai)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Thêm không thành công");
+            }
 
+            else
+            {
+                return Request.CreateResponse(HttpStatusCode.Created);
+            }
         }
     }
 }

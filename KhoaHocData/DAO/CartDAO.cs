@@ -20,7 +20,7 @@ namespace KhoaHocData.DAO
         {
             GioHang oldCart = null;
             if (db.GioHangs.Count() < 0) { return -1; }
-            oldCart = db.GioHangs.SingleOrDefault(x => x.MaND == pMaND);
+            oldCart = db.GioHangs.Where(x=>x.TrangThai != AllEnum.TrangThaiGioHang.DaTaoHoaDon.ToString()).SingleOrDefault(x => x.MaND == pMaND);
             if (oldCart == null)
             {
                 GioHang gh = new GioHang();

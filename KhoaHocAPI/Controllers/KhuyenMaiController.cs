@@ -72,6 +72,23 @@ namespace KhoaHocAPI.Controllers
             else
                 return Request.CreateResponse(HttpStatusCode.Created);
         }
+        [HttpDelete]
+        public HttpResponseMessage DeleteKhuyenMai(int MaKM)
+        {
+            var result = db_km.XoaKhuyenMai(MaKM);
+            if (result == Common.AllEnum.KetQuaTraVe.KhongTonTai)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Khuyến mãi không tồn tại");
+            }
+            else if(result == Common.AllEnum.KetQuaTraVe.KhongDuocPhep)
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Đã có người sở hữu khuyến mãi, không được xóa," +
+                    " hãy ngừng bán khuyến mãi tới khi hết hạn hoặc khuyến mãi được sử dụng");
+
+            else if (result == Common.AllEnum.KetQuaTraVe.ThatBai)
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Tạo khóa học thất bại");
+            else
+                return Request.CreateResponse(HttpStatusCode.Created);
+        }
         
         [HttpPost]
         public HttpResponseMessage MuaKhuyenMai([FromBody]KhuyenMai_NguoiDungVM model)

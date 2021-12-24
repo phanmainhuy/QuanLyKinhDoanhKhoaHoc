@@ -105,6 +105,26 @@ namespace KhoaHocData.DAO
                 return AllEnum.KetQuaTraVe.ThatBai;
             }
         }
+        public AllEnum.KetQuaTraVe XoaKhuyenMai(int pMaKM)
+        {
+            var km = db.KhuyenMais.FirstOrDefault(x => x.MaKM == pMaKM);
+            if (km == null)
+                return AllEnum.KetQuaTraVe.KhongTonTai;
+            if (km.KhuyenMai_KhachHang.Any(x=>x.NgayKetThuc <= DateTime.Today && (x.IsSuDung == null?false:!x.IsSuDung.Value)))
+                return AllEnum.KetQuaTraVe.KhongDuocPhep;
+            db.KhuyenMais.Remove(km);
+            try
+            {
+                db.SaveChanges();
+                return AllEnum.KetQuaTraVe.ThanhCong;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return AllEnum.KetQuaTraVe.ThatBai;
+
+            }
+        }
         public AllEnum.KetQuaTraVe MuaKhuyenMai(int pMaND, int pMaKM)
         {
             if (db.KhuyenMai_KhachHang.Any(x => x.MaND == pMaND && x.MaKM == pMaKM && x.IsSuDung.Value))

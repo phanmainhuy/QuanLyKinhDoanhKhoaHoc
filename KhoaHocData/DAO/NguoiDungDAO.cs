@@ -25,9 +25,10 @@ namespace KhoaHocData.DAO
             {
                 try
                 {
-                db.NguoiDungs.Add(nd);
-                db.SaveChanges();
-                return RegisterResult.ThanhCong;
+                    db.NguoiDungs.Add(nd);
+                    db.SaveChanges();
+
+                    return RegisterResult.ThanhCong;
 
                 }
                 catch

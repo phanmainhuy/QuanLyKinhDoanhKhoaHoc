@@ -45,6 +45,7 @@ namespace KhoaHocAPI.Controllers
         public HttpResponseMessage PostDanhGia(RatingVM model)
         {
             var result = db.ThemMoiDanhGia(model.MaND, model.MaKhoaHoc, model.NoiDung, model.Diem);
+            
             if (result == Common.AllEnum.KetQuaTraVe.KhongDuocPhep)
             {
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Bạn chưa mua khóa học, không được đánh giá, không công tâm");
@@ -64,7 +65,8 @@ namespace KhoaHocAPI.Controllers
             }
             else
             {
-                return Request.CreateResponse(HttpStatusCode.Created);
+                var newModel = db.LayDanhGiaDaDanhGia(model.MaND, model.MaKhoaHoc);
+                return Request.CreateResponse(HttpStatusCode.Created, Mapper.RatingMapper.MapRating(newModel));
             }
         }
         [HttpPut]
