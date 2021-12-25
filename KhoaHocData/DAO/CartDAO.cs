@@ -117,7 +117,8 @@ namespace KhoaHocData.DAO
         }
         public GioHang LayGioHangTheoUserID(int pUserId)
         {
-            return db.GioHangs.Where(x=>x.TrangThai != AllEnum.TrangThaiGioHang.DaTaoHoaDon.ToString()).SingleOrDefault(x => x.MaND == pUserId);
+            return db.GioHangs.Where(x=>x.TrangThai != AllEnum.TrangThaiGioHang.DaTaoHoaDon.ToString())
+                .SingleOrDefault(x => x.MaND == pUserId);
         }
         public IEnumerable<CT_GioHang> LayDanhSachTrongGioHang(int pMaGioHang)
         {

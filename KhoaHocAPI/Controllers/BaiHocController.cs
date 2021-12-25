@@ -112,5 +112,18 @@ namespace KhoaHocAPI.Controllers
                 return Request.CreateResponse(HttpStatusCode.OK);
             }
         }
+        [HttpPatch]
+        public HttpResponseMessage PatchTrangThaiBaiHoc([FromBody] List<int> lstModel, bool isHienThi)
+        {
+            var resust = db_BaiHoc.ThayDoiTrangThaiBaiHoc(lstModel, isHienThi);
+            if (resust == Common.AllEnum.KetQuaTraVe.ThatBai)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Không thành công");
+            }
+            else
+            {
+                return Request.CreateResponse(HttpStatusCode.OK);
+            }
+        }
     }
 }

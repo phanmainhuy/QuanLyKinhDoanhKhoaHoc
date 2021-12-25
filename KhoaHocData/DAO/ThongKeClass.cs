@@ -288,6 +288,31 @@ namespace KhoaHocData.DAO
             }
             return lstReturn;
         }
-    
+        public IEnumerable<SalaryModel> ThongKeLichSuLuong(DateTime month)
+        {
+            List<SalaryModel> lstReturn = new List<SalaryModel>();
+            var lstLichLuLuong = db.LichSuLuongs.Where(x => x.NgayPhatLuong.Month == month.Month && x.NgayPhatLuong.Year == month.Year).ToList();
+            var lstLuong = db.Luongs.ToList();
+            var lstNguoiDung = db.NguoiDungs.Where(x => x.MaNhomNguoiDung != (int)AllEnum.MaNhomNguoiDung.Student).ToList();
+            var lstNhomNguoiDung = db.NhomNguoiDungs.ToList();
+            foreach (var item in lstLichLuLuong.ToList())
+            {
+                SalaryModel model = new SalaryModel();
+                Luong luong = lstLuong.FirstOrDefault(x => x.MaLuong == item.MaLuong);
+                NguoiDung nguoidung = lstNguoiDung.FirstOrDefault(x => x.MaND == luong.MaND);
+                NhomNguoiDung nhom = lstNhomNguoiDung.FirstOrDefault(x => x.MaNhomNguoiDung == nguoidung.MaNhomNguoiDung);
+                model.MaLuong = item.MaLuong;
+                model.MaND = nguoidung.MaND;
+                model.TenND = nguoidung.HoTen;
+                model.SoTien = item.SoTien.Value;
+                model.TienPhat = item.TienPhat.Value;
+                model.GhiChu = item.GhiChu;
+                model.TenChucVu = nhom.TenNhomNguoiDung;
+                model.TongTien = luong.Luong1.Value;
+                model.NgayPhatLuong = item.NgayPhatLuong;
+                lstReturn.Add(model);
+            }
+            return lstReturn;
+        }
     }
 }

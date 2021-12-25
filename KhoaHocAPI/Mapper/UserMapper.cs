@@ -29,6 +29,7 @@ namespace KhoaHocAPI.Mapper
             var Luong = new GetDAO().LayLuongTheoMaNguoiDung(nd.MaND);
             if (Luong != null)
                 luong = Luong.Value;
+
             UserViewModel user = new UserViewModel()
             {
                 UserId = nd.MaND,

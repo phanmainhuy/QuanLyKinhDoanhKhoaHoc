@@ -23,5 +23,6 @@ namespace KhoaHocAPI.Models
         public DateTime? NgayTao { get; set; }
         public bool? HienThi { get; set; }
         public DateTime? NgayChapThuan { get; set; }
+        public int SoLuongMua { get; set; }
     }
 }

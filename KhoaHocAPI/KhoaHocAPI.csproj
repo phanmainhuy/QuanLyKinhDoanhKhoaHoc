@@ -185,6 +185,7 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\Admin\AdminMenuController.cs" />
     <Compile Include="Controllers\Admin\CategoryController.cs" />
+    <Compile Include="Controllers\Admin\DecoratingController.cs" />
     <Compile Include="Controllers\Admin\OrderController.cs" />
     <Compile Include="Controllers\Admin\StatisticController.cs" />
     <Compile Include="Controllers\AuthorizationController.cs" />
@@ -228,6 +229,7 @@
     <Compile Include="Models\ChuongVM.cs" />
     <Compile Include="Models\CourseCartVM.cs" />
     <Compile Include="Models\CourseVM.cs" />
+    <Compile Include="Models\DecoratingVM.cs" />
     <Compile Include="Models\DoiMatKhauVM.cs" />
     <Compile Include="Models\DonThuHoVM.cs" />
     <Compile Include="Models\HoaDonDuyetVM.cs" />
@@ -518,6 +520,7 @@
     <Content Include="Assets\images\others\airpay.jpg" />
     <Content Include="Assets\images\others\anh-van-giao-tiep-cho-nguoi-hoan-toan-mat-goc_m_1555555777.jpg" />
     <Content Include="Assets\images\others\anhdaidien.jpg" />
+    <Content Include="Assets\images\others\background_universe.png" />
     <Content Include="Assets\images\others\bag-2.svg" />
     <Content Include="Assets\images\others\Banner-2-mobile.jpg" />
     <Content Include="Assets\images\others\close-up-hand-taking-notes.jpg" />
@@ -529,6 +532,7 @@
     <Content Include="Assets\images\others\online-free-course-education-banner-design-templates.jpg" />
     <Content Include="Assets\images\others\paypal.png" />
     <Content Include="Assets\images\others\small.png" />
+    <Content Include="Assets\images\others\universe_bg.jpg" />
     <Content Include="Assets\images\others\vnpay.png" />
     <Content Include="Assets\images\sales\big-sale.png" />
     <Content Include="Assets\images\sales\birthday-cake.png" />
@@ -628,7 +632,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Assets\carousel\" />
+    <Folder Include="Assets\images\carousel\" />
     <Folder Include="Assets\PDF\" />
     <Folder Include="Views\NguoiDung\" />
   </ItemGroup>

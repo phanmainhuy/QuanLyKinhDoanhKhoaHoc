@@ -18,5 +18,6 @@ namespace KhoaHocAPI.Models
         public DateTime? NgayDuKienThu { get; set; }
         public string GhiChu { get; set; }
         public string MaApDung { get; set; }
+        public string Email { get; set; }
     }
 }

@@ -36,6 +36,7 @@ namespace KhoaHocAPI.Mapper
                 MaChuong = item.MaChuong.Value,
                 TenBaiHoc = item.TenBaiHoc,
                 TenChuong = item.Chuong.TenChuong,
+                isHocThu = item.IsHocThu.Value,
                 VideoName = item.VideoLink,
                 DanhSachBaiTap = MapListHomeWork(item.BaiTaps)
             };

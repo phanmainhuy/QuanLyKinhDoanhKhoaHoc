@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
@@ -74,9 +75,9 @@ namespace KhoaHocAPI.Controllers.Admin
             }
         }
         [HttpPost]
-        public HttpResponseMessage ConfirmOrder(int OrderID)
+        public async Task<HttpResponseMessage> ConfirmOrder(int OrderID)
         {
-            var result = db_Payment.XacNhanThanhToanHoaDon(OrderID);
+            var result = await db_Payment.XacNhanThanhToanHoaDon(OrderID);
             if (result == Common.AllEnum.KetQuaTraVe.ThanhCong)
             {
                 return Request.CreateResponse(HttpStatusCode.OK);

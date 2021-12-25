@@ -42,10 +42,10 @@ namespace KhoaHocAPI.Controllers
         [HttpGet]
         public HttpResponseMessage GetKhoaHocLearn(int maKhoa)
         {
-            var item = Mapper.LearnMapper.MapLearnVM(khDAO.LayKhoaHocTheoMa(maKhoa));
+            var item = khDAO.LayKhoaHocTheoMa(maKhoa);
             if (item != null)
             {
-                return Request.CreateResponse(HttpStatusCode.OK, item);
+                return Request.CreateResponse(HttpStatusCode.OK, Mapper.LearnMapper.MapLearnVM(item));
             }
             else
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "No content");

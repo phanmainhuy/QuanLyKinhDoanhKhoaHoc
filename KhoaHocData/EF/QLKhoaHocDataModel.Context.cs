@@ -52,6 +52,8 @@ namespace KhoaHocData.EF
         public virtual DbSet<DonThuTien> DonThuTiens { get; set; }
         public virtual DbSet<Chuong> Chuongs { get; set; }
         public virtual DbSet<DanhGiaKhoaHoc> DanhGiaKhoaHocs { get; set; }
+        public virtual DbSet<LoaiTrangTri> LoaiTrangTris { get; set; }
+        public virtual DbSet<TrangTri> TrangTris { get; set; }
     
         public virtual ObjectResult<KhoaHoc> SearchKhoaHoc(string tieuDe)
         {

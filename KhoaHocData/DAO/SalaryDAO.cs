@@ -41,5 +41,29 @@ namespace KhoaHocData.DAO
                 return KetQuaTraVe.ThatBai;
             }
         }
+        public KetQuaTraVe ThayDoiLichSuLuong(int pMaLuong, DateTime pNgayPhatLuong, decimal pTienPhat, string pGhiChu)
+        {
+            var luong = db.Luongs.FirstOrDefault(x => x.MaLuong == pMaLuong);
+            if (luong == null)
+                return KetQuaTraVe.ChaKhongTonTai;
+            var lsl = db.LichSuLuongs.FirstOrDefault(x => x.MaLuong == pMaLuong && x.NgayPhatLuong == pNgayPhatLuong);
+            if (lsl == null)
+                return KetQuaTraVe.KhongTonTai;
+            
+            lsl.TienPhat = pTienPhat;
+            lsl.SoTien = luong.Luong1 - pTienPhat;
+            lsl.GhiChu = pGhiChu;
+
+            try
+            {
+                db.SaveChanges();
+                return KetQuaTraVe.ThanhCong;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return KetQuaTraVe.ThatBai;
+            }
+        }
     }
 }

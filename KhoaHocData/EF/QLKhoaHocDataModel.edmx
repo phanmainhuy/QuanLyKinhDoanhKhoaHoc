@@ -16,6 +16,7 @@
           <Property Name="MoTa" Type="nvarchar" MaxLength="2000" />
           <Property Name="TrangThai" Type="bit" />
           <Property Name="MaChuong" Type="int" />
+          <Property Name="IsHocThu" Type="bit" />
         </EntityType>
         <EntityType Name="BaiTap">
           <Key>
@@ -103,6 +104,7 @@
           <Property Name="GhiChu" Type="nvarchar" MaxLength="500" />
           <Property Name="SDTThu" Type="char" MaxLength="11" />
           <Property Name="MaHD" Type="int" />
+          <Property Name="Email" Type="varchar" MaxLength="64" />
         </EntityType>
         <EntityType Name="GioHang">
           <Key>
@@ -198,6 +200,13 @@
           <Property Name="MaLoaiQuyen" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TenLoaiQuyen" Type="nvarchar" MaxLength="100" />
         </EntityType>
+        <EntityType Name="LoaiTrangTri">
+          <Key>
+            <PropertyRef Name="MaLoaiTrangTri" />
+          </Key>
+          <Property Name="MaLoaiTrangTri" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenLoaiTrangTri" Type="varchar" MaxLength="200" />
+        </EntityType>
         <EntityType Name="LoaiVanDe">
           <Key>
             <PropertyRef Name="MaLoaiVanDe" />
@@ -278,6 +287,14 @@
           </Key>
           <Property Name="MaND" Type="int" Nullable="false" />
           <Property Name="SoDiem" Type="int" />
+        </EntityType>
+        <EntityType Name="TrangTri">
+          <Key>
+            <PropertyRef Name="MaTrangTri" />
+          </Key>
+          <Property Name="MaTrangTri" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GiaTri" Type="varchar" MaxLength="500" />
+          <Property Name="MaLoaiTrangTri" Type="int" />
         </EntityType>
         <Association Name="FK_BaiHoc_Chuong">
           <End Role="Chuong" Type="Self.Chuong" Multiplicity="0..1" />
@@ -663,6 +680,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_TrangTri_LoaiTrangTri">
+          <End Role="LoaiTrangTri" Type="Self.LoaiTrangTri" Multiplicity="0..1" />
+          <End Role="TrangTri" Type="Self.TrangTri" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LoaiTrangTri">
+              <PropertyRef Name="MaLoaiTrangTri" />
+            </Principal>
+            <Dependent Role="TrangTri">
+              <PropertyRef Name="MaLoaiTrangTri" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Function Name="BackUpDataBase" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Path" Type="nvarchar" Mode="In" />
         </Function>
@@ -713,6 +742,7 @@
           <EntitySet Name="LichSuLuong" EntityType="Self.LichSuLuong" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LoaiKhoaHoc" EntityType="Self.LoaiKhoaHoc" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LOAIQUYEN" EntityType="Self.LOAIQUYEN" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LoaiTrangTri" EntityType="Self.LoaiTrangTri" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LoaiVanDe" EntityType="Self.LoaiVanDe" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Luong" EntityType="Self.Luong" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NguoiDung" EntityType="Self.NguoiDung" Schema="dbo" store:Type="Tables" />
@@ -721,6 +751,7 @@
           <EntitySet Name="Quyen_NhomNguoiDung" EntityType="Self.Quyen_NhomNguoiDung" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SoDuTaiKhoan" EntityType="Self.SoDuTaiKhoan" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TichDiem" EntityType="Self.TichDiem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TrangTri" EntityType="Self.TrangTri" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_BaiHoc_Chuong" Association="Self.FK_BaiHoc_Chuong">
             <End Role="Chuong" EntitySet="Chuong" />
             <End Role="BaiHoc" EntitySet="BaiHoc" />
@@ -849,6 +880,10 @@
             <End Role="NguoiDung" EntitySet="NguoiDung" />
             <End Role="TichDiem" EntitySet="TichDiem" />
           </AssociationSet>
+          <AssociationSet Name="fk_TrangTri_LoaiTrangTri" Association="Self.fk_TrangTri_LoaiTrangTri">
+            <End Role="LoaiTrangTri" EntitySet="LoaiTrangTri" />
+            <End Role="TrangTri" EntitySet="TrangTri" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -868,6 +903,7 @@
           <NavigationProperty Name="BaiTaps" Relationship="Self.FK_BaiTap_BaiHoc" FromRole="BaiHoc" ToRole="BaiTap" />
           <Property Name="MaChuong" Type="Int32" />
           <NavigationProperty Name="Chuong" Relationship="QL_KHOAHOCModel.FK_BaiHoc_Chuong" FromRole="BaiHoc" ToRole="Chuong" />
+          <Property Name="IsHocThu" Type="Boolean" />
         </EntityType>
         <EntityType Name="BaiTap">
           <Key>
@@ -1649,6 +1685,12 @@
             <End Role="NguoiDung" EntitySet="NguoiDungs" />
             <End Role="DanhGiaKhoaHoc" EntitySet="DanhGiaKhoaHocs" />
           </AssociationSet>
+          <EntitySet Name="LoaiTrangTris" EntityType="QL_KHOAHOCModel.LoaiTrangTri" />
+          <EntitySet Name="TrangTris" EntityType="QL_KHOAHOCModel.TrangTri" />
+          <AssociationSet Name="fk_TrangTri_LoaiTrangTri" Association="QL_KHOAHOCModel.fk_TrangTri_LoaiTrangTri">
+            <End Role="LoaiTrangTri" EntitySet="LoaiTrangTris" />
+            <End Role="TrangTri" EntitySet="TrangTris" />
+          </AssociationSet>
           </EntityContainer>
         <ComplexType Name="SearchKhoaHoc_Result">
           <Property Type="Int32" Name="MaKhoaHoc" Nullable="false" />
@@ -1740,6 +1782,7 @@
           <NavigationProperty Name="NguoiDung1" Relationship="QL_KHOAHOCModel.FK_DonThuTien_MaNVHoTro" FromRole="DonThuTien" ToRole="NguoiDung" />
           <Property Name="SDTThu" Type="String" MaxLength="11" FixedLength="true" Unicode="false" />
           <Property Name="MaHD" Type="Int32" />
+          <Property Name="Email" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_DonThuTien_MaKH">
           <End Type="QL_KHOAHOCModel.NguoiDung" Role="NguoiDung" Multiplicity="0..1" />
@@ -1859,6 +1902,35 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="LoaiTrangTri">
+          <Key>
+            <PropertyRef Name="MaLoaiTrangTri" />
+          </Key>
+          <Property Name="MaLoaiTrangTri" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenLoaiTrangTri" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TrangTris" Relationship="QL_KHOAHOCModel.fk_TrangTri_LoaiTrangTri" FromRole="LoaiTrangTri" ToRole="TrangTri" />
+        </EntityType>
+        <EntityType Name="TrangTri">
+          <Key>
+            <PropertyRef Name="MaTrangTri" />
+          </Key>
+          <Property Name="MaTrangTri" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GiaTri" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="MaLoaiTrangTri" Type="Int32" />
+          <NavigationProperty Name="LoaiTrangTri" Relationship="QL_KHOAHOCModel.fk_TrangTri_LoaiTrangTri" FromRole="TrangTri" ToRole="LoaiTrangTri" />
+        </EntityType>
+        <Association Name="fk_TrangTri_LoaiTrangTri">
+          <End Type="QL_KHOAHOCModel.LoaiTrangTri" Role="LoaiTrangTri" Multiplicity="0..1" />
+          <End Type="QL_KHOAHOCModel.TrangTri" Role="TrangTri" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LoaiTrangTri">
+              <PropertyRef Name="MaLoaiTrangTri" />
+            </Principal>
+            <Dependent Role="TrangTri">
+              <PropertyRef Name="MaLoaiTrangTri" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1868,6 +1940,7 @@
           <EntitySetMapping Name="BaiHocs">
             <EntityTypeMapping TypeName="QL_KHOAHOCModel.BaiHoc">
               <MappingFragment StoreEntitySet="BaiHoc">
+                <ScalarProperty Name="IsHocThu" ColumnName="IsHocThu" />
                 <ScalarProperty Name="MaChuong" ColumnName="MaChuong" />
                 <ScalarProperty Name="MaBaiHoc" ColumnName="MaBaiHoc" />
                 <ScalarProperty Name="MaKhoaHoc" ColumnName="MaKhoaHoc" />
@@ -2135,6 +2208,7 @@
           <EntitySetMapping Name="DonThuTiens">
             <EntityTypeMapping TypeName="QL_KHOAHOCModel.DonThuTien">
               <MappingFragment StoreEntitySet="DonThuTien">
+                <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="MaHD" ColumnName="MaHD" />
                 <ScalarProperty Name="SDTThu" ColumnName="SDTThu" />
                 <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
@@ -2172,6 +2246,23 @@
                 <ScalarProperty Name="Diem" ColumnName="Diem" />
                 <ScalarProperty Name="MaND" ColumnName="MaND" />
                 <ScalarProperty Name="MaKhoaHoc" ColumnName="MaKhoaHoc" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LoaiTrangTris">
+            <EntityTypeMapping TypeName="QL_KHOAHOCModel.LoaiTrangTri">
+              <MappingFragment StoreEntitySet="LoaiTrangTri">
+                <ScalarProperty Name="TenLoaiTrangTri" ColumnName="TenLoaiTrangTri" />
+                <ScalarProperty Name="MaLoaiTrangTri" ColumnName="MaLoaiTrangTri" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TrangTris">
+            <EntityTypeMapping TypeName="QL_KHOAHOCModel.TrangTri">
+              <MappingFragment StoreEntitySet="TrangTri">
+                <ScalarProperty Name="MaLoaiTrangTri" ColumnName="MaLoaiTrangTri" />
+                <ScalarProperty Name="GiaTri" ColumnName="GiaTri" />
+                <ScalarProperty Name="MaTrangTri" ColumnName="MaTrangTri" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

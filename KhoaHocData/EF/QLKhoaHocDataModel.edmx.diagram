@@ -62,6 +62,9 @@
         <EntityTypeShape EntityType="QL_KHOAHOCModel.DanhGiaKhoaHoc" Width="1.5" PointX="13.5" PointY="15.75" />
         <AssociationConnector Association="QL_KHOAHOCModel.FK_DanhGiaKhoaHoc_KhoaHoc" />
         <AssociationConnector Association="QL_KHOAHOCModel.FK_DanhGiaKhoaHoc_NguoiDung" />
+        <EntityTypeShape EntityType="QL_KHOAHOCModel.LoaiTrangTri" Width="1.5" PointX="0.75" PointY="1" />
+        <EntityTypeShape EntityType="QL_KHOAHOCModel.TrangTri" Width="1.5" PointX="3" PointY="0.875" />
+        <AssociationConnector Association="QL_KHOAHOCModel.fk_TrangTri_LoaiTrangTri" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

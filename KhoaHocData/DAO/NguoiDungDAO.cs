@@ -112,9 +112,20 @@ namespace KhoaHocData.DAO
         }
         //public bool CoQuyenChinhSua(int pMaND, int pMaQuyen)
         public KetQuaTraVe ThayDoiThongTinNguoiDung(int pUserID, string pUserName, int pMaNhomNguoiDung, string pName, string pCMND, string HinhAnh,
-            string Number, string Email, DateTime DoB, string pAddress)
+            string Number, string Email, DateTime DoB, string pAddress, decimal Luong)
         {
             var nd = db.NguoiDungs.Where(x => x.MaND == pUserID).SingleOrDefault();
+            var luong = db.Luongs.FirstOrDefault(x => x.MaND == pUserID);
+            if (luong == null)
+            {
+                db.Luongs.Add(new Luong()
+                {
+                    MaND = pUserID,
+                    Luong1 = Luong
+                });
+            }
+            else
+                luong.Luong1 = Luong;
             if (nd == null)
                 return KetQuaTraVe.KhongTonTai;
             if (nd.MaNhomNguoiDung != pMaNhomNguoiDung)

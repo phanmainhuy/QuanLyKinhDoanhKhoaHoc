@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Common.AllEnum;
 
 namespace KhoaHocData.DAO
 {
@@ -177,6 +178,25 @@ namespace KhoaHocData.DAO
         public List<Chuong> LayChuongTheoKhoaHoc(int pMaKhoaHoc)
         {
             return db.Chuongs.Where(x => x.MaKhoaHoc == pMaKhoaHoc).ToList();
+        }
+        public KetQuaTraVe ThayDoiTrangThaiBaiHoc(List<int> MaBHs, bool TrangThai)
+        {
+            var lstBH = db.BaiHocs;
+            foreach (var item in lstBH.ToList())
+            {
+                if (MaBHs.Contains(item.MaBaiHoc))
+                    item.IsHocThu = TrangThai;
+            }
+            try
+            {
+                db.SaveChanges();
+                return KetQuaTraVe.ThanhCong;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return KetQuaTraVe.ThatBai;
+            }
         }
             
     }

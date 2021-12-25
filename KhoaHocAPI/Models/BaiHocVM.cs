@@ -12,6 +12,7 @@ namespace KhoaHocAPI.Models
         public int MaChuong { get; set; }
         public string TenChuong { get; set; }
         public string VideoName { get; set; }
+        public bool isHocThu { get; set; }
         public List<BaiTapVM> DanhSachBaiTap { get; set; }
     }
 }

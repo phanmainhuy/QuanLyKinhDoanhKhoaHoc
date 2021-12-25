@@ -116,6 +116,7 @@
     <Compile Include="DAO\PaymentDAO.cs" />
     <Compile Include="DAO\SalaryDAO.cs" />
     <Compile Include="DAO\ThongKeClass.cs" />
+    <Compile Include="DAO\TrangTriDAO.cs" />
     <Compile Include="DAO\UserGroupDAO.cs" />
     <Compile Include="DAO\XuatExcel.cs" />
     <Compile Include="DAO\XuLy.cs" />
@@ -171,6 +172,9 @@
       <DependentUpon>QLKhoaHocDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\LOAIQUYEN.cs">
+      <DependentUpon>QLKhoaHocDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\LoaiTrangTri.cs">
       <DependentUpon>QLKhoaHocDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\LoaiVanDe.cs">
@@ -231,6 +235,9 @@
       <DependentUpon>QLKhoaHocDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\TichDiem.cs">
+      <DependentUpon>QLKhoaHocDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\TrangTri.cs">
       <DependentUpon>QLKhoaHocDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="OnlineParty\VnPayDAO.cs" />

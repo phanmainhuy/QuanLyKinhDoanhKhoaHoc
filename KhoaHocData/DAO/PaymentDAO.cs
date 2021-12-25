@@ -6,6 +6,7 @@ using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Net.Mail;
+using System.Threading.Tasks;
 using System.Web;
 
 namespace KhoaHocData.DAO
@@ -29,21 +30,27 @@ namespace KhoaHocData.DAO
             return db.HoaDons.SingleOrDefault(x => x.MaHD == pMaHoaDon);
         }
 
-        public AllEnum.KetQuaTraVe XacNhanThanhToanHoaDon(int pMaHD)
+        public async Task<AllEnum.KetQuaTraVe> XacNhanThanhToanHoaDon(int pMaHD)
         {
             var hd = db.HoaDons.SingleOrDefault(x => x.MaHD == pMaHD);
             var dtt = db.DonThuTiens.SingleOrDefault(x => x.MaHD == pMaHD);
+            
 
             if (hd == null)
                 return AllEnum.KetQuaTraVe.ChaKhongTonTai;
             if (dtt == null)
                 return AllEnum.KetQuaTraVe.KhongTonTai;
             dtt.TrangThai = AllEnum.TrangThaiDonThuTien.DaThanhToan.ToString();
-            hd.TrangThai = "0";
+            hd.TrangThai = "1";
             hd.ThanhToan = true;
+            var CTHD = hd.CT_HoaDon.ToList();
+            var lstKhoaHoc = db.KhoaHocs.ToList();
+            var nd = db.NguoiDungs.FirstOrDefault(x => x.MaND == hd.MaND);
+            lstKhoaHoc = lstKhoaHoc.Where(x => CTHD.Any(y => y.MaKhoaHoc == x.MaKhoaHoc)).ToList();
             try
             {
                 db.SaveChanges();
+                await GuiMailSauKhiThanhToan(dtt.Email, lstKhoaHoc, hd.MaHD, hd.TongTien.Value);
                 return AllEnum.KetQuaTraVe.ThanhCong;
             }
             catch (Exception ex)
@@ -215,6 +222,17 @@ namespace KhoaHocData.DAO
             hd.ThanhToan = true;
             hd.TrangThai = "1";
             var td = db.TichDiems.SingleOrDefault(x => x.MaND == hd.MaND);
+            var khs = db.KhoaHocs.ToList();
+            foreach(var item in hd.CT_HoaDon.ToList())
+            {
+                var ind = khs.SingleOrDefault(x => x.MaKhoaHoc == item.MaKhoaHoc);
+                if (ind == null)
+                    continue;
+                if (ind.SoLuongMua == null)
+                    ind.SoLuongMua = 1;
+                else
+                    ind.SoLuongMua++;
+            }
             if (td == null)
             {
                 TichDiem tdMoi = new TichDiem();
@@ -238,22 +256,24 @@ namespace KhoaHocData.DAO
             }
         }
 
-        public AllEnum.KetQuaTraVe TaoDonThuTien(int MaKH, int MaHD, string DiaChiThu,
+        public AllEnum.KetQuaTraVe TaoDonThuTien(int MaKH, int MaHD, string DiaChiThu, string Email,
             string SDTThu, string DonViThuHo, double SoTienThu, double PhiThuHo,
             DateTime? NgayDuKienThu, string GhiChu, string MaApDung = null)
         {
             if (db.DonThuTiens.Any(x => x.MaHD == MaHD))
                 return AllEnum.KetQuaTraVe.DaTonTai;
             var km = db.KhuyenMais.FirstOrDefault(x => x.MaApDung == MaApDung);
-            var km_kh = db.KhuyenMai_KhachHang.FirstOrDefault(x => x.MaND == MaKH && x.MaKM == km.MaKM);
-            if (km_kh != null)
+            if (km != null)
             {
-                SoTienThu = SoTienThu - (double)km.GiaTri.Value > 10000 ? SoTienThu - (double)km.GiaTri.Value :
-                    10000;
-                km_kh.IsSuDung = true;
+                var km_kh = db.KhuyenMai_KhachHang.FirstOrDefault(x => x.MaND == MaKH && x.MaKM == km.MaKM);
+                if (km_kh != null)
+                {
+                    SoTienThu = SoTienThu - (double)km.GiaTri.Value > 10000 ? SoTienThu - (double)km.GiaTri.Value :
+                        10000;
+                    km_kh.IsSuDung = true;
+                }
             }
             
-
             db.DonThuTiens.Add(new DonThuTien()
             {
                 MaHD = MaHD,
@@ -262,6 +282,7 @@ namespace KhoaHocData.DAO
                 GhiChu = GhiChu,
                 MaKH = MaKH,
                 NgayDuKienThu = DateTime.Now.AddDays(2),
+                Email = Email,
                 NgayTao = DateTime.Now.Date,
                 PhiThuHo = (decimal)PhiThuHo,
                 SDTThu = SDTThu,
@@ -344,7 +365,12 @@ namespace KhoaHocData.DAO
             return item;
         }
 
-        public AllEnum.KetQuaTraVe GuiMailSauKhiThanhToan(string reciepiantMailAddress, IEnumerable<KhoaHoc> lstKhoaHoc)
+        public async Task<AllEnum.KetQuaTraVe> GuiMailSauKhiThanhToan(string reciepiantMailAddress,
+            IEnumerable<KhoaHoc> lstKhoaHoc,
+            int pMaHoaDon,
+            decimal TongTien
+            
+            )
         {
             string assemblyFile = HttpContext.Current.Server.MapPath("~/File");
             string MyMail = ConfigurationManager.AppSettings["mymail"];
@@ -352,14 +378,12 @@ namespace KhoaHocData.DAO
             string TenCongTy = "Học online cùng ONLEARN";
             string DiaChiCongTy = "Xóm 3, thôn 2, xã IaKráj, huyện jayai, tỉnh Gia Lai";
             string SDTCongTy = "0976763378";
-            string MaHoaDon = 12345.ToString();
-            decimal TongTien = 0;
+            string MaHoaDon = "HD"+pMaHoaDon.ToString();
             string file = File.ReadAllText(assemblyFile + "/product.txt");
             string mediaLink = "https://khoahocapi.conveyor.cloud/assets/images/courses/";
             string danhSachSanPham = "";
             foreach (var item in lstKhoaHoc.ToList())
             {
-                TongTien += item.DonGia.Value;
                 var tempString = "";
                 tempString = file.Replace("TENKHOAHOCCANTHAYTHE", item.TenKhoaHoc.ToString());
                 tempString = tempString.Replace("DONGIACANTHAYTHE", string.Format("{0:0,0 vnđ}", item.DonGia.Value));
@@ -389,7 +413,7 @@ namespace KhoaHocData.DAO
                     {
                         client.Credentials = new System.Net.NetworkCredential(MyMail, MyMailPassword);
                         client.EnableSsl = true;
-                        client.Send(mail);
+                        await client.SendMailAsync(mail);
                         return AllEnum.KetQuaTraVe.ThanhCong;
                     }
                 }

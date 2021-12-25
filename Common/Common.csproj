@@ -51,6 +51,7 @@
     <Compile Include="CommonModel\MonthlyAccessStatistic.cs" />
     <Compile Include="CommonModel\MonthlyKhoaHocStatistic.cs" />
     <Compile Include="CommonModel\MonthlyStatistic.cs" />
+    <Compile Include="CommonModel\SalaryModel.cs" />
     <Compile Include="CommonModel\TotalMonthlyStatistic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
