@@ -27,7 +27,6 @@ namespace KhoaHocData.EF
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<BaiHoc> BaiHocs { get; set; }
         public virtual DbSet<BaiTap> BaiTaps { get; set; }
         public virtual DbSet<ChamSocKhachHang> ChamSocKhachHangs { get; set; }
         public virtual DbSet<CT_GioHang> CT_GioHang { get; set; }
@@ -54,6 +53,7 @@ namespace KhoaHocData.EF
         public virtual DbSet<DanhGiaKhoaHoc> DanhGiaKhoaHocs { get; set; }
         public virtual DbSet<LoaiTrangTri> LoaiTrangTris { get; set; }
         public virtual DbSet<TrangTri> TrangTris { get; set; }
+        public virtual DbSet<BaiHoc> BaiHocs { get; set; }
     
         public virtual ObjectResult<KhoaHoc> SearchKhoaHoc(string tieuDe)
         {

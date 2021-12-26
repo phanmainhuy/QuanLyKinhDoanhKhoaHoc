@@ -34,7 +34,7 @@ namespace KhoaHocAPI.Controllers.OnlinePayment
                 model.vnp_ResponseCode, model.vnp_TransactionStatus, model.vnp_SecureHash,
                 model.vnp_BankCode, model.vnp_CardType, model.vnp_OrderInfo, model.vnp_PayDate, model.vnp_TmnCode, model.vnp_BankTranNo
                 );
-            if (resultContent.RspCode != "00")
+            if (resultContent.RspCode != "00"  )
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, resultContent.Message);
             return Request.CreateResponse(HttpStatusCode.OK, resultContent);
         }

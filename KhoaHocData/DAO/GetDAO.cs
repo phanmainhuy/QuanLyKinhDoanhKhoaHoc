@@ -1,11 +1,22 @@
 ﻿using Common;
 using KhoaHocData.EF;
+using Microsoft.SqlServer.Management.Common;
+using Microsoft.SqlServer.Management.Smo;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Text;
+using System.Windows.Forms;
+using System.Data.SqlClient;
+using System.Configuration;
+using System.IO;
+using System.Data.Entity;
+using Database = Microsoft.SqlServer.Management.Smo.Database;
 
 namespace KhoaHocData.DAO
 {
@@ -100,7 +111,6 @@ namespace KhoaHocData.DAO
         {
             return await db.Database.ExecuteSqlCommandAsync(TransactionalBehavior.DoNotEnsureTransaction, @"EXEC [dbo].[BackUpDataBase] @Path = N'" + fileName + "'");
         }
-
         public async Task<int> RestoreDatabase(string fileName)
         {
             try
@@ -111,7 +121,7 @@ namespace KhoaHocData.DAO
                     commandDB.CommandText = "IF DB_ID('QL_KhoaHoc') IS NOT NULL ALTER DATABASE [QL_KhoaHoc] SET SINGLE_USER WITH ROLLBACK IMMEDIATE";
                     await context.Database.Connection.OpenAsync();
                     commandDB.ExecuteNonQuery();
-                    commandDB.CommandText = "use master restore database QL_KHOAHOC FROM DISK ='" + fileName + "'";
+                    commandDB.CommandText = "use master restore database QL_KHOAHOC FROM DISK ='" + fileName + "' WITH REPLACE";
                     commandDB.ExecuteNonQuery();
                     commandDB.CommandText = "ALTER DATABASE [QL_KhoaHoc] SET MULTI_USER";
                     return 0;
@@ -119,6 +129,12 @@ namespace KhoaHocData.DAO
             }
             catch (System.Exception ex)
             {
+                using (var context = new QL_KHOAHOCEntities())
+                using (var commandDB = context.Database.Connection.CreateCommand())
+                {
+                    commandDB.CommandText = "ALTER DATABASE [QL_KhoaHoc] SET MULTI_USER";
+                    commandDB.ExecuteNonQuery();
+                }
                 Console.WriteLine(ex.Message);
                 return -1;
             }
@@ -135,6 +151,10 @@ namespace KhoaHocData.DAO
         public int GetSLKHTheoMaLoai(int pMaLoai)
         {
             return db.KhoaHocs.Where(x => x.MaLoai == pMaLoai).ToList().Count();
+        }
+        public List<BaiHoc> LayListBaiHocTheoChuong(int pMaChuong)
+        {
+            return db.BaiHocs.Where(x => x.MaChuong == pMaChuong).ToList();
         }
     }
 }

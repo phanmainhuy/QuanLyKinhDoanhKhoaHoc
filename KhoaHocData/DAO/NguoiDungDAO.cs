@@ -112,7 +112,7 @@ namespace KhoaHocData.DAO
         }
         //public bool CoQuyenChinhSua(int pMaND, int pMaQuyen)
         public KetQuaTraVe ThayDoiThongTinNguoiDung(int pUserID, string pUserName, int pMaNhomNguoiDung, string pName, string pCMND, string HinhAnh,
-            string Number, string Email, DateTime DoB, string pAddress, decimal Luong)
+            string Number, string Email, DateTime DoB, string pAddress, decimal Luong, string GioiTinh)
         {
             var nd = db.NguoiDungs.Where(x => x.MaND == pUserID).SingleOrDefault();
             var luong = db.Luongs.FirstOrDefault(x => x.MaND == pUserID);
@@ -146,6 +146,8 @@ namespace KhoaHocData.DAO
                 nd.NgaySinh = DoB;
             if (nd.Diachi != pAddress)
                 nd.Diachi = pAddress;
+            if (nd.GioiTinh != GioiTinh)
+                nd.GioiTinh = GioiTinh;
             try
             {
                 db.SaveChanges();

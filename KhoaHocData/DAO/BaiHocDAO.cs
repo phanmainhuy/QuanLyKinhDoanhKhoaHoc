@@ -101,6 +101,10 @@ namespace KhoaHocData.DAO
                 return AllEnum.KetQuaTraVe.DaTonTai;
             }
             BaiHoc bh = new BaiHoc();
+            var chuong = db.Chuongs.FirstOrDefault(x => x.MaChuong == pMaChuong);
+            var chuongnhonhat = db.Chuongs.Where(x => x.MaKhoaHoc == chuong.MaKhoaHoc).OrderBy(x => x.MaChuong).FirstOrDefault();
+            if (chuong.MaChuong == chuongnhonhat.MaChuong && chuong.BaiHocs.Count() < 3)
+                bh.IsHocThu = true;
             bh.MaChuong = pMaChuong;
             if (!string.IsNullOrEmpty(pTenBaiHoc))
                 bh.TenBaiHoc = pTenBaiHoc;

@@ -21,6 +21,7 @@ namespace KhoaHocData.EF
             this.CT_HoaDon = new HashSet<CT_HoaDon>();
             this.Chuongs = new HashSet<Chuong>();
             this.DanhGiaKhoaHocs = new HashSet<DanhGiaKhoaHoc>();
+            this.BaiHocs = new HashSet<BaiHoc>();
         }
     
         public int MaKhoaHoc { get; set; }
@@ -47,5 +48,7 @@ namespace KhoaHocData.EF
         public virtual ICollection<Chuong> Chuongs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DanhGiaKhoaHoc> DanhGiaKhoaHocs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BaiHoc> BaiHocs { get; set; }
     }
 }

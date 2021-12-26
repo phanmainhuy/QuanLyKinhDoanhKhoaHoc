@@ -36,8 +36,8 @@ namespace KhoaHocAPI.Mapper
                 MaChuong = item.MaChuong.Value,
                 TenBaiHoc = item.TenBaiHoc,
                 TenChuong = item.Chuong.TenChuong,
-                isHocThu = item.IsHocThu.Value,
-                VideoName = item.VideoLink,
+                isHocThu = item.IsHocThu==null?false: item.IsHocThu.Value,
+                VideoName = item.VideoLink == null ? "": item.VideoLink,
                 DanhSachBaiTap = MapListHomeWork(item.BaiTaps)
             };
         }
@@ -52,13 +52,14 @@ namespace KhoaHocAPI.Mapper
         }
         public static ChuongVM MapUnit(Chuong item)
         {
+            var lstBaiHoc = new GetDAO().LayListBaiHocTheoChuong(item.MaChuong);
             return new ChuongVM()
             {
                 MaChuong = item.MaChuong,
                 TenChuong = item.TenChuong,
                 MaKhoaHoc = item.MaKhoaHoc.Value,
                 TenKhoaHoc = new GetDAO().GetKhoaHocTheoMa(item.MaKhoaHoc.Value).TenKhoaHoc,
-                DanhSachBaiHoc = MapListLesson(item.BaiHocs.ToList())
+                DanhSachBaiHoc = MapListLesson(lstBaiHoc)
             };
         }
         public static List<ChuongVM> MapListUnit(IEnumerable<Chuong> lstChuong)

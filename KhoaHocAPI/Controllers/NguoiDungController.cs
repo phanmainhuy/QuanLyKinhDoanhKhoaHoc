@@ -59,7 +59,8 @@ namespace KhoaHocAPI.Controllers
                 model.Email,
                 model.DoB,
                 model.Address,
-                model.Salary
+                model.Salary,
+                model.Gender
                 );
             if (result
                  == Common.AllEnum.KetQuaTraVe.KhongTonTai)

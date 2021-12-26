@@ -79,8 +79,8 @@ namespace KhoaHocAPI.Mapper
                 NgayTao = item.NgayTao.Value,
                 NgayChapThuan = item.NgayChapThuan.Value,
                 MaDM = item.LoaiKhoaHoc.MaDanhMuc,
-                HienThi = item.HienThi,
-                SoLuongMua = item.SoLuongMua.Value
+                HienThi = item.HienThi == null?false: item.HienThi,
+                SoLuongMua = item.SoLuongMua == null?0:item.SoLuongMua.Value
             };
         }
         public static KhoaHoc MapCourseReverse(CourseVM item)

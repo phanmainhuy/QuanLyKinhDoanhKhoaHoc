@@ -128,7 +128,7 @@ namespace KhoaHocData.DAO
             int skipSize = (page - 1) * pageSize;
             if (string.IsNullOrEmpty(pSearchString))
             {
-                var result = db.KhoaHocs.Where(x=>x.HienThi.Value).OrderByDescending(x => x.MaKhoaHoc).ToList();
+                var result = db.KhoaHocs.OrderByDescending(x => x.MaKhoaHoc).ToList();
                 total = result.Count();
 
 
@@ -144,11 +144,11 @@ namespace KhoaHocData.DAO
             int skipSize = (page - 1) * pageSize;
             if (string.IsNullOrEmpty(pSearchString))
             {
-                var result = SortingBy(db.KhoaHocs.Where(x=> x.HienThi.Value == isShow).OrderByDescending(x => x.MaKhoaHoc).ToList(), (SortingType)type);
+                var result = SortingBy(db.KhoaHocs.OrderByDescending(x => x.MaKhoaHoc).ToList(), (SortingType)type);
                 total = result.Count();
                 return result.Skip(skipSize).Take(pageSize).ToList();
             }
-            var item = SortingBy(db.SearchKhoaHoc(pSearchString).Where(x => x.HienThi.Value == isShow).OrderByDescending(x => x.MaKhoaHoc).ToList(), (SortingType)type);
+            var item = SortingBy(db.SearchKhoaHoc(pSearchString).OrderByDescending(x => x.MaKhoaHoc).ToList(), (SortingType)type);
             total = item.Count();
             return item.Skip(skipSize).Take(pageSize).ToList();
         }
@@ -158,11 +158,11 @@ namespace KhoaHocData.DAO
             int skipSize = (page - 1) * pageSize;
             if (string.IsNullOrEmpty(pSearchString))
             {
-                var result = SortingBy(db.KhoaHocs.Where(x=>x.HienThi.Value).OrderByDescending(x => x.MaKhoaHoc).ToList(), (SortingType)type);
+                var result = SortingBy(db.KhoaHocs.OrderByDescending(x => x.MaKhoaHoc).ToList(), (SortingType)type);
                 total = result.Count();
                 return result.Skip(skipSize).Take(pageSize).ToList();
             }
-            var item = SortingBy(db.SearchKhoaHoc(pSearchString).Where(x=>x.HienThi.Value).OrderByDescending(x => x.MaKhoaHoc).ToList(), (SortingType)type);
+            var item = SortingBy(db.SearchKhoaHoc(pSearchString).OrderByDescending(x => x.MaKhoaHoc).ToList(), (SortingType)type);
             total = item.Count();
             return item.Skip(skipSize).Take(pageSize).ToList();
         }

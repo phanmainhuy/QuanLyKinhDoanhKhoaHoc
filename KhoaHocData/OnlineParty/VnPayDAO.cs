@@ -125,7 +125,7 @@ namespace KhoaHocData.OnlineParty
                         giatri = km.GiaTri.Value;
                     if (order.TongTien.Value - giatri == vnp_Amount / 100)
                     {
-                        if (order.TrangThai == "0")
+                        if (order.TrangThai == "0" || order.TrangThai == "1")
                         {
                             if (vnp_ResponseCode == "00" && vnp_TransactionStatus == "00")
                             {

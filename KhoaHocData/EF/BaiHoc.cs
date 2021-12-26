@@ -29,9 +29,8 @@ namespace KhoaHocData.EF
         public Nullable<int> MaChuong { get; set; }
         public Nullable<bool> IsHocThu { get; set; }
     
-        public virtual KhoaHoc KhoaHoc { get; set; }
+        public virtual Chuong Chuong { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BaiTap> BaiTaps { get; set; }
-        public virtual Chuong Chuong { get; set; }
     }
 }

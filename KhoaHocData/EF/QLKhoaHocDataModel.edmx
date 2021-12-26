@@ -889,22 +889,6 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="QL_KHOAHOCModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="BaiHoc">
-          <Key>
-            <PropertyRef Name="MaBaiHoc" />
-          </Key>
-          <Property Name="MaBaiHoc" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="MaKhoaHoc" Type="Int32" />
-          <Property Name="TenBaiHoc" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="VideoLink" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
-          <Property Name="MoTa" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
-          <Property Name="TrangThai" Type="Boolean" />
-          <NavigationProperty Name="KhoaHoc" Relationship="Self.FK_BaiHoc_KhoaHoc" FromRole="BaiHoc" ToRole="KhoaHoc" />
-          <NavigationProperty Name="BaiTaps" Relationship="Self.FK_BaiTap_BaiHoc" FromRole="BaiHoc" ToRole="BaiTap" />
-          <Property Name="MaChuong" Type="Int32" />
-          <NavigationProperty Name="Chuong" Relationship="QL_KHOAHOCModel.FK_BaiHoc_Chuong" FromRole="BaiHoc" ToRole="Chuong" />
-          <Property Name="IsHocThu" Type="Boolean" />
-        </EntityType>
         <EntityType Name="BaiTap">
           <Key>
             <PropertyRef Name="MaBaiTap" />
@@ -913,7 +897,7 @@
           <Property Name="MaBaiHoc" Type="Int32" />
           <Property Name="TenBaiTap" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="FileLink" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="BaiHoc" Relationship="Self.FK_BaiTap_BaiHoc" FromRole="BaiTap" ToRole="BaiHoc" />
+          <NavigationProperty Name="BaiHoc" Relationship="QL_KHOAHOCModel.FK_BaiTap_BaiHoc" FromRole="BaiTap" ToRole="BaiHoc" />
         </EntityType>
         <EntityType Name="ChamSocKhachHang">
           <Key>
@@ -1014,6 +998,7 @@
           <Property Name="HienThi" Type="Boolean" />
           <Property Name="SoLuongMua" Type="Int32" />
           <NavigationProperty Name="DanhGiaKhoaHocs" Relationship="QL_KHOAHOCModel.FK_DanhGiaKhoaHoc_KhoaHoc" FromRole="KhoaHoc" ToRole="DanhGiaKhoaHoc" />
+          <NavigationProperty Name="BaiHocs" Relationship="QL_KHOAHOCModel.FK_BaiHoc_KhoaHoc" FromRole="KhoaHoc" ToRole="BaiHoc" />
         </EntityType>
         <EntityType Name="KhuyenMai">
           <Key>
@@ -1169,30 +1154,6 @@
           <Property Name="SoDiem" Type="Int32" />
           <NavigationProperty Name="NguoiDung" Relationship="Self.FK_TichDiem_NguoiDung" FromRole="TichDiem" ToRole="NguoiDung" />
         </EntityType>
-        <Association Name="FK_BaiHoc_KhoaHoc">
-          <End Role="KhoaHoc" Type="Self.KhoaHoc" Multiplicity="0..1" />
-          <End Role="BaiHoc" Type="Self.BaiHoc" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="KhoaHoc">
-              <PropertyRef Name="MaKhoaHoc" />
-            </Principal>
-            <Dependent Role="BaiHoc">
-              <PropertyRef Name="MaKhoaHoc" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_BaiTap_BaiHoc">
-          <End Role="BaiHoc" Type="Self.BaiHoc" Multiplicity="0..1" />
-          <End Role="BaiTap" Type="Self.BaiTap" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="BaiHoc">
-              <PropertyRef Name="MaBaiHoc" />
-            </Principal>
-            <Dependent Role="BaiTap">
-              <PropertyRef Name="MaBaiHoc" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_ChamSocKhachHang_Loaivande">
           <End Role="LoaiVanDe" Type="Self.LoaiVanDe" Multiplicity="0..1" />
           <End Role="ChamSocKhachHang" Type="Self.ChamSocKhachHang" Multiplicity="*" />
@@ -1470,7 +1431,6 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="QL_KHOAHOCEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="BaiHocs" EntityType="Self.BaiHoc" />
           <EntitySet Name="BaiTaps" EntityType="Self.BaiTap" />
           <EntitySet Name="ChamSocKhachHangs" EntityType="Self.ChamSocKhachHang" />
           <EntitySet Name="CT_GioHang" EntityType="Self.CT_GioHang" />
@@ -1492,14 +1452,6 @@
           <EntitySet Name="Quyen_NhomNguoiDung" EntityType="Self.Quyen_NhomNguoiDung" />
           <EntitySet Name="SoDuTaiKhoans" EntityType="Self.SoDuTaiKhoan" />
           <EntitySet Name="TichDiems" EntityType="Self.TichDiem" />
-          <AssociationSet Name="FK_BaiHoc_KhoaHoc" Association="Self.FK_BaiHoc_KhoaHoc">
-            <End Role="KhoaHoc" EntitySet="KhoaHocs" />
-            <End Role="BaiHoc" EntitySet="BaiHocs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_BaiTap_BaiHoc" Association="Self.FK_BaiTap_BaiHoc">
-            <End Role="BaiHoc" EntitySet="BaiHocs" />
-            <End Role="BaiTap" EntitySet="BaiTaps" />
-          </AssociationSet>
           <AssociationSet Name="FK_ChamSocKhachHang_Loaivande" Association="Self.FK_ChamSocKhachHang_Loaivande">
             <End Role="LoaiVanDe" EntitySet="LoaiVanDes" />
             <End Role="ChamSocKhachHang" EntitySet="ChamSocKhachHangs" />
@@ -1661,10 +1613,6 @@
             <End Role="DonThuTien" EntitySet="DonThuTiens" />
           </AssociationSet>
           <EntitySet Name="Chuongs" EntityType="QL_KHOAHOCModel.Chuong" />
-          <AssociationSet Name="FK_BaiHoc_Chuong" Association="QL_KHOAHOCModel.FK_BaiHoc_Chuong">
-            <End Role="Chuong" EntitySet="Chuongs" />
-            <End Role="BaiHoc" EntitySet="BaiHocs" />
-          </AssociationSet>
           <AssociationSet Name="FK_Chuong_KhoaHoc" Association="QL_KHOAHOCModel.FK_Chuong_KhoaHoc">
             <End Role="KhoaHoc" EntitySet="KhoaHocs" />
             <End Role="Chuong" EntitySet="Chuongs" />
@@ -1690,6 +1638,19 @@
           <AssociationSet Name="fk_TrangTri_LoaiTrangTri" Association="QL_KHOAHOCModel.fk_TrangTri_LoaiTrangTri">
             <End Role="LoaiTrangTri" EntitySet="LoaiTrangTris" />
             <End Role="TrangTri" EntitySet="TrangTris" />
+          </AssociationSet>
+          <EntitySet Name="BaiHocs" EntityType="QL_KHOAHOCModel.BaiHoc" />
+          <AssociationSet Name="FK_BaiHoc_Chuong" Association="QL_KHOAHOCModel.FK_BaiHoc_Chuong">
+            <End Role="Chuong" EntitySet="Chuongs" />
+            <End Role="BaiHoc" EntitySet="BaiHocs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BaiHoc_KhoaHoc" Association="QL_KHOAHOCModel.FK_BaiHoc_KhoaHoc">
+            <End Role="KhoaHoc" EntitySet="KhoaHocs" />
+            <End Role="BaiHoc" EntitySet="BaiHocs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BaiTap_BaiHoc" Association="QL_KHOAHOCModel.FK_BaiTap_BaiHoc">
+            <End Role="BaiHoc" EntitySet="BaiHocs" />
+            <End Role="BaiTap" EntitySet="BaiTaps" />
           </AssociationSet>
           </EntityContainer>
         <ComplexType Name="SearchKhoaHoc_Result">
@@ -1829,18 +1790,6 @@
           <Property Name="MaKhoaHoc" Type="Int32" />
           <NavigationProperty Name="BaiHocs" Relationship="QL_KHOAHOCModel.FK_BaiHoc_Chuong" FromRole="Chuong" ToRole="BaiHoc" />
         </EntityType>
-        <Association Name="FK_BaiHoc_Chuong">
-          <End Type="QL_KHOAHOCModel.Chuong" Role="Chuong" Multiplicity="0..1" />
-          <End Type="QL_KHOAHOCModel.BaiHoc" Role="BaiHoc" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Chuong">
-              <PropertyRef Name="MaChuong" />
-            </Principal>
-            <Dependent Role="BaiHoc">
-              <PropertyRef Name="MaChuong" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Chuong_KhoaHoc">
           <End Type="QL_KHOAHOCModel.KhoaHoc" Role="KhoaHoc" Multiplicity="0..1" />
           <End Type="QL_KHOAHOCModel.Chuong" Role="Chuong" Multiplicity="*" />
@@ -1931,26 +1880,63 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="BaiHoc">
+          <Key>
+            <PropertyRef Name="MaBaiHoc" />
+          </Key>
+          <Property Name="MaBaiHoc" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MaKhoaHoc" Type="Int32" />
+          <Property Name="TenBaiHoc" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="VideoLink" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="MoTa" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="TrangThai" Type="Boolean" />
+          <Property Name="MaChuong" Type="Int32" />
+          <Property Name="IsHocThu" Type="Boolean" />
+          <NavigationProperty Name="Chuong" Relationship="QL_KHOAHOCModel.FK_BaiHoc_Chuong" FromRole="BaiHoc" ToRole="Chuong" />
+          <NavigationProperty Name="BaiTaps" Relationship="QL_KHOAHOCModel.FK_BaiTap_BaiHoc" FromRole="BaiHoc" ToRole="BaiTap" />
+        </EntityType>
+        <Association Name="FK_BaiHoc_Chuong">
+          <End Type="QL_KHOAHOCModel.Chuong" Role="Chuong" Multiplicity="0..1" />
+          <End Type="QL_KHOAHOCModel.BaiHoc" Role="BaiHoc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Chuong">
+              <PropertyRef Name="MaChuong" />
+            </Principal>
+            <Dependent Role="BaiHoc">
+              <PropertyRef Name="MaChuong" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BaiHoc_KhoaHoc">
+          <End Type="QL_KHOAHOCModel.KhoaHoc" Role="KhoaHoc" Multiplicity="0..1" />
+          <End Type="QL_KHOAHOCModel.BaiHoc" Role="BaiHoc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KhoaHoc">
+              <PropertyRef Name="MaKhoaHoc" />
+            </Principal>
+            <Dependent Role="BaiHoc">
+              <PropertyRef Name="MaKhoaHoc" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BaiTap_BaiHoc">
+          <End Type="QL_KHOAHOCModel.BaiHoc" Role="BaiHoc" Multiplicity="0..1" />
+          <End Type="QL_KHOAHOCModel.BaiTap" Role="BaiTap" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BaiHoc">
+              <PropertyRef Name="MaBaiHoc" />
+            </Principal>
+            <Dependent Role="BaiTap">
+              <PropertyRef Name="MaBaiHoc" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="QL_KHOAHOCModelStoreContainer" CdmEntityContainer="QL_KHOAHOCEntities">
-          <EntitySetMapping Name="BaiHocs">
-            <EntityTypeMapping TypeName="QL_KHOAHOCModel.BaiHoc">
-              <MappingFragment StoreEntitySet="BaiHoc">
-                <ScalarProperty Name="IsHocThu" ColumnName="IsHocThu" />
-                <ScalarProperty Name="MaChuong" ColumnName="MaChuong" />
-                <ScalarProperty Name="MaBaiHoc" ColumnName="MaBaiHoc" />
-                <ScalarProperty Name="MaKhoaHoc" ColumnName="MaKhoaHoc" />
-                <ScalarProperty Name="TenBaiHoc" ColumnName="TenBaiHoc" />
-                <ScalarProperty Name="VideoLink" ColumnName="VideoLink" />
-                <ScalarProperty Name="MoTa" ColumnName="MoTa" />
-                <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="BaiTaps">
             <EntityTypeMapping TypeName="QL_KHOAHOCModel.BaiTap">
               <MappingFragment StoreEntitySet="BaiTap">
@@ -2263,6 +2249,20 @@
                 <ScalarProperty Name="MaLoaiTrangTri" ColumnName="MaLoaiTrangTri" />
                 <ScalarProperty Name="GiaTri" ColumnName="GiaTri" />
                 <ScalarProperty Name="MaTrangTri" ColumnName="MaTrangTri" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BaiHocs">
+            <EntityTypeMapping TypeName="QL_KHOAHOCModel.BaiHoc">
+              <MappingFragment StoreEntitySet="BaiHoc">
+                <ScalarProperty Name="IsHocThu" ColumnName="IsHocThu" />
+                <ScalarProperty Name="MaChuong" ColumnName="MaChuong" />
+                <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
+                <ScalarProperty Name="MoTa" ColumnName="MoTa" />
+                <ScalarProperty Name="VideoLink" ColumnName="VideoLink" />
+                <ScalarProperty Name="TenBaiHoc" ColumnName="TenBaiHoc" />
+                <ScalarProperty Name="MaKhoaHoc" ColumnName="MaKhoaHoc" />
+                <ScalarProperty Name="MaBaiHoc" ColumnName="MaBaiHoc" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
