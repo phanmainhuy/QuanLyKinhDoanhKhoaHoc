@@ -16,6 +16,7 @@ namespace KhoaHocAPI.Mapper
             {
                 UserID = nd.MaND,
                 Name = nd.HoTen,
+                UserName = nd.TenDN
             };
             return user;
         }
@@ -33,19 +34,19 @@ namespace KhoaHocAPI.Mapper
             UserViewModel user = new UserViewModel()
             {
                 UserId = nd.MaND,
-                UserName = nd.TenDN,
-                Name = nd.HoTen,
-                Email = nd.Email,
-                Address = nd.Diachi,
+                UserName = nd.TenDN == null? "": nd.TenDN,
+                Name = nd.HoTen == null ? "" : nd.HoTen,
+                Email = nd.Email == null ? "" : nd.Email,
+                Address = nd.Diachi == null? "": nd.Diachi,
                 DoB = nd.NgaySinh.Value,
-                Gender = nd.GioiTinh,
+                Gender = nd.GioiTinh == null?"":nd.GioiTinh,
                 GroupID = nd.MaNhomNguoiDung.Value,
                 GroupName = new UserGroupDAO().LayNhomTheoMa(nd.MaNhomNguoiDung.Value).TenNhomNguoiDung,
-                Number = nd.SDT,
+                Number = nd.SDT == null? "" : nd.SDT,
                 Status = nd.TrangThai != null ? nd.TrangThai.Value : false,
                 HinhAnh = nd.HinhAnh,
                 DiemTichLuy = diem,
-                CMND = nd.CMND,
+                CMND = nd.CMND == null? "": nd.CMND,
                 Salary = luong
             };
             return user;

@@ -176,7 +176,7 @@ namespace KhoaHocData.DAO
                 return input.OrderByDescending(x => x.DonGia);
             if (type == SortingType.MostLearn)
                 return input.OrderByDescending(x => x.SoLuongMua);
-            return input.OrderByDescending(x => x.MaKhoaHoc);
+            return input.OrderByDescending(x => x.NgayTao);
         }
         public IEnumerable<KhoaHoc> TimKiemKhoaHocTheoTheLoai(int pMaTheLoai, string pSearchString)
         {

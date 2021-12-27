@@ -264,6 +264,7 @@
   <ItemGroup>
     <Compile Include="DAO\Account.cs" />
     <Compile Include="DAO\BaiHocDAO.cs" />
+    <Compile Include="DAO\BaiTapDAO.cs" />
     <Compile Include="DAO\CartDAO.cs" />
     <Compile Include="DAO\CategoryDAO.cs" />
     <Compile Include="DAO\DanhGiaDAO.cs" />

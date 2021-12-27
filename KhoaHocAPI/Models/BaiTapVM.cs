@@ -7,6 +7,7 @@ namespace KhoaHocAPI.Models
 {
     public class BaiTapVM
     {
+        public int MaBaiHoc { get; set; }
         public int MaBaiTap { get; set; }
         public string TenBaiTap { get; set; }
         public string LinkPDF { get; set; }

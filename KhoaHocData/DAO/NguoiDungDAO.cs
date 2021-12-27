@@ -96,6 +96,7 @@ namespace KhoaHocData.DAO
         }
         public KetQuaTraVe DoiMatKhau(string pUserName, string pOldPassword, string pNewPassword)
         {
+            pOldPassword = Utils.Encrypt(pOldPassword, pUserName);
             var nd = db.NguoiDungs.SingleOrDefault(x => x.TenDN == pUserName && x.MatKhau == pOldPassword);
             if (nd == null)
                 return KetQuaTraVe.KhongTonTai;
@@ -127,7 +128,10 @@ namespace KhoaHocData.DAO
                 });
             }
             else
-                luong.Luong1 = Luong;
+            {
+                if(Luong > 0)
+                    luong.Luong1 = Luong;
+            }
             if (nd == null)
                 return KetQuaTraVe.KhongTonTai;
             if (nd.MaNhomNguoiDung != pMaNhomNguoiDung)

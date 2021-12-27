@@ -190,6 +190,7 @@
     <Compile Include="Controllers\Admin\StatisticController.cs" />
     <Compile Include="Controllers\AuthorizationController.cs" />
     <Compile Include="Controllers\BaiHocController.cs" />
+    <Compile Include="Controllers\BaiTapController.cs" />
     <Compile Include="Controllers\CartItemController.cs" />
     <Compile Include="Controllers\ChuongController.cs" />
     <Compile Include="Controllers\CustomAPIController.cs" />

@@ -14,6 +14,7 @@ namespace KhoaHocAPI.Mapper
         {
             return new BaiTapVM()
             {
+                MaBaiHoc = item.MaBaiHoc.Value,
                 MaBaiTap = item.MaBaiTap,
                 LinkPDF = item.FileLink,
                 TenBaiTap = item.TenBaiTap
