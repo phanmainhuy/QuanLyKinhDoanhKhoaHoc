@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Net;
 using System.Security.Cryptography;
 using System.Text;
@@ -113,9 +114,62 @@ namespace KhoaHocData.OnlineParty
     }
     public class Utils
     {
-
-
         public static String HmacSHA512(string key, String inputData)
+        {
+            var hash = new StringBuilder();
+            byte[] keyBytes = Encoding.UTF8.GetBytes(key);
+            byte[] inputBytes = Encoding.UTF8.GetBytes(inputData);
+            using (var hmac = new HMACSHA512(keyBytes))
+            {
+                byte[] hashValue = hmac.ComputeHash(inputBytes);
+                foreach (var theByte in hashValue)
+                {
+                    hash.Append(theByte.ToString("x2"));
+                }
+            }
+
+            return hash.ToString();
+        }
+        public static string Encrypt(string pValue, string pKey)
+        {
+            if (string.IsNullOrEmpty(pValue))
+                return "";
+            //Chuyển text vào thành byte
+            byte[] byteIn = Encoding.UTF8.GetBytes(pValue);
+
+            DESCryptoServiceProvider des = new DESCryptoServiceProvider();
+            //Chuyển key thành byte
+            byte[] bytesKey = Encoding.UTF8.GetBytes(pKey);
+            //Không hiểu lắm nhưng tự dưng đổi độ dài của byteskey 2 lần
+            Array.Resize(ref bytesKey, des.Key.Length);
+            Array.Resize(ref bytesKey, des.IV.Length);
+
+            des.Key = bytesKey;
+            des.IV = bytesKey;
+
+
+            MemoryStream msOut = new MemoryStream();
+            ICryptoTransform desdecrypt = des.CreateEncryptor();
+
+            CryptoStream cryptoStream = new CryptoStream(msOut, desdecrypt, CryptoStreamMode.Write);
+
+            cryptoStream.Write(byteIn, 0, byteIn.Length);
+            cryptoStream.FlushFinalBlock();
+            byte[] byteOut = msOut.ToArray();
+            cryptoStream.Close();
+
+            msOut.Close();
+            return Convert.ToBase64String(byteOut);
+        }
+        //public static string Encrypt(string pKey, string pMessage)
+        //{
+        //    var key = Encoding.UTF8.GetBytes(pKey);
+        //    var message = Encoding.UTF8.GetBytes(pMessage);
+        //    var hash = new HMACSHA256(key);
+        //    return Convert.ToBase64String(hash.ComputeHash(message));
+        //}
+
+        public string HmacSHA512Nonstatic(string key, String inputData)
         {
             var hash = new StringBuilder();
             byte[] keyBytes = Encoding.UTF8.GetBytes(key);

@@ -1,5 +1,6 @@
 ﻿using Common;
 using KhoaHocData.EF;
+using KhoaHocData.OnlineParty;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -98,6 +99,7 @@ namespace KhoaHocData.DAO
             var nd = db.NguoiDungs.SingleOrDefault(x => x.TenDN == pUserName && x.MatKhau == pOldPassword);
             if (nd == null)
                 return KetQuaTraVe.KhongTonTai;
+            pNewPassword = Utils.Encrypt(pNewPassword, pUserName);
             nd.MatKhau = pNewPassword;
             try
             {

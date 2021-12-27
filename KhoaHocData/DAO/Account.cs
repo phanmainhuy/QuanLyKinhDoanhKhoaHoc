@@ -1,5 +1,6 @@
 ﻿using Common;
 using KhoaHocData.EF;
+using KhoaHocData.OnlineParty;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,11 +19,13 @@ namespace KhoaHocData.DAO
 
         public NguoiDung Login(string username, string password)
         {
-            return db.NguoiDungs.SingleOrDefault(x => x.TenDN == username && x.MatKhau == password);
+            password = Utils.Encrypt(password, username);
+            return db.NguoiDungs.SingleOrDefault(x => x.TenDN == username && string.Equals(x.MatKhau.Trim(), password.Trim()));
         }
 
         public NguoiDung Register(string userName, string Password)
         {
+            Password = Utils.Encrypt(Password, userName);
             NguoiDung nd = new NguoiDung()
             {
                 TenDN = userName,
@@ -50,6 +53,7 @@ namespace KhoaHocData.DAO
                 TenDN = userName,
                 MatKhau = userName
             };
+            nd.MatKhau = Utils.Encrypt(nd.MatKhau, nd.TenDN);
             Luong luong = new Luong()
             {
                 Luong1 = Luong
