@@ -42,6 +42,10 @@ namespace KhoaHocData.DAO
         {
             return db.NguoiDungs.Where(x=>!x.DaXoa.Value || x.DaXoa == null).ToList();
         }
+        public NguoiDung LayNguoiDungTheoId(int pMaNguoiDung)
+        {
+            return db.NguoiDungs.Find(pMaNguoiDung);
+        }
         public IEnumerable<NguoiDung> LayHetHeThong()
         {
             return db.NguoiDungs.Where(x => x.MaNhomNguoiDung != (int)MaNhomNguoiDung.Student && (!x.DaXoa.Value || x.DaXoa == null)).OrderBy(x => x.MaNhomNguoiDung);
@@ -67,10 +71,7 @@ namespace KhoaHocData.DAO
         {
             return db.NguoiDungs.Where(x => x.MaNhomNguoiDung == pMaNhomNguoiDung && (!x.DaXoa.Value || x.DaXoa == null));
         }
-        public NguoiDung LayNguoiDungTheoId(int pMaNguoiDung)
-        {
-            return db.NguoiDungs.Find(pMaNguoiDung);
-        }
+        
         public bool DaMuaKhoaHoc(int pMaND, int pMaKhoaHoc)
         {
             var nd = db.NguoiDungs.SingleOrDefault(x => x.MaND == pMaND);
@@ -119,6 +120,15 @@ namespace KhoaHocData.DAO
         {
             var nd = db.NguoiDungs.Where(x => x.MaND == pUserID).SingleOrDefault();
             var luong = db.Luongs.FirstOrDefault(x => x.MaND == pUserID);
+            if (string.IsNullOrEmpty(nd.HoTen) || string.IsNullOrEmpty(nd.Email) || string.IsNullOrEmpty(nd.SDT))
+            {
+                if(string.IsNullOrEmpty(nd.Email))
+                    if (db.NguoiDungs.Any(x => x.Email == Email))
+                        return KetQuaTraVe.DuLieuDaTonTai1;
+                if(string.IsNullOrEmpty(nd.SDT))
+                    if (db.NguoiDungs.Any(x => x.SDT == Number))
+                        return KetQuaTraVe.DuLieuDaTonTai2;
+            }
             if (luong == null)
             {
                 db.Luongs.Add(new Luong()
@@ -132,6 +142,7 @@ namespace KhoaHocData.DAO
                 if(Luong > 0)
                     luong.Luong1 = Luong;
             }
+
             if (nd == null)
                 return KetQuaTraVe.KhongTonTai;
             if (nd.MaNhomNguoiDung != pMaNhomNguoiDung)
@@ -148,12 +159,13 @@ namespace KhoaHocData.DAO
                 nd.HinhAnh = HinhAnh;
             if (nd.Email != Email)
                 nd.Email = Email;
-            if (nd.NgaySinh.Value != DoB)
+            if (nd.NgaySinh != DoB)
                 nd.NgaySinh = DoB;
             if (nd.Diachi != pAddress)
                 nd.Diachi = pAddress;
-            if (nd.GioiTinh != GioiTinh)
-                nd.GioiTinh = GioiTinh;
+            if (GioiTinh != (-1).ToString())
+                if (nd.GioiTinh != GioiTinh)
+                    nd.GioiTinh = GioiTinh;
             try
             {
                 db.SaveChanges();
@@ -185,6 +197,27 @@ namespace KhoaHocData.DAO
                 Console.WriteLine(ex.Message);
                 return KetQuaTraVe.ThatBai;
                 throw;
+            }
+        }
+        public KetQuaTraVe ThayDoiAnhDaiDienNguoiDung(int pMaND, string pHinhAnh)
+        {
+            var nd = db.NguoiDungs.FirstOrDefault(x => x.MaND == pMaND);
+            if (db == null)
+                return KetQuaTraVe.KhongTonTai;
+            if (nd.HinhAnh == pHinhAnh)
+                return KetQuaTraVe.ThanhCong;
+            if (pHinhAnh == "" && nd.MaNhomNguoiDung != (int)MaNhomNguoiDung.Admin)
+                pHinhAnh = "userdefault.jpg";
+            nd.HinhAnh = pHinhAnh;
+            try
+            {
+                db.SaveChanges();
+                return KetQuaTraVe.ThanhCong;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return KetQuaTraVe.ThatBai;
             }
         }
         public KetQuaTraVe XoaNguoiDung(int pMaND)

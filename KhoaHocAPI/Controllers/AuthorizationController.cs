@@ -37,6 +37,7 @@ namespace KhoaHocAPI.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.Forbidden, "Không có quyền");
             }
         }
+
         public async Task<HttpResponseMessage> Post([FromBody] PermissionGroupVM model)
         {
             if (model == null)
@@ -147,5 +148,21 @@ namespace KhoaHocAPI.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Lỗi bất ngờ");
             }
         }
+        [Route("api/Authorization/IsFirstLogin")]
+        public HttpResponseMessage Get3(int MaND)
+        {
+            if (MaND == -1)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.Forbidden,"Vui lòng thử lại sau");
+            }
+            var result = db.isFirstLogin(MaND);
+            if (result)
+            {
+                return Request.CreateResponse(HttpStatusCode.OK);
+            }
+            else
+                return Request.CreateResponse(HttpStatusCode.NoContent);
+        }
+
     }
 }

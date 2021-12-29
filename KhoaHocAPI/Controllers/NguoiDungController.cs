@@ -23,7 +23,11 @@ namespace KhoaHocAPI.Controllers
             var result =  Mapper.UserMapper.MapListUser( ndDAO.LayHetNguoiDung());
             return Request.CreateResponse(System.Net.HttpStatusCode.OK, result);
         }
-
+        [System.Web.Http.HttpGet]
+        public HttpResponseMessage GetHocVien(int pMaNhomNguoiDung)
+        {
+            return Request.CreateResponse(System.Net.HttpStatusCode.OK, Mapper.UserMapper.MapListUser(this.ndDAO.LayDanhSachTheoMaNhom(pMaNhomNguoiDung)));
+        }
         [System.Web.Http.HttpGet]
         [System.Web.Http.Route("api/GetHeThong")]
         public HttpResponseMessage GetHeThong()
@@ -31,6 +35,14 @@ namespace KhoaHocAPI.Controllers
             var result = Mapper.UserMapper.MapListUser(ndDAO.LayHetHeThong());
             return Request.CreateResponse(System.Net.HttpStatusCode.OK, result);
         }
+
+
+
+
+
+
+
+
         [System.Web.Http.HttpPost]
         public HttpResponseMessage Post(HttpRequestMessage request, NguoiDung model)
         {
@@ -40,11 +52,7 @@ namespace KhoaHocAPI.Controllers
             else
                 return new HttpResponseMessage(System.Net.HttpStatusCode.BadRequest);
         }
-        [System.Web.Http.HttpGet]
-        public HttpResponseMessage GetHocVien(int pMaNhomNguoiDung)
-        {
-            return Request.CreateResponse(System.Net.HttpStatusCode.OK,  Mapper.UserMapper.MapListUser( this.ndDAO.LayDanhSachTheoMaNhom(pMaNhomNguoiDung)));
-        }
+        
         [System.Web.Http.HttpPut]
         public HttpResponseMessage ThayDoiThongTinNguoiDung(UserViewModel model)
         {
@@ -66,6 +74,14 @@ namespace KhoaHocAPI.Controllers
                  == Common.AllEnum.KetQuaTraVe.KhongTonTai)
             {
                 return Request.CreateErrorResponse(System.Net.HttpStatusCode.BadRequest, "Người dùng không tồn tại");
+            }
+            else if(result == Common.AllEnum.KetQuaTraVe.DuLieuDaTonTai1)
+            {
+                return Request.CreateErrorResponse(System.Net.HttpStatusCode.BadRequest, "Email đã tồn tại");
+            }
+            else if(result == Common.AllEnum.KetQuaTraVe.DuLieuDaTonTai2)
+            {
+                return Request.CreateErrorResponse(System.Net.HttpStatusCode.BadRequest, "SĐT đã tồn tại");
             }
             else if (result == Common.AllEnum.KetQuaTraVe.ThatBai)
             {
@@ -92,8 +108,27 @@ namespace KhoaHocAPI.Controllers
             {
                 return Request.CreateResponse(System.Net.HttpStatusCode.OK);
             }
-
         }
+
+        [System.Web.Http.HttpPatch]
+        [System.Web.Http.Route("api/NguoiDung/DoiAvatar")]
+        public HttpResponseMessage ThayDoiHinhAnhNguoiDung(int MaND, string HinhAnh)
+        {
+            var result = ndDAO.ThayDoiAnhDaiDienNguoiDung(MaND, HinhAnh);
+            if (result == Common.AllEnum.KetQuaTraVe.KhongTonTai)
+            {
+                return Request.CreateErrorResponse(System.Net.HttpStatusCode.BadRequest, "Người dùng không tồn tại");
+            }
+            else if (result == Common.AllEnum.KetQuaTraVe.ThatBai)
+            {
+                return Request.CreateErrorResponse(System.Net.HttpStatusCode.BadRequest, "Không thành công");
+            }
+            else
+            {
+                return Request.CreateResponse(System.Net.HttpStatusCode.OK);
+            }
+        }
+
         [System.Web.Http.HttpDelete]
         public HttpResponseMessage XoaNhanVien(int MaND)
         {

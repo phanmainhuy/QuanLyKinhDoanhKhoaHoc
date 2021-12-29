@@ -636,6 +636,7 @@
     <Folder Include="Assets\images\carousel\" />
     <Folder Include="Assets\PDF\" />
     <Folder Include="Views\NguoiDung\" />
+    <Folder Include="Views\Test\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

@@ -16,6 +16,13 @@ namespace KhoaHocData.DAO
         {
             db = new QL_KHOAHOCEntities();
         }
+        public bool isFirstLogin(int pMaND)
+        {
+            var nd = db.NguoiDungs.FirstOrDefault(x => x.MaND == pMaND);
+            if (nd.HoTen == "" || nd.Email == "" || nd.SDT == "")
+                return true;
+            return false;
+        }
 
         public NguoiDung Login(string username, string password)
         {
@@ -26,6 +33,8 @@ namespace KhoaHocData.DAO
         public NguoiDung Register(string userName, string Password)
         {
             Password = Utils.Encrypt(Password, userName);
+            if (db.NguoiDungs.Any(x => x.TenDN.Trim().ToLower() == userName.Trim().ToLower()))
+                return null;
             NguoiDung nd = new NguoiDung()
             {
                 TenDN = userName,
