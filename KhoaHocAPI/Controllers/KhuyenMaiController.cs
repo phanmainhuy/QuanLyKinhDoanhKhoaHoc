@@ -142,6 +142,20 @@ namespace KhoaHocAPI.Controllers
                 return Request.CreateResponse(HttpStatusCode.OK);
             }
         }
+        [HttpGet]
+        [Route("api/KhuyenMai/ApDung")]
+        public HttpResponseMessage ApDungKhuyenMai(int MaND, string MaApDung)
+        {
+            var result = db_km.ApDungKhuyenMai(MaND, MaApDung);
+            if(result == -1)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Mã áp dụng không phù hợp");
+            }
+            else
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, result);
+            }
+        }
     }
 }
 

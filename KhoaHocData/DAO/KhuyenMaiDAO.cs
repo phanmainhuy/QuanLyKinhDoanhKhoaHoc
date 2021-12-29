@@ -54,7 +54,7 @@ namespace KhoaHocData.DAO
         }
         public IEnumerable<KhuyenMai> LayTatCaKhuyenMaiTheoMaNguoiDung(int pMaND)
         {
-            var lstKhuyenMaiKhachHang = db.KhuyenMai_KhachHang.Where(x => x.MaND == pMaND && !x.IsSuDung.Value).ToList();
+            var lstKhuyenMaiKhachHang = db.KhuyenMai_KhachHang.Where(x => x.MaND == pMaND && (!x.IsSuDung.Value || x.IsSuDung == null)).ToList();
             List<KhuyenMai> lstReturn = new List<KhuyenMai>();
             foreach (var item in db.KhuyenMais.ToList())
             {
@@ -140,6 +140,7 @@ namespace KhoaHocData.DAO
             km_kh.MaND = pMaND;
             km_kh.NgayBatDau = DateTime.Now.Date;
             km_kh.NgayKetThuc = DateTime.Now.Date.AddDays(db.KhuyenMais.SingleOrDefault(x => x.MaKM == pMaKM).ThoiGianKeoDai.Value);
+            km_kh.IsSuDung = false;
             db.KhuyenMai_KhachHang.Add(km_kh);
             diem.SoDiem -= km.Diem.Value;
             try
@@ -170,6 +171,13 @@ namespace KhoaHocData.DAO
                 Console.WriteLine(ex.Message);
                 return AllEnum.KetQuaTraVe.ThatBai;
             }
+        }
+        public decimal ApDungKhuyenMai(int pMaND, string pMaApDung)
+        {
+            var mkm = db.KhuyenMais.FirstOrDefault(x => x.MaApDung == pMaApDung);
+            if (db.KhuyenMai_KhachHang.Any(x => x.MaND == pMaND && mkm.MaKM == x.MaKM && (x.IsSuDung == null || !x.IsSuDung.Value)))
+                return mkm.GiaTri == null? 0:mkm.GiaTri.Value;
+            return -1;
         }
         //public IEnumerable<KhuyenMai> LayToanBoKhuyenMaiConDungDuoc()
         //{

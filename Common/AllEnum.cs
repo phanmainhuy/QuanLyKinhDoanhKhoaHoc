@@ -13,7 +13,11 @@
         public enum KetQuaTraVe
         {
             ThatBai, ThanhCong, ChaKhongTonTai, DaTonTai, KhongTonTai, KhongDuocPhep,
-            KhongHopLe, DuLieuDaTonTai1, DuLieuDaTonTai2
+            KhongHopLe, DuLieuDaTonTai1, DuLieuDaTonTai2, KhongChinhXac
+        }
+        public enum PaymentType
+        {
+            Offline, VnPay
         }
 
         public enum TrangThaiDonThuTien
@@ -49,7 +53,8 @@
         }
         public enum AddCartItemResult
         {
-            ThanhCong, ThemGioHangThatbai, ThatBai, DaTonTai
+            ThanhCong, ThemGioHangThatbai, ThatBai, DaTonTai, DangChoDuyet,
+            DaMua
         }
         public enum SortingType
         {

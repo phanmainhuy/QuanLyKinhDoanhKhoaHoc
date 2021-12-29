@@ -61,6 +61,22 @@ namespace KhoaHocData.DAO
             if (AddCartResult != -1)
             {
                 var oldCartItem = db.CT_GioHang.SingleOrDefault(x => x.MaGioHang == AddCartResult && x.MaKhoaHoc == pMaKhoaHoc);
+                
+                var nd_hd = db.HoaDons.Where(x=>x.MaND == pMaND);
+                var nd_hd_off_true = nd_hd.Where(x => x.HinhThucThanhToan == PaymentType.Offline.ToString() && x.ThanhToan == true);
+                var nd_hd_off_false = nd_hd.Where(x => x.HinhThucThanhToan == PaymentType.Offline.ToString() && (x.ThanhToan == false || x.ThanhToan == null));
+                var nd_hd_vnPay = nd_hd.Where(x => x.HinhThucThanhToan == PaymentType.VnPay.ToString() && x.ThanhToan == true);
+                var cthd = db.CT_HoaDon.Where(x => nd_hd.Any(y => y.MaHD == x.MaHD));
+                
+                cthd = db.CT_HoaDon.Where(x => nd_hd_off_true.Any(y => y.MaHD == x.MaHD));
+                if (cthd.Any(x => x.MaKhoaHoc == pMaKhoaHoc))
+                    return AddCartItemResult.DaMua;
+                cthd = db.CT_HoaDon.Where(x => nd_hd_off_false.Any(y => y.MaHD == x.MaHD));
+                if (cthd.Any(x => x.MaKhoaHoc == pMaKhoaHoc))
+                    return AddCartItemResult.DangChoDuyet;
+                cthd = db.CT_HoaDon.Where(x => nd_hd_vnPay.Any(y => y.MaHD == x.MaHD));
+                if (cthd.Any(x => x.MaKhoaHoc == pMaKhoaHoc))
+                    return AddCartItemResult.DaMua;
                 if (oldCartItem != null)
                     return AddCartItemResult.DaTonTai;
                 var CTGH = new CT_GioHang()

@@ -33,9 +33,9 @@ namespace KhoaHocAPI.Controllers
         {
             int result = -1;
             if (model.MaKhoaHoc == null)
-                result = db_payment.AddHoaDon(model.MaND, 0, "", "Chưa chọn", model.MaGioHang);
+                result = db_payment.AddHoaDon(model.MaND, 0, "", model.HinhThucThanhToan, model.MaGioHang);
             else
-                result = db_payment.TaoHoaDon1KhoaHoc(model.MaND, 0, "", "Chưa chọn", model.MaKhoaHoc.Value);
+                result = db_payment.TaoHoaDon1KhoaHoc(model.MaND, 0, "", model.HinhThucThanhToan, model.MaKhoaHoc.Value);
             if (result == -1)
             {
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Lỗi khi tạo hóa đơn");
@@ -47,6 +47,10 @@ namespace KhoaHocAPI.Controllers
             else if (result == -3)
             {
                 return Request.CreateErrorResponse(HttpStatusCode.Conflict, "Đã mua khóa học này rồi");
+            }
+            else if (result == -4)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.Conflict, "Hãy thêm khóa học vào giỏ hàng trước khi thanh toán");
             }
             else
             {

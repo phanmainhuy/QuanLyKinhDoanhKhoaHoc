@@ -36,7 +36,11 @@ namespace KhoaHocAPI.Controllers
                 if (result == Common.AllEnum.AddCartItemResult.ThanhCong)
                     return request.CreateResponse(HttpStatusCode.OK);
                 else if (result == Common.AllEnum.AddCartItemResult.DaTonTai)
-                    return Request.CreateErrorResponse(HttpStatusCode.Conflict, "Sản phẩm này đã có trong giỏ");
+                    return Request.CreateErrorResponse(HttpStatusCode.Conflict, "Khóa học này đã có trong giỏ");
+                else if (result == Common.AllEnum.AddCartItemResult.DaMua)
+                    return Request.CreateErrorResponse(HttpStatusCode.Conflict, "Đã mua khóa học này rồi");
+                else if (result == Common.AllEnum.AddCartItemResult.DangChoDuyet)
+                    return Request.CreateErrorResponse(HttpStatusCode.Conflict, "Đơn hàng đang chờ duyệt, vui lòng chờ");
                 else
                     return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Error");
             }

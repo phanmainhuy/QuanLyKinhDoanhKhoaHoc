@@ -18,7 +18,7 @@ namespace KhoaHocAPI.Mapper
                 CourseCartVM CartVM = new CourseCartVM();
                 CartVM.CourseCartID = gh.MaGioHang;
                 CartVM.UserID = gh.MaND.Value;
-                CartVM.TongTien = gh.TongTien.Value;
+                CartVM.TongTien = gh.TongTien == null? 0:gh.TongTien.Value;
                 CartVM.CartItems = new List<CartItemVM>();
                 foreach (var item in new CartDAO().LayDanhSachTrongGioHang(gh.MaGioHang))
                 {

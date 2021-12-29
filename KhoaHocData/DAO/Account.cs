@@ -19,7 +19,7 @@ namespace KhoaHocData.DAO
         public bool isFirstLogin(int pMaND)
         {
             var nd = db.NguoiDungs.FirstOrDefault(x => x.MaND == pMaND);
-            if (nd.HoTen == "" || nd.Email == "" || nd.SDT == "")
+            if (string.IsNullOrEmpty(nd.HoTen)|| string.IsNullOrEmpty(nd.Email)|| string.IsNullOrEmpty(nd.SDT))
                 return true;
             return false;
         }

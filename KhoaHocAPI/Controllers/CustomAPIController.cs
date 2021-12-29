@@ -252,6 +252,8 @@ namespace KhoaHocAPI.Controllers
             var result = new NguoiDungDAO().DoiMatKhau(model.UserName, model.OldPassword, model.NewPassword);
             if (result == Common.AllEnum.KetQuaTraVe.KhongTonTai)
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Tài khoản không tồn tại");
+            else if(result == Common.AllEnum.KetQuaTraVe.KhongChinhXac)
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Mật khẩu cũ không chính xác");
             else if (result == Common.AllEnum.KetQuaTraVe.ThatBai)
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Đổi mật khẩu không thành công");
             else

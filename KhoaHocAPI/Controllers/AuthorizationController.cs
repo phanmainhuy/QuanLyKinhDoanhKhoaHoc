@@ -156,7 +156,7 @@ namespace KhoaHocAPI.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.Forbidden,"Vui lòng thử lại sau");
             }
             var result = db.isFirstLogin(MaND);
-            if (result)
+            if (!result)
             {
                 return Request.CreateResponse(HttpStatusCode.OK);
             }

@@ -122,8 +122,14 @@ namespace KhoaHocData.DAO
             if (MaND == -1)
                 return -2;
             var KhuyenMai = db.KhuyenMais.SingleOrDefault(x => x.MaKM == MaKM);
+            var hoadons = db.HoaDons.Where(x => x.MaND == MaND);
             var GioHang = db.GioHangs.SingleOrDefault(x => x.MaGioHang == MaGioHang);
-
+            if (GioHang == null)
+                return -4;
+            if (GioHang.CT_GioHang.Count() == 0)
+                return -4;
+            var giohangItems = db.CT_GioHang.Where(x => x.MaGioHang == MaGioHang).ToList();
+            
             HoaDon hd = new HoaDon()
             {
                 MaKM = MaKM,
@@ -136,7 +142,6 @@ namespace KhoaHocData.DAO
                 GiamGia = KhuyenMai != null ? KhuyenMai.GiaTri.Value : 0
             };
             db.HoaDons.Add(hd);
-            var giohangItems = db.CT_GioHang.Where(x => x.MaGioHang == MaGioHang).ToList();
             if (GioHang.TrangThai == AllEnum.TrangThaiGioHang.DaTaoHoaDon.ToString())
                 return -3;
             GioHang.TrangThai = AllEnum.TrangThaiGioHang.DaTaoHoaDon.ToString();
@@ -268,8 +273,6 @@ namespace KhoaHocData.DAO
                 var km_kh = db.KhuyenMai_KhachHang.FirstOrDefault(x => x.MaND == MaKH && x.MaKM == km.MaKM);
                 if (km_kh != null)
                 {
-                    SoTienThu = SoTienThu - (double)km.GiaTri.Value > 10000 ? SoTienThu - (double)km.GiaTri.Value :
-                        10000;
                     km_kh.IsSuDung = true;
                 }
             }

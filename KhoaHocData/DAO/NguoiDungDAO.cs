@@ -98,9 +98,11 @@ namespace KhoaHocData.DAO
         public KetQuaTraVe DoiMatKhau(string pUserName, string pOldPassword, string pNewPassword)
         {
             pOldPassword = Utils.Encrypt(pOldPassword, pUserName);
-            var nd = db.NguoiDungs.SingleOrDefault(x => x.TenDN == pUserName && x.MatKhau == pOldPassword);
+            var nd = db.NguoiDungs.SingleOrDefault(x => x.TenDN == pUserName);
             if (nd == null)
                 return KetQuaTraVe.KhongTonTai;
+            if (nd.MatKhau != pOldPassword)
+                return KetQuaTraVe.KhongChinhXac;
             pNewPassword = Utils.Encrypt(pNewPassword, pUserName);
             nd.MatKhau = pNewPassword;
             try
