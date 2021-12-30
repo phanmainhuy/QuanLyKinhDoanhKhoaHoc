@@ -39,6 +39,26 @@ namespace KhoaHocAPI.Mapper
             }
             return lstReturn;
         }
+        public static OwnCourseVM MapOwnCourse(KhoaHoc kh)
+        {
+            return new OwnCourseVM()
+            {
+                MaKhoaHoc = kh.MaKhoaHoc,
+                DonGia = kh.DonGia == null? 0: kh.DonGia.Value,
+                NgayTao = kh.NgayTao == null? DateTime.MinValue: kh.NgayTao.Value,
+                SoLuongMua = kh.SoLuongMua == null? 0: kh.SoLuongMua.Value,
+                TenKhoaHoc = kh.TenKhoaHoc
+            };
+        }
+        public static IEnumerable<OwnCourseVM> MapListOwnCourse(IEnumerable<KhoaHoc> lstModel)
+        {
+            List<OwnCourseVM> lstReturn = new List<OwnCourseVM>();
+            foreach (var item in lstModel)
+            {
+                lstReturn.Add(MapOwnCourse(item));
+            }
+            return lstReturn;
+        }
         public static IEnumerable<CourseVM> MapListCourse(IEnumerable<KhoaHoc> lstKhoaHoc)
         {
             List<CourseVM> lstReturn = new List<CourseVM>();

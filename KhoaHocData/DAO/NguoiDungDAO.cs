@@ -75,9 +75,9 @@ namespace KhoaHocData.DAO
         public bool DaMuaKhoaHoc(int pMaND, int pMaKhoaHoc)
         {
             var nd = db.NguoiDungs.SingleOrDefault(x => x.MaND == pMaND);
-            if (nd.MaNhomNguoiDung != (int)AllEnum.MaNhomNguoiDung.Student)
-                return false;
             if (nd == null)
+                return false;
+            if (nd.MaNhomNguoiDung != (int)AllEnum.MaNhomNguoiDung.Student)
                 return false;
             List<HoaDon> lstHoaDon = db.HoaDons.Where(x => x.MaND == pMaND && x.ThanhToan.Value).ToList();
             if (lstHoaDon == null || lstHoaDon.Count() == 0)
@@ -119,6 +119,7 @@ namespace KhoaHocData.DAO
         public KetQuaTraVe DoiMatKhau2(string pUserName, string pNewPass, string Code)
         {
             var qmk = db.QuenMatKhaus.OrderByDescending(x=>x.STT).FirstOrDefault(x=>x.TenDN == pUserName);
+            db.QuenMatKhaus.Select(x => x.TenDN);
             if (qmk == null)
                 return KetQuaTraVe.KhongTonTai;
             if (qmk.ThoiGian < DateTime.Today)

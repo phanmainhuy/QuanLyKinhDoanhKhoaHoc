@@ -16,10 +16,12 @@ namespace KhoaHocData.DAO
             return db.KhoaHocs.Where(x => x.MaKhoaHoc == maKhoaHoc).SingleOrDefault();
         }
 
+
         public IEnumerable<KhoaHoc> LayRaToanBoKhoaHoc()
         {
             return db.KhoaHocs.OrderBy(x => x.MaKhoaHoc);
         }
+
 
         public IEnumerable<KhoaHoc> LayRaToanBoKhoaHocTheoTrang(int page, int pageSize, out int totalRow, bool isShow)
         {
@@ -279,6 +281,10 @@ namespace KhoaHocData.DAO
         public List<KhoaHoc> LayKhoaHocTheoHocVien(int pMaHV, bool isShow)
         {
             return db.KhoaHocCuaToi(pMaHV).Where(x=> x.HienThi.Value == isShow).ToList();
+        }
+        public List<KhoaHoc> LayKhoaHocTheoGiaoVien(int pMaGV)
+        {
+            return db.KhoaHocs.Where(x => x.MaGV == pMaGV).ToList();
         }
     }
 }

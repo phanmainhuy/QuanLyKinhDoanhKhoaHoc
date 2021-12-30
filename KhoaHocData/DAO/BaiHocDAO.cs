@@ -149,6 +149,13 @@ namespace KhoaHocData.DAO
             {
                 return AllEnum.KetQuaTraVe.KhongTonTai;
             }
+            if(item.IsHocThu == true)
+            {
+                var baihocthutieptheo = db.BaiHocs.Where(x => x.IsHocThu == null || x.IsHocThu == false).OrderBy(x => x.MaBaiHoc).FirstOrDefault();
+                if (baihocthutieptheo != null)
+                    baihocthutieptheo.IsHocThu = true;
+            }
+                
             if(item.BaiTaps.Count()>0)
             {
                 db.BaiTaps.RemoveRange(item.BaiTaps);
