@@ -251,6 +251,15 @@
           <Property Name="TenNhomNguoiDung" Type="nvarchar" MaxLength="50" />
           <Property Name="HinhAnh" Type="nvarchar" MaxLength="300" />
         </EntityType>
+        <EntityType Name="QuenMatKhau">
+          <Key>
+            <PropertyRef Name="STT" />
+          </Key>
+          <Property Name="STT" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code" Type="varchar" MaxLength="7" />
+          <Property Name="TenDN" Type="varchar" MaxLength="32" />
+          <Property Name="ThoiGian" Type="datetime" />
+        </EntityType>
         <EntityType Name="Quyen">
           <Key>
             <PropertyRef Name="MaQuyen" />
@@ -747,6 +756,7 @@
           <EntitySet Name="Luong" EntityType="Self.Luong" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NguoiDung" EntityType="Self.NguoiDung" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NhomNguoiDung" EntityType="Self.NhomNguoiDung" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="QuenMatKhau" EntityType="Self.QuenMatKhau" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Quyen" EntityType="Self.Quyen" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Quyen_NhomNguoiDung" EntityType="Self.Quyen_NhomNguoiDung" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SoDuTaiKhoan" EntityType="Self.SoDuTaiKhoan" Schema="dbo" store:Type="Tables" />
@@ -1652,6 +1662,7 @@
             <End Role="BaiHoc" EntitySet="BaiHocs" />
             <End Role="BaiTap" EntitySet="BaiTaps" />
           </AssociationSet>
+          <EntitySet Name="QuenMatKhaus" EntityType="QL_KHOAHOCModel.QuenMatKhau" />
           </EntityContainer>
         <ComplexType Name="SearchKhoaHoc_Result">
           <Property Type="Int32" Name="MaKhoaHoc" Nullable="false" />
@@ -1931,6 +1942,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="QuenMatKhau">
+          <Key>
+            <PropertyRef Name="STT" />
+          </Key>
+          <Property Name="STT" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="String" MaxLength="7" FixedLength="false" Unicode="false" />
+          <Property Name="TenDN" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="ThoiGian" Type="DateTime" Precision="3" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2263,6 +2283,16 @@
                 <ScalarProperty Name="TenBaiHoc" ColumnName="TenBaiHoc" />
                 <ScalarProperty Name="MaKhoaHoc" ColumnName="MaKhoaHoc" />
                 <ScalarProperty Name="MaBaiHoc" ColumnName="MaBaiHoc" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QuenMatKhaus">
+            <EntityTypeMapping TypeName="QL_KHOAHOCModel.QuenMatKhau">
+              <MappingFragment StoreEntitySet="QuenMatKhau">
+                <ScalarProperty Name="ThoiGian" ColumnName="ThoiGian" />
+                <ScalarProperty Name="TenDN" ColumnName="TenDN" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="STT" ColumnName="STT" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

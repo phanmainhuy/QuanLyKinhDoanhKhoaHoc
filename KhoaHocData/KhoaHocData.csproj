@@ -272,6 +272,7 @@
     <Compile Include="DAO\KhoaHocDAO.cs" />
     <Compile Include="DAO\KhuyenMaiDAO.cs" />
     <Compile Include="DAO\LearnDAO.cs" />
+    <Compile Include="DAO\MailServices.cs" />
     <Compile Include="DAO\MenuDAO.cs" />
     <Compile Include="DAO\NguoiDungDAO.cs" />
     <Compile Include="DAO\PaymentDAO.cs" />
@@ -364,6 +365,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>QLKhoaHocDataModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="EF\QuenMatKhau.cs">
+      <DependentUpon>QLKhoaHocDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\Quyen.cs">
       <DependentUpon>QLKhoaHocDataModel.tt</DependentUpon>

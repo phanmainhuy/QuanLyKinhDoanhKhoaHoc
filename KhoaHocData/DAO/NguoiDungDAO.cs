@@ -116,6 +116,32 @@ namespace KhoaHocData.DAO
                 return KetQuaTraVe.ThatBai;
             }
         }
+        public KetQuaTraVe DoiMatKhau2(string pUserName, string pNewPass, string Code)
+        {
+            var qmk = db.QuenMatKhaus.OrderByDescending(x=>x.STT).FirstOrDefault(x=>x.TenDN == pUserName);
+            if (qmk == null)
+                return KetQuaTraVe.KhongTonTai;
+            if (qmk.ThoiGian < DateTime.Today)
+                return KetQuaTraVe.KhongHopLe;
+            if (qmk.Code == Code)
+            {
+                var nd = db.NguoiDungs.FirstOrDefault(x => x.TenDN == pUserName);
+                pNewPass = Utils.Encrypt(pNewPass, pUserName);
+                nd.MatKhau = pNewPass;
+                try
+                {
+                    db.SaveChanges();
+                    return KetQuaTraVe.ThanhCong;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    return KetQuaTraVe.ThatBai;
+                }
+            }
+            else
+                return KetQuaTraVe.KhongChinhXac;
+        }
         //public bool CoQuyenChinhSua(int pMaND, int pMaQuyen)
         public KetQuaTraVe ThayDoiThongTinNguoiDung(int pUserID, string pUserName, int pMaNhomNguoiDung, string pName, string pCMND, string HinhAnh,
             string Number, string Email, DateTime DoB, string pAddress, decimal Luong, string GioiTinh)
@@ -269,6 +295,40 @@ namespace KhoaHocData.DAO
             catch (Exception ex)
             {
 
+                Console.WriteLine(ex.Message);
+                return KetQuaTraVe.ThatBai;
+            }
+        }
+        public async Task<KetQuaTraVe> QuenMatKhau(string userName, string Email)
+        {
+            var nd = db.NguoiDungs.FirstOrDefault(x => x.TenDN.Trim().ToLower() == userName.Trim().ToLower());
+            if (nd == null)
+                return KetQuaTraVe.KhongTonTai;
+            if (nd.Email != Email)
+                return KetQuaTraVe.KhongChinhXac;
+            string random = "";
+            int length = 7;
+            Random r = new Random();
+            for (int i = 0; i < length; i++)
+            {
+                random += r.Next(9);
+            }
+            QuenMatKhau qmk = new QuenMatKhau();
+            qmk.Code = random;
+            qmk.TenDN = nd.TenDN;
+            qmk.ThoiGian = DateTime.Now.AddMinutes(15);
+            db.QuenMatKhaus.Add(qmk);
+            MailServices mail = new MailServices();
+            string TieuDe = "Xác nhận quên mật khẩu";
+            string NoiDung = "Mã siêu cấp của bạn là " + random;
+            try
+            {
+                db.SaveChanges();
+                await mail.GuiMailString(Email,TieuDe, NoiDung);
+                return KetQuaTraVe.ThanhCong;
+            }
+            catch (Exception ex)
+            {
                 Console.WriteLine(ex.Message);
                 return KetQuaTraVe.ThatBai;
             }

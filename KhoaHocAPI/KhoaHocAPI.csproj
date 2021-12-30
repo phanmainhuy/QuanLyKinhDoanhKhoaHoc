@@ -243,6 +243,7 @@
     <Compile Include="Models\DanhMucVM.cs" />
     <Compile Include="Models\HoaDonVM.cs" />
     <Compile Include="Models\PermissionGroupVM.cs" />
+    <Compile Include="Models\QuenMatKhauVM.cs" />
     <Compile Include="Models\QuyenVM.cs" />
     <Compile Include="Models\RatingVM.cs" />
     <Compile Include="Models\SalaryHistoryItemVM.cs" />

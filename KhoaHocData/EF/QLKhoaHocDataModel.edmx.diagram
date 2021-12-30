@@ -65,6 +65,7 @@
         <AssociationConnector Association="QL_KHOAHOCModel.FK_BaiHoc_Chuong" />
         <AssociationConnector Association="QL_KHOAHOCModel.FK_BaiHoc_KhoaHoc" />
         <AssociationConnector Association="QL_KHOAHOCModel.FK_BaiTap_BaiHoc" />
+        <EntityTypeShape EntityType="QL_KHOAHOCModel.QuenMatKhau" Width="1.5" PointX="5.25" PointY="27.5" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -5,12 +5,9 @@ using System.Web;
 
 namespace KhoaHocAPI.Models
 {
-    public class DoiMatKhauVM
+    public class QuenMatKhauVM
     {
         public string UserName { get; set; }
-        public string OldPassword { get; set; }
-        public string NewPassword { get; set; }
-        public string Code { get; set; }
-
+        public string Email { get; set; }
     }
 }

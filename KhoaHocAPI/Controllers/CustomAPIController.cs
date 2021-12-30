@@ -17,10 +17,11 @@ namespace KhoaHocAPI.Controllers
     public class CustomAPIController : ApiController
     {
         private UserGroupDAO db_UserGroup;
-
+        NguoiDungDAO db_NguoiDung;
         public CustomAPIController()
         {
             db_UserGroup = new UserGroupDAO();
+            db_NguoiDung = new NguoiDungDAO();
         }
 
         [System.Web.Http.Route("NhomNguoiDung")]
@@ -260,6 +261,34 @@ namespace KhoaHocAPI.Controllers
                 return Request.CreateResponse(HttpStatusCode.OK);
 
         }
-        
+        [HttpPost]
+        [Route("api/nguoidung/doimatkhau2")]
+        public HttpResponseMessage PostDoiMatKhauKhongMatKhau(DoiMatKhauVM model)
+        {
+            var result = new NguoiDungDAO().DoiMatKhau2(model.UserName, model.NewPassword, model.Code);
+            if (result == Common.AllEnum.KetQuaTraVe.KhongTonTai)
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Tài khoản không tồn tại");
+            else if (result == Common.AllEnum.KetQuaTraVe.KhongHopLe)
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Mã siêu cấp đã hết hạn");
+            else if (result == Common.AllEnum.KetQuaTraVe.KhongChinhXac)
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Mã siêu cấp không chính xác");
+            else if (result == Common.AllEnum.KetQuaTraVe.ThatBai)
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Đổi mật khẩu không thành công");
+            else
+                return Request.CreateResponse(HttpStatusCode.OK);
+        }
+        [HttpPost]
+        [Route("api/nguoidung/quenmatkhau")]
+        public async Task<HttpResponseMessage> QuenMatKhau(QuenMatKhauVM model)
+        {
+            var result = await db_NguoiDung.QuenMatKhau(model.UserName, model.Email);
+            if (result == Common.AllEnum.KetQuaTraVe.KhongTonTai)
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Tên đăng nhập không tồn tại");
+            if (result == Common.AllEnum.KetQuaTraVe.KhongChinhXac)
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Email không chính xác");
+            if (result == Common.AllEnum.KetQuaTraVe.ThatBai)
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Hệ thống bận, hãy thử lại lúc khác");
+            return Request.CreateResponse(HttpStatusCode.OK);
+        }
     }
 }
