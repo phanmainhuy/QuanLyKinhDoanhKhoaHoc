@@ -57,12 +57,18 @@ namespace KhoaHocData.DAO
                                             string HinhAnh, string SDT, string Email, DateTime NgaySinh, 
                                             string DiaChi, decimal Luong)
         {
+            if (db.NguoiDungs.Any(x => x.TenDN == userName))
+                return new NguoiDung() { MaND = -1};
             NguoiDung nd = new NguoiDung()
             {
                 TenDN = userName,
                 MatKhau = userName
             };
             nd.MatKhau = Utils.Encrypt(nd.MatKhau, nd.TenDN);
+            if(db.NguoiDungs.Any(x=>x.CMND == CMND))
+                return new NguoiDung() { MaND = -2 };
+            if (db.NguoiDungs.Any(x => x.SDT == SDT))
+                return new NguoiDung() { MaND = -3 };
             Luong luong = new Luong()
             {
                 Luong1 = Luong

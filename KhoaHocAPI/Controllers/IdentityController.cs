@@ -66,8 +66,16 @@ namespace KhoaHocAPI.Controllers
                 , model.Number, model.Email, model.DoB, model.Address, model.Salary);
             if (kq != null)
             {
-                return Request.CreateResponse(HttpStatusCode.Created, Mapper.UserMapper.MapUser(kq));
+                if(kq.MaND == -1)
+                    return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Tên tài khoản đã tồn tại");
+                if (kq.MaND == -2)
+                    return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Chứng minh nhân dân đã được sử dụng");
+                if (kq.MaND == -3)
+                    return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Số điện thoại này đã được sử dụng");
+                else
+                    return Request.CreateResponse(HttpStatusCode.Created, Mapper.UserMapper.MapUser(kq));
             }
+
             return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Không thành công");
         }
     }

@@ -47,6 +47,13 @@ namespace KhoaHocData.DAO
             var lstKhoaHoc = db.KhoaHocs.ToList();
             var nd = db.NguoiDungs.FirstOrDefault(x => x.MaND == hd.MaND);
             lstKhoaHoc = lstKhoaHoc.Where(x => CTHD.Any(y => y.MaKhoaHoc == x.MaKhoaHoc)).ToList();
+            lstKhoaHoc.ForEach(x =>
+            {
+                if (x.SoLuongMua == null)
+                    x.SoLuongMua = 1;
+                else
+                    x.SoLuongMua++;
+            });
             try
             {
                 db.SaveChanges();

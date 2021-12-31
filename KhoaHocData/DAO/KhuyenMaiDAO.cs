@@ -81,7 +81,6 @@ namespace KhoaHocData.DAO
                 return AllEnum.KetQuaTraVe.DaTonTai;
             if (!string.IsNullOrEmpty(pHinhAnh))
             {
-                pHinhAnh = "";
                 km.HinhAnh = pHinhAnh;
             }
             if (string.IsNullOrEmpty(pHinhAnh))
@@ -175,7 +174,7 @@ namespace KhoaHocData.DAO
         public decimal ApDungKhuyenMai(int pMaND, string pMaApDung)
         {
             var mkm = db.KhuyenMais.FirstOrDefault(x => x.MaApDung == pMaApDung);
-            if (db.KhuyenMai_KhachHang.Any(x => x.MaND == pMaND && mkm.MaKM == x.MaKM && (x.IsSuDung == null || !x.IsSuDung.Value)))
+            if (db.KhuyenMai_KhachHang.Any(x => x.MaND == pMaND && mkm.MaKM == x.MaKM && (x.IsSuDung == null || x.IsSuDung == false) && DateTime.Today < x.NgayKetThuc))
                 return mkm.GiaTri == null? 0:mkm.GiaTri.Value;
             return -1;
         }

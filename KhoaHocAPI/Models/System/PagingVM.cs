@@ -7,7 +7,7 @@ namespace KhoaHocAPI.Models
 {
     public class PagingVM
     {
-        const int maxPageSize = 20;
+        const int maxPageSize = 50;
 
         public int page { get; set; } = 1;
 

@@ -117,6 +117,16 @@ namespace KhoaHocData.OnlineParty
                 HoaDon order = db.HoaDons.SingleOrDefault(x => x.MaHD == orderId); //get from DB
                                                                                    //0: Cho thanh toan,1: da thanh toan,2: GD loi
                                                                                    //Kiem tra tinh trang Order
+                var cthds = order.CT_HoaDon.ToList();
+                var lstKhoaHoc = db.KhoaHocs.ToList();
+                lstKhoaHoc = lstKhoaHoc.Where(x => cthds.Any(y => y.MaKhoaHoc == x.MaKhoaHoc)).ToList();
+                lstKhoaHoc.ForEach(x =>
+                {
+                    if (x.SoLuongMua == null)
+                        x.SoLuongMua = 1;
+                    else
+                        x.SoLuongMua++;
+                });
                 if (order != null)
                 {
                     var km = db.KhuyenMais.FirstOrDefault(x => x.MaKM == order.MaKM);
