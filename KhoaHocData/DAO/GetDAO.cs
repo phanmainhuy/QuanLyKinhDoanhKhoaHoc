@@ -62,7 +62,10 @@ namespace KhoaHocData.DAO
         }
         public string GetHinhAnhNguoiDung(int pMaND)
         {
-            return db.NguoiDungs.SingleOrDefault(x => x.MaND == pMaND).HinhAnh;
+            var nd = db.NguoiDungs.SingleOrDefault(x => x.MaND == pMaND);
+            if (nd.HinhAnh == null)
+                return "userdefault.png";
+            return nd.HinhAnh;
         }
         public decimal GetDanhGiaKhoaHoc(int pMaKhoaHoc)
         {
