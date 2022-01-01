@@ -43,7 +43,7 @@ namespace KhoaHocAPI.Mapper
                 GroupID = nd.MaNhomNguoiDung.Value,
                 GroupName = new UserGroupDAO().LayNhomTheoMa(nd.MaNhomNguoiDung.Value).TenNhomNguoiDung,
                 Number = nd.SDT == null? "" : nd.SDT,
-                Status = nd.TrangThai != null ? nd.TrangThai.Value : false,
+                Status = nd.TrangThai != null ? nd.TrangThai.Value : true,
                 HinhAnh = nd.HinhAnh == null? "userdefault.png": nd.HinhAnh,
                 DiemTichLuy = diem,
                 CMND = nd.CMND == null? "": nd.CMND,

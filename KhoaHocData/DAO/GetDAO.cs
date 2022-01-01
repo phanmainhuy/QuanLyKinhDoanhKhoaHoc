@@ -43,6 +43,15 @@ namespace KhoaHocData.DAO
                 return null;
             return db.KhuyenMais.FirstOrDefault(x => x.MaKM == pMaKm);
         }
+        public int LayTongKhoaHocCuaDanhMuc(int pMaDM)
+        {
+            var dm = db.DanhMucKhoaHocs.FirstOrDefault(x => x.MaDanhMuc == pMaDM);
+            if (dm == null)
+                return 0;
+            var lstTheLoai = db.LoaiKhoaHocs.Where(x => x.MaDanhMuc == dm.MaDanhMuc);
+            var khoahoc = db.KhoaHocs.Where(x => lstTheLoai.Any(y => x.MaLoai == y.MaLoai)).ToList();
+            return khoahoc.Count();
+        }
         public string GetTenNguoiDung(int pMaND)
         {
             return db.NguoiDungs.SingleOrDefault(x => x.MaND == pMaND).HoTen;

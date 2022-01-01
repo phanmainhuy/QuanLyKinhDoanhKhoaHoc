@@ -33,13 +33,15 @@ namespace KhoaHocAPI.Mapper
         }
         public static DanhMucVM MapTopCategory(DanhMucKhoaHoc dm)
         {
+            int SoKhoaHoc = new GetDAO().LayTongKhoaHocCuaDanhMuc(dm.MaDanhMuc);
             return new DanhMucVM()
             {
                 MaDanhMuc = dm.MaDanhMuc,
                 DanhSachTheLoai = MapListCategory(dm.LoaiKhoaHocs).ToList(),
                 TenDanhMuc = dm.TenDanhMuc,
                 HinhAnh = dm.HinhAnh == null ? "" : dm.HinhAnh,
-                HienThi = dm.HienThi == null ? false : dm.HienThi.Value
+                HienThi = dm.HienThi == null ? false : dm.HienThi.Value,
+                TongSoKhoaHoc = SoKhoaHoc
             };
         }
         public static IEnumerable<DanhMucVM> MapListTopCategory(IEnumerable<DanhMucKhoaHoc> lkhs)
