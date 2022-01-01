@@ -34,13 +34,17 @@ namespace KhoaHocData.DAO
         {
             Password = Utils.Encrypt(Password, userName);
             if (db.NguoiDungs.Any(x => x.TenDN.Trim().ToLower() == userName.Trim().ToLower()))
-                return null;
+                return new NguoiDung()
+                {
+                    MaND = -1
+                };
             NguoiDung nd = new NguoiDung()
             {
                 TenDN = userName,
                 MatKhau = Password
             };
             nd.MaNhomNguoiDung = (int)AllEnum.MaNhomNguoiDung.Student;
+            nd.NgayTao = DateTime.Today;
             db.NguoiDungs.Add(nd);
             try
             {
@@ -81,7 +85,9 @@ namespace KhoaHocData.DAO
             nd.Email = Email;
             nd.NgaySinh = NgaySinh;
             nd.Diachi = DiaChi;
+            nd.NgayTao = DateTime.Today;
             db.NguoiDungs.Add(nd);
+
 
             try
             {

@@ -25,11 +25,11 @@ namespace KhoaHocAPI.Mapper
                     CartItemVM CItemVM = new CartItemVM()
                     {
                         CourseID = item.MaKhoaHoc,
-                        CourseName = item.KhoaHoc.TenKhoaHoc,
+                        CourseName = item.KhoaHoc.TenKhoaHoc == null? "": item.KhoaHoc.TenKhoaHoc,
                         TeacherId = getDAODB.GetGiaoVienTheoMa(item.KhoaHoc.MaGV.Value).MaND,
                         TeacherName = getDAODB.GetGiaoVienTheoMa(item.KhoaHoc.MaGV.Value).HoTen,
-                        AfterPrice = item.KhoaHoc.DonGia.Value,
-                        OriginPrice = item.KhoaHoc.DonGia.Value,
+                        AfterPrice = item.KhoaHoc.DonGia == null ? 0 : item.KhoaHoc.DonGia.Value,
+                        OriginPrice = item.KhoaHoc.DonGia == null?0:item.KhoaHoc.DonGia.Value,
                         ImageName = item.KhoaHoc.HinhAnh,
                     };
                     CartVM.CartItems.Add(CItemVM);

@@ -104,6 +104,41 @@ namespace KhoaHocData.DAO
                 return AllEnum.KetQuaTraVe.ThatBai;
             }
         }
+        public AllEnum.KetQuaTraVe ThayDoiThongTinKhuyenMai(int pMaKM, string pTenKM, string pHinhAnh,
+            decimal pGiaTri, int DiemCanMua, int ThoiGianKeoDai)
+        {
+            KhuyenMai km = db.KhuyenMais.FirstOrDefault(x => x.MaKM == pMaKM);
+            if (km == null)
+                return AllEnum.KetQuaTraVe.KhongTonTai;
+            if (db.KhuyenMai_KhachHang.Any(x => x.MaKM == pMaKM))
+                return AllEnum.KetQuaTraVe.KhongDuocPhep;
+            if (!string.IsNullOrEmpty(pTenKM))
+                km.TenKM = pTenKM;
+            if (db.KhuyenMais.Any(x => x.MaKM != pMaKM && x.TenKM.Trim().ToLower() == pTenKM.Trim().ToLower()))
+                return AllEnum.KetQuaTraVe.DaTonTai;
+            if (!string.IsNullOrEmpty(pHinhAnh))
+            {
+                km.HinhAnh = pHinhAnh;
+            }
+            if (string.IsNullOrEmpty(pHinhAnh))
+            {
+                km.HinhAnh = "defaultcoupon.png";
+            }
+            km.Diem = DiemCanMua;
+            km.ThoiGianKeoDai = ThoiGianKeoDai == 0 ? 10 : ThoiGianKeoDai;
+            km.GiaTri = pGiaTri;
+            km.DangMoBan = false;
+            try
+            {
+                db.SaveChanges();
+                return AllEnum.KetQuaTraVe.ThanhCong;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return AllEnum.KetQuaTraVe.ThatBai;
+            }
+        }
         public AllEnum.KetQuaTraVe XoaKhuyenMai(int pMaKM)
         {
             var km = db.KhuyenMais.FirstOrDefault(x => x.MaKM == pMaKM);

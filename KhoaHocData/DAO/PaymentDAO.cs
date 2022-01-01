@@ -30,6 +30,11 @@ namespace KhoaHocData.DAO
             return db.HoaDons.SingleOrDefault(x => x.MaHD == pMaHoaDon);
         }
 
+        public DonThuTien LayDonThuTienTheoMa(int pMaHoaDon)
+        {
+            return db.DonThuTiens.SingleOrDefault(x => x.MaHD == pMaHoaDon);
+        }
+
         public async Task<AllEnum.KetQuaTraVe> XacNhanThanhToanHoaDon(int pMaHD)
         {
             var hd = db.HoaDons.SingleOrDefault(x => x.MaHD == pMaHD);
@@ -43,6 +48,13 @@ namespace KhoaHocData.DAO
             dtt.TrangThai = AllEnum.TrangThaiDonThuTien.DaThanhToan.ToString();
             hd.TrangThai = "1";
             hd.ThanhToan = true;
+            decimal TruTien = 0;
+            
+            if(hd.MaKM != null)
+            {
+                var km = db.KhuyenMais.FirstOrDefault(x => x.MaKM == hd.MaKM);
+                TruTien = km.GiaTri == null? 0:km.GiaTri.Value;
+            }
             var CTHD = hd.CT_HoaDon.ToList();
             var lstKhoaHoc = db.KhoaHocs.ToList();
             var nd = db.NguoiDungs.FirstOrDefault(x => x.MaND == hd.MaND);
@@ -57,7 +69,7 @@ namespace KhoaHocData.DAO
             try
             {
                 db.SaveChanges();
-                await GuiMailSauKhiThanhToan(dtt.Email, lstKhoaHoc, hd.MaHD, hd.TongTien.Value);
+                await GuiMailSauKhiThanhToan(dtt.Email, lstKhoaHoc, hd.MaHD, hd.TongTien.Value - TruTien);
                 return AllEnum.KetQuaTraVe.ThanhCong;
             }
             catch (Exception ex)
@@ -87,7 +99,7 @@ namespace KhoaHocData.DAO
             }
             return lstHoaDon;
         }
-
+        
         public IEnumerable<HoaDon> LayToanBoHoaDonDaDuyetPaging(int page, int pageSize, out int totalPage)
         {
             int skipSize = page * pageSize;

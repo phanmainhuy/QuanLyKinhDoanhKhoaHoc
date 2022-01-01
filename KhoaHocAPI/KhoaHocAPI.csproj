@@ -285,6 +285,7 @@
     <Content Include="Assets\images\courses\DayConThongMinh7.jpg" />
     <Content Include="Assets\images\courses\DayConThongMinh8.jpg" />
     <Content Include="Assets\images\courses\DayConThongMinh9.jpg" />
+    <Content Include="Assets\images\courses\defaultCourse.png" />
     <Content Include="Assets\images\courses\DungPhim1.jpg" />
     <Content Include="Assets\images\courses\DungPhim10.jpg" />
     <Content Include="Assets\images\courses\DungPhim11.jpg" />

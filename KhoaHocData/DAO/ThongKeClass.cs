@@ -258,10 +258,10 @@ namespace KhoaHocData.DAO
                     }
                     else
                     {
-                        daily.Ngay = new DateTime(end.Year, end.Month, i);
+                        daily.Ngay = new DateTime(end.Year, end.Month, i-maxDay);
                     }
-                    daily.DoanhThu = (double)items.Where(x=>x.NgayLap == daily.Ngay).Sum(x => x.TongTien).Value;
-                    daily.SoLuongKhoaHocDaBan = items.Where(x => x.NgayLap == daily.Ngay).Sum(x => x.CT_HoaDon.Count());
+                    daily.DoanhThu = (double)items.Where(x=>x.NgayLap == daily.Ngay).Count() == 0?0: (double)items.Where(x => x.NgayLap == daily.Ngay).Sum(x=>x.TongTien).Value;
+                    daily.SoLuongKhoaHocDaBan = items.Where(x => x.NgayLap == daily.Ngay).Count() ==0?0: items.Where(x => x.NgayLap == daily.Ngay).Sum(x => x.CT_HoaDon.Count());
                     lstReturn.Add(daily);
                 }
             }

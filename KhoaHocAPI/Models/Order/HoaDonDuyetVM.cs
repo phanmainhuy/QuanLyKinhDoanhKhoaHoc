@@ -9,7 +9,10 @@ namespace KhoaHocAPI.Models
     {
         public int MaHoaDon { get; set; }
         public int MaND { get; set; }
+        public string TenND { get; set; }
         public decimal TongThanhToan { get; set; }
+        public decimal TongGiam { get; set; }
+        public int? MaGiamGia { get; set; }
         public DateTime NgayTaoHoaDon { get; set; }
         public string SDTDat { get; set; }
         public string DiaChiThuTien { get; set; }

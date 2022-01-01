@@ -48,11 +48,19 @@ namespace KhoaHocAPI.Mapper
         }
         public static HoaDonDuyetVM MapOrderToAccept(HoaDon hoadon, DonThuTien donThuTien)
         {
+            var km = new GetDAO().GetKhuyenMaiTheoMa(hoadon.MaKM);
+            decimal TienTru = 0;
+            if (km != null)
+                TienTru = km.GiaTri == null? 0: km.GiaTri.Value;
+            var nd = new GetDAO().GetTenNguoiDung(hoadon.MaND.Value);
             return new HoaDonDuyetVM()
             {
                 MaND = hoadon.MaND.Value,
+                TenND = nd,
+                MaGiamGia = hoadon.MaKM,
                 DanhSachKhoaHoc = MapListPaymentItem(hoadon.CT_HoaDon.ToList()).ToList(),
-                TongThanhToan = hoadon.TongTien.Value,
+                TongThanhToan = hoadon.TongTien.Value - TienTru,
+                TongGiam = TienTru,
                 MaHoaDon = hoadon.MaHD,
                 TrangThai = hoadon.ThanhToan.Value ? true : false,
                 DiaChiThuTien = donThuTien == null ? "": donThuTien.DiaChiThu,

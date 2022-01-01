@@ -20,13 +20,10 @@ namespace KhoaHocAPI.Controllers
         public HttpResponseMessage Get(HttpRequestMessage request, int? pUserID)
         {
             if (pUserID == null || pUserID < 0)
-                return new HttpResponseMessage(HttpStatusCode.NotFound);
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Không tìm thấy thông tin người dùng");
             var item = db.LayGioHangTheoUserID(pUserID.Value);
             CourseCartVM returnedCart = CartMapper.MapCourseCart(item);
-            if (returnedCart == null)
-                return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Error");
-            else
-                return request.CreateResponse(HttpStatusCode.OK, (returnedCart));
+            return request.CreateResponse(HttpStatusCode.OK, (returnedCart));
         }
         public HttpResponseMessage Post(HttpRequestMessage request,[FromBody] CartItemVM model)
         {

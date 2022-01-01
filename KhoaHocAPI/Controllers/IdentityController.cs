@@ -20,6 +20,8 @@ namespace KhoaHocAPI.Controllers
             var kq = new Account().Login(model.UserName, model.Password);
             if (kq != null)
             {
+                if (kq.TrangThai == false)
+                    return Request.CreateErrorResponse(HttpStatusCode.Forbidden, "Tài khoản đã bị khóa");
                 return request.CreateResponse(HttpStatusCode.OK, Mapper.UserMapper.MapUserLogon(kq));
             }
             return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Tài khoản hoặc mật khẩu không chính xác");
@@ -54,6 +56,10 @@ namespace KhoaHocAPI.Controllers
             var kq = new Account().Register(model.UserName, model.Password);
             if (kq != null)
             {
+                if(kq.MaND == -1)
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.Conflict, "Tên đăng nhập đã tồn tại");
+                }
                 return Request.CreateResponse(HttpStatusCode.OK, Mapper.UserMapper.MapUserLogon(kq));
             }
             return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Tài khoản hoặc mật khẩu không chính xác");

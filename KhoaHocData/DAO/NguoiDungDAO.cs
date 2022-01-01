@@ -60,12 +60,16 @@ namespace KhoaHocData.DAO
         {
             return db.NguoiDungs.Where(x => x.MaNhomNguoiDung == (int)MaNhomNguoiDung.Student);
         }
-        public IEnumerable<NguoiDung> LayDanhSachHocVienPaging(int pPage, int pPageSize, out int pTotalPage)
+        public IEnumerable<NguoiDung> LayDanhSachHocVienPaging(int pPage, int pPageSize, out int pTotalPage, string searchString)
         {
-            int SkipCount = pPage * pPageSize;
-            List<NguoiDung> lstNguoiDung = db.NguoiDungs.Where(x => x.MaNhomNguoiDung == (int)MaNhomNguoiDung.Student).ToList();
+            int SkipCount = pPageSize * (pPage - 1);
+            List<NguoiDung> lstNguoiDung = new List<NguoiDung>();
+            if (!string.IsNullOrEmpty(searchString) )
+                lstNguoiDung = db.NguoiDungs.Where(x => x.MaNhomNguoiDung == (int)MaNhomNguoiDung.Student && x.HoTen.Contains(searchString)).ToList();
+            else
+                lstNguoiDung = db.NguoiDungs.Where(x => x.MaNhomNguoiDung == (int)MaNhomNguoiDung.Student).ToList();
             pTotalPage = lstNguoiDung.Count();
-            return lstNguoiDung.Skip(pTotalPage);
+            return lstNguoiDung.Skip(SkipCount).Take(pPageSize);
         }
         public IEnumerable<NguoiDung> LayDanhSachTheoMaNhom(int pMaNhomNguoiDung)
         {

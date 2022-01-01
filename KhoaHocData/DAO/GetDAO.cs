@@ -37,6 +37,12 @@ namespace KhoaHocData.DAO
             else
                 return item;
         }
+        public KhuyenMai GetKhuyenMaiTheoMa(int? pMaKm)
+        {
+            if (pMaKm == null)
+                return null;
+            return db.KhuyenMais.FirstOrDefault(x => x.MaKM == pMaKm);
+        }
         public string GetTenNguoiDung(int pMaND)
         {
             return db.NguoiDungs.SingleOrDefault(x => x.MaND == pMaND).HoTen;

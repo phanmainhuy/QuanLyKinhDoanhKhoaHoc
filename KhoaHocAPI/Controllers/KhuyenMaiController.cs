@@ -65,10 +65,28 @@ namespace KhoaHocAPI.Controllers
                 model.GiaTri, model.DiemCanMua, model.ThoiGianKeoDai);
             if (result == Common.AllEnum.KetQuaTraVe.DaTonTai)
             {
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Tên khóa học không được trùng");
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Tên khuyến mãi không được trùng");
             }
             else if (result == Common.AllEnum.KetQuaTraVe.ThatBai)
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Tạo khóa học thất bại");
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Tạo khuyến mãi thất bại");
+            else
+                return Request.CreateResponse(HttpStatusCode.Created);
+        }
+        [HttpPut]
+        [Route("api/KhuyenMai/SuaKhuyenMai")]
+        public HttpResponseMessage SuaKhuyenMai(int MaKM, [FromBody]KhuyenMaiVM model)
+        {
+            var result = db_km.ThayDoiThongTinKhuyenMai(MaKM, model.TenKM, model.HinhAnh,
+                model.GiaTri, model.DiemCanMua, model.ThoiGianKeoDai);
+            if (result == Common.AllEnum.KetQuaTraVe.DaTonTai)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Tên khuyến mãi không được trùng");
+            }
+            else if(result == Common.AllEnum.KetQuaTraVe.KhongDuocPhep)
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Khuyến mãi đã được mua," +
+                    " hãy ngừng bán khuyến mãi và chờ tới khi khách hàng sử dụng rồi thử lại");
+            else if (result == Common.AllEnum.KetQuaTraVe.ThatBai)
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Thay đổi thông tin khuyến mãi thất bại");
             else
                 return Request.CreateResponse(HttpStatusCode.Created);
         }

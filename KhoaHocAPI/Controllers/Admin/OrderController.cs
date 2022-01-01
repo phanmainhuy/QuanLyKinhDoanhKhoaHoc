@@ -47,6 +47,22 @@ namespace KhoaHocAPI.Controllers.Admin
             }
         }
         [HttpGet]
+        [Route("api/Order/ChuaThanhToan")]
+        public HttpResponseMessage GetHoaDon(int MaHD)
+        {
+            var result = db_Payment.LayHoaDonTheoMa(MaHD);
+            var result2 = db_Payment.LayDonThuTienTheoMa(MaHD);
+
+            if (result != null)
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, Mapper.PaymentMapper.MapOrderToAccept(result, result2));
+            }
+            else
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Không có hóa đơn này");
+            }
+        }
+        [HttpGet]
         [Route("api/Order/DaThanhToan")]
         public HttpResponseMessage GetDaThanhToan([FromUri] PagingVM model)
         {
