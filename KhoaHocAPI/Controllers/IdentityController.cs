@@ -40,9 +40,9 @@ namespace KhoaHocAPI.Controllers
         }
 
         [HttpGet]
-        public HttpResponseMessage SignUpStudentMobile(string userName, string password)
+        public async Task<HttpResponseMessage> SignUpStudentMobile(string userName, string password)
         {
-            var kq = new Account().Register(userName, password);
+            var kq = await new Account().Register(userName, password);
             if (kq != null)
             {
                 return Request.CreateResponse(HttpStatusCode.OK, Mapper.UserMapper.MapUserLogon(kq));
@@ -51,9 +51,9 @@ namespace KhoaHocAPI.Controllers
         }
         [HttpPost]
         [Route("api/Identity/student")]
-        public HttpResponseMessage SignUpStudent(UserLogin model)
+        public async Task<HttpResponseMessage> SignUpStudent(UserLogin model)
         {
-            var kq = new Account().Register(model.UserName, model.Password);
+            var kq = await new Account().Register(model.UserName, model.Password);
             if (kq != null)
             {
                 if(kq.MaND == -1)

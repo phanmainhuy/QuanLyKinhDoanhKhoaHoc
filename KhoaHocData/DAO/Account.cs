@@ -30,7 +30,7 @@ namespace KhoaHocData.DAO
             return db.NguoiDungs.SingleOrDefault(x => x.TenDN == username && string.Equals(x.MatKhau.Trim(), password.Trim()));
         }
 
-        public NguoiDung Register(string userName, string Password)
+        public async Task<NguoiDung> Register(string userName, string Password)
         {
             Password = Utils.Encrypt(Password, userName);
             if (db.NguoiDungs.Any(x => x.TenDN.Trim().ToLower() == userName.Trim().ToLower()))
@@ -43,12 +43,17 @@ namespace KhoaHocData.DAO
                 TenDN = userName,
                 MatKhau = Password
             };
+            
+            GioHang gh = new GioHang();
             nd.MaNhomNguoiDung = (int)AllEnum.MaNhomNguoiDung.Student;
             nd.NgayTao = DateTime.Today;
             db.NguoiDungs.Add(nd);
             try
             {
-                db.SaveChanges();
+                await db.SaveChangesAsync();
+                gh.MaND = nd.MaND;
+                db.GioHangs.Add(gh);
+                await db.SaveChangesAsync();
                 return nd;
             }
             catch (Exception ex)
