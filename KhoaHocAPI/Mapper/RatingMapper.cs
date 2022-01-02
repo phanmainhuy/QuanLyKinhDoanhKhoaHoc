@@ -14,16 +14,18 @@ namespace KhoaHocAPI.Mapper
        static GetDAO db = new GetDAO();
         public static async Task<RatingVM> MapRating(DanhGiaKhoaHoc danhgia)
         {
+            var tennd = await db.GetTenNguoiDung(danhgia.MaND);
+            var tenkh = await db.GetTenKhoaHoc(danhgia.MaKhoaHoc);
             return new RatingVM()
             {
                 MaKhoaHoc = danhgia.MaKhoaHoc,
                 MaND = danhgia.MaND,
-                TenND = await db.GetTenNguoiDung(danhgia.MaND),
+                TenND = tennd,
                 TongDiem = db.GetDanhGiaKhoaHoc(danhgia.MaKhoaHoc),
                 Diem = danhgia.Diem == null?0:danhgia.Diem.Value,
                 HinhAnh = db.GetHinhAnhNguoiDung(danhgia.MaND),
                 NoiDung = danhgia.NoiDung,
-                TenKhoaHoc = await  db.GetTenKhoaHoc(danhgia.MaKhoaHoc),
+                TenKhoaHoc = tenkh,
                 NgayDanhGia = danhgia.NgayDanhGia,
                 MaDanhGia = danhgia.MaDanhGia
             };
