@@ -16,7 +16,7 @@ namespace KhoaHocAPI.Controllers.Admin
     {
         PaymentDAO db_Payment = new PaymentDAO();
         [HttpGet]
-        public HttpResponseMessage Get([FromUri]PagingVM model)
+        public async Task<HttpResponseMessage> Get([FromUri]PagingVM model)
         {
             int total;
             var result = db_Payment.LayToanBoHoaDonPaging(model.page, model.pageSize, out total);
@@ -27,12 +27,12 @@ namespace KhoaHocAPI.Controllers.Admin
             }
             else
             {
-                return Request.CreateResponse(HttpStatusCode.OK, Mapper.PaymentMapper.MapListOrderToAccept(result));
+                return Request.CreateResponse(HttpStatusCode.OK,await  Mapper.PaymentMapper.MapListOrderToAccept(result));
             }
         }
         [HttpGet]
         [Route("api/Order/ChuaThanhToan")]
-        public HttpResponseMessage GetChuaThanhToan([FromUri] PagingVM model)
+        public async Task<HttpResponseMessage> GetChuaThanhToan([FromUri] PagingVM model)
         {
             int total;
             var result = db_Payment.LayToanBoHoaDonChoDuyetPaging(model.page, model.pageSize, out total);
@@ -43,7 +43,7 @@ namespace KhoaHocAPI.Controllers.Admin
             }
             else
             {
-                return Request.CreateResponse(HttpStatusCode.OK, Mapper.PaymentMapper.MapListOrderToAccept(result));
+                return Request.CreateResponse(HttpStatusCode.OK, await Mapper.PaymentMapper.MapListOrderToAccept(result));
             }
         }
         [HttpGet]
@@ -64,7 +64,7 @@ namespace KhoaHocAPI.Controllers.Admin
         }
         [HttpGet]
         [Route("api/Order/DaThanhToan")]
-        public HttpResponseMessage GetDaThanhToan([FromUri] PagingVM model)
+        public async Task<HttpResponseMessage> GetDaThanhToan([FromUri] PagingVM model)
         {
             int total;
             var result = db_Payment.LayToanBoHoaDonDaDuyetPaging(model.page, model.pageSize, out total);
@@ -75,7 +75,7 @@ namespace KhoaHocAPI.Controllers.Admin
             }
             else
             {
-                return Request.CreateResponse(HttpStatusCode.OK, Mapper.PaymentMapper.MapListOrderToAccept(result));
+                return Request.CreateResponse(HttpStatusCode.OK, await Mapper.PaymentMapper.MapListOrderToAccept(result));
             }
         }
         public HttpResponseMessage Get(int MaHD)

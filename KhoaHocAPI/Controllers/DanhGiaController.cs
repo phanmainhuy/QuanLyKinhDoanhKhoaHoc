@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
@@ -14,7 +15,7 @@ namespace KhoaHocAPI.Controllers
     public class DanhGiaController : ApiController
     {
         DanhGiaDAO db = new DanhGiaDAO();
-        public HttpResponseMessage GetById(int MaKhoaHoc)
+        public async Task<HttpResponseMessage> GetById(int MaKhoaHoc)
         {
             var result = db.LayDanhGiaKhoaHocTheoMaKhoaHoc(MaKhoaHoc);
             if (result == null)
@@ -27,10 +28,10 @@ namespace KhoaHocAPI.Controllers
             }
             else
             {
-                return Request.CreateResponse(HttpStatusCode.OK, Mapper.RatingMapper.MapListRating(result));
+                return Request.CreateResponse(HttpStatusCode.OK, await Mapper.RatingMapper.MapListRating(result));
             }
         }
-        public HttpResponseMessage GetById2(int MaND, int MaKhoaHoc)
+        public async Task<HttpResponseMessage> GetById2(int MaND, int MaKhoaHoc)
         {
             var result = db.LayDanhGiaDaDanhGia(MaND, MaKhoaHoc);
             if (result == null)
@@ -39,10 +40,10 @@ namespace KhoaHocAPI.Controllers
             }
             else
             {
-                return Request.CreateResponse(HttpStatusCode.OK, Mapper.RatingMapper.MapRating(result));
+                return Request.CreateResponse(HttpStatusCode.OK, await Mapper.RatingMapper.MapRating(result));
             }
         }
-        public HttpResponseMessage PostDanhGia(RatingVM model)
+        public async Task<HttpResponseMessage> PostDanhGia(RatingVM model)
         {
             var result = db.ThemMoiDanhGia(model.MaND, model.MaKhoaHoc, model.NoiDung, model.Diem);
             
@@ -66,7 +67,7 @@ namespace KhoaHocAPI.Controllers
             else
             {
                 var newModel = db.LayDanhGiaDaDanhGia(model.MaND, model.MaKhoaHoc);
-                return Request.CreateResponse(HttpStatusCode.Created, Mapper.RatingMapper.MapRating(newModel));
+                return Request.CreateResponse(HttpStatusCode.Created, await Mapper.RatingMapper.MapRating(newModel));
             }
         }
         [HttpPut]

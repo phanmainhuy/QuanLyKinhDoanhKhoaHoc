@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using static Common.AllEnum;
@@ -17,7 +18,7 @@ namespace KhoaHocAPI.Controllers.Admin
     {
         ThongKeClass db_ThongKe = new ThongKeClass();
         PaymentDAO db_Payment = new PaymentDAO();
-        public HttpResponseMessage Get([FromUri] bool isThanhToan,
+        public  HttpResponseMessage Get([FromUri] bool isThanhToan,
                                         [FromUri] int? MaND,
                                         [FromUri] DateTime? NgayBatDau,
                                         [FromUri] DateTime? NgayKetThuc,
@@ -38,7 +39,7 @@ namespace KhoaHocAPI.Controllers.Admin
                 return response;
             }
         }
-        public HttpResponseMessage Get([FromUri] DateTime? start,
+        public async Task<HttpResponseMessage> Get([FromUri] DateTime? start,
                                         [FromUri] DateTime? end)
         {
             var result = db_Payment.LayToanBoHoaDonDieuKien(start, end);
@@ -48,7 +49,7 @@ namespace KhoaHocAPI.Controllers.Admin
             }
             else
             {
-                return Request.CreateResponse(HttpStatusCode.OK, Mapper.PaymentMapper.MapListSimpleOrder(result));
+                return Request.CreateResponse(HttpStatusCode.OK, await Mapper.PaymentMapper.MapListSimpleOrder(result));
             }
         }
         [HttpGet]

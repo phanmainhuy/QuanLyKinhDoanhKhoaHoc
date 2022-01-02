@@ -69,7 +69,7 @@ namespace KhoaHocData.DAO
             try
             {
                 db.SaveChanges();
-                await GuiMailSauKhiThanhToan(dtt.Email, lstKhoaHoc, hd.MaHD, hd.TongTien.Value - TruTien);
+                await GuiMailSauKhiThanhToan(dtt.Email, lstKhoaHoc, hd.MaHD, hd.TongTien.Value - TruTien <= 0? 1 : hd.TongTien.Value - TruTien);
                 return AllEnum.KetQuaTraVe.ThanhCong;
             }
             catch (Exception ex)

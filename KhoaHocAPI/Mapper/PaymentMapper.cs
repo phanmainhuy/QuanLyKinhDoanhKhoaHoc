@@ -4,6 +4,7 @@ using KhoaHocData.EF;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace KhoaHocAPI.Mapper
 {
@@ -46,13 +47,13 @@ namespace KhoaHocAPI.Mapper
                 TrangThai = hoaDon.ThanhToan.Value?true:false
             };
         }
-        public static HoaDonDuyetVM MapOrderToAccept(HoaDon hoadon, DonThuTien donThuTien)
+        public static async Task<HoaDonDuyetVM> MapOrderToAccept(HoaDon hoadon, DonThuTien donThuTien)
         {
             var km = new GetDAO().GetKhuyenMaiTheoMa(hoadon.MaKM);
             decimal TienTru = 0;
             if (km != null)
                 TienTru = km.GiaTri == null? 0: km.GiaTri.Value;
-            var nd = new GetDAO().GetTenNguoiDung(hoadon.MaND.Value);
+            var nd = await new GetDAO().GetTenNguoiDung(hoadon.MaND.Value);
             return new HoaDonDuyetVM()
             {
                 MaND = hoadon.MaND.Value,
@@ -68,7 +69,7 @@ namespace KhoaHocAPI.Mapper
                 SDTDat = donThuTien.SDTThu == null ? "": donThuTien.SDTThu
             };
         }
-        public static List<HoaDonDuyetVM> MapListOrderToAccept(IEnumerable<HoaDon> lstHoaDon)
+        public static async Task<List<HoaDonDuyetVM>> MapListOrderToAccept(IEnumerable<HoaDon> lstHoaDon)
         {
             List<HoaDonDuyetVM> lstReturn = new List<HoaDonDuyetVM>();
             foreach (var item in lstHoaDon.ToList())
@@ -76,7 +77,7 @@ namespace KhoaHocAPI.Mapper
                 var donThuTien = new GetDAO().GetDonThuTienTheoMaHoaDon(item.MaHD);
                 if (donThuTien == null)
                     continue;
-                lstReturn.Add(MapOrderToAccept(item, donThuTien));
+                lstReturn.Add(await MapOrderToAccept(item, donThuTien));
             }
             return lstReturn;
         }
@@ -99,7 +100,7 @@ namespace KhoaHocAPI.Mapper
             }
             return lstReturn;
         }
-        public static SimpleHoaDonVM MapSimpleOrder(HoaDon hoaDon)
+        public static async Task<SimpleHoaDonVM> MapSimpleOrder(HoaDon hoaDon)
         {
             return new SimpleHoaDonVM()
             {
@@ -109,15 +110,15 @@ namespace KhoaHocAPI.Mapper
                 MaHoaDon = hoaDon.MaHD,
                 TrangThai = hoaDon.TrangThai,
                 NgayTaoHoaDon = hoaDon.NgayLap.Value,
-                TenND = new GetDAO().GetTenNguoiDung(hoaDon.MaND.Value)
+                TenND = await new GetDAO().GetTenNguoiDung(hoaDon.MaND.Value)
             };
         }
-        public static List<SimpleHoaDonVM> MapListSimpleOrder(IEnumerable<HoaDon> lstHoaDon)
+        public static async Task<List<SimpleHoaDonVM>> MapListSimpleOrder(IEnumerable<HoaDon> lstHoaDon)
         {
             List<SimpleHoaDonVM> lstReturn = new List<SimpleHoaDonVM>();
             foreach (var item in lstHoaDon)
             {
-                lstReturn.Add(MapSimpleOrder(item));
+                lstReturn.Add(await MapSimpleOrder(item));
             }
             return lstReturn;
 

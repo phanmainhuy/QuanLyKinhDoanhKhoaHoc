@@ -239,7 +239,7 @@ namespace KhoaHocAPI.Controllers
                     }
                     if (hpf.ContentLength > 0)
                     {
-                        var filename = (Path.GetFileName(hpf.FileName));
+                        var filename = "video_" + new GetDAO().GetTongBaiTap() + ".mp4";
                         var filePath = HttpContext.Current.Server.MapPath("~/Assets/video/" + filename);
                         hpf.SaveAs(filePath);
                     }
