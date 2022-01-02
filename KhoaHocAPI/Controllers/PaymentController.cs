@@ -33,9 +33,9 @@ namespace KhoaHocAPI.Controllers
         {
             int result = -1;
             if (model.MaKhoaHoc == null)
-                result = db_payment.AddHoaDon(model.MaND, 0, "", model.HinhThucThanhToan, model.MaGioHang);
+                result = db_payment.AddHoaDon(model.MaND, model.MaApDung, "", model.HinhThucThanhToan, model.MaGioHang);
             else
-                result = db_payment.TaoHoaDon1KhoaHoc(model.MaND, 0, "", model.HinhThucThanhToan, model.MaKhoaHoc.Value);
+                result = db_payment.TaoHoaDon1KhoaHoc(model.MaND, model.MaApDung, "", model.HinhThucThanhToan, model.MaKhoaHoc.Value);
             if (result == -1)
             {
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Lỗi khi tạo hóa đơn");

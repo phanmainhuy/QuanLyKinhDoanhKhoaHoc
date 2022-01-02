@@ -136,11 +136,11 @@ namespace KhoaHocData.DAO
         //    db.CT_HoaDon.AddRange(lstChiTietHoaDon);
         //    return SaveAll();
         //}
-        public int AddHoaDon(int MaND, int MaKM, string TrangThai, string HinhThucThanhToan, int MaGioHang, bool? isBlock = false)
+        public int AddHoaDon(int MaND, string MaKM, string TrangThai, string HinhThucThanhToan, int MaGioHang, bool? isBlock = false)
         {
             if (MaND == -1)
                 return -2;
-            var KhuyenMai = db.KhuyenMais.SingleOrDefault(x => x.MaKM == MaKM);
+            var KhuyenMai = db.KhuyenMais.SingleOrDefault(x => x.MaApDung == MaKM);
             var hoadons = db.HoaDons.Where(x => x.MaND == MaND);
             var GioHang = db.GioHangs.SingleOrDefault(x => x.MaGioHang == MaGioHang);
             if (GioHang == null)
@@ -151,7 +151,7 @@ namespace KhoaHocData.DAO
             
             HoaDon hd = new HoaDon()
             {
-                MaKM = MaKM,
+                MaKM = KhuyenMai?.MaKM,
                 HinhThucThanhToan = HinhThucThanhToan,
                 MaND = MaND,
                 NgayLap = DateTime.Now.Date,
@@ -202,19 +202,19 @@ namespace KhoaHocData.DAO
             return SaveAll();
         }
 
-        public int TaoHoaDon1KhoaHoc(int MaND, int MaKM, string TrangThai, string HinhThucThanhToan, int MaKH)
+        public int TaoHoaDon1KhoaHoc(int MaND, string MaKM, string TrangThai, string HinhThucThanhToan, int MaKH)
         {
             if (MaND == -1)
                 return -2;
             if (db.KhoaHocCuaToi(MaND).Any(x => x.MaKhoaHoc == MaKH))
                 return -3;
-            var KhuyenMai = db.KhuyenMais.SingleOrDefault(x => x.MaKM == MaKM);
+            var KhuyenMai = db.KhuyenMais.SingleOrDefault(x => x.MaApDung == MaKM);
             var KhoaHoc = db.KhoaHocs.SingleOrDefault(x => x.MaKhoaHoc == MaKH);
             if (KhoaHoc == null)
                 return -1;
             HoaDon hd = new HoaDon()
             {
-                MaKM = MaKM,
+                MaKM = KhuyenMai?.MaKM,
                 HinhThucThanhToan = HinhThucThanhToan,
                 MaND = MaND,
                 NgayLap = DateTime.Now.Date,

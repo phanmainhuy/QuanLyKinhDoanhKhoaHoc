@@ -60,7 +60,7 @@ namespace KhoaHocAPI.Mapper
                 TenND = nd,
                 MaGiamGia = hoadon.MaKM,
                 DanhSachKhoaHoc = MapListPaymentItem(hoadon.CT_HoaDon.ToList()).ToList(),
-                TongThanhToan = hoadon.TongTien.Value - TienTru,
+                TongThanhToan = hoadon.TongTien.Value - TienTru < 0? 0: hoadon.TongTien.Value - TienTru,
                 TongGiam = TienTru,
                 MaHoaDon = hoadon.MaHD,
                 TrangThai = hoadon.ThanhToan.Value ? true : false,

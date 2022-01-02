@@ -115,13 +115,11 @@ namespace KhoaHocData.DAO
             int skipSize = (page-1) * pageSize;
             if (string.IsNullOrEmpty(pSearchString))
             {
-                var result = db.KhoaHocs.Where(x => x.HienThi.Value == isShow).OrderByDescending(x => x.MaKhoaHoc).ToList();
+                var result = db.KhoaHocs.OrderByDescending(x => x.MaKhoaHoc).ToList();
                 total = result.Count();
-
-
                 return result.Skip(skipSize).Take(pageSize).ToList();
             }
-            var item = db.SearchKhoaHoc(pSearchString).Where(x => x.HienThi.Value == isShow).OrderByDescending(x => x.MaKhoaHoc).ToList();
+            var item = db.SearchKhoaHoc(pSearchString).OrderByDescending(x => x.MaKhoaHoc).ToList();
             total = item.Count();
             return item.Skip(skipSize).Take(pageSize).ToList();
         }

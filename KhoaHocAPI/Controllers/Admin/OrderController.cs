@@ -48,14 +48,14 @@ namespace KhoaHocAPI.Controllers.Admin
         }
         [HttpGet]
         [Route("api/Order/ChuaThanhToan")]
-        public HttpResponseMessage GetHoaDon(int MaHD)
+        public async Task<HttpResponseMessage> GetHoaDon(int MaHD)
         {
             var result = db_Payment.LayHoaDonTheoMa(MaHD);
             var result2 = db_Payment.LayDonThuTienTheoMa(MaHD);
 
             if (result != null)
             {
-                return Request.CreateResponse(HttpStatusCode.OK, Mapper.PaymentMapper.MapOrderToAccept(result, result2));
+                return Request.CreateResponse(HttpStatusCode.OK, await Mapper.PaymentMapper.MapOrderToAccept(result, result2));
             }
             else
             {

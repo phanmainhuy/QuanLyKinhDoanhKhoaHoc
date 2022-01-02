@@ -18,6 +18,7 @@ namespace KhoaHocAPI.Models
         public int MaGioHang { get; set; }
         public int? MaKhoaHoc { get; set; }
         public List<PaymentItemVM> DanhSachHangHoa { get; set; }
+        public string MaApDung { get; set; }
 
     }
 }
