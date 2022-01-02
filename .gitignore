@@ -364,3 +364,6 @@ FodyWeavers.xsd
 /KhoaHocAPI/App_Data
 /KhoaHocAPI/Assets/video
 /KhoaHocAPI/Assets/images/sales
+/KhoaHocAPI/Assets/images/courses
+/KhoaHocAPI/Assets/images/carousel
+/KhoaHocAPI/Assets/images/users

@@ -73,15 +73,17 @@ namespace KhoaHocData.DAO
             int SoLuongDanhGia = 0;
             try
             {
-                TongDanhGia = db.DanhGiaKhoaHocs.Where(x => x.MaKhoaHoc == pMaKhoaHoc).Sum(x => x.Diem).Value;
-                SoLuongDanhGia = db.DanhGiaKhoaHocs.Where(x => x.MaKhoaHoc == pMaKhoaHoc).Count();
-
+                TongDanhGia = db.DanhGiaKhoaHocs.Where(x => x.MaKhoaHoc == pMaKhoaHoc).ToList().Count() == 0? 
+                    0: db.DanhGiaKhoaHocs.Where(x => x.MaKhoaHoc == pMaKhoaHoc).Sum(x => x.Diem).Value;
+                SoLuongDanhGia = db.DanhGiaKhoaHocs.Where(x => x.MaKhoaHoc == pMaKhoaHoc).ToList().Count();
             }
             catch(Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 return 0;
             }
+            if (SoLuongDanhGia == 0)
+                return 0;
             return (decimal)TongDanhGia / SoLuongDanhGia;
         }
         public DonThuTien GetDonThuTienTheoMaHoaDon(int pMaHoaDon)

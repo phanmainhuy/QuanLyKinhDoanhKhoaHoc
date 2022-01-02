@@ -153,6 +153,7 @@ namespace KhoaHocAPI.Controllers
 
                         List<string> AllowedFileExtensions = new List<string> { ".jpg", ".gif", ".png" };
                         var ext = postedFile.FileName.Substring(postedFile.FileName.LastIndexOf('.'));
+                        var name = Path.GetFileNameWithoutExtension(ImageName);
                         var extension = ext.ToLower();
                         if (!AllowedFileExtensions.Contains(extension))
                         {
@@ -168,13 +169,18 @@ namespace KhoaHocAPI.Controllers
                         else
                         {
                             var filePath = HttpContext.Current.Server.MapPath("~/Assets/images/" + path + "/" + ImageName);
+                            if (File.Exists(filePath))
+                            {
+                                Random r = new Random(999999999);
+                                ImageName = name;
+                                ImageName += ImageName + r.Next().ToString() + ext;
+                                filePath = HttpContext.Current.Server.MapPath("~/Assets/images/" + path + "/" + ImageName);
+                            }
                             //Userimage myfolder name where i want to save my image
                             postedFile.SaveAs(filePath);
                         }
                     }
-
-                    var message1 = string.Format("Image Updated Successfully.");
-                    return Request.CreateErrorResponse(HttpStatusCode.Created, message1); ;
+                    return Request.CreateResponse(HttpStatusCode.Created, ImageName);
                 }
                 var res = string.Format("Please Upload a image.");
                 return Request.CreateResponse(HttpStatusCode.NotFound, res);
