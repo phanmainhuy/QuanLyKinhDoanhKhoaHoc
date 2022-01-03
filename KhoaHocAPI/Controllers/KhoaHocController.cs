@@ -120,6 +120,8 @@ namespace KhoaHocAPI.Controllers
                 return Request.CreateResponse(HttpStatusCode.OK);
             else if (resust == Common.AllEnum.KetQuaTraVe.ChaKhongTonTai)
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Vui lòng kiểm tra lại dữ liệu");
+            else if (resust == Common.AllEnum.KetQuaTraVe.DaTonTai)
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Tên khóa học bị trùng, hãy nhập tên khác");
             return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Thay đổi thông tin khóa học không thành công");
         }
         [HttpPatch]

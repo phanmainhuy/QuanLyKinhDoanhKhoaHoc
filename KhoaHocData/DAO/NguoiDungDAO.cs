@@ -48,7 +48,7 @@ namespace KhoaHocData.DAO
         }
         public IEnumerable<NguoiDung> LayHetHeThong()
         {
-            return db.NguoiDungs.Where(x => x.MaNhomNguoiDung != (int)MaNhomNguoiDung.Student && (!x.DaXoa.Value || x.DaXoa == null)).OrderBy(x => x.MaNhomNguoiDung);
+            return db.NguoiDungs.Where(x=>x.DaXoa == null || x.DaXoa == false).Where(x => x.MaNhomNguoiDung != (int)MaNhomNguoiDung.Student && (!x.DaXoa.Value || x.DaXoa == null)).OrderBy(x => x.MaNhomNguoiDung);
         }
         public IEnumerable<NguoiDung> LayNguoiDungPaging(int pPage, int pPageSize, out int pTotalPage)
         {
@@ -58,22 +58,22 @@ namespace KhoaHocData.DAO
         }
         public IEnumerable<NguoiDung> LayDanhSachHocVien()
         {
-            return db.NguoiDungs.Where(x => x.MaNhomNguoiDung == (int)MaNhomNguoiDung.Student);
+            return db.NguoiDungs.Where(x => x.DaXoa == null || x.DaXoa == false).Where(x => x.MaNhomNguoiDung == (int)MaNhomNguoiDung.Student);
         }
         public IEnumerable<NguoiDung> LayDanhSachHocVienPaging(int pPage, int pPageSize, out int pTotalPage, string searchString)
         {
             int SkipCount = pPageSize * (pPage - 1);
             List<NguoiDung> lstNguoiDung = new List<NguoiDung>();
             if (!string.IsNullOrEmpty(searchString) )
-                lstNguoiDung = db.NguoiDungs.Where(x => x.MaNhomNguoiDung == (int)MaNhomNguoiDung.Student && x.HoTen.Contains(searchString)).ToList();
+                lstNguoiDung = db.NguoiDungs.Where(x => x.DaXoa == null || x.DaXoa == false).Where(x => x.MaNhomNguoiDung == (int)MaNhomNguoiDung.Student && x.HoTen.Contains(searchString)).ToList();
             else
-                lstNguoiDung = db.NguoiDungs.Where(x => x.MaNhomNguoiDung == (int)MaNhomNguoiDung.Student).ToList();
+                lstNguoiDung = db.NguoiDungs.Where(x => x.DaXoa == null || x.DaXoa == false).Where(x => x.MaNhomNguoiDung == (int)MaNhomNguoiDung.Student).ToList();
             pTotalPage = lstNguoiDung.Count();
             return lstNguoiDung.Skip(SkipCount).Take(pPageSize);
         }
         public IEnumerable<NguoiDung> LayDanhSachTheoMaNhom(int pMaNhomNguoiDung)
         {
-            return db.NguoiDungs.Where(x => x.MaNhomNguoiDung == pMaNhomNguoiDung && (!x.DaXoa.Value || x.DaXoa == null));
+            return db.NguoiDungs.Where(x => x.DaXoa == null || x.DaXoa == false).Where(x => x.MaNhomNguoiDung == pMaNhomNguoiDung && (!x.DaXoa.Value || x.DaXoa == null));
         }
         
         public bool DaMuaKhoaHoc(int pMaND, int pMaKhoaHoc)
@@ -160,15 +160,24 @@ namespace KhoaHocData.DAO
             var nd = db.NguoiDungs.Where(x => x.MaND == pUserID).SingleOrDefault();
             var luong = db.Luongs.FirstOrDefault(x => x.MaND == pUserID);
             if(!string.IsNullOrEmpty(Email))
-                if (db.NguoiDungs.Any(x => x.MaND != pUserID && x.Email == Email))
+            {
+                if (db.NguoiDungs.Any(x => x.MaND != pUserID && x.Email == Email && (x.DaXoa == null || x.DaXoa == false)))
+                {
                     return KetQuaTraVe.DuLieuDaTonTai1;
+                }
+            }
             if(!string.IsNullOrEmpty(Number))
-                if (db.NguoiDungs.Any(x => x.MaND != pUserID && x.SDT == Number))
+            {
+                if (db.NguoiDungs.Any(x => x.MaND != pUserID && x.SDT == Number && (x.DaXoa == null || x.DaXoa == false)))
                     return KetQuaTraVe.DuLieuDaTonTai2;
+            }
             if(!string.IsNullOrEmpty(pCMND))
-               if(db.NguoiDungs.Any(x => x.MaND != pUserID && x.CMND.Trim() == pCMND.Trim() ))
+            {
+               if(db.NguoiDungs.Any(x => x.MaND != pUserID && x.CMND.Trim() == pCMND.Trim() && (x.DaXoa == null || x.DaXoa == false)))
                     return KetQuaTraVe.DuLieuDaTonTai3;
-            if (db.NguoiDungs.Any(x => x.MaND != pUserID && x.TenDN.Trim().ToLower() == pUserName.Trim().ToLower()))
+            }
+            if (db.NguoiDungs.Any(x => x.MaND != pUserID && x.TenDN.Trim().ToLower() == pUserName.Trim().ToLower()
+                              && (x.DaXoa == null || x.DaXoa == false)))
                 return KetQuaTraVe.DaTonTai;
             if (luong == null)
             {
@@ -188,7 +197,6 @@ namespace KhoaHocData.DAO
                 return KetQuaTraVe.KhongTonTai;
             if (nd.MaNhomNguoiDung != pMaNhomNguoiDung)
                 nd.MaNhomNguoiDung = pMaNhomNguoiDung;
-            
             if (nd.HoTen != pName && !string.IsNullOrEmpty(pName))
                 nd.HoTen = pName;
             if (nd.CMND != pCMND && !string.IsNullOrEmpty(pCMND))
@@ -268,6 +276,8 @@ namespace KhoaHocData.DAO
             if (nd.DaXoa != null)
                 if(nd.DaXoa.Value)
                     return KetQuaTraVe.ThanhCong;
+            if (nd.MaNhomNguoiDung == (int)AllEnum.MaNhomNguoiDung.Admin)
+                return KetQuaTraVe.KhongDuocPhep;
             nd.DaXoa = true;
             try
             {
@@ -288,8 +298,7 @@ namespace KhoaHocData.DAO
             int i = 0;
             foreach(var item in lstND)
             {
-                if (item.MaNhomNguoiDung == (int)AllEnum.MaNhomNguoiDung.Admin ||
-                    item.MaNhomNguoiDung == (int)AllEnum.MaNhomNguoiDung.Student)
+                if (item.MaNhomNguoiDung == (int)AllEnum.MaNhomNguoiDung.Admin)
                     continue;
                 if (lstMaND.Contains(item.MaND))
                 {

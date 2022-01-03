@@ -27,7 +27,13 @@ namespace KhoaHocData.DAO
         public NguoiDung Login(string username, string password)
         {
             password = Utils.Encrypt(password, username);
-            return db.NguoiDungs.SingleOrDefault(x => x.TenDN == username && string.Equals(x.MatKhau.Trim(), password.Trim()));
+            var nd = db.NguoiDungs.SingleOrDefault(x => x.TenDN == username && string.Equals(x.MatKhau.Trim(), password.Trim()));
+            if (nd != null)
+            {
+                if (nd.DaXoa == true)
+                    return null;
+            }
+            return nd;
         }
 
         public async Task<NguoiDung> Register(string userName, string Password)

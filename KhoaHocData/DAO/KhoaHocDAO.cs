@@ -48,6 +48,8 @@ namespace KhoaHocData.DAO
                 else
                     return KetQuaTraVe.ChaKhongTonTai;
             }
+            if (db.KhoaHocs.SingleOrDefault(x => x.MaLoai != pMaLoai && x.TenKhoaHoc.ToLower() == pTenKhoaHoc.Trim().ToLower()) != null)
+                return KetQuaTraVe.DaTonTai;
             if (pTenKhoaHoc != null)
                 kh.TenKhoaHoc = pTenKhoaHoc;
             if (pDonGia != null)
@@ -229,8 +231,9 @@ namespace KhoaHocData.DAO
         {
             if (!db.LoaiKhoaHocs.Any(x => x.MaLoai == pMaLoai))
                 return KetQuaTraVeKhoaHoc.TheLoaiKhongTonTai;
-            if (db.KhoaHocs.SingleOrDefault(x => x.TenKhoaHoc.ToLower() == pTenKhoaHoc.Trim().ToLower()) != null)
+            if (db.KhoaHocs.SingleOrDefault(x => x.MaLoai != pMaLoai && x.TenKhoaHoc.ToLower() == pTenKhoaHoc.Trim().ToLower()) != null)
                 return KetQuaTraVeKhoaHoc.DaTonTai;
+
             db.KhoaHocs.Add(new KhoaHoc()
             {
                 MaLoai = pMaLoai,

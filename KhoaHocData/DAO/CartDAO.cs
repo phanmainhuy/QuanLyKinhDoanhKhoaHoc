@@ -57,6 +57,9 @@ namespace KhoaHocData.DAO
         }
         public AddCartItemResult AddCartItem(int pMaND, int pMaKhoaHoc, decimal pDonGia)
         {
+            var nd = db.NguoiDungs.FirstOrDefault(x => x.MaND == pMaND);
+            if (nd.DaXoa == true)
+                return AddCartItemResult.NguoiDungKhongTonTai;
             int AddCartResult = AddCart(pMaND);
             if (AddCartResult != -1)
             {
@@ -133,6 +136,13 @@ namespace KhoaHocData.DAO
         }
         public GioHang LayGioHangTheoUserID(int pUserId)
         {
+            var nd = db.NguoiDungs.FirstOrDefault(x => x.MaND == pUserId);
+            if (nd != null)
+            {
+                if (nd.DaXoa == true)
+                    return null;
+            }
+            
             return db.GioHangs.Where(x=>x.TrangThai != AllEnum.TrangThaiGioHang.DaTaoHoaDon.ToString())
                 .SingleOrDefault(x => x.MaND == pUserId);
         }

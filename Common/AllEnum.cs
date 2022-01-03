@@ -54,7 +54,7 @@
         public enum AddCartItemResult
         {
             ThanhCong, ThemGioHangThatbai, ThatBai, DaTonTai, DangChoDuyet,
-            DaMua
+            DaMua, NguoiDungKhongTonTai
         }
         public enum SortingType
         {

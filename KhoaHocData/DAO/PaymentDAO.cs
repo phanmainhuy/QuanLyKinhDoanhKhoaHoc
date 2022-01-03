@@ -140,6 +140,12 @@ namespace KhoaHocData.DAO
         {
             if (MaND == -1)
                 return -2;
+            var nd = db.NguoiDungs.FirstOrDefault(x => x.MaND == MaND);
+            if (nd != null)
+            {
+                if (nd.DaXoa == true)
+                    return -2;
+            }
             var KhuyenMai = db.KhuyenMais.SingleOrDefault(x => x.MaApDung == MaKM);
             var hoadons = db.HoaDons.Where(x => x.MaND == MaND);
             var GioHang = db.GioHangs.SingleOrDefault(x => x.MaGioHang == MaGioHang);
@@ -206,6 +212,12 @@ namespace KhoaHocData.DAO
         {
             if (MaND == -1)
                 return -2;
+            var nd = db.NguoiDungs.FirstOrDefault(x => x.MaND == MaND);
+            if(nd != null)
+            {
+                if (nd.DaXoa == true)
+                    return -2;
+            }
             if (db.KhoaHocCuaToi(MaND).Any(x => x.MaKhoaHoc == MaKH))
                 return -3;
             var KhuyenMai = db.KhuyenMais.SingleOrDefault(x => x.MaApDung == MaKM);
@@ -284,6 +296,7 @@ namespace KhoaHocData.DAO
             string SDTThu, string DonViThuHo, double SoTienThu, double PhiThuHo,
             DateTime? NgayDuKienThu, string GhiChu, string MaApDung = null)
         {
+
             if (db.DonThuTiens.Any(x => x.MaHD == MaHD))
                 return AllEnum.KetQuaTraVe.DaTonTai;
             var km = db.KhuyenMais.FirstOrDefault(x => x.MaApDung == MaApDung);
