@@ -165,8 +165,9 @@ namespace KhoaHocData.DAO
             if(string.IsNullOrEmpty(nd.SDT))
                 if (db.NguoiDungs.Any(x => x.MaND != pUserID && x.SDT == Number))
                     return KetQuaTraVe.DuLieuDaTonTai2;
-            if(db.NguoiDungs.Any(x => x.MaND != pUserID && x.CMND.Trim() == pCMND.Trim()))
-                return KetQuaTraVe.DuLieuDaTonTai3;
+            if(!string.IsNullOrEmpty(pCMND))
+               if(db.NguoiDungs.Any(x => x.MaND != pUserID && x.CMND.Trim() == pCMND.Trim() ))
+                    return KetQuaTraVe.DuLieuDaTonTai3;
             if (db.NguoiDungs.Any(x => x.MaND != pUserID && x.TenDN.Trim().ToLower() == pUserName.Trim().ToLower()))
                 return KetQuaTraVe.DaTonTai;
             if (luong == null)
@@ -188,19 +189,19 @@ namespace KhoaHocData.DAO
             if (nd.MaNhomNguoiDung != pMaNhomNguoiDung)
                 nd.MaNhomNguoiDung = pMaNhomNguoiDung;
             
-            if (nd.HoTen != pName)
+            if (nd.HoTen != pName && !string.IsNullOrEmpty(pName))
                 nd.HoTen = pName;
-            if (nd.CMND != pCMND)
+            if (nd.CMND != pCMND && !string.IsNullOrEmpty(pCMND))
                 nd.CMND = pCMND;
-            if (nd.SDT != Number)
+            if (nd.SDT != Number && !string.IsNullOrEmpty(Number))
                 nd.SDT = Number;
-            if (nd.HinhAnh != HinhAnh)
+            if (nd.HinhAnh != HinhAnh && !string.IsNullOrEmpty(HinhAnh))
                 nd.HinhAnh = HinhAnh;
-            if (nd.Email != Email)
+            if (nd.Email != Email && !string.IsNullOrEmpty(Email))
                 nd.Email = Email;
             if (nd.NgaySinh != DoB)
                 nd.NgaySinh = DoB;
-            if (nd.Diachi != pAddress)
+            if (nd.Diachi != pAddress && !string.IsNullOrEmpty(pAddress))
                 nd.Diachi = pAddress;
             if (GioiTinh != (-1).ToString())
                 if (nd.GioiTinh != GioiTinh)
