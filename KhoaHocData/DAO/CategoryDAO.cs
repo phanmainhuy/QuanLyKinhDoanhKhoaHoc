@@ -62,6 +62,8 @@ namespace KhoaHocData.DAO
             var dm = db.DanhMucKhoaHocs.SingleOrDefault(x => x.MaDanhMuc == pMaDanhMuc);
             if (dm == null)
                 return AllEnum.KetQuaTraVe.KhongTonTai;
+            if (db.DanhMucKhoaHocs.Any(x => x.MaDanhMuc != pMaDanhMuc && x.TenDanhMuc.Trim().ToLower() == pTenDanhMuc.Trim().ToLower()))
+                return KetQuaTraVe.DaTonTai;
             if (dm.TenDanhMuc == pTenDanhMuc && dm.HinhAnh == pHinhAnh)
                 return AllEnum.KetQuaTraVe.ThanhCong;
             dm.TenDanhMuc = pTenDanhMuc;

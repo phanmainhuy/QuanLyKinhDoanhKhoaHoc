@@ -38,6 +38,10 @@ namespace KhoaHocAPI.Controllers
             {
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Danh mục không tồn tại");
             }
+            else if (result == Common.AllEnum.KetQuaTraVe.DaTonTai)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Tên danh mục bị trùng, hãy đổi tên khác");
+            }
             else if (result == Common.AllEnum.KetQuaTraVe.ThatBai)
             {
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Thay đổi thông tin danh mục thành công");

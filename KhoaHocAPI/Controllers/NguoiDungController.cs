@@ -75,6 +75,10 @@ namespace KhoaHocAPI.Controllers
             {
                 return Request.CreateErrorResponse(System.Net.HttpStatusCode.BadRequest, "Người dùng không tồn tại");
             }
+            else if (result == Common.AllEnum.KetQuaTraVe.DaTonTai)
+            {
+                return Request.CreateErrorResponse(System.Net.HttpStatusCode.BadRequest, "Tên đăng nhập bị trùng với nhân viên khác, hay đổi lại");
+            }
             else if(result == Common.AllEnum.KetQuaTraVe.DuLieuDaTonTai1)
             {
                 return Request.CreateErrorResponse(System.Net.HttpStatusCode.BadRequest, "Email đã tồn tại");
@@ -82,6 +86,10 @@ namespace KhoaHocAPI.Controllers
             else if(result == Common.AllEnum.KetQuaTraVe.DuLieuDaTonTai2)
             {
                 return Request.CreateErrorResponse(System.Net.HttpStatusCode.BadRequest, "SĐT đã tồn tại");
+            }
+            else if (result == Common.AllEnum.KetQuaTraVe.DuLieuDaTonTai3)
+            {
+                return Request.CreateErrorResponse(System.Net.HttpStatusCode.BadRequest, "CMND đã tồn tại");
             }
             else if (result == Common.AllEnum.KetQuaTraVe.ThatBai)
             {
