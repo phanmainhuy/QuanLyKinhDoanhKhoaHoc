@@ -1,4 +1,5 @@
-﻿using KhoaHocAPI.Models;
+﻿using Common;
+using KhoaHocAPI.Models;
 using KhoaHocData.DAO;
 using KhoaHocData.EF;
 using System;
@@ -54,8 +55,10 @@ namespace KhoaHocAPI.Controllers
         }
         
         [System.Web.Http.HttpPut]
-        public HttpResponseMessage ThayDoiThongTinNguoiDung(UserViewModel model)
+        public HttpResponseMessage ThayDoiThongTinNguoiDung([FromUri]int MaNDUpdate,[FromBody] UserViewModel model)
         {
+            if(MaNDUpdate != (int)AllEnum.MaNhomNguoiDung.Admin && MaNDUpdate != (int)AllEnum.MaNhomNguoiDung.Student)
+                return Request.CreateErrorResponse(System.Net.HttpStatusCode.BadRequest, "Không có quyền thay đổi");
             var result = ndDAO.ThayDoiThongTinNguoiDung(
                 model.UserId,
                 model.UserName,

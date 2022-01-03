@@ -153,15 +153,12 @@ namespace KhoaHocData.DAO
         {
             var nd = db.NguoiDungs.Where(x => x.MaND == pUserID).SingleOrDefault();
             var luong = db.Luongs.FirstOrDefault(x => x.MaND == pUserID);
-            if (string.IsNullOrEmpty(nd.HoTen) || string.IsNullOrEmpty(nd.Email) || string.IsNullOrEmpty(nd.SDT))
-            {
-                if(string.IsNullOrEmpty(nd.Email))
-                    if (db.NguoiDungs.Any(x => x.MaND != pUserID && x.Email == Email))
-                        return KetQuaTraVe.DuLieuDaTonTai1;
-                if(string.IsNullOrEmpty(nd.SDT))
-                    if (db.NguoiDungs.Any(x => x.MaND != pUserID && x.SDT == Number))
-                        return KetQuaTraVe.DuLieuDaTonTai2;
-            }
+            if(string.IsNullOrEmpty(nd.Email))
+                if (db.NguoiDungs.Any(x => x.MaND != pUserID && x.Email == Email))
+                    return KetQuaTraVe.DuLieuDaTonTai1;
+            if(string.IsNullOrEmpty(nd.SDT))
+                if (db.NguoiDungs.Any(x => x.MaND != pUserID && x.SDT == Number))
+                    return KetQuaTraVe.DuLieuDaTonTai2;
             if(db.NguoiDungs.Any(x => x.MaND != pUserID && x.CMND.Trim() == pCMND.Trim()))
                 return KetQuaTraVe.DuLieuDaTonTai3;
             if (db.NguoiDungs.Any(x => x.MaND != pUserID && x.TenDN.Trim().ToLower() == pUserName.Trim().ToLower()))
