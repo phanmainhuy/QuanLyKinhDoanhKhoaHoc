@@ -41,7 +41,7 @@ namespace KhoaHocAPI.Controllers
 
         [Route("KhoaHocTheoGiaoVien")]
         [HttpGet]
-        public HttpResponseMessage GetKhoaHocTheoGiaoVien(int MaGV, bool isShow = true)
+        public async Task<HttpResponseMessage> GetKhoaHocTheoGiaoVien(int MaGV, bool isShow = true)
         {
             var result = new KhoaHocDAO().LayKhoaHocTheoMaGiaoVien(MaGV, isShow);
             if (result == null)
@@ -50,7 +50,7 @@ namespace KhoaHocAPI.Controllers
             }
             else
             {
-                return Request.CreateResponse(HttpStatusCode.OK, Mapper.CourseMapper.MapListCourse(result));
+                return Request.CreateResponse(HttpStatusCode.OK, await Mapper.CourseMapper.MapListCourse(result));
             }
         }
 

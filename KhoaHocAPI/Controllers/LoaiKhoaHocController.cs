@@ -46,7 +46,11 @@ namespace KhoaHocAPI.Controllers
             else if(result == Common.AllEnum.KetQuaTraVe.ThatBai)
             {
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Thay đổi thông tin thể loại không thành công");
-            }    
+            }
+            else if (result == Common.AllEnum.KetQuaTraVe.DaTonTai)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Tên thể loại bị trùng, hãy chọn tên khác");
+            }
             else
             {
                 return Request.CreateResponse(HttpStatusCode.OK);

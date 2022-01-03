@@ -168,6 +168,8 @@ namespace KhoaHocData.DAO
             {
                 return KetQuaTraVe.ThanhCong;
             }
+            if (db.LoaiKhoaHocs.Any(x => x.MaLoai != pMaTheLoai && x.MaDanhMuc == tl.MaDanhMuc && x.TenLoai.Trim().ToLower() == pTenTheLoai.Trim().ToLower()))
+                return KetQuaTraVe.DaTonTai;
             tl.TenLoai = pTenTheLoai;
             try
             {

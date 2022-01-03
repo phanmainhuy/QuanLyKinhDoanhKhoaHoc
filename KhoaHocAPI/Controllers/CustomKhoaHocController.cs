@@ -63,13 +63,13 @@ namespace KhoaHocAPI.Controllers
         }
 
         [Route("Search")]
-        public HttpResponseMessage GetKhoaHocTheoTenPaging([FromUri] string searchString, [FromUri] PagingVM paging, [FromUri] bool isShow = true)
+        public async Task<HttpResponseMessage> GetKhoaHocTheoTenPaging([FromUri] string searchString, [FromUri] PagingVM paging, [FromUri] bool isShow = true)
         {
             int total;
             var item = khDB.TimKiemKhoaHocPaging(searchString, out total, paging.page, paging.pageSize, isShow);
             if (item != null)
             {
-                var lstCourseVM = Mapper.CourseMapper.MapListCourse(item);
+                var lstCourseVM = await Mapper.CourseMapper.MapListCourse(item);
                 var response = Request.CreateResponse(HttpStatusCode.OK, lstCourseVM);
                 response.Content.Headers.Add("Access-Control-Expose-Headers", "pagingheader");
                 response.Content.Headers.Add("pagingheader", JsonConvert.SerializeObject(total));
@@ -79,13 +79,13 @@ namespace KhoaHocAPI.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Error");
         }
         [Route("SearchAll")]
-        public HttpResponseMessage GetAllKhoaHocTheoTenPaging([FromUri] string searchString, [FromUri] PagingVM paging)
+        public async Task<HttpResponseMessage> GetAllKhoaHocTheoTenPaging([FromUri] string searchString, [FromUri] PagingVM paging)
         {
             int total;
             var item = khDB.TimKiemTatCaKhoaHocPaging(searchString, out total, paging.page, paging.pageSize);
             if (item != null)
             {
-                var lstCourseVM = Mapper.CourseMapper.MapListCourse(item);
+                var lstCourseVM = await Mapper.CourseMapper.MapListCourse(item);
                 var response = Request.CreateResponse(HttpStatusCode.OK, lstCourseVM);
                 response.Content.Headers.Add("Access-Control-Expose-Headers", "pagingheader");
                 response.Content.Headers.Add("pagingheader", JsonConvert.SerializeObject(total));
@@ -95,13 +95,13 @@ namespace KhoaHocAPI.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Error");
         }
         [Route("Search")]
-        public HttpResponseMessage GetKhoaHocTheoTenPaging([FromUri] string searchString, [FromUri] PagingVM paging, [FromUri] int type, [FromUri] bool isShow = true)
+        public async Task<HttpResponseMessage> GetKhoaHocTheoTenPaging([FromUri] string searchString, [FromUri] PagingVM paging, [FromUri] int type, [FromUri] bool isShow = true)
         {
             int total;
             var item = khDB.TimKiemKhoaHocPagingSorting(searchString, out total, paging.page, paging.pageSize, type, isShow);
             if (item != null)
             {
-                var lstCourseVM = Mapper.CourseMapper.MapListCourse(item);
+                var lstCourseVM = await Mapper.CourseMapper.MapListCourse(item);
                 var response = Request.CreateResponse(HttpStatusCode.OK, lstCourseVM);
                 response.Content.Headers.Add("Access-Control-Expose-Headers", "pagingheader");
                 response.Content.Headers.Add("pagingheader", JsonConvert.SerializeObject(total));
@@ -111,13 +111,13 @@ namespace KhoaHocAPI.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Error");
         }
         [Route("SearchAll")]
-        public HttpResponseMessage GetAllKhoaHocTheoTenPaging([FromUri] string searchString, [FromUri] PagingVM paging, [FromUri] int type)
+        public async Task<HttpResponseMessage> GetAllKhoaHocTheoTenPaging([FromUri] string searchString, [FromUri] PagingVM paging, [FromUri] int type)
         {
             int total;
             var item = khDB.TimKiemTatCaKhoaHocPagingSorting(searchString, out total, paging.page, paging.pageSize, type);
             if (item != null)
             {
-                var lstCourseVM = Mapper.CourseMapper.MapListCourse(item);
+                var lstCourseVM = await Mapper.CourseMapper.MapListCourse(item);
                 var response = Request.CreateResponse(HttpStatusCode.OK, lstCourseVM);
                 response.Content.Headers.Add("Access-Control-Expose-Headers", "pagingheader");
                 response.Content.Headers.Add("pagingheader", JsonConvert.SerializeObject(total));
@@ -128,13 +128,13 @@ namespace KhoaHocAPI.Controllers
         }
         [Route("SearchTheoLoai")]
         [HttpGet]
-        public HttpResponseMessage SearchKhoaHocTheoMaTheLoaiPaging([FromUri] int maTheLoai, [FromUri] string searchString, [FromUri] PagingVM paging, [FromUri] bool isShow = true)
+        public async Task<HttpResponseMessage> SearchKhoaHocTheoMaTheLoaiPaging([FromUri] int maTheLoai, [FromUri] string searchString, [FromUri] PagingVM paging, [FromUri] bool isShow = true)
         {
             int total;
             var item = khDB.TimKiemKhoaHocTheoTheLoaiPaging(maTheLoai, searchString, out total, isShow, paging.page, paging.pageSize);
             if (item != null)
             {
-                var lstCourseVM = Mapper.CourseMapper.MapListCourse(item);
+                var lstCourseVM =  await Mapper.CourseMapper.MapListCourse(item);
                 var response = Request.CreateResponse(HttpStatusCode.OK, lstCourseVM);
 
                 response.Content.Headers.Add("Access-Control-Expose-Headers", "pagingheader");
@@ -146,13 +146,13 @@ namespace KhoaHocAPI.Controllers
         }
         [Route("SearchTheoLoai")]
         [HttpGet]
-        public HttpResponseMessage SearchKhoaHocTheoMaTheLoaiPaging([FromUri] int maTheLoai, [FromUri] string searchString, [FromUri] PagingVM paging, [FromUri] int type, [FromUri] bool isShow = true)
+        public async Task<HttpResponseMessage> SearchKhoaHocTheoMaTheLoaiPaging([FromUri] int maTheLoai, [FromUri] string searchString, [FromUri] PagingVM paging, [FromUri] int type, [FromUri] bool isShow = true)
         {
             int total;
             var item = khDB.TimKiemKhoaHocTheoTheLoaiPagingSorting(maTheLoai, searchString, out total, paging.page, paging.pageSize, type, isShow);
             if (item != null)
             {
-                var lstCourseVM = Mapper.CourseMapper.MapListCourse(item);
+                var lstCourseVM = await Mapper.CourseMapper.MapListCourse(item);
                 var response = Request.CreateResponse(HttpStatusCode.OK, lstCourseVM);
 
                 response.Content.Headers.Add("Access-Control-Expose-Headers", "pagingheader");

@@ -77,9 +77,9 @@ namespace KhoaHocAPI.Controllers
         }
 
         [HttpGet]
-        public HttpResponseMessage GetByParentID(int maLoai, int limit, bool isShow = true)
+        public async Task<HttpResponseMessage> GetByParentID(int maLoai, int limit, bool isShow = true)
         {
-            var items = Mapper.CourseMapper.MapListCourse(khDAO.LayRaKhoaHocTheoMaLoaiKhoaHoc(maLoai, limit, isShow));
+            var items = await Mapper.CourseMapper.MapListCourse(khDAO.LayRaKhoaHocTheoMaLoaiKhoaHoc(maLoai, limit, isShow));
             if (items != null)
             {
                 return Request.CreateResponse(HttpStatusCode.OK, items);
@@ -89,10 +89,10 @@ namespace KhoaHocAPI.Controllers
         }
 
         [HttpGet]
-        public HttpResponseMessage GetByParentIDPaging([FromUri] int maLoai, [FromUri] PagingVM paging, [FromUri] bool isShow = true)
+        public async Task<HttpResponseMessage> GetByParentIDPaging([FromUri] int maLoai, [FromUri] PagingVM paging, [FromUri] bool isShow = true)
         {
             int total;
-            var items = Mapper.CourseMapper.MapListCourse(khDAO.LayRaKhoaHocTheoMaLoaiKhoaHocPaging(maLoai, paging.page, paging.pageSize, out total, isShow));
+            var items = await Mapper.CourseMapper.MapListCourse(khDAO.LayRaKhoaHocTheoMaLoaiKhoaHocPaging(maLoai, paging.page, paging.pageSize, out total, isShow));
             if (items == null)
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "No content");
             var response = Request.CreateResponse(HttpStatusCode.OK, items);
