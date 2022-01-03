@@ -12,7 +12,7 @@ namespace KhoaHocData.OnlineParty
         public string GetPayURL(long OrderId, long Amount, string BankCode, string MaApDung = null)
         {
             var hd = db.HoaDons.FirstOrDefault(x => x.MaHD == OrderId);
-            
+
             var km = db.KhuyenMais.FirstOrDefault(x => x.MaApDung == MaApDung);
             if (km != null)
             {
@@ -142,6 +142,7 @@ namespace KhoaHocData.OnlineParty
                                 //Thanh toan thanh cong
                                 order.TrangThai = "1";
                                 order.ThanhToan = true;
+                                order.HinhThucThanhToan = "VnPay";
                             }
                             else
                             {

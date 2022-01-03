@@ -299,6 +299,7 @@ namespace KhoaHocData.DAO
 
             if (db.DonThuTiens.Any(x => x.MaHD == MaHD))
                 return AllEnum.KetQuaTraVe.DaTonTai;
+            var hd = db.HoaDons.FirstOrDefault(x => x.MaHD == MaHD);
             var km = db.KhuyenMais.FirstOrDefault(x => x.MaApDung == MaApDung);
             if (km != null)
             {
@@ -324,6 +325,7 @@ namespace KhoaHocData.DAO
                 SoTienThu = (decimal)SoTienThu,
                 TrangThai = "Process"
             });
+            hd.HinhThucThanhToan = "Offline";
             if (SaveAll())
             {
                 return AllEnum.KetQuaTraVe.ThanhCong;
