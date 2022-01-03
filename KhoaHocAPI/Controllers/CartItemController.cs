@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
@@ -17,12 +18,12 @@ namespace KhoaHocAPI.Controllers
         private readonly CartDAO db = new CartDAO();
 
 
-        public HttpResponseMessage Get(HttpRequestMessage request, int? pUserID)
+        public async Task<HttpResponseMessage> Get(HttpRequestMessage request, int? pUserID)
         {
             if (pUserID == null || pUserID < 0)
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Không tìm thấy thông tin người dùng");
             var item = db.LayGioHangTheoUserID(pUserID.Value);
-            CourseCartVM returnedCart = CartMapper.MapCourseCart(item);
+            CourseCartVM returnedCart = await CartMapper.MapCourseCart(item);
             return request.CreateResponse(HttpStatusCode.OK, (returnedCart));
         }
         public HttpResponseMessage Post(HttpRequestMessage request,[FromBody] CartItemVM model)

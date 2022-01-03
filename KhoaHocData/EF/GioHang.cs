@@ -27,6 +27,5 @@ namespace KhoaHocData.EF
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CT_GioHang> CT_GioHang { get; set; }
-        public virtual NguoiDung NguoiDung { get; set; }
     }
 }

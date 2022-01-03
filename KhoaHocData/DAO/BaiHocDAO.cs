@@ -92,7 +92,8 @@ namespace KhoaHocData.DAO
         }
         public AllEnum.KetQuaTraVe ThemBaiHoc(int pMaChuong, string pTenBaiHoc, string pVideoName)
         {
-            if (!db.Chuongs.Any(x => x.MaChuong == pMaChuong))
+            var Chuong = db.Chuongs.FirstOrDefault(x => x.MaChuong == pMaChuong);
+            if (Chuong == null)
             {
                 return AllEnum.KetQuaTraVe.ChaKhongTonTai;
             }
@@ -101,9 +102,8 @@ namespace KhoaHocData.DAO
                 return AllEnum.KetQuaTraVe.DaTonTai;
             }
             BaiHoc bh = new BaiHoc();
-            var chuong = db.Chuongs.FirstOrDefault(x => x.MaChuong == pMaChuong);
-            var chuongnhonhat = db.Chuongs.Where(x => x.MaKhoaHoc == chuong.MaKhoaHoc).OrderBy(x => x.MaChuong).FirstOrDefault();
-            if (chuong.MaChuong == chuongnhonhat.MaChuong && chuong.BaiHocs.Count() < 3)
+            bh.MaKhoaHoc = Chuong.MaKhoaHoc;
+            if (db.BaiHocs.Where(x => x.IsHocThu == true && x.MaKhoaHoc == Chuong.MaKhoaHoc).Count() < 3)
                 bh.IsHocThu = true;
             bh.MaChuong = pMaChuong;
             if (!string.IsNullOrEmpty(pTenBaiHoc))

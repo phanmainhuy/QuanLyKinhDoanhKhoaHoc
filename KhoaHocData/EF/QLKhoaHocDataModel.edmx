@@ -933,7 +933,6 @@
           <Property Name="MaGioHang" Type="Int32" Nullable="false" />
           <Property Name="MaKhoaHoc" Type="Int32" Nullable="false" />
           <Property Name="DonGia" Type="Decimal" Precision="19" Scale="4" />
-          <NavigationProperty Name="KhoaHoc" Relationship="Self.FK_CTGioHang" FromRole="CT_GioHang" ToRole="KhoaHoc" />
           <NavigationProperty Name="GioHang" Relationship="Self.FK_CTGioHang_GioHang" FromRole="CT_GioHang" ToRole="GioHang" />
         </EntityType>
         <EntityType Name="CT_HoaDon">
@@ -965,7 +964,6 @@
           <Property Name="MaND" Type="Int32" />
           <Property Name="TongTien" Type="Decimal" Precision="19" Scale="4" />
           <NavigationProperty Name="CT_GioHang" Relationship="Self.FK_CTGioHang_GioHang" FromRole="GioHang" ToRole="CT_GioHang" />
-          <NavigationProperty Name="NguoiDung" Relationship="Self.FK_DonHang_NguoiDung" FromRole="GioHang" ToRole="NguoiDung" />
           <Property Name="TrangThai" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="HoaDon">
@@ -983,7 +981,6 @@
           <Property Name="HinhThucThanhToan" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="CT_HoaDon" Relationship="Self.FK_CTHoaDon_HoaDon" FromRole="HoaDon" ToRole="CT_HoaDon" />
           <NavigationProperty Name="KhuyenMai" Relationship="Self.FK_HoaDon_KhuyenMai" FromRole="HoaDon" ToRole="KhuyenMai" />
-          <NavigationProperty Name="NguoiDung" Relationship="Self.FK_HoaDon_NguoiDung" FromRole="HoaDon" ToRole="NguoiDung" />
         </EntityType>
         <EntityType Name="KhoaHoc">
           <Key>
@@ -1000,15 +997,11 @@
           <Property Name="MOTAKHOAHOC" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="NgayTao" Type="DateTime" Precision="0" />
           <Property Name="NgayChapThuan" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="CT_GioHang" Relationship="Self.FK_CTGioHang" FromRole="KhoaHoc" ToRole="CT_GioHang" />
-          <NavigationProperty Name="CT_HoaDon" Relationship="Self.FK_CTHoaDon" FromRole="KhoaHoc" ToRole="CT_HoaDon" />
           <NavigationProperty Name="NguoiDung" Relationship="Self.FK_KHOAHOC_GIAOVIEN" FromRole="KhoaHoc" ToRole="NguoiDung" />
-          <NavigationProperty Name="LoaiKhoaHoc" Relationship="Self.FK_KhoaHoc_LoaiKhoaHoc" FromRole="KhoaHoc" ToRole="LoaiKhoaHoc" />
           <NavigationProperty Name="Chuongs" Relationship="QL_KHOAHOCModel.FK_Chuong_KhoaHoc" FromRole="KhoaHoc" ToRole="Chuong" />
           <Property Name="HienThi" Type="Boolean" />
           <Property Name="SoLuongMua" Type="Int32" />
           <NavigationProperty Name="DanhGiaKhoaHocs" Relationship="QL_KHOAHOCModel.FK_DanhGiaKhoaHoc_KhoaHoc" FromRole="KhoaHoc" ToRole="DanhGiaKhoaHoc" />
-          <NavigationProperty Name="BaiHocs" Relationship="QL_KHOAHOCModel.FK_BaiHoc_KhoaHoc" FromRole="KhoaHoc" ToRole="BaiHoc" />
         </EntityType>
         <EntityType Name="KhuyenMai">
           <Key>
@@ -1019,8 +1012,6 @@
           <Property Name="MaApDung" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="TenKM" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="HinhAnh" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="HoaDons" Relationship="Self.FK_HoaDon_KhuyenMai" FromRole="KhuyenMai" ToRole="HoaDon" />
-          <NavigationProperty Name="NguoiDung" Relationship="Self.FK_KhuyenMai_NguoiDung" FromRole="KhuyenMai" ToRole="NguoiDung" />
           <NavigationProperty Name="KhuyenMai_KhachHang" Relationship="Self.FK_KhuyenMaiKH_KhuyenMai" FromRole="KhuyenMai" ToRole="KhuyenMai_KhachHang" />
           <Property Name="GiaTri" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="ThoiGianKeoDai" Type="Int32" />
@@ -1107,12 +1098,9 @@
           <Property Name="NgaySinh" Type="DateTime" Precision="0" />
           <Property Name="Diachi" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="TrangThai" Type="Boolean" />
-          <NavigationProperty Name="DonThuTiens" Relationship="QL_KHOAHOCModel.FK_DonThuTien_MaKH" FromRole="NguoiDung" ToRole="DonThuTien" />
-          <NavigationProperty Name="DonThuTiens1" Relationship="QL_KHOAHOCModel.FK_DonThuTien_MaNVHoTro" FromRole="NguoiDung" ToRole="DonThuTien" />
           <Property Name="DaXoa" Type="Boolean" />
           <Property Name="GioiTinh" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
           <Property Name="NgayTao" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="DanhGiaKhoaHocs" Relationship="QL_KHOAHOCModel.FK_DanhGiaKhoaHoc_NguoiDung" FromRole="NguoiDung" ToRole="DanhGiaKhoaHoc" />
           </EntityType>
         <EntityType Name="NhomNguoiDung">
           <Key>
@@ -1142,8 +1130,6 @@
           <Property Name="MaQuyen" Type="Int32" Nullable="false" />
           <Property Name="MaNhomNguoiDung" Type="Int32" Nullable="false" />
           <Property Name="DuocTruyCap" Type="Boolean" />
-          <NavigationProperty Name="NhomNguoiDung" Relationship="Self.FK_Quyen_NhomNguoiDung_NhomNguoiDung" FromRole="Quyen_NhomNguoiDung" ToRole="NhomNguoiDung" />
-          <NavigationProperty Name="Quyen" Relationship="Self.FK_Quyen_NhomNguoiDung_Quyen" FromRole="Quyen_NhomNguoiDung" ToRole="Quyen" />
         </EntityType>
         <EntityType Name="SoDuTaiKhoan">
           <Key>
@@ -1750,8 +1736,6 @@
           <Property Name="NgayDuKienThu" Type="DateTime" Precision="0" />
           <Property Name="TrangThai" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="GhiChu" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="NguoiDung" Relationship="QL_KHOAHOCModel.FK_DonThuTien_MaKH" FromRole="DonThuTien" ToRole="NguoiDung" />
-          <NavigationProperty Name="NguoiDung1" Relationship="QL_KHOAHOCModel.FK_DonThuTien_MaNVHoTro" FromRole="DonThuTien" ToRole="NguoiDung" />
           <Property Name="SDTThu" Type="String" MaxLength="11" FixedLength="true" Unicode="false" />
           <Property Name="MaHD" Type="Int32" />
           <Property Name="Email" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />

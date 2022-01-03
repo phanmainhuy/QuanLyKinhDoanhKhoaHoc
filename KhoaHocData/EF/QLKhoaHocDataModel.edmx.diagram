@@ -13,7 +13,7 @@
         <EntityTypeShape EntityType="QL_KHOAHOCModel.GioHang" Width="1.5" PointX="5.25" PointY="18.625" IsExpanded="true" />
         <EntityTypeShape EntityType="QL_KHOAHOCModel.HoaDon" Width="1.5" PointX="7.5" PointY="24" IsExpanded="true" />
         <EntityTypeShape EntityType="QL_KHOAHOCModel.KhoaHoc" Width="1.5" PointX="8.25" PointY="11.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="QL_KHOAHOCModel.KhuyenMai" Width="1.5" PointX="5.25" PointY="30.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QL_KHOAHOCModel.KhuyenMai" Width="1.5" PointX="5.25" PointY="30.125" IsExpanded="true" />
         <EntityTypeShape EntityType="QL_KHOAHOCModel.KhuyenMai_KhachHang" Width="1.5" PointX="10.5" PointY="23.5" IsExpanded="true" />
         <EntityTypeShape EntityType="QL_KHOAHOCModel.LichSuLuong" Width="1.5" PointX="7.5" PointY="34" IsExpanded="true" />
         <EntityTypeShape EntityType="QL_KHOAHOCModel.LoaiKhoaHoc" Width="1.5" PointX="6" PointY="9.5" IsExpanded="true" />

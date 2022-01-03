@@ -14,14 +14,6 @@ namespace KhoaHocData.EF
     
     public partial class NguoiDung
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public NguoiDung()
-        {
-            this.DonThuTiens = new HashSet<DonThuTien>();
-            this.DonThuTiens1 = new HashSet<DonThuTien>();
-            this.DanhGiaKhoaHocs = new HashSet<DanhGiaKhoaHoc>();
-        }
-    
         public int MaND { get; set; }
         public Nullable<int> MaNhomNguoiDung { get; set; }
         public string TenDN { get; set; }
@@ -37,12 +29,5 @@ namespace KhoaHocData.EF
         public Nullable<bool> DaXoa { get; set; }
         public string GioiTinh { get; set; }
         public Nullable<System.DateTime> NgayTao { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DonThuTien> DonThuTiens { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DonThuTien> DonThuTiens1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DanhGiaKhoaHoc> DanhGiaKhoaHocs { get; set; }
     }
 }

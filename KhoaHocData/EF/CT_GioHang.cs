@@ -18,7 +18,6 @@ namespace KhoaHocData.EF
         public int MaKhoaHoc { get; set; }
         public Nullable<decimal> DonGia { get; set; }
     
-        public virtual KhoaHoc KhoaHoc { get; set; }
         public virtual GioHang GioHang { get; set; }
     }
 }

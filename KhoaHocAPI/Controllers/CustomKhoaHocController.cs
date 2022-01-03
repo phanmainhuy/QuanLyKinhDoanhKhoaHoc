@@ -3,6 +3,7 @@ using KhoaHocData.DAO;
 using Newtonsoft.Json;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
@@ -37,24 +38,24 @@ namespace KhoaHocAPI.Controllers
         }
 
         [Route("LatestCourse")]
-        public HttpResponseMessage GetLatestCourse(HttpRequestMessage request, int limit, bool isShow = true)
+        public async Task<HttpResponseMessage> GetLatestCourse(HttpRequestMessage request, int limit, bool isShow = true)
         {
             var item = khDB.LayKhoaHocMoiNhat(limit, isShow);
             if (item != null)
             {
-                var lstCourseCartVM = Mapper.CourseMapper.MapListCourse(item);
+                var lstCourseCartVM = await Mapper.CourseMapper.MapListCourse(item);
                 return request.CreateResponse(HttpStatusCode.OK, lstCourseCartVM);
             }
             return request.CreateErrorResponse(HttpStatusCode.BadRequest, "Error");
         }
 
         [Route("MostBuyCourse")]
-        public HttpResponseMessage GetMostBuyCourse(int limit, bool isShow = true)
+        public async Task<HttpResponseMessage> GetMostBuyCourse(int limit, bool isShow = true)
         {
             var item = khDB.LayKhoaHocMuaNhieu(limit, isShow);
             if (item != null)
             {
-                var lstCourseVM = Mapper.CourseMapper.MapListCourse(item);
+                var lstCourseVM = await Mapper.CourseMapper.MapListCourse(item);
                 return Request.CreateResponse(HttpStatusCode.OK, lstCourseVM);
             }
             else

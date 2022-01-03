@@ -4,6 +4,7 @@ using KhoaHocData.EF;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 
 namespace KhoaHocAPI.Mapper
@@ -59,12 +60,12 @@ namespace KhoaHocAPI.Mapper
             }
             return lstReturn;
         }
-        public static IEnumerable<CourseVM> MapListCourse(IEnumerable<KhoaHoc> lstKhoaHoc)
+        public static async Task<IEnumerable<CourseVM>> MapListCourse(IEnumerable<KhoaHoc> lstKhoaHoc)
         {
             List<CourseVM> lstReturn = new List<CourseVM>();
             foreach(var item in lstKhoaHoc)
             {
-                var course = MapCourse(item);
+                var course = await MapCourse(item);
                 lstReturn.Add(course);
             }
             return lstReturn;
@@ -79,9 +80,10 @@ namespace KhoaHocAPI.Mapper
             }
             return lstReturn;
         }
-        public static CourseVM MapCourse(KhoaHoc item)
+        public static async Task<CourseVM> MapCourse(KhoaHoc item)
         {
             GetDAO getDAODB = new GetDAO();
+            var loaiKhoaHoc = await getDAODB.LayLoaiKhoaHoc(item.MaLoai.Value);
             return new CourseVM()
             {
                 DonGia = item.DonGia.Value,
@@ -90,15 +92,15 @@ namespace KhoaHocAPI.Mapper
                 MaKhoaHoc = item.MaKhoaHoc,
                 MaLoai = item.MaLoai.Value,
                 TenKhoaHoc = item.TenKhoaHoc,
-                TenLoai = item.LoaiKhoaHoc.TenLoai,
-                TenDanhMuc = item.LoaiKhoaHoc.DanhMucKhoaHoc.TenDanhMuc,
+                TenLoai = loaiKhoaHoc.TenLoai,
+                TenDanhMuc = loaiKhoaHoc.DanhMucKhoaHoc.TenDanhMuc,
                 TrangThai = item.TrangThai.Value,
                 DanhGia = getDAODB.GetDanhGiaKhoaHoc(item.MaKhoaHoc),
                 GioiThieu = item.MOTAKHOAHOC,
                 TenGV = item.NguoiDung.HoTen,
                 NgayTao = item.NgayTao.Value,
                 NgayChapThuan = item.NgayChapThuan.Value,
-                MaDM = item.LoaiKhoaHoc.MaDanhMuc,
+                MaDM = loaiKhoaHoc.MaDanhMuc,
                 HienThi = item.HienThi == null?false: item.HienThi,
                 SoLuongMua = item.SoLuongMua == null?0:item.SoLuongMua.Value
             };

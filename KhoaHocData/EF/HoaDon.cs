@@ -33,6 +33,5 @@ namespace KhoaHocData.EF
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CT_HoaDon> CT_HoaDon { get; set; }
         public virtual KhuyenMai KhuyenMai { get; set; }
-        public virtual NguoiDung NguoiDung { get; set; }
     }
 }

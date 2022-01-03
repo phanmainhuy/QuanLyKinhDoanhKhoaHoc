@@ -64,7 +64,7 @@ namespace KhoaHocData.DAO
         }
         public async Task<NguoiDung> RegisterEmployee(  string userName, int pMaNhomNguoiDung, string HoTen, string CMND,
                                             string HinhAnh, string SDT, string Email, DateTime NgaySinh, 
-                                            string DiaChi, decimal Luong)
+                                            string DiaChi, decimal Luong, string GioiTinh)
         {
             if (db.NguoiDungs.Any(x => x.TenDN == userName))
                 return new NguoiDung() { MaND = -1};
@@ -91,6 +91,7 @@ namespace KhoaHocData.DAO
             nd.NgaySinh = NgaySinh;
             nd.Diachi = DiaChi;
             nd.NgayTao = DateTime.Today;
+            nd.GioiTinh = GioiTinh;
             db.NguoiDungs.Add(nd);
 
 

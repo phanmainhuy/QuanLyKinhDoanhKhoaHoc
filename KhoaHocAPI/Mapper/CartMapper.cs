@@ -4,13 +4,14 @@ using KhoaHocData.EF;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 
 namespace KhoaHocAPI.Mapper
 {
     public static class CartMapper
     {
-        public static CourseCartVM MapCourseCart(GioHang gh)
+        public static async Task<CourseCartVM> MapCourseCart(GioHang gh)
         {
             GetDAO getDAODB = new GetDAO();
             if (gh != null)
@@ -22,15 +23,17 @@ namespace KhoaHocAPI.Mapper
                 CartVM.CartItems = new List<CartItemVM>();
                 foreach (var item in new CartDAO().LayDanhSachTrongGioHang(gh.MaGioHang))
                 {
+                    var tenKhoaHoc = await getDAODB.GetKhoaHoc(item.MaKhoaHoc);
+
                     CartItemVM CItemVM = new CartItemVM()
                     {
                         CourseID = item.MaKhoaHoc,
-                        CourseName = item.KhoaHoc.TenKhoaHoc == null? "": item.KhoaHoc.TenKhoaHoc,
-                        TeacherId = getDAODB.GetGiaoVienTheoMa(item.KhoaHoc.MaGV.Value).MaND,
-                        TeacherName = getDAODB.GetGiaoVienTheoMa(item.KhoaHoc.MaGV.Value).HoTen,
-                        AfterPrice = item.KhoaHoc.DonGia == null ? 0 : item.KhoaHoc.DonGia.Value,
-                        OriginPrice = item.KhoaHoc.DonGia == null?0:item.KhoaHoc.DonGia.Value,
-                        ImageName = item.KhoaHoc.HinhAnh,
+                        CourseName = tenKhoaHoc.TenKhoaHoc == null? "": tenKhoaHoc.TenKhoaHoc,
+                        TeacherId = getDAODB.GetGiaoVienTheoMa(tenKhoaHoc.MaGV.Value).MaND,
+                        TeacherName = getDAODB.GetGiaoVienTheoMa(tenKhoaHoc.MaGV.Value).HoTen,
+                        AfterPrice = tenKhoaHoc.DonGia == null ? 0 : tenKhoaHoc.DonGia.Value,
+                        OriginPrice = tenKhoaHoc.DonGia == null?0: tenKhoaHoc.DonGia.Value,
+                        ImageName = tenKhoaHoc.HinhAnh,
                     };
                     CartVM.CartItems.Add(CItemVM);
                 }

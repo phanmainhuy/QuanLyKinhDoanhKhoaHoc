@@ -69,7 +69,7 @@ namespace KhoaHocAPI.Controllers
         public async Task<HttpResponseMessage> CreateEmployee(UserViewModel model)
         {
             var kq = await new Account().RegisterEmployee(model.UserName, model.GroupID, model.Name, model.CMND, model.HinhAnh
-                , model.Number, model.Email, model.DoB, model.Address, model.Salary);
+                , model.Number, model.Email, model.DoB, model.Address, model.Salary, model.Gender);
             if (kq != null)
             {
                 if(kq.MaND == -1)

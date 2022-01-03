@@ -17,8 +17,5 @@ namespace KhoaHocData.EF
         public int MaQuyen { get; set; }
         public int MaNhomNguoiDung { get; set; }
         public Nullable<bool> DuocTruyCap { get; set; }
-    
-        public virtual NhomNguoiDung NhomNguoiDung { get; set; }
-        public virtual Quyen Quyen { get; set; }
     }
 }

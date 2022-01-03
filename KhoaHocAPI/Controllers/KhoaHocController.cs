@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
@@ -28,9 +29,9 @@ namespace KhoaHocAPI.Controllers
         }
 
         [HttpGet]
-        public HttpResponseMessage Get(int maKhoa)
+        public async Task<HttpResponseMessage> Get(int maKhoa)
         {
-            var item = Mapper.CourseMapper.MapCourse(khDAO.LayKhoaHocTheoMa(maKhoa));
+            var item = await Mapper.CourseMapper.MapCourse(khDAO.LayKhoaHocTheoMa(maKhoa));
             if (item != null)
             {
                 return Request.CreateResponse(HttpStatusCode.OK, item);

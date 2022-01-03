@@ -52,6 +52,10 @@ namespace KhoaHocData.DAO
             var khoahoc = db.KhoaHocs.Where(x => lstTheLoai.Any(y => x.MaLoai == y.MaLoai)).ToList();
             return khoahoc.Count();
         }
+        public async Task<LoaiKhoaHoc> LayLoaiKhoaHoc(int pMaLoai)
+        {
+            return await db.LoaiKhoaHocs.FirstOrDefaultAsync(x => x.MaLoai == pMaLoai);
+        }
         public async Task<string> GetTenNguoiDung(int pMaND)
         {
             return (await db.NguoiDungs.SingleOrDefaultAsync(x => x.MaND == pMaND)).HoTen;
@@ -59,6 +63,10 @@ namespace KhoaHocData.DAO
         public async Task<string> GetTenKhoaHoc(int pMaKhoaHoc)
         {
             return (await db.KhoaHocs.FirstOrDefaultAsync(x=>x.MaKhoaHoc == pMaKhoaHoc)).TenKhoaHoc;
+        }
+        public async Task<KhoaHoc> GetKhoaHoc(int pMaKhoaHoc)
+        {
+            return (await db.KhoaHocs.FirstOrDefaultAsync(x => x.MaKhoaHoc == pMaKhoaHoc));
         }
         public string GetHinhAnhNguoiDung(int pMaND)
         {
