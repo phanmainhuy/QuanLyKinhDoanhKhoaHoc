@@ -57,9 +57,8 @@ namespace KhoaHocAPI.Controllers
         [System.Web.Http.HttpPut]
         public HttpResponseMessage ThayDoiThongTinNguoiDung([FromUri]int MaNDUpdate,[FromBody] UserViewModel model)
         {
-            if(MaNDUpdate != (int)AllEnum.MaNhomNguoiDung.Admin && MaNDUpdate != (int)AllEnum.MaNhomNguoiDung.Student)
-                return Request.CreateErrorResponse(System.Net.HttpStatusCode.BadRequest, "Không có quyền thay đổi");
             var result = ndDAO.ThayDoiThongTinNguoiDung(
+                MaNDUpdate,
                 model.UserId,
                 model.UserName,
                 model.GroupID,
@@ -81,6 +80,10 @@ namespace KhoaHocAPI.Controllers
             else if (result == Common.AllEnum.KetQuaTraVe.DaTonTai)
             {
                 return Request.CreateErrorResponse(System.Net.HttpStatusCode.BadRequest, "Tên đăng nhập bị trùng với nhân viên khác, hay đổi lại");
+            }
+            else if(result == AllEnum.KetQuaTraVe.KhongDuocPhep)
+            {
+                return Request.CreateErrorResponse(System.Net.HttpStatusCode.BadRequest, "Bạn không có quyền thay đổi thông tin này");
             }
             else if(result == Common.AllEnum.KetQuaTraVe.DuLieuDaTonTai1)
             {

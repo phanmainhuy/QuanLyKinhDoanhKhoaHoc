@@ -148,9 +148,15 @@ namespace KhoaHocData.DAO
                 return KetQuaTraVe.KhongChinhXac;
         }
         //public bool CoQuyenChinhSua(int pMaND, int pMaQuyen)
-        public KetQuaTraVe ThayDoiThongTinNguoiDung(int pUserID, string pUserName, int pMaNhomNguoiDung, string pName, string pCMND, string HinhAnh,
+        public KetQuaTraVe ThayDoiThongTinNguoiDung(int MaNDUpdate, int pUserID, string pUserName, int pMaNhomNguoiDung, string pName, string pCMND, string HinhAnh,
             string Number, string Email, DateTime DoB, string pAddress, decimal Luong, string GioiTinh)
         {
+            var ndUpdate = db.NguoiDungs.FirstOrDefault(x => x.MaND == MaNDUpdate);
+            if (ndUpdate.MaNhomNguoiDung != (int)AllEnum.MaNhomNguoiDung.Student)
+            {
+                if (!db.Quyen_NhomNguoiDung.Any(x => x.MaNhomNguoiDung == ndUpdate.MaNhomNguoiDung && x.MaQuyen == 0))
+                    return KetQuaTraVe.KhongDuocPhep;
+            }
             var nd = db.NguoiDungs.Where(x => x.MaND == pUserID).SingleOrDefault();
             var luong = db.Luongs.FirstOrDefault(x => x.MaND == pUserID);
             if(string.IsNullOrEmpty(nd.Email))
@@ -181,8 +187,7 @@ namespace KhoaHocData.DAO
                 return KetQuaTraVe.KhongTonTai;
             if (nd.MaNhomNguoiDung != pMaNhomNguoiDung)
                 nd.MaNhomNguoiDung = pMaNhomNguoiDung;
-            if (nd.TenDN != pUserName)
-                nd.TenDN = pUserName;
+            
             if (nd.HoTen != pName)
                 nd.HoTen = pName;
             if (nd.CMND != pCMND)
