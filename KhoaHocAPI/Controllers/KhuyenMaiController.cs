@@ -169,6 +169,10 @@ namespace KhoaHocAPI.Controllers
             {
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Mã áp dụng không phù hợp");
             }
+            else if(result == -2)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Mã áp dụng không chính xác");
+            }
             else
             {
                 return Request.CreateResponse(HttpStatusCode.OK, result);

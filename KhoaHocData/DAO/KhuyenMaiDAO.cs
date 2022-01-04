@@ -209,6 +209,8 @@ namespace KhoaHocData.DAO
         public decimal ApDungKhuyenMai(int pMaND, string pMaApDung)
         {
             var mkm = db.KhuyenMais.FirstOrDefault(x => x.MaApDung == pMaApDung);
+            if (mkm == null)
+                return -2;
             if (db.KhuyenMai_KhachHang.Any(x => x.MaND == pMaND && mkm.MaKM == x.MaKM && (x.IsSuDung == null || x.IsSuDung == false) && DateTime.Today < x.NgayKetThuc))
                 return mkm.GiaTri == null? 0:mkm.GiaTri.Value;
             return -1;
