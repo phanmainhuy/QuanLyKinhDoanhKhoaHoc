@@ -196,6 +196,7 @@
     <Compile Include="Controllers\Admin\CategoryController.cs" />
     <Compile Include="Controllers\Admin\ChamSocKhachHangController.cs" />
     <Compile Include="Controllers\Admin\DecoratingController.cs" />
+    <Compile Include="Controllers\Admin\LoaiVanDeController.cs" />
     <Compile Include="Controllers\Admin\OrderController.cs" />
     <Compile Include="Controllers\Admin\StatisticController.cs" />
     <Compile Include="Controllers\AuthorizationController.cs" />
@@ -228,6 +229,7 @@
     <Compile Include="Mapper\SalaryMapper.cs" />
     <Compile Include="Mapper\SaleMapper.cs" />
     <Compile Include="Mapper\LearnMapper.cs" />
+    <Compile Include="Mapper\ServiceMapper.cs" />
     <Compile Include="Mapper\UnitMapper.cs" />
     <Compile Include="Mapper\MenuTypeMapper.cs" />
     <Compile Include="Mapper\OtherMapper.cs" />
@@ -241,6 +243,8 @@
     <Compile Include="Models\Category\ChuongVM.cs" />
     <Compile Include="Models\Course\CourseCartVM.cs" />
     <Compile Include="Models\Course\CourseVM.cs" />
+    <Compile Include="Models\Other\LoaiVanDeVM.cs" />
+    <Compile Include="Models\Service\CustomerServiceVM.cs" />
     <Compile Include="Models\System\DecoratingVM.cs" />
     <Compile Include="Models\User\DoiMatKhauVM.cs" />
     <Compile Include="Models\Order\DonThuHoVM.cs" />
