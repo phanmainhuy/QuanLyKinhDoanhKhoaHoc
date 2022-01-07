@@ -49,7 +49,7 @@ namespace KhoaHocData.DAO
             if (dm == null)
                 return 0;
             var lstTheLoai = db.LoaiKhoaHocs.Where(x => x.MaDanhMuc == dm.MaDanhMuc);
-            var khoahoc = db.KhoaHocs.Where(x => lstTheLoai.Any(y => x.MaLoai == y.MaLoai)).ToList();
+            var khoahoc = db.KhoaHocs.Where(x=>x.DaXoa == null || x.DaXoa == false).Where(x => lstTheLoai.Any(y => x.MaLoai == y.MaLoai)).ToList();
             return khoahoc.Count();
         }
         public async Task<LoaiKhoaHoc> LayLoaiKhoaHoc(int pMaLoai)

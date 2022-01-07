@@ -184,6 +184,12 @@
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="Syncfusion.Licensing, Version=19.2460.0.47, Culture=neutral, PublicKeyToken=632609b4d040f6b4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Syncfusion.Licensing.19.2.0.47\lib\net46\Syncfusion.Licensing.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.XlsIO.Base, Version=19.2460.0.47, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <HintPath>..\packages\Syncfusion.XlsIO.AspNet.19.2.0.47\lib\net46\Syncfusion.XlsIO.Base.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
@@ -267,6 +273,7 @@
     <Compile Include="DAO\BaiTapDAO.cs" />
     <Compile Include="DAO\CartDAO.cs" />
     <Compile Include="DAO\CategoryDAO.cs" />
+    <Compile Include="DAO\CSKHDAO.cs" />
     <Compile Include="DAO\DanhGiaDAO.cs" />
     <Compile Include="DAO\GetDAO.cs" />
     <Compile Include="DAO\KhoaHocDAO.cs" />
@@ -415,6 +422,8 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>QLKhoaHocDataModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <None Include="bin\Debug\KhoaHocData.dll.config" />
+    <None Include="bin\Release\KhoaHocData.dll.config" />
     <None Include="EF\QLKhoaHocDataModel.edmx.diagram">
       <DependentUpon>QLKhoaHocDataModel.edmx</DependentUpon>
     </None>
@@ -430,6 +439,213 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="bin\Debug\Azure.Core.dll" />
+    <Content Include="bin\Debug\Azure.Core.xml" />
+    <Content Include="bin\Debug\Azure.Identity.dll" />
+    <Content Include="bin\Debug\Azure.Identity.xml" />
+    <Content Include="bin\Debug\BouncyCastle.Crypto.dll" />
+    <Content Include="bin\Debug\Common.dll" />
+    <Content Include="bin\Debug\Common.pdb" />
+    <Content Include="bin\Debug\de\Microsoft.Data.SqlClient.resources.dll" />
+    <Content Include="bin\Debug\EntityFramework.dll" />
+    <Content Include="bin\Debug\EntityFramework.SqlServer.dll" />
+    <Content Include="bin\Debug\EntityFramework.SqlServer.xml" />
+    <Content Include="bin\Debug\EntityFramework.xml" />
+    <Content Include="bin\Debug\es\Microsoft.Data.SqlClient.resources.dll" />
+    <Content Include="bin\Debug\fr\Microsoft.Data.SqlClient.resources.dll" />
+    <Content Include="bin\Debug\Google.Protobuf.dll" />
+    <Content Include="bin\Debug\Google.Protobuf.pdb" />
+    <Content Include="bin\Debug\Google.Protobuf.xml" />
+    <Content Include="bin\Debug\it\Microsoft.Data.SqlClient.resources.dll" />
+    <Content Include="bin\Debug\ja\Microsoft.Data.SqlClient.resources.dll" />
+    <Content Include="bin\Debug\K4os.Compression.LZ4.dll" />
+    <Content Include="bin\Debug\K4os.Compression.LZ4.Streams.dll" />
+    <Content Include="bin\Debug\K4os.Compression.LZ4.Streams.xml" />
+    <Content Include="bin\Debug\K4os.Compression.LZ4.xml" />
+    <Content Include="bin\Debug\K4os.Hash.xxHash.dll" />
+    <Content Include="bin\Debug\K4os.Hash.xxHash.xml" />
+    <Content Include="bin\Debug\KhoaHocData.dll" />
+    <Content Include="bin\Debug\KhoaHocData.pdb" />
+    <Content Include="bin\Debug\ko\Microsoft.Data.SqlClient.resources.dll" />
+    <Content Include="bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll" />
+    <Content Include="bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml" />
+    <Content Include="bin\Debug\Microsoft.Data.SqlClient.dll" />
+    <Content Include="bin\Debug\Microsoft.Data.SqlClient.pdb" />
+    <Content Include="bin\Debug\Microsoft.Data.SqlClient.SNI.x64.dll" />
+    <Content Include="bin\Debug\Microsoft.Data.SqlClient.SNI.x64.pdb" />
+    <Content Include="bin\Debug\Microsoft.Data.SqlClient.SNI.x86.dll" />
+    <Content Include="bin\Debug\Microsoft.Data.SqlClient.SNI.x86.pdb" />
+    <Content Include="bin\Debug\Microsoft.Data.SqlClient.xml" />
+    <Content Include="bin\Debug\Microsoft.Data.Tools.Sql.BatchParser.dll" />
+    <Content Include="bin\Debug\Microsoft.Data.Tools.Sql.BatchParser.pdb" />
+    <Content Include="bin\Debug\Microsoft.Data.Tools.Sql.BatchParser.xml" />
+    <Content Include="bin\Debug\Microsoft.Identity.Client.dll" />
+    <Content Include="bin\Debug\Microsoft.Identity.Client.Extensions.Msal.dll" />
+    <Content Include="bin\Debug\Microsoft.Identity.Client.Extensions.Msal.xml" />
+    <Content Include="bin\Debug\Microsoft.Identity.Client.xml" />
+    <Content Include="bin\Debug\Microsoft.IdentityModel.JsonWebTokens.dll" />
+    <Content Include="bin\Debug\Microsoft.IdentityModel.JsonWebTokens.xml" />
+    <Content Include="bin\Debug\Microsoft.IdentityModel.Logging.dll" />
+    <Content Include="bin\Debug\Microsoft.IdentityModel.Logging.xml" />
+    <Content Include="bin\Debug\Microsoft.IdentityModel.Protocols.dll" />
+    <Content Include="bin\Debug\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll" />
+    <Content Include="bin\Debug\Microsoft.IdentityModel.Protocols.OpenIdConnect.xml" />
+    <Content Include="bin\Debug\Microsoft.IdentityModel.Protocols.xml" />
+    <Content Include="bin\Debug\Microsoft.IdentityModel.Tokens.dll" />
+    <Content Include="bin\Debug\Microsoft.IdentityModel.Tokens.xml" />
+    <Content Include="bin\Debug\Microsoft.SqlServer.Assessment.dll" />
+    <Content Include="bin\Debug\Microsoft.SqlServer.Assessment.Types.dll" />
+    <Content Include="bin\Debug\Microsoft.SqlServer.Assessment.Types.xml" />
+    <Content Include="bin\Debug\Microsoft.SqlServer.Assessment.xml" />
+    <Content Include="bin\Debug\Microsoft.SqlServer.ConnectionInfo.dll" />
+    <Content Include="bin\Debug\Microsoft.SqlServer.ConnectionInfo.pdb" />
+    <Content Include="bin\Debug\Microsoft.SqlServer.ConnectionInfo.xml" />
+    <Content Include="bin\Debug\Microsoft.SqlServer.Dmf.Common.dll" />
+    <Content Include="bin\Debug\Microsoft.SqlServer.Dmf.Common.pdb" />
+    <Content Include="bin\Debug\Microsoft.SqlServer.Dmf.Common.xml" />
+    <Content Include="bin\Debug\Microsoft.SqlServer.Dmf.dll" />
+    <Content Include="bin\Debug\Microsoft.SqlServer.Dmf.pdb" />
+    <Content Include="bin\Debug\Microsoft.SqlServer.Dmf.xml" />
+    <Content Include="bin\Debug\Microsoft.SqlServer.Management.Assessment.dll" />
+    <Content Include="bin\Debug\Microsoft.SqlServer.Management.Assessment.pdb" />
+    <Content Include="bin\Debug\Microsoft.SqlServer.Management.Assessment.xml" />
+    <Content Include="bin\Debug\Microsoft.SqlServer.Management.Collector.dll" />
+    <Content Include="bin\Debug\Microsoft.SqlServer.Management.Collector.pdb" />
+    <Content Include="bin\Debug\Microsoft.SqlServer.Management.Collector.xml" />
+    <Content Include="bin\Debug\Microsoft.SqlServer.Management.CollectorEnum.dll" />
+    <Content Include="bin\Debug\Microsoft.SqlServer.Management.CollectorEnum.pdb" />
+    <Content Include="bin\Debug\Microsoft.SqlServer.Management.CollectorEnum.xml" />
+    <Content Include="bin\Debug\Microsoft.SqlServer.Management.HadrData.dll" />
+    <Content Include="bin\Debug\Microsoft.SqlServer.Management.HadrData.pdb" />
+    <Content Include="bin\Debug\Microsoft.SqlServer.Management.HadrData.xml" />
+    <Content Include="bin\Debug\Microsoft.SqlServer.Management.HadrModel.dll" />
+    <Content Include="bin\Debug\Microsoft.SqlServer.Management.HadrModel.pdb" />
+    <Content Include="bin\Debug\Microsoft.SqlServer.Management.HadrModel.xml" />
+    <Content Include="bin\Debug\Microsoft.SqlServer.Management.RegisteredServers.dll" />
+    <Content Include="bin\Debug\Microsoft.SqlServer.Management.RegisteredServers.pdb" />
+    <Content Include="bin\Debug\Microsoft.SqlServer.Management.RegisteredServers.xml" />
+    <Content Include="bin\Debug\Microsoft.SqlServer.Management.Sdk.Sfc.dll" />
+    <Content Include="bin\Debug\Microsoft.SqlServer.Management.Sdk.Sfc.pdb" />
+    <Content Include="bin\Debug\Microsoft.SqlServer.Management.Sdk.Sfc.xml" />
+    <Content Include="bin\Debug\Microsoft.SqlServer.Management.SqlScriptPublish.dll" />
+    <Content Include="bin\Debug\Microsoft.SqlServer.Management.SqlScriptPublish.pdb" />
+    <Content Include="bin\Debug\Microsoft.SqlServer.Management.SqlScriptPublish.xml" />
+    <Content Include="bin\Debug\Microsoft.SqlServer.Management.XEvent.dll" />
+    <Content Include="bin\Debug\Microsoft.SqlServer.Management.XEvent.pdb" />
+    <Content Include="bin\Debug\Microsoft.SqlServer.Management.XEvent.xml" />
+    <Content Include="bin\Debug\Microsoft.SqlServer.Management.XEventDbScoped.dll" />
+    <Content Include="bin\Debug\Microsoft.SqlServer.Management.XEventDbScoped.pdb" />
+    <Content Include="bin\Debug\Microsoft.SqlServer.Management.XEventDbScoped.xml" />
+    <Content Include="bin\Debug\Microsoft.SqlServer.Management.XEventDbScopedEnum.dll" />
+    <Content Include="bin\Debug\Microsoft.SqlServer.Management.XEventDbScopedEnum.pdb" />
+    <Content Include="bin\Debug\Microsoft.SqlServer.Management.XEventDbScopedEnum.xml" />
+    <Content Include="bin\Debug\Microsoft.SqlServer.Management.XEventEnum.dll" />
+    <Content Include="bin\Debug\Microsoft.SqlServer.Management.XEventEnum.pdb" />
+    <Content Include="bin\Debug\Microsoft.SqlServer.Management.XEventEnum.xml" />
+    <Content Include="bin\Debug\Microsoft.SqlServer.PolicyEnum.dll" />
+    <Content Include="bin\Debug\Microsoft.SqlServer.PolicyEnum.pdb" />
+    <Content Include="bin\Debug\Microsoft.SqlServer.PolicyEnum.xml" />
+    <Content Include="bin\Debug\Microsoft.SqlServer.RegSvrEnum.dll" />
+    <Content Include="bin\Debug\Microsoft.SqlServer.RegSvrEnum.pdb" />
+    <Content Include="bin\Debug\Microsoft.SqlServer.RegSvrEnum.xml" />
+    <Content Include="bin\Debug\Microsoft.SqlServer.ServiceBrokerEnum.dll" />
+    <Content Include="bin\Debug\Microsoft.SqlServer.ServiceBrokerEnum.pdb" />
+    <Content Include="bin\Debug\Microsoft.SqlServer.ServiceBrokerEnum.xml" />
+    <Content Include="bin\Debug\Microsoft.SqlServer.Smo.dll" />
+    <Content Include="bin\Debug\Microsoft.SqlServer.Smo.Notebook.dll" />
+    <Content Include="bin\Debug\Microsoft.SqlServer.Smo.Notebook.pdb" />
+    <Content Include="bin\Debug\Microsoft.SqlServer.Smo.Notebook.xml" />
+    <Content Include="bin\Debug\Microsoft.SqlServer.Smo.pdb" />
+    <Content Include="bin\Debug\Microsoft.SqlServer.Smo.xml" />
+    <Content Include="bin\Debug\Microsoft.SqlServer.SmoExtended.dll" />
+    <Content Include="bin\Debug\Microsoft.SqlServer.SmoExtended.pdb" />
+    <Content Include="bin\Debug\Microsoft.SqlServer.SmoExtended.xml" />
+    <Content Include="bin\Debug\Microsoft.SqlServer.SqlClrProvider.dll" />
+    <Content Include="bin\Debug\Microsoft.SqlServer.SqlClrProvider.pdb" />
+    <Content Include="bin\Debug\Microsoft.SqlServer.SqlEnum.dll" />
+    <Content Include="bin\Debug\Microsoft.SqlServer.SqlEnum.pdb" />
+    <Content Include="bin\Debug\Microsoft.SqlServer.SqlEnum.xml" />
+    <Content Include="bin\Debug\Microsoft.SqlServer.SqlWmiManagement.dll" />
+    <Content Include="bin\Debug\Microsoft.SqlServer.SqlWmiManagement.pdb" />
+    <Content Include="bin\Debug\Microsoft.SqlServer.SqlWmiManagement.xml" />
+    <Content Include="bin\Debug\Microsoft.SqlServer.Types.dll" />
+    <Content Include="bin\Debug\Microsoft.SqlServer.WmiEnum.dll" />
+    <Content Include="bin\Debug\Microsoft.SqlServer.WmiEnum.pdb" />
+    <Content Include="bin\Debug\Microsoft.SqlServer.WmiEnum.xml" />
+    <Content Include="bin\Debug\MySql.Data.dll" />
+    <Content Include="bin\Debug\MySql.Data.EntityFramework.dll" />
+    <Content Include="bin\Debug\MySql.Data.EntityFramework.xml" />
+    <Content Include="bin\Debug\MySql.Data.xml" />
+    <Content Include="bin\Debug\Newtonsoft.Json.dll" />
+    <Content Include="bin\Debug\Newtonsoft.Json.xml" />
+    <Content Include="bin\Debug\pt-BR\Microsoft.Data.SqlClient.resources.dll" />
+    <Content Include="bin\Debug\ru\Microsoft.Data.SqlClient.resources.dll" />
+    <Content Include="bin\Debug\System.Buffers.dll" />
+    <Content Include="bin\Debug\System.Buffers.xml" />
+    <Content Include="bin\Debug\System.Configuration.ConfigurationManager.dll" />
+    <Content Include="bin\Debug\System.Configuration.ConfigurationManager.xml" />
+    <Content Include="bin\Debug\System.Diagnostics.DiagnosticSource.dll" />
+    <Content Include="bin\Debug\System.Diagnostics.DiagnosticSource.xml" />
+    <Content Include="bin\Debug\System.IdentityModel.Tokens.Jwt.dll" />
+    <Content Include="bin\Debug\System.IdentityModel.Tokens.Jwt.xml" />
+    <Content Include="bin\Debug\System.Memory.dll" />
+    <Content Include="bin\Debug\System.Memory.xml" />
+    <Content Include="bin\Debug\System.Numerics.Vectors.dll" />
+    <Content Include="bin\Debug\System.Numerics.Vectors.xml" />
+    <Content Include="bin\Debug\System.Runtime.CompilerServices.Unsafe.dll" />
+    <Content Include="bin\Debug\System.Runtime.CompilerServices.Unsafe.xml" />
+    <Content Include="bin\Debug\System.Security.AccessControl.dll" />
+    <Content Include="bin\Debug\System.Security.AccessControl.xml" />
+    <Content Include="bin\Debug\System.Security.Cryptography.ProtectedData.dll" />
+    <Content Include="bin\Debug\System.Security.Permissions.dll" />
+    <Content Include="bin\Debug\System.Security.Permissions.xml" />
+    <Content Include="bin\Debug\System.Security.Principal.Windows.dll" />
+    <Content Include="bin\Debug\System.Security.Principal.Windows.xml" />
+    <Content Include="bin\Debug\System.Text.Encodings.Web.dll" />
+    <Content Include="bin\Debug\System.Text.Encodings.Web.xml" />
+    <Content Include="bin\Debug\System.Text.Json.dll" />
+    <Content Include="bin\Debug\System.Text.Json.xml" />
+    <Content Include="bin\Debug\System.Threading.Tasks.Extensions.dll" />
+    <Content Include="bin\Debug\System.Threading.Tasks.Extensions.xml" />
+    <Content Include="bin\Debug\System.ValueTuple.dll" />
+    <Content Include="bin\Debug\System.ValueTuple.xml" />
+    <Content Include="bin\Debug\Ubiety.Dns.Core.dll" />
+    <Content Include="bin\Debug\zh-Hans\Microsoft.Data.SqlClient.resources.dll" />
+    <Content Include="bin\Debug\zh-Hant\Microsoft.Data.SqlClient.resources.dll" />
+    <Content Include="bin\Debug\ZstdNet.dll" />
+    <Content Include="bin\Release\BouncyCastle.Crypto.dll" />
+    <Content Include="bin\Release\Common.dll" />
+    <Content Include="bin\Release\Common.pdb" />
+    <Content Include="bin\Release\EntityFramework.dll" />
+    <Content Include="bin\Release\EntityFramework.SqlServer.dll" />
+    <Content Include="bin\Release\EntityFramework.SqlServer.xml" />
+    <Content Include="bin\Release\EntityFramework.xml" />
+    <Content Include="bin\Release\Google.Protobuf.dll" />
+    <Content Include="bin\Release\Google.Protobuf.pdb" />
+    <Content Include="bin\Release\Google.Protobuf.xml" />
+    <Content Include="bin\Release\K4os.Compression.LZ4.dll" />
+    <Content Include="bin\Release\K4os.Compression.LZ4.Streams.dll" />
+    <Content Include="bin\Release\K4os.Compression.LZ4.Streams.xml" />
+    <Content Include="bin\Release\K4os.Compression.LZ4.xml" />
+    <Content Include="bin\Release\K4os.Hash.xxHash.dll" />
+    <Content Include="bin\Release\K4os.Hash.xxHash.xml" />
+    <Content Include="bin\Release\KhoaHocData.dll" />
+    <Content Include="bin\Release\KhoaHocData.pdb" />
+    <Content Include="bin\Release\Microsoft.SqlServer.Types.dll" />
+    <Content Include="bin\Release\MySql.Data.dll" />
+    <Content Include="bin\Release\MySql.Data.EntityFramework.dll" />
+    <Content Include="bin\Release\MySql.Data.EntityFramework.xml" />
+    <Content Include="bin\Release\MySql.Data.xml" />
+    <Content Include="bin\Release\System.Buffers.dll" />
+    <Content Include="bin\Release\System.Buffers.xml" />
+    <Content Include="bin\Release\System.Memory.dll" />
+    <Content Include="bin\Release\System.Memory.xml" />
+    <Content Include="bin\Release\System.Numerics.Vectors.dll" />
+    <Content Include="bin\Release\System.Numerics.Vectors.xml" />
+    <Content Include="bin\Release\System.Runtime.CompilerServices.Unsafe.dll" />
+    <Content Include="bin\Release\System.Runtime.CompilerServices.Unsafe.xml" />
+    <Content Include="bin\Release\Ubiety.Dns.Core.dll" />
+    <Content Include="bin\Release\ZstdNet.dll" />
     <Content Include="EF\QLKhoaHocDataModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>QLKhoaHocDataModel.edmx</DependentUpon>
@@ -440,6 +656,41 @@
       <DependentUpon>QLKhoaHocDataModel.edmx</DependentUpon>
       <LastGenOutput>QLKhoaHocDataModel.cs</LastGenOutput>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="bin\Debug\SqlServerTypes\x64\" />
+    <Folder Include="bin\Debug\SqlServerTypes\x86\" />
+    <Folder Include="bin\Release\SqlServerTypes\x64\" />
+    <Folder Include="bin\Release\SqlServerTypes\x86\" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>8</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Excel">
+      <Guid>{00020813-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>9</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

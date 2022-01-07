@@ -11,6 +11,10 @@ namespace KhoaHocData.DAO
     public class BaiTapDAO
     {
         QL_KHOAHOCEntities db = new QL_KHOAHOCEntities();
+        public IEnumerable<BaiTap> LayBaiTapTheoBaiHoc(int pMaBaiHoc)
+        {
+            return db.BaiTaps.Where(x => x.MaBaiHoc == pMaBaiHoc).ToList();
+        }
         public KetQuaTraVe ThemBaiTap(int pMaBaiHoc, string PDF)
         {
             if (!db.BaiHocs.Any(x => x.MaBaiHoc == pMaBaiHoc))

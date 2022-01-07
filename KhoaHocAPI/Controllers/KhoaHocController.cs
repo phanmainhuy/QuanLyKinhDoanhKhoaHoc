@@ -43,7 +43,7 @@ namespace KhoaHocAPI.Controllers
         [HttpGet]
         public HttpResponseMessage GetKhoaHocLearn(int maKhoa)
         {
-            var item = khDAO.LayKhoaHocTheoMa(maKhoa);
+            var item = khDAO.LayKhoaHocTheoMa(maKhoa, true);
             if (item != null)
             {
                 return Request.CreateResponse(HttpStatusCode.OK, Mapper.LearnMapper.MapLearnVM(item));
@@ -136,6 +136,27 @@ namespace KhoaHocAPI.Controllers
             {
                 return Request.CreateResponse(HttpStatusCode.OK);
             }
+        }
+        public HttpResponseMessage DeleteKhoaHoc(int MaKhoaHoc)
+        {
+            var result = khDAO.XoaKhoaHoc(MaKhoaHoc);
+            if (result == Common.AllEnum.KetQuaTraVe.TrangThaiKichHoat)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Khóa học đang được mở bán, hãy ẩn đi trước khi thực hiện thao tác");
+            }
+            else if (result == Common.AllEnum.KetQuaTraVe.ThatBai)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Xóa khóa học không thành công");
+            }
+            else if (result == Common.AllEnum.KetQuaTraVe.KhongTonTai)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Khóa học không tồn tại");
+            }
+            else
+            {
+                return Request.CreateResponse(HttpStatusCode.OK);
+            }
+
         }
     }
 }

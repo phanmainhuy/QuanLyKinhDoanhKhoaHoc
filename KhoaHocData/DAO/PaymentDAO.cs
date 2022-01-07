@@ -49,6 +49,7 @@ namespace KhoaHocData.DAO
             hd.TrangThai = "1";
             hd.ThanhToan = true;
             decimal TruTien = 0;
+            await TichDiemNguoiDung(hd.MaND.Value, hd.TongTien.Value);
             
             if(hd.MaKM != null)
             {
@@ -289,6 +290,38 @@ namespace KhoaHocData.DAO
             {
                 Console.WriteLine(ex.Message);
                 return AllEnum.KetQuaTraVe.ThatBai;
+            }
+        }
+        public async Task<bool> TichDiemNguoiDung(int pMaND, decimal TongThanhToan)
+        {
+            if (TongThanhToan <= 0)
+                return false;
+            int TichDiemCongThem = (int)Math.Floor(TongThanhToan / 100);
+
+            var tichdiem = db.TichDiems.FirstOrDefault(x => x.MaND == pMaND);
+            if (tichdiem == null)
+            {
+                TichDiem td = new TichDiem();
+                td.MaND = pMaND;
+                td.SoDiem = TichDiemCongThem;
+                db.TichDiems.Add(td);
+            }
+            else
+            {
+                if(tichdiem.SoDiem == null)
+                    tichdiem.SoDiem = TichDiemCongThem;
+                else 
+                    tichdiem.SoDiem += TichDiemCongThem;
+            }
+            try
+            {
+                await db.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
             }
         }
 

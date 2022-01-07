@@ -31,8 +31,8 @@
           <Key>
             <PropertyRef Name="MaCSKH" />
           </Key>
-          <Property Name="MaCSKH" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="MaLoaiVanDe" Type="varchar" MaxLength="20" />
+          <Property Name="MaCSKH" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MaLoaiVanDe" Type="int" />
           <Property Name="MaND" Type="int" />
           <Property Name="SDTKH" Type="nvarchar" MaxLength="11" />
           <Property Name="TenKH" Type="nvarchar" MaxLength="50" />
@@ -146,6 +146,7 @@
           <Property Name="NgayChapThuan" Type="date" />
           <Property Name="HienThi" Type="bit" />
           <Property Name="SoLuongMua" Type="int" />
+          <Property Name="DaXoa" Type="bit" />
         </EntityType>
         <EntityType Name="KhuyenMai">
           <Key>
@@ -211,7 +212,7 @@
           <Key>
             <PropertyRef Name="MaLoaiVanDe" />
           </Key>
-          <Property Name="MaLoaiVanDe" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="MaLoaiVanDe" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TenLoaiVanDe" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="Luong">
@@ -317,18 +318,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_BaiHoc_KhoaHoc">
-          <End Role="KhoaHoc" Type="Self.KhoaHoc" Multiplicity="0..1" />
-          <End Role="BaiHoc" Type="Self.BaiHoc" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="KhoaHoc">
-              <PropertyRef Name="MaKhoaHoc" />
-            </Principal>
-            <Dependent Role="BaiHoc">
-              <PropertyRef Name="MaKhoaHoc" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_BaiTap_BaiHoc">
           <End Role="BaiHoc" Type="Self.BaiHoc" Multiplicity="0..1" />
           <End Role="BaiTap" Type="Self.BaiTap" Multiplicity="*" />
@@ -341,7 +330,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ChamSocKhachHang_Loaivande">
+        <Association Name="FK_ChamSocKhachHang_LoaiVanDe">
           <End Role="LoaiVanDe" Type="Self.LoaiVanDe" Multiplicity="0..1" />
           <End Role="ChamSocKhachHang" Type="Self.ChamSocKhachHang" Multiplicity="*" />
           <ReferentialConstraint>
@@ -350,42 +339,6 @@
             </Principal>
             <Dependent Role="ChamSocKhachHang">
               <PropertyRef Name="MaLoaiVanDe" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ChamSocKhachHang_NguoiDung">
-          <End Role="NguoiDung" Type="Self.NguoiDung" Multiplicity="0..1" />
-          <End Role="ChamSocKhachHang" Type="Self.ChamSocKhachHang" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="NguoiDung">
-              <PropertyRef Name="MaND" />
-            </Principal>
-            <Dependent Role="ChamSocKhachHang">
-              <PropertyRef Name="MaND" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Chuong_KhoaHoc">
-          <End Role="KhoaHoc" Type="Self.KhoaHoc" Multiplicity="0..1" />
-          <End Role="Chuong" Type="Self.Chuong" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="KhoaHoc">
-              <PropertyRef Name="MaKhoaHoc" />
-            </Principal>
-            <Dependent Role="Chuong">
-              <PropertyRef Name="MaKhoaHoc" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CTGioHang">
-          <End Role="KhoaHoc" Type="Self.KhoaHoc" Multiplicity="1" />
-          <End Role="CT_GioHang" Type="Self.CT_GioHang" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="KhoaHoc">
-              <PropertyRef Name="MaKhoaHoc" />
-            </Principal>
-            <Dependent Role="CT_GioHang">
-              <PropertyRef Name="MaKhoaHoc" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -398,18 +351,6 @@
             </Principal>
             <Dependent Role="CT_GioHang">
               <PropertyRef Name="MaGioHang" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CTHoaDon">
-          <End Role="KhoaHoc" Type="Self.KhoaHoc" Multiplicity="0..1" />
-          <End Role="CT_HoaDon" Type="Self.CT_HoaDon" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="KhoaHoc">
-              <PropertyRef Name="MaKhoaHoc" />
-            </Principal>
-            <Dependent Role="CT_HoaDon">
-              <PropertyRef Name="MaKhoaHoc" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -766,37 +707,17 @@
             <End Role="Chuong" EntitySet="Chuong" />
             <End Role="BaiHoc" EntitySet="BaiHoc" />
           </AssociationSet>
-          <AssociationSet Name="FK_BaiHoc_KhoaHoc" Association="Self.FK_BaiHoc_KhoaHoc">
-            <End Role="KhoaHoc" EntitySet="KhoaHoc" />
-            <End Role="BaiHoc" EntitySet="BaiHoc" />
-          </AssociationSet>
           <AssociationSet Name="FK_BaiTap_BaiHoc" Association="Self.FK_BaiTap_BaiHoc">
             <End Role="BaiHoc" EntitySet="BaiHoc" />
             <End Role="BaiTap" EntitySet="BaiTap" />
           </AssociationSet>
-          <AssociationSet Name="FK_ChamSocKhachHang_Loaivande" Association="Self.FK_ChamSocKhachHang_Loaivande">
+          <AssociationSet Name="FK_ChamSocKhachHang_LoaiVanDe" Association="Self.FK_ChamSocKhachHang_LoaiVanDe">
             <End Role="LoaiVanDe" EntitySet="LoaiVanDe" />
             <End Role="ChamSocKhachHang" EntitySet="ChamSocKhachHang" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ChamSocKhachHang_NguoiDung" Association="Self.FK_ChamSocKhachHang_NguoiDung">
-            <End Role="NguoiDung" EntitySet="NguoiDung" />
-            <End Role="ChamSocKhachHang" EntitySet="ChamSocKhachHang" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Chuong_KhoaHoc" Association="Self.FK_Chuong_KhoaHoc">
-            <End Role="KhoaHoc" EntitySet="KhoaHoc" />
-            <End Role="Chuong" EntitySet="Chuong" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CTGioHang" Association="Self.FK_CTGioHang">
-            <End Role="KhoaHoc" EntitySet="KhoaHoc" />
-            <End Role="CT_GioHang" EntitySet="CT_GioHang" />
           </AssociationSet>
           <AssociationSet Name="FK_CTGioHang_GioHang" Association="Self.FK_CTGioHang_GioHang">
             <End Role="GioHang" EntitySet="GioHang" />
             <End Role="CT_GioHang" EntitySet="CT_GioHang" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CTHoaDon" Association="Self.FK_CTHoaDon">
-            <End Role="KhoaHoc" EntitySet="KhoaHoc" />
-            <End Role="CT_HoaDon" EntitySet="CT_HoaDon" />
           </AssociationSet>
           <AssociationSet Name="FK_CTHoaDon_HoaDon" Association="Self.FK_CTHoaDon_HoaDon">
             <End Role="HoaDon" EntitySet="HoaDon" />
@@ -909,22 +830,6 @@
           <Property Name="FileLink" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="BaiHoc" Relationship="QL_KHOAHOCModel.FK_BaiTap_BaiHoc" FromRole="BaiTap" ToRole="BaiHoc" />
         </EntityType>
-        <EntityType Name="ChamSocKhachHang">
-          <Key>
-            <PropertyRef Name="MaCSKH" />
-          </Key>
-          <Property Name="MaCSKH" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="MaLoaiVanDe" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="MaND" Type="Int32" />
-          <Property Name="SDTKH" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
-          <Property Name="TenKH" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="TinhTrang" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="NoiDung" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
-          <Property Name="CachXuLy" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
-          <Property Name="NgayLap" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="LoaiVanDe" Relationship="Self.FK_ChamSocKhachHang_Loaivande" FromRole="ChamSocKhachHang" ToRole="LoaiVanDe" />
-          <NavigationProperty Name="NguoiDung" Relationship="Self.FK_ChamSocKhachHang_NguoiDung" FromRole="ChamSocKhachHang" ToRole="NguoiDung" />
-        </EntityType>
         <EntityType Name="CT_GioHang">
           <Key>
             <PropertyRef Name="MaGioHang" />
@@ -1002,6 +907,7 @@
           <Property Name="HienThi" Type="Boolean" />
           <Property Name="SoLuongMua" Type="Int32" />
           <NavigationProperty Name="DanhGiaKhoaHocs" Relationship="QL_KHOAHOCModel.FK_DanhGiaKhoaHoc_KhoaHoc" FromRole="KhoaHoc" ToRole="DanhGiaKhoaHoc" />
+          <Property Name="DaXoa" Type="Boolean" />
         </EntityType>
         <EntityType Name="KhuyenMai">
           <Key>
@@ -1062,14 +968,6 @@
           <Property Name="MaLoaiQuyen" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TenLoaiQuyen" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Quyens" Relationship="Self.FK_QUYEN_LOAIQUYEN" FromRole="LOAIQUYEN" ToRole="Quyen" />
-        </EntityType>
-        <EntityType Name="LoaiVanDe">
-          <Key>
-            <PropertyRef Name="MaLoaiVanDe" />
-          </Key>
-          <Property Name="MaLoaiVanDe" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="TenLoaiVanDe" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="ChamSocKhachHangs" Relationship="Self.FK_ChamSocKhachHang_Loaivande" FromRole="LoaiVanDe" ToRole="ChamSocKhachHang" />
         </EntityType>
         <EntityType Name="Luong">
           <Key>
@@ -1150,30 +1048,6 @@
           <Property Name="SoDiem" Type="Int32" />
           <NavigationProperty Name="NguoiDung" Relationship="Self.FK_TichDiem_NguoiDung" FromRole="TichDiem" ToRole="NguoiDung" />
         </EntityType>
-        <Association Name="FK_ChamSocKhachHang_Loaivande">
-          <End Role="LoaiVanDe" Type="Self.LoaiVanDe" Multiplicity="0..1" />
-          <End Role="ChamSocKhachHang" Type="Self.ChamSocKhachHang" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="LoaiVanDe">
-              <PropertyRef Name="MaLoaiVanDe" />
-            </Principal>
-            <Dependent Role="ChamSocKhachHang">
-              <PropertyRef Name="MaLoaiVanDe" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ChamSocKhachHang_NguoiDung">
-          <End Role="NguoiDung" Type="Self.NguoiDung" Multiplicity="0..1" />
-          <End Role="ChamSocKhachHang" Type="Self.ChamSocKhachHang" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="NguoiDung">
-              <PropertyRef Name="MaND" />
-            </Principal>
-            <Dependent Role="ChamSocKhachHang">
-              <PropertyRef Name="MaND" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_CTGioHang">
           <End Role="KhoaHoc" Type="Self.KhoaHoc" Multiplicity="1" />
           <End Role="CT_GioHang" Type="Self.CT_GioHang" Multiplicity="*" />
@@ -1428,7 +1302,6 @@
         </Association>
         <EntityContainer Name="QL_KHOAHOCEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="BaiTaps" EntityType="Self.BaiTap" />
-          <EntitySet Name="ChamSocKhachHangs" EntityType="Self.ChamSocKhachHang" />
           <EntitySet Name="CT_GioHang" EntityType="Self.CT_GioHang" />
           <EntitySet Name="CT_HoaDon" EntityType="Self.CT_HoaDon" />
           <EntitySet Name="DanhMucKhoaHocs" EntityType="Self.DanhMucKhoaHoc" />
@@ -1440,7 +1313,6 @@
           <EntitySet Name="LichSuLuongs" EntityType="Self.LichSuLuong" />
           <EntitySet Name="LoaiKhoaHocs" EntityType="Self.LoaiKhoaHoc" />
           <EntitySet Name="LOAIQUYENs" EntityType="Self.LOAIQUYEN" />
-          <EntitySet Name="LoaiVanDes" EntityType="Self.LoaiVanDe" />
           <EntitySet Name="Luongs" EntityType="Self.Luong" />
           <EntitySet Name="NguoiDungs" EntityType="Self.NguoiDung" />
           <EntitySet Name="NhomNguoiDungs" EntityType="Self.NhomNguoiDung" />
@@ -1448,14 +1320,6 @@
           <EntitySet Name="Quyen_NhomNguoiDung" EntityType="Self.Quyen_NhomNguoiDung" />
           <EntitySet Name="SoDuTaiKhoans" EntityType="Self.SoDuTaiKhoan" />
           <EntitySet Name="TichDiems" EntityType="Self.TichDiem" />
-          <AssociationSet Name="FK_ChamSocKhachHang_Loaivande" Association="Self.FK_ChamSocKhachHang_Loaivande">
-            <End Role="LoaiVanDe" EntitySet="LoaiVanDes" />
-            <End Role="ChamSocKhachHang" EntitySet="ChamSocKhachHangs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ChamSocKhachHang_NguoiDung" Association="Self.FK_ChamSocKhachHang_NguoiDung">
-            <End Role="NguoiDung" EntitySet="NguoiDungs" />
-            <End Role="ChamSocKhachHang" EntitySet="ChamSocKhachHangs" />
-          </AssociationSet>
           <AssociationSet Name="FK_CTGioHang" Association="Self.FK_CTGioHang">
             <End Role="KhoaHoc" EntitySet="KhoaHocs" />
             <End Role="CT_GioHang" EntitySet="CT_GioHang" />
@@ -1649,6 +1513,12 @@
             <End Role="BaiTap" EntitySet="BaiTaps" />
           </AssociationSet>
           <EntitySet Name="QuenMatKhaus" EntityType="QL_KHOAHOCModel.QuenMatKhau" />
+          <EntitySet Name="ChamSocKhachHangs" EntityType="QL_KHOAHOCModel.ChamSocKhachHang" />
+          <EntitySet Name="LoaiVanDes" EntityType="QL_KHOAHOCModel.LoaiVanDe" />
+          <AssociationSet Name="FK_ChamSocKhachHang_LoaiVanDe" Association="QL_KHOAHOCModel.FK_ChamSocKhachHang_LoaiVanDe">
+            <End Role="LoaiVanDe" EntitySet="LoaiVanDes" />
+            <End Role="ChamSocKhachHang" EntitySet="ChamSocKhachHangs" />
+          </AssociationSet>
           </EntityContainer>
         <ComplexType Name="SearchKhoaHoc_Result">
           <Property Type="Int32" Name="MaKhoaHoc" Nullable="false" />
@@ -1935,6 +1805,41 @@
           <Property Name="TenDN" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
           <Property Name="ThoiGian" Type="DateTime" Precision="3" />
         </EntityType>
+        <EntityType Name="ChamSocKhachHang">
+          <Key>
+            <PropertyRef Name="MaCSKH" />
+          </Key>
+          <Property Name="MaCSKH" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MaLoaiVanDe" Type="Int32" />
+          <Property Name="MaND" Type="Int32" />
+          <Property Name="SDTKH" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
+          <Property Name="TenKH" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TinhTrang" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="NoiDung" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="CachXuLy" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="NgayLap" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="LoaiVanDe" Relationship="QL_KHOAHOCModel.FK_ChamSocKhachHang_LoaiVanDe" FromRole="ChamSocKhachHang" ToRole="LoaiVanDe" />
+        </EntityType>
+        <EntityType Name="LoaiVanDe">
+          <Key>
+            <PropertyRef Name="MaLoaiVanDe" />
+          </Key>
+          <Property Name="MaLoaiVanDe" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenLoaiVanDe" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ChamSocKhachHangs" Relationship="QL_KHOAHOCModel.FK_ChamSocKhachHang_LoaiVanDe" FromRole="LoaiVanDe" ToRole="ChamSocKhachHang" />
+        </EntityType>
+        <Association Name="FK_ChamSocKhachHang_LoaiVanDe">
+          <End Type="QL_KHOAHOCModel.LoaiVanDe" Role="LoaiVanDe" Multiplicity="0..1" />
+          <End Type="QL_KHOAHOCModel.ChamSocKhachHang" Role="ChamSocKhachHang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LoaiVanDe">
+              <PropertyRef Name="MaLoaiVanDe" />
+            </Principal>
+            <Dependent Role="ChamSocKhachHang">
+              <PropertyRef Name="MaLoaiVanDe" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1948,21 +1853,6 @@
                 <ScalarProperty Name="MaBaiHoc" ColumnName="MaBaiHoc" />
                 <ScalarProperty Name="TenBaiTap" ColumnName="TenBaiTap" />
                 <ScalarProperty Name="FileLink" ColumnName="FileLink" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ChamSocKhachHangs">
-            <EntityTypeMapping TypeName="QL_KHOAHOCModel.ChamSocKhachHang">
-              <MappingFragment StoreEntitySet="ChamSocKhachHang">
-                <ScalarProperty Name="MaCSKH" ColumnName="MaCSKH" />
-                <ScalarProperty Name="MaLoaiVanDe" ColumnName="MaLoaiVanDe" />
-                <ScalarProperty Name="MaND" ColumnName="MaND" />
-                <ScalarProperty Name="SDTKH" ColumnName="SDTKH" />
-                <ScalarProperty Name="TenKH" ColumnName="TenKH" />
-                <ScalarProperty Name="TinhTrang" ColumnName="TinhTrang" />
-                <ScalarProperty Name="NoiDung" ColumnName="NoiDung" />
-                <ScalarProperty Name="CachXuLy" ColumnName="CachXuLy" />
-                <ScalarProperty Name="NgayLap" ColumnName="NgayLap" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2023,6 +1913,7 @@
           <EntitySetMapping Name="KhoaHocs">
             <EntityTypeMapping TypeName="QL_KHOAHOCModel.KhoaHoc">
               <MappingFragment StoreEntitySet="KhoaHoc">
+                <ScalarProperty Name="DaXoa" ColumnName="DaXoa" />
                 <ScalarProperty Name="SoLuongMua" ColumnName="SoLuongMua" />
                 <ScalarProperty Name="HienThi" ColumnName="HienThi" />
                 <ScalarProperty Name="MaKhoaHoc" ColumnName="MaKhoaHoc" />
@@ -2092,14 +1983,6 @@
               <MappingFragment StoreEntitySet="LOAIQUYEN">
                 <ScalarProperty Name="MaLoaiQuyen" ColumnName="MaLoaiQuyen" />
                 <ScalarProperty Name="TenLoaiQuyen" ColumnName="TenLoaiQuyen" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="LoaiVanDes">
-            <EntityTypeMapping TypeName="QL_KHOAHOCModel.LoaiVanDe">
-              <MappingFragment StoreEntitySet="LoaiVanDe">
-                <ScalarProperty Name="MaLoaiVanDe" ColumnName="MaLoaiVanDe" />
-                <ScalarProperty Name="TenLoaiVanDe" ColumnName="TenLoaiVanDe" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2277,6 +2160,29 @@
                 <ScalarProperty Name="TenDN" ColumnName="TenDN" />
                 <ScalarProperty Name="Code" ColumnName="Code" />
                 <ScalarProperty Name="STT" ColumnName="STT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ChamSocKhachHangs">
+            <EntityTypeMapping TypeName="QL_KHOAHOCModel.ChamSocKhachHang">
+              <MappingFragment StoreEntitySet="ChamSocKhachHang">
+                <ScalarProperty Name="NgayLap" ColumnName="NgayLap" />
+                <ScalarProperty Name="CachXuLy" ColumnName="CachXuLy" />
+                <ScalarProperty Name="NoiDung" ColumnName="NoiDung" />
+                <ScalarProperty Name="TinhTrang" ColumnName="TinhTrang" />
+                <ScalarProperty Name="TenKH" ColumnName="TenKH" />
+                <ScalarProperty Name="SDTKH" ColumnName="SDTKH" />
+                <ScalarProperty Name="MaND" ColumnName="MaND" />
+                <ScalarProperty Name="MaLoaiVanDe" ColumnName="MaLoaiVanDe" />
+                <ScalarProperty Name="MaCSKH" ColumnName="MaCSKH" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LoaiVanDes">
+            <EntityTypeMapping TypeName="QL_KHOAHOCModel.LoaiVanDe">
+              <MappingFragment StoreEntitySet="LoaiVanDe">
+                <ScalarProperty Name="TenLoaiVanDe" ColumnName="TenLoaiVanDe" />
+                <ScalarProperty Name="MaLoaiVanDe" ColumnName="MaLoaiVanDe" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

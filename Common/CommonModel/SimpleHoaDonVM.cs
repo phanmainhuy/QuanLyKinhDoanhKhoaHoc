@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace KhoaHocAPI.Models
+namespace Common.CommonModel
 {
     public class SimpleHoaDonVM
     {
+        public string STT { get; set; }
         public int MaHoaDon { get; set; }
         public int MaND { get; set; }
         public string TenND { get; set; }

@@ -14,8 +14,8 @@ namespace KhoaHocData.EF
     
     public partial class ChamSocKhachHang
     {
-        public string MaCSKH { get; set; }
-        public string MaLoaiVanDe { get; set; }
+        public int MaCSKH { get; set; }
+        public Nullable<int> MaLoaiVanDe { get; set; }
         public Nullable<int> MaND { get; set; }
         public string SDTKH { get; set; }
         public string TenKH { get; set; }
@@ -25,6 +25,5 @@ namespace KhoaHocData.EF
         public Nullable<System.DateTime> NgayLap { get; set; }
     
         public virtual LoaiVanDe LoaiVanDe { get; set; }
-        public virtual NguoiDung NguoiDung { get; set; }
     }
 }

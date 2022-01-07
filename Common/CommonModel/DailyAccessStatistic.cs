@@ -8,6 +8,7 @@ namespace Common.CommonModel
 {
     public class DailyAccessStatistic
     {
+        public string STT { get; set; }
         public DateTime Date { get; set; }
         public int NewStudent { get; set; }
         public int CourseSellCount { get; set; }

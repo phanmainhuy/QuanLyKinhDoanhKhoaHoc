@@ -1,4 +1,5 @@
-﻿using KhoaHocAPI.Models;
+﻿using Common.CommonModel;
+using KhoaHocAPI.Models;
 using KhoaHocData.DAO;
 using KhoaHocData.EF;
 using System;

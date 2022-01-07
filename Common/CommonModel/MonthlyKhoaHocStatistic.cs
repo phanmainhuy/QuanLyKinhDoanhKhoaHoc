@@ -8,6 +8,7 @@ namespace Common.CommonModel
 {
     public class MonthlyKhoaHocStatistic
     {
+        public string STT { get; set; }
         public int Thang { get; set; }
         public int MaKH { get; set; }
         public string TenKH { get; set; }

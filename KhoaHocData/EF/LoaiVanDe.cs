@@ -20,7 +20,7 @@ namespace KhoaHocData.EF
             this.ChamSocKhachHangs = new HashSet<ChamSocKhachHang>();
         }
     
-        public string MaLoaiVanDe { get; set; }
+        public int MaLoaiVanDe { get; set; }
         public string TenLoaiVanDe { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

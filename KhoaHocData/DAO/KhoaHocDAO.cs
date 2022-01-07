@@ -11,15 +11,18 @@ namespace KhoaHocData.DAO
     {
         private QL_KHOAHOCEntities db = new QL_KHOAHOCEntities();
 
-        public KhoaHoc LayKhoaHocTheoMa(int maKhoaHoc)
+        public KhoaHoc LayKhoaHocTheoMa(int maKhoaHoc, bool isHocVien = false)
         {
-            return db.KhoaHocs.Where(x => x.MaKhoaHoc == maKhoaHoc).SingleOrDefault();
+            if(!isHocVien)
+                return db.KhoaHocs.Where(x => x.DaXoa == null || x.DaXoa == false).Where(x => x.MaKhoaHoc == maKhoaHoc).FirstOrDefault();
+            else
+                return db.KhoaHocs.Where(x => x.MaKhoaHoc == maKhoaHoc).FirstOrDefault();
         }
 
 
         public IEnumerable<KhoaHoc> LayRaToanBoKhoaHoc()
         {
-            return db.KhoaHocs.OrderBy(x => x.MaKhoaHoc);
+            return db.KhoaHocs.Where(x => x.DaXoa == null || x.DaXoa == false).OrderBy(x => x.MaKhoaHoc);
         }
 
 
@@ -27,12 +30,12 @@ namespace KhoaHocData.DAO
         {
             int skipCount = page * pageSize;
             totalRow = (int)Math.Ceiling((float)db.KhoaHocs.Count() / pageSize);
-            return db.KhoaHocs.Where(x=>x.HienThi == isShow).OrderByDescending(x => x.MaKhoaHoc).Skip(skipCount);
+            return db.KhoaHocs.Where(x => x.DaXoa == null || x.DaXoa == false).Where(x=>x.HienThi == isShow).OrderByDescending(x => x.MaKhoaHoc).Skip(skipCount);
         }
         public IEnumerable<KhoaHoc> LayRaKhoaHocTheoMaLoaiKhoaHocPaging(int maLoai, int page, int pageSize, out int total, bool isShow)
         {
             int skipSize = pageSize * (page - 1);
-            var result = db.KhoaHocs.Where(x => x.MaLoai == maLoai && x.HienThi == isShow).ToList();
+            var result = db.KhoaHocs.Where(x => x.DaXoa == null || x.DaXoa == false).Where(x => x.MaLoai == maLoai && x.HienThi == isShow).ToList();
             total = result.Count();
             return result.Skip(skipSize).Take(pageSize).ToList();
         }
@@ -48,7 +51,7 @@ namespace KhoaHocData.DAO
                 else
                     return KetQuaTraVe.ChaKhongTonTai;
             }
-            if (db.KhoaHocs.SingleOrDefault(x => x.MaLoai != pMaLoai && x.TenKhoaHoc.ToLower() == pTenKhoaHoc.Trim().ToLower()) != null)
+            if (db.KhoaHocs.SingleOrDefault(x => x.MaLoai != pMaLoai && x.DaXoa != true && x.TenKhoaHoc.ToLower() == pTenKhoaHoc.Trim().ToLower()) != null)
                 return KetQuaTraVe.DaTonTai;
             if (pTenKhoaHoc != null)
                 kh.TenKhoaHoc = pTenKhoaHoc;
@@ -80,35 +83,35 @@ namespace KhoaHocData.DAO
         }
         public IEnumerable<KhoaHoc> LayRaKhoaHocTheoMaLoaiKhoaHoc(int maLoai, int limit, bool isShow)
         {
-            return db.KhoaHocs.Where(x => x.MaLoai == maLoai && x.HienThi == isShow).OrderByDescending(x => x.MaKhoaHoc).Take(limit);
+            return db.KhoaHocs.Where(x => x.DaXoa == null || x.DaXoa == false).Where(x => x.MaLoai == maLoai && x.HienThi == isShow).OrderByDescending(x => x.MaKhoaHoc).Take(limit);
         }
         public IEnumerable<KhoaHoc> LayKhoaHocTheoMaLoaiKhoaHocPaging(int maLoai, int page, int pageSize, out int total, bool isShow)
         {
             int skipSize = (page - 1) * pageSize;
             
-            var items = db.KhoaHocs.Where(x => x.MaLoai == maLoai&& x.HienThi.Value == isShow).OrderByDescending(x => x.MaKhoaHoc).ToList();
+            var items = db.KhoaHocs.Where(x => x.DaXoa == null || x.DaXoa == false).Where(x => x.MaLoai == maLoai&& x.HienThi.Value == isShow).OrderByDescending(x => x.MaKhoaHoc).ToList();
             total = items.Count();
             return items.Skip(skipSize).Take(pageSize).ToList();
         }
 
         public IEnumerable<KhoaHoc> LayKhoaHocMoiNhat(int limit, bool isShow)
         {
-            return db.KhoaHocs.Where(x=>x.HienThi != null).Where(x=>x.HienThi.Value == isShow).OrderByDescending(x => x.MaKhoaHoc).Take(limit);
+            return db.KhoaHocs.Where(x => x.DaXoa == null || x.DaXoa == false).Where(x=>x.HienThi != null).Where(x=>x.HienThi.Value == isShow).OrderByDescending(x => x.MaKhoaHoc).Take(limit);
         }
         public IEnumerable<KhoaHoc> LayKhoaHocTheoMaGiaoVien(int pMaGiaoVien, bool isShow)
         {
-            return db.KhoaHocs.Where(x => x.MaGV == pMaGiaoVien && x.HienThi.Value == isShow).OrderByDescending(x => x.MaKhoaHoc).ToList();
+            return db.KhoaHocs.Where(x => x.DaXoa == null || x.DaXoa == false).Where(x => x.MaGV == pMaGiaoVien && x.HienThi.Value == isShow).OrderByDescending(x => x.MaKhoaHoc).ToList();
         }
         public IEnumerable<KhoaHoc> LayKhoaHocMuaNhieu(int pLimit, bool isShow)
         {
-            return db.KhoaHocs.Where(x => x.HienThi.Value == isShow).OrderByDescending(x => x.SoLuongMua.Value).Take(pLimit);
+            return db.KhoaHocs.Where(x => x.DaXoa == null || x.DaXoa == false).Where(x => x.HienThi.Value == isShow).OrderByDescending(x => x.SoLuongMua.Value).Take(pLimit);
         }
 
         public IEnumerable<KhoaHoc> TimKiemKhoaHoc(string pSearchString, bool isShow)
         {
             if (String.IsNullOrEmpty(pSearchString))
-                return db.KhoaHocs;
-            var item = db.SearchKhoaHoc(pSearchString).Where(x=>x.HienThi.Value == isShow);
+                return db.KhoaHocs.Where(x => x.DaXoa == null || x.DaXoa == false);
+            var item = db.SearchKhoaHoc(pSearchString).Where(x => x.DaXoa == null || x.DaXoa == false).Where(x=>x.HienThi.Value == isShow);
             return (IEnumerable<KhoaHoc>)item;
         }
 
@@ -117,11 +120,11 @@ namespace KhoaHocData.DAO
             int skipSize = (page-1) * pageSize;
             if (string.IsNullOrEmpty(pSearchString))
             {
-                var result = db.KhoaHocs.OrderByDescending(x => x.MaKhoaHoc).ToList();
+                var result = db.KhoaHocs.Where(x => x.DaXoa == null || x.DaXoa == false).OrderByDescending(x => x.MaKhoaHoc).ToList();
                 total = result.Count();
                 return result.Skip(skipSize).Take(pageSize).ToList();
             }
-            var item = db.SearchKhoaHoc(pSearchString).OrderByDescending(x => x.MaKhoaHoc).ToList();
+            var item = db.SearchKhoaHoc(pSearchString).Where(x => x.DaXoa == null || x.DaXoa == false).OrderByDescending(x => x.MaKhoaHoc).ToList();
             total = item.Count();
             return item.Skip(skipSize).Take(pageSize).ToList();
         }
@@ -130,13 +133,13 @@ namespace KhoaHocData.DAO
             int skipSize = (page - 1) * pageSize;
             if (string.IsNullOrEmpty(pSearchString))
             {
-                var result = db.KhoaHocs.OrderByDescending(x => x.MaKhoaHoc).ToList();
+                var result = db.KhoaHocs.Where(x => x.DaXoa == null || x.DaXoa == false).OrderByDescending(x => x.MaKhoaHoc).ToList();
                 total = result.Count();
 
 
                 return result.Skip(skipSize).Take(pageSize).ToList();
             }
-            var item = db.SearchKhoaHoc(pSearchString).OrderByDescending(x => x.MaKhoaHoc).ToList();
+            var item = db.SearchKhoaHoc(pSearchString).Where(x => x.DaXoa == null || x.DaXoa == false).OrderByDescending(x => x.MaKhoaHoc).ToList();
             total = item.Count();
             return item.Skip(skipSize).Take(pageSize).ToList();
         }
@@ -146,11 +149,11 @@ namespace KhoaHocData.DAO
             int skipSize = (page - 1) * pageSize;
             if (string.IsNullOrEmpty(pSearchString))
             {
-                var result = SortingBy(db.KhoaHocs.OrderByDescending(x => x.MaKhoaHoc).ToList(), (SortingType)type);
+                var result = SortingBy(db.KhoaHocs.Where(x => x.DaXoa == null || x.DaXoa == false).OrderByDescending(x => x.MaKhoaHoc).ToList(), (SortingType)type);
                 total = result.Count();
                 return result.Skip(skipSize).Take(pageSize).ToList();
             }
-            var item = SortingBy(db.SearchKhoaHoc(pSearchString).OrderByDescending(x => x.MaKhoaHoc).ToList(), (SortingType)type);
+            var item = SortingBy(db.SearchKhoaHoc(pSearchString).Where(x => x.DaXoa == null || x.DaXoa == false).OrderByDescending(x => x.MaKhoaHoc).ToList(), (SortingType)type);
             total = item.Count();
             return item.Skip(skipSize).Take(pageSize).ToList();
         }
@@ -160,11 +163,11 @@ namespace KhoaHocData.DAO
             int skipSize = (page - 1) * pageSize;
             if (string.IsNullOrEmpty(pSearchString))
             {
-                var result = SortingBy(db.KhoaHocs.OrderByDescending(x => x.MaKhoaHoc).ToList(), (SortingType)type);
+                var result = SortingBy(db.KhoaHocs.Where(x => x.DaXoa == null || x.DaXoa == false).OrderByDescending(x => x.MaKhoaHoc).ToList(), (SortingType)type);
                 total = result.Count();
                 return result.Skip(skipSize).Take(pageSize).ToList();
             }
-            var item = SortingBy(db.SearchKhoaHoc(pSearchString).OrderByDescending(x => x.MaKhoaHoc).ToList(), (SortingType)type);
+            var item = SortingBy(db.SearchKhoaHoc(pSearchString).Where(x => x.DaXoa == null || x.DaXoa == false).OrderByDescending(x => x.MaKhoaHoc).ToList(), (SortingType)type);
             total = item.Count();
             return item.Skip(skipSize).Take(pageSize).ToList();
         }
@@ -183,8 +186,8 @@ namespace KhoaHocData.DAO
         public IEnumerable<KhoaHoc> TimKiemKhoaHocTheoTheLoai(int pMaTheLoai, string pSearchString)
         {
             if (string.IsNullOrEmpty(pSearchString))
-                return db.KhoaHocs.Where(x => x.MaLoai == pMaTheLoai).OrderByDescending(x => x.MaKhoaHoc);
-            var item = db.SearchKhoaHocTheoTheLoai(pMaTheLoai, pSearchString);
+                return db.KhoaHocs.Where(x => x.DaXoa == null || x.DaXoa == false).Where(x => x.MaLoai == pMaTheLoai).OrderByDescending(x => x.MaKhoaHoc);
+            var item = db.SearchKhoaHocTheoTheLoai(pMaTheLoai, pSearchString).Where(x => x.DaXoa == null || x.DaXoa == false);
             return item;
         }
 
@@ -198,12 +201,12 @@ namespace KhoaHocData.DAO
         {
             if (string.IsNullOrEmpty(pSearchString))
             {
-                var result = db.KhoaHocs.Where(x => x.MaLoai == pMaTheLoai && x.HienThi.Value == isShow).OrderByDescending(x => x.MaKhoaHoc).ToList();
+                var result = db.KhoaHocs.Where(x => x.DaXoa == null || x.DaXoa == false).Where(x => x.MaLoai == pMaTheLoai && x.HienThi.Value == isShow).OrderByDescending(x => x.MaKhoaHoc).ToList();
                 total = result.Count();
                 return result;
             }
             int SkipSize = (page-1) * pageSize;
-            var item = db.SearchKhoaHocTheoTheLoai(pMaTheLoai, pSearchString).Where(x=> x.HienThi.Value == isShow).OrderByDescending(x => x.MaKhoaHoc).ToList();
+            var item = db.SearchKhoaHocTheoTheLoai(pMaTheLoai, pSearchString).Where(x => x.DaXoa == null || x.DaXoa == false).Where(x=> x.HienThi.Value == isShow).OrderByDescending(x => x.MaKhoaHoc).ToList();
             total = item.Count();
             return item.Skip(SkipSize ).Take(pageSize).ToList();
         }
@@ -218,12 +221,12 @@ namespace KhoaHocData.DAO
         {
             if (string.IsNullOrEmpty(pSearchString))
             {
-                var result = SortingBy(db.KhoaHocs.Where(x => x.MaLoai == pMaTheLoai && x.HienThi.Value == isShow).OrderByDescending(x => x.MaKhoaHoc).ToList(), (SortingType)type);
+                var result = SortingBy(db.KhoaHocs.Where(x => x.DaXoa == null || x.DaXoa == false).Where(x => x.MaLoai == pMaTheLoai && x.HienThi.Value == isShow).OrderByDescending(x => x.MaKhoaHoc).ToList(), (SortingType)type);
                 total = result.Count();
                 return result;
             }
             int SkipSize = (page-1) * pageSize;
-            var item = SortingBy(db.SearchKhoaHocTheoTheLoai(pMaTheLoai, pSearchString).Where(x => x.HienThi.Value == isShow).OrderByDescending(x => x.MaKhoaHoc).ToList(), (SortingType)type);
+            var item = SortingBy(db.SearchKhoaHocTheoTheLoai(pMaTheLoai, pSearchString).Where(x => x.DaXoa == null || x.DaXoa == false).Where(x => x.HienThi.Value == isShow).OrderByDescending(x => x.MaKhoaHoc).ToList(), (SortingType)type);
             total = item.Count();
             return item.Skip(SkipSize ).Take(pageSize).ToList();
         }
@@ -231,7 +234,7 @@ namespace KhoaHocData.DAO
         {
             if (!db.LoaiKhoaHocs.Any(x => x.MaLoai == pMaLoai))
                 return KetQuaTraVeKhoaHoc.TheLoaiKhongTonTai;
-            if (db.KhoaHocs.SingleOrDefault(x => x.MaLoai != pMaLoai && x.TenKhoaHoc.ToLower() == pTenKhoaHoc.Trim().ToLower()) != null)
+            if (db.KhoaHocs.SingleOrDefault(x => x.MaLoai != pMaLoai && x.DaXoa != true && x.TenKhoaHoc.ToLower() == pTenKhoaHoc.Trim().ToLower()) != null)
                 return KetQuaTraVeKhoaHoc.DaTonTai;
 
             db.KhoaHocs.Add(new KhoaHoc()
@@ -281,11 +284,32 @@ namespace KhoaHocData.DAO
         }
         public List<KhoaHoc> LayKhoaHocTheoHocVien(int pMaHV, bool isShow)
         {
-            return db.KhoaHocCuaToi(pMaHV).Where(x=> x.HienThi.Value == isShow).ToList();
+            return db.KhoaHocCuaToi(pMaHV).ToList();
         }
         public List<KhoaHoc> LayKhoaHocTheoGiaoVien(int pMaGV)
         {
-            return db.KhoaHocs.Where(x => x.MaGV == pMaGV).ToList();
+            return db.KhoaHocs.Where(x=>x.DaXoa == null || x.DaXoa == false).Where(x => x.MaGV == pMaGV).ToList();
+        }
+        public KetQuaTraVe XoaKhoaHoc(int pMaKhoaHoc)
+        {
+            var kh = db.KhoaHocs.FirstOrDefault(x => x.MaKhoaHoc == pMaKhoaHoc);
+            if (kh == null)
+                return KetQuaTraVe.KhongTonTai;
+            if(kh.TrangThai == true || kh.TrangThai == null)
+            {
+                return KetQuaTraVe.TrangThaiKichHoat;
+            }
+            kh.DaXoa = true;
+            try
+            {
+                db.SaveChanges();
+                return KetQuaTraVe.ThanhCong;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return KetQuaTraVe.ThatBai;
+            }
         }
     }
 }

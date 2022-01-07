@@ -63,19 +63,6 @@ namespace KhoaHocAPI.Controllers
             await dbGETDAO.BackupDatabase(path);
             var fileBytes = File.ReadAllBytes(path);
 
-            /*
-             * var fileMemStream =
-                new MemoryStream(fileBytes);
-            var result =
-                new HttpResponseMessage(HttpStatusCode.OK);
-            result.Content = new StreamContent(fileMemStream);
-            var headers = result.Content.Headers;
-
-            headers.ContentDisposition =
-                new ContentDispositionHeaderValue("attachment");
-            headers.ContentDisposition.FileName = fileName;
-            headers.ContentLength = fileMemStream.Length;
-            */
 
             HttpContext.Current.Response.ClearContent();
             HttpContext.Current.Response.AppendHeader("content-length", fileBytes.Length.ToString());

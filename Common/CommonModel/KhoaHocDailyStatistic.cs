@@ -8,6 +8,7 @@ namespace Common.CommonModel
 {
     public class KhoaHocDailyStatistic
     {
+        public string STT { get; set; }
         public int MaKH { get; set; }
         public string TenKH { get; set; }
         public int SoLuongDKMoi { get; set; }

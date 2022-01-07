@@ -1,13 +1,16 @@
-﻿using KhoaHocData.EF;
+﻿using KhoaHocData.DAO;
+using KhoaHocData.EF;
 using System;
 using System.Configuration;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace KhoaHocData.OnlineParty
 {
     public class VnPayDAO
     {
         private QL_KHOAHOCEntities db = new QL_KHOAHOCEntities();
+        PaymentDAO db_Payment = new PaymentDAO();
 
         public string GetPayURL(long OrderId, long Amount, string BankCode, string MaApDung = null)
         {
@@ -82,7 +85,7 @@ namespace KhoaHocData.OnlineParty
             return paymentUrl;
         }
 
-        public ReturnObject GetConfirmResult(long orderId, long vnp_Amount, string vnpayTranId, string vnp_ResponseCode,
+        public async Task<ReturnObject> GetConfirmResult(long orderId, long vnp_Amount, string vnpayTranId, string vnp_ResponseCode,
                                         string vnp_TransactionStatus, string vnp_SecureHash
                                         , string vnp_BankCode, string vnp_CardType, string vnp_OrderInfo
             , string vnp_PayDate, string vnp_TmnCode, string vnp_BankTranNo
@@ -143,6 +146,7 @@ namespace KhoaHocData.OnlineParty
                                 order.TrangThai = "1";
                                 order.ThanhToan = true;
                                 order.HinhThucThanhToan = "VnPay";
+                                await db_Payment.TichDiemNguoiDung(order.MaND.Value, order.TongTien.Value);
                             }
                             else
                             {

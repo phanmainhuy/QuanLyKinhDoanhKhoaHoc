@@ -13,7 +13,8 @@
         public enum KetQuaTraVe
         {
             ThatBai, ThanhCong, ChaKhongTonTai, DaTonTai, KhongTonTai, KhongDuocPhep,
-            KhongHopLe, DuLieuDaTonTai1, DuLieuDaTonTai2, DuLieuDaTonTai3, KhongChinhXac
+            KhongHopLe, DuLieuDaTonTai1, DuLieuDaTonTai2, DuLieuDaTonTai3, KhongChinhXac,
+            TrangThaiKichHoat
         }
         public enum PaymentType
         {

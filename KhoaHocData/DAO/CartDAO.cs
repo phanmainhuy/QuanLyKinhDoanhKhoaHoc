@@ -29,7 +29,7 @@ namespace KhoaHocData.DAO
                 try
                 {
                     db.SaveChanges();
-                    var addedItem = db.GioHangs.SingleOrDefault(x => x.MaND == gh.MaND);
+                    var addedItem = db.GioHangs.OrderByDescending(x=>x.MaGioHang).FirstOrDefault(x => x.MaND == gh.MaND);
                     if (addedItem != null)
                         return addedItem.MaGioHang;
                     else

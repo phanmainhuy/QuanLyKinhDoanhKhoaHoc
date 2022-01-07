@@ -8,6 +8,7 @@ namespace Common.CommonModel
 {
     public class DailyRevenueStatistic
     {
+        public string STT { get; set; }
         public DateTime Ngay { get; set; }
         public double DoanhThu { get; set; }
         public int SoLuongKhoaHocDaBan { get; set; }
