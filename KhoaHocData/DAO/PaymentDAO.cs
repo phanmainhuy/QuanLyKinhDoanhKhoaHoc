@@ -14,7 +14,7 @@ namespace KhoaHocData.DAO
     public class PaymentDAO
     {
         private QL_KHOAHOCEntities db;
-
+        
         public PaymentDAO()
         {
             db = new QL_KHOAHOCEntities();
@@ -40,22 +40,17 @@ namespace KhoaHocData.DAO
             var hd = db.HoaDons.SingleOrDefault(x => x.MaHD == pMaHD);
             var dtt = db.DonThuTiens.SingleOrDefault(x => x.MaHD == pMaHD);
             
+            
 
             if (hd == null)
                 return AllEnum.KetQuaTraVe.ChaKhongTonTai;
             if (dtt == null)
                 return AllEnum.KetQuaTraVe.KhongTonTai;
+            var kmkh = db.KhuyenMai_KhachHang.FirstOrDefault(x => x.MaND == hd.MaND && x.MaKM == hd.MaKM);
             dtt.TrangThai = AllEnum.TrangThaiDonThuTien.DaThanhToan.ToString();
             hd.TrangThai = "1";
             hd.ThanhToan = true;
-            decimal TruTien = 0;
             await TichDiemNguoiDung(hd.MaND.Value, hd.TongTien.Value);
-            
-            if(hd.MaKM != null)
-            {
-                var km = db.KhuyenMais.FirstOrDefault(x => x.MaKM == hd.MaKM);
-                TruTien = km.GiaTri == null? 0:km.GiaTri.Value;
-            }
             var CTHD = hd.CT_HoaDon.ToList();
             var lstKhoaHoc = db.KhoaHocs.ToList();
             var nd = db.NguoiDungs.FirstOrDefault(x => x.MaND == hd.MaND);
@@ -70,12 +65,14 @@ namespace KhoaHocData.DAO
             try
             {
                 db.SaveChanges();
-                await GuiMailSauKhiThanhToan(dtt.Email, lstKhoaHoc, hd.MaHD, hd.TongTien.Value - TruTien <= 0? 1 : hd.TongTien.Value - TruTien);
+                await GuiMailSauKhiThanhToan(dtt.Email, lstKhoaHoc, hd.MaHD, hd.TongTien.Value);
+                kmkh.IsSuDung = true;
                 return AllEnum.KetQuaTraVe.ThanhCong;
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
+                kmkh.IsSuDung = false;
                 return AllEnum.KetQuaTraVe.ThatBai;
             }
         }
@@ -339,6 +336,7 @@ namespace KhoaHocData.DAO
                 var km_kh = db.KhuyenMai_KhachHang.FirstOrDefault(x => x.MaND == MaKH && x.MaKM == km.MaKM);
                 if (km_kh != null)
                 {
+                    hd.MaKM = km_kh.MaKM;
                     km_kh.IsSuDung = true;
                 }
             }

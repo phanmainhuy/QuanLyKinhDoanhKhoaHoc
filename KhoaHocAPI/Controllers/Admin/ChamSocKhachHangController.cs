@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
@@ -16,13 +17,13 @@ namespace KhoaHocAPI.Controllers.Admin
     public class ChamSocKhachHangController : ApiController
     {
         CSKHDAO db = new CSKHDAO();
-        public HttpResponseMessage GetAll([FromUri]PagingVM model, [FromUri] string SDT = "", [FromUri] string TenKH = "")
+        public async Task<HttpResponseMessage> GetAll([FromUri]PagingVM model, [FromUri] string SDT = "", [FromUri] string TenKH = "")
         {
             int total;
             var result = db.GetAllChamSocKhachHang(SDT, TenKH, model.page, model.pageSize, out total);
             if (result != null)
             {
-                var lstCourseVM = Mapper.ServiceMapper.MapListCustomerService(result);
+                var lstCourseVM = await Mapper.ServiceMapper.MapListCustomerService(result);
                 var response = Request.CreateResponse(HttpStatusCode.OK, lstCourseVM);
 
                 response.Content.Headers.Add("Access-Control-Expose-Headers", "pagingheader");
@@ -68,8 +69,6 @@ namespace KhoaHocAPI.Controllers.Admin
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Xóa dữ liệu không thành công");
             else
                 return Request.CreateResponse(HttpStatusCode.OK);
-
-
         }
     }
 }

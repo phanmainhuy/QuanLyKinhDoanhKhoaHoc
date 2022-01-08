@@ -11,9 +11,11 @@ namespace KhoaHocAPI.Models.Service
         public int? MaLoaiVanDe { get; set; }
         public string TenLoaiVanDe { get; set; }
         public int? MaNV { get; set; }
+        public string TenNhanVien { get; set; }
         public string SDT { get; set; }
         public string TenKhachHang { get; set; }
         public string NoiDung { get; set; }
         public string CachXuLy { get; set; }
+        public DateTime NgayTuVan { get; set; }
     }
 }

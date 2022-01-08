@@ -22,10 +22,9 @@ namespace KhoaHocData.OnlineParty
                 var km_kh = db.KhuyenMai_KhachHang.FirstOrDefault(x => x.MaND == hd.MaND && x.MaKM == km.MaKM);
                 if (km_kh != null)
                 {
-                    Amount = Amount - (long)km.GiaTri.Value > 10000 ? Amount - (long)km.GiaTri.Value :
-                        10000;
                     km_kh.IsSuDung = true;
                     hd.MaKM = km.MaKM;
+                    hd.TongTien = Amount;
                     db.SaveChanges();
                 }
             }
@@ -132,12 +131,17 @@ namespace KhoaHocData.OnlineParty
                 });
                 if (order != null)
                 {
-                    var km = db.KhuyenMais.FirstOrDefault(x => x.MaKM == order.MaKM);
-                    decimal giatri = 0;
+                var km = db.KhuyenMais.FirstOrDefault(x => x.MaKM == order.MaKM);
+                KhuyenMai_KhachHang kmkh = new KhuyenMai_KhachHang();
                     if(km != null)
-                        if (db.KhuyenMai_KhachHang.Any(x => x.MaKM == km.MaKM && order.MaND == x.MaND))
-                            giatri = km.GiaTri.Value;
-                    if (order.TongTien.Value - giatri == vnp_Amount / 100)
+                    {
+                        kmkh = db.KhuyenMai_KhachHang.FirstOrDefault(x => x.MaKM == km.MaKM && order.MaND == x.MaND);
+                        if (kmkh != null)
+                            kmkh.IsSuDung = true;
+                        
+                    }
+                            
+                    if (order.TongTien.Value == vnp_Amount / 100)
                     {
                         if (order.TrangThai == "0" || order.TrangThai == "1")
                         {
@@ -152,6 +156,7 @@ namespace KhoaHocData.OnlineParty
                             else
                             {
                                 order.TrangThai = "2";
+                                kmkh.IsSuDung = false;
                             }
                             returnContent = new ReturnObject()
                             {
@@ -166,6 +171,7 @@ namespace KhoaHocData.OnlineParty
                                 RspCode = "02",
                                 Message = "Order already confirmed"
                             };
+                            kmkh.IsSuDung = false;
                         }
                     }
                     else
@@ -175,6 +181,7 @@ namespace KhoaHocData.OnlineParty
                             RspCode = "04",
                             Message = "Số tiền không hợp lệ"
                         };
+                        kmkh.IsSuDung = false;
                     }
                 }
                 else
