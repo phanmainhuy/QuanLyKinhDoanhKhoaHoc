@@ -9,9 +9,11 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace KhoaHocAPI.Controllers.OnlinePayment
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class VNPayController : ApiController
     {
         VnPayDAO db = new VnPayDAO();

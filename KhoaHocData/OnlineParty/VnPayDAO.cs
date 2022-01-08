@@ -134,8 +134,9 @@ namespace KhoaHocData.OnlineParty
                 {
                     var km = db.KhuyenMais.FirstOrDefault(x => x.MaKM == order.MaKM);
                     decimal giatri = 0;
-                    if (db.KhuyenMai_KhachHang.Any(x => x.MaKM == km.MaKM && order.MaND == x.MaND))
-                        giatri = km.GiaTri.Value;
+                    if(km != null)
+                        if (db.KhuyenMai_KhachHang.Any(x => x.MaKM == km.MaKM && order.MaND == x.MaND))
+                            giatri = km.GiaTri.Value;
                     if (order.TongTien.Value - giatri == vnp_Amount / 100)
                     {
                         if (order.TrangThai == "0" || order.TrangThai == "1")
@@ -155,7 +156,7 @@ namespace KhoaHocData.OnlineParty
                             returnContent = new ReturnObject()
                             {
                                 RspCode = "00",
-                                Message = "Confirm Success"
+                                Message = "Thanh toán thành công"
                             };
                         }
                         else
@@ -172,7 +173,7 @@ namespace KhoaHocData.OnlineParty
                         returnContent = new ReturnObject()
                         {
                             RspCode = "04",
-                            Message = "invalid amount"
+                            Message = "Số tiền không hợp lệ"
                         };
                     }
                 }
