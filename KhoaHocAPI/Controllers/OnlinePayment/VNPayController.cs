@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 
@@ -28,9 +29,9 @@ namespace KhoaHocAPI.Controllers.OnlinePayment
         }
         [HttpPost]
         [Route("api/VNPay/vnpayreturn")]
-        public HttpResponseMessage GetXacNhanThanhToan([FromBody]VNPayConfirmVM model)
+        public async Task<HttpResponseMessage> GetXacNhanThanhToan([FromBody]VNPayConfirmVM model)
         {
-            var resultContent =  db.GetConfirmResult(model.vnp_TxnRef, model.vnp_Amount, model.vnp_TransactionNo, 
+            var resultContent = await db.GetConfirmResult(model.vnp_TxnRef, model.vnp_Amount, model.vnp_TransactionNo, 
                 model.vnp_ResponseCode, model.vnp_TransactionStatus, model.vnp_SecureHash,
                 model.vnp_BankCode, model.vnp_CardType, model.vnp_OrderInfo, model.vnp_PayDate, model.vnp_TmnCode, model.vnp_BankTranNo
                 );

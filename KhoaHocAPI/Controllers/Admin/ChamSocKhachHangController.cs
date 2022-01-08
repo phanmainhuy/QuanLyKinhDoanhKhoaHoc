@@ -16,7 +16,7 @@ namespace KhoaHocAPI.Controllers.Admin
     public class ChamSocKhachHangController : ApiController
     {
         CSKHDAO db = new CSKHDAO();
-        public HttpResponseMessage GetAll(PagingVM model, string SDT = "", string TenKH = "")
+        public HttpResponseMessage GetAll([FromUri]PagingVM model, [FromUri] string SDT = "", [FromUri] string TenKH = "")
         {
             int total;
             var result = db.GetAllChamSocKhachHang(SDT, TenKH, model.page, model.pageSize, out total);

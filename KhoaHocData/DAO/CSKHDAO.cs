@@ -19,11 +19,11 @@ namespace KhoaHocData.DAO
 
             if (!string.IsNullOrEmpty(sdt))
             {
-                returnResult = returnResult.Where(x => x.SDTKH == sdt).ToList();
+                returnResult = returnResult.Where(x => x.SDTKH.Trim().ToLower().Contains(sdt.Trim().ToLower())).ToList();
             }
             if (!string.IsNullOrEmpty(TenKhachHang))
             {
-                returnResult = returnResult.Where(x => x.TenKH == TenKhachHang).ToList();
+                returnResult = returnResult.Where(x => x.TenKH.Trim().ToLower().Contains(TenKhachHang.Trim().ToLower())).ToList();
             }
 
             total = returnResult.Count();

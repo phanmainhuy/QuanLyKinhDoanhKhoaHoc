@@ -439,7 +439,7 @@ namespace KhoaHocData.DAO
             }
             catch (Exception ex)
             {
-                //ShowMessage
+                Console.WriteLine(ex.Message);
             }
             finally
             {
