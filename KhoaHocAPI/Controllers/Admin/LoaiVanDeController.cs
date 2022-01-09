@@ -24,7 +24,7 @@ namespace KhoaHocAPI.Controllers.Admin
                 return Request.CreateResponse(HttpStatusCode.OK, Mapper.ServiceMapper.MapListProblem(result));
         }
         [HttpPost]
-        public HttpResponseMessage PostLoaiVanDe(string TenLoaiVanDe)
+        public HttpResponseMessage PostLoaiVanDe([FromUri]string TenLoaiVanDe)
         {
             var result = db.ThemLoaiVanDe(TenLoaiVanDe);
             if (result == Common.AllEnum.KetQuaTraVe.DaTonTai)
@@ -35,7 +35,7 @@ namespace KhoaHocAPI.Controllers.Admin
                 return Request.CreateResponse(HttpStatusCode.Created);
         }
         [HttpPut]
-        public HttpResponseMessage PutLoaiVanDe(LoaiVanDeVM model)
+        public HttpResponseMessage PutLoaiVanDe([FromBody]LoaiVanDeVM model)
         {
             var result = db.ThayDoiTenLoaiVanDe(model.MaLoaiVanDe, model.TenLoaiVanDe);
             if (result == Common.AllEnum.KetQuaTraVe.KhongTonTai)

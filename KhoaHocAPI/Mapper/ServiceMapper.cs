@@ -24,7 +24,7 @@ namespace KhoaHocAPI.Mapper
                 MaLoaiVanDe = cskh.MaLoaiVanDe,
                 NoiDung = cskh.NoiDung == null ? "" : cskh.NoiDung,
                 SDT = cskh.SDTKH,
-                TenKhachHang = cskh.TenKH,
+                TenKhachHang = cskh.TenKH == null?"":cskh.TenKH,
                 TenLoaiVanDe = cskh.LoaiVanDe.TenLoaiVanDe,
                 TenNhanVien = nd,
                 NgayTuVan = cskh.NgayLap == null ? DateTime.MinValue : cskh.NgayLap.Value

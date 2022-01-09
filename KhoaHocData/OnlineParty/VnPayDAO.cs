@@ -132,6 +132,7 @@ namespace KhoaHocData.OnlineParty
                 if (order != null)
                 {
                 var km = db.KhuyenMais.FirstOrDefault(x => x.MaKM == order.MaKM);
+                var nd = db.NguoiDungs.FirstOrDefault(x => x.MaND == order.MaND);
                 KhuyenMai_KhachHang kmkh = new KhuyenMai_KhachHang();
                     if(km != null)
                     {
@@ -152,6 +153,7 @@ namespace KhoaHocData.OnlineParty
                                 order.ThanhToan = true;
                                 order.HinhThucThanhToan = "VnPay";
                                 await db_Payment.TichDiemNguoiDung(order.MaND.Value, order.TongTien.Value);
+                                await db_Payment.GuiMailSauKhiThanhToan(nd.Email, lstKhoaHoc, order.MaHD, order.TongTien.Value, km.GiaTri == null ? 0: km.GiaTri.Value);
                             }
                             else
                             {

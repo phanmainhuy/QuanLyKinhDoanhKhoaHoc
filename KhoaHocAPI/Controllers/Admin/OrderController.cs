@@ -34,6 +34,7 @@ namespace KhoaHocAPI.Controllers.Admin
         [Route("api/Order/ChuaThanhToan")]
         public async Task<HttpResponseMessage> GetChuaThanhToan([FromUri] PagingVM model)
         {
+
             int total;
             var result = db_Payment.LayToanBoHoaDonChoDuyetPaging(model.page, model.pageSize, out total);
 

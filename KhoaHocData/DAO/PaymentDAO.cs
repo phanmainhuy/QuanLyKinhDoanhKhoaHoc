@@ -8,6 +8,7 @@ using System.Linq;
 using System.Net.Mail;
 using System.Threading.Tasks;
 using System.Web;
+using static Common.AllEnum;
 
 namespace KhoaHocData.DAO
 {
@@ -46,7 +47,8 @@ namespace KhoaHocData.DAO
                 return AllEnum.KetQuaTraVe.ChaKhongTonTai;
             if (dtt == null)
                 return AllEnum.KetQuaTraVe.KhongTonTai;
-            var kmkh = db.KhuyenMai_KhachHang.FirstOrDefault(x => x.MaND == hd.MaND && x.MaKM == hd.MaKM);
+            var km = db.KhuyenMais.FirstOrDefault(x => x.MaKM == hd.MaKM);
+            var kmkh = db.KhuyenMai_KhachHang.FirstOrDefault(x => x.MaND == hd.MaND && x.MaKM == km.MaKM);
             dtt.TrangThai = AllEnum.TrangThaiDonThuTien.DaThanhToan.ToString();
             hd.TrangThai = "1";
             hd.ThanhToan = true;
@@ -65,7 +67,7 @@ namespace KhoaHocData.DAO
             try
             {
                 db.SaveChanges();
-                await GuiMailSauKhiThanhToan(dtt.Email, lstKhoaHoc, hd.MaHD, hd.TongTien.Value);
+                await GuiMailSauKhiThanhToan(dtt.Email, lstKhoaHoc, hd.MaHD, hd.TongTien.Value, km.GiaTri.Value);
                 kmkh.IsSuDung = true;
                 return AllEnum.KetQuaTraVe.ThanhCong;
             }
@@ -134,7 +136,7 @@ namespace KhoaHocData.DAO
         //    db.CT_HoaDon.AddRange(lstChiTietHoaDon);
         //    return SaveAll();
         //}
-        public int AddHoaDon(int MaND, string MaKM, string TrangThai, string HinhThucThanhToan, int MaGioHang, bool? isBlock = false)
+        public int AddHoaDon(int MaND, string MaKM, string TrangThai, string HinhThucThanhToan, int MaGioHang)
         {
             if (MaND == -1)
                 return -2;
@@ -432,12 +434,52 @@ namespace KhoaHocData.DAO
                 ).ToList();
             return item;
         }
+        public async Task<KetQuaTraVe> ThanhToanNgay(int pMaHoaDon, string pMaApDung)
+        {
+            var hd = db.HoaDons.FirstOrDefault(x => x.MaHD == pMaHoaDon);
+            var km = db.KhuyenMais.FirstOrDefault(x => x.MaApDung == pMaApDung);
+            if (hd == null || km == null)
+                return KetQuaTraVe.KhongTonTai;
+            var cthd = hd.CT_HoaDon;
+            var kmkh = db.KhuyenMai_KhachHang.FirstOrDefault(x => x.MaKM == km.MaKM && x.MaND == hd.MaND);
+            var lstKhoaHoc = db.KhoaHocs.ToList();
+            var nd = db.NguoiDungs.FirstOrDefault(x => x.MaND == hd.MaND);
+            lstKhoaHoc = lstKhoaHoc.Where(x => cthd.Any(y => y.MaKhoaHoc == x.MaKhoaHoc)).ToList();
+            lstKhoaHoc.ForEach(x =>
+            {
+                if (x.SoLuongMua == null)
+                    x.SoLuongMua = 1;
+                else
+                    x.SoLuongMua++;
+            });
+            if (cthd.Count() == 0)
+                return KetQuaTraVe.KhongHopLe;
+            if (cthd.Sum(x => x.DonGia.Value) - km.GiaTri > 0)
+                return KetQuaTraVe.KhongDuocPhep;
+            if (kmkh.IsSuDung == true || kmkh.NgayKetThuc < DateTime.Today)
+                return KetQuaTraVe.KhongChinhXac;
+            hd.ThanhToan = true;
+            kmkh.IsSuDung = true;
+            await GuiMailSauKhiThanhToan(nd.Email, lstKhoaHoc, hd.MaHD, hd.TongTien.Value, km.GiaTri.Value);
+            try
+            {
+                await db.SaveChangesAsync();
+                return KetQuaTraVe.ThanhCong;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return KetQuaTraVe.ThatBai;
+            }
+            
+
+        }
 
         public async Task<AllEnum.KetQuaTraVe> GuiMailSauKhiThanhToan(string reciepiantMailAddress,
             IEnumerable<KhoaHoc> lstKhoaHoc,
             int pMaHoaDon,
-            decimal TongTien
-            
+            decimal TongTien,
+            decimal GiamGia = 0
             )
         {
             string assemblyFile = HttpContext.Current.Server.MapPath("~/File");
@@ -463,7 +505,12 @@ namespace KhoaHocData.DAO
             FromMail = MyMail,
             HostMail = "smtp.gmail.com";
             Body = Body.Replace("DANHSACHKHOAHOCCANTHAYTHE", danhSachSanPham);
-            Body = Body.Replace("TONGTHANHTIENCANTHAYTHE", string.Format("{0:0,0 vnđ}", TongTien));
+            Body = Body.Replace("TONGTHANHTIENCANTHAYTHE",string.Format("{0:0,0 vnđ}", TongTien));
+            Body = Body.Replace("TONGGIAMGIACANTHAYTHE", "- " + string.Format("{0:0,0 vnđ}", GiamGia));
+            if(GiamGia >= TongTien)
+                Body = Body.Replace("TONGTIENDATHANHTOAN", "- " + string.Format("{0:0,0 vnđ}", 0));
+            else
+                Body = Body.Replace("TONGTIENDATHANHTOAN", string.Format("{0:0,0 vnđ}", TongTien - GiamGia));
             Body = Body.Replace("TENCONGTYCANTHAYTHE", TenCongTy);
             Body = Body.Replace("DIACHICONGTYCANTHAYTHE", DiaChiCongTy);
             Body = Body.Replace("SDTCONGTYCANTHAYTHE", SDTCongTy);

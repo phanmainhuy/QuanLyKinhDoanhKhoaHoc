@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
@@ -40,7 +41,7 @@ namespace KhoaHocAPI.Controllers
             {
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Lỗi khi tạo hóa đơn");
             }
-            else if(result == -2)
+            else if (result == -2)
             {
                 return Request.CreateErrorResponse(HttpStatusCode.Unauthorized, "Vui lòng đăng nhập");
             }
@@ -80,7 +81,7 @@ namespace KhoaHocAPI.Controllers
         /// <returns>Trả về mã 200 khi thành công và 400 khi thất bại với Message lỗi</returns>
         [HttpPost]
         [Route("api/Payment/ReceiptOrder")]
-        public HttpResponseMessage Post([FromBody]DonThuHoVM model)
+        public HttpResponseMessage Post([FromBody] DonThuHoVM model)
         {
             string km = null;
             if (!string.IsNullOrEmpty(model.MaApDung))
@@ -88,10 +89,33 @@ namespace KhoaHocAPI.Controllers
             var result = db_payment.TaoDonThuTien(model.MaKH, model.MaHD, model.DiaChiThu, model.Email, model.SDTThu, "", model.SoTienThu, 0, null, "", km);
             if (result == Common.AllEnum.KetQuaTraVe.ThanhCong)
                 return Request.CreateResponse(HttpStatusCode.OK);
-            else if(result == Common.AllEnum.KetQuaTraVe.DaTonTai)
+            else if (result == Common.AllEnum.KetQuaTraVe.DaTonTai)
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Đã tạo rồi, vui lòng không tạo lại");
             else
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Tạo đơn thu tiền không thành công");
         }
+        [Route("api/payment/InstantRamen")]
+        public async Task<HttpResponseMessage> Post3(InstantPayment model)
+        {
+            var result = await db_payment.ThanhToanNgay(model.MaHD, model.MaApDung);
+            if (result == Common.AllEnum.KetQuaTraVe.KhongTonTai)
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Vui lòng kiểm tra lại hóa đơn, khuyến mãi và thử lại");
+            else if (result == Common.AllEnum.KetQuaTraVe.KhongHopLe)
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Hóa đơn rỗng, hãy kiểm tra lại");
+            else if (result == Common.AllEnum.KetQuaTraVe.KhongDuocPhep)
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Thanh toán ngay không phù hợp với đơn hàng này");
+            else if (result == Common.AllEnum.KetQuaTraVe.KhongChinhXac)
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Khuyến mãi đã được sử dụng hoặc hết hạn sử dụng");
+            else if (result == Common.AllEnum.KetQuaTraVe.ThatBai)
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Thực hiện thanh toán không thành công");
+            else
+                return Request.CreateResponse(HttpStatusCode.OK);
+        }
+    }
+    public class InstantPayment
+    {
+        public int MaHD { get; set; }
+        public string MaApDung { get; set; }
     }
 }
+

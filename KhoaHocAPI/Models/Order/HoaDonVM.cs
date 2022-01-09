@@ -17,6 +17,8 @@ namespace KhoaHocAPI.Models
         public bool TrangThai { get; set; }
         public int MaGioHang { get; set; }
         public int? MaKhoaHoc { get; set; }
+        public int? MaKM { get; set; }
+        public decimal? GiamGia { get; set; }
         public List<PaymentItemVM> DanhSachHangHoa { get; set; }
         public string MaApDung { get; set; }
 

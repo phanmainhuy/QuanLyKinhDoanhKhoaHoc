@@ -38,6 +38,9 @@ namespace KhoaHocAPI.Mapper
         }
         public static HoaDonVM MapOrder(HoaDon hoaDon)
         {
+            KhuyenMai km = null;
+            if (hoaDon.MaKM != null)
+                km = new GetDAO().GetKhuyenMaiTheoMa(hoaDon.MaKM.Value);
             return new HoaDonVM()
             {
                 MaND = hoaDon.MaND.Value,
@@ -45,7 +48,9 @@ namespace KhoaHocAPI.Mapper
                 HinhThucThanhToan = hoaDon.HinhThucThanhToan,
                 TongThanhToan = hoaDon.TongTien.Value,
                 MaHoaDon = hoaDon.MaHD,
-                TrangThai = hoaDon.ThanhToan.Value?true:false
+                TrangThai = hoaDon.ThanhToan.Value?true:false,
+                MaKM = km == null? -1: km.MaKM,
+                GiamGia = km == null? 0: km.GiaTri
             };
         }
         public static async Task<HoaDonDuyetVM> MapOrderToAccept(HoaDon hoadon, DonThuTien donThuTien)
