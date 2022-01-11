@@ -397,9 +397,6 @@
     <Compile Include="EF\SearchTenKhoahoc_Result.cs">
       <DependentUpon>QLKhoaHocDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="EF\SoDuTaiKhoan.cs">
-      <DependentUpon>QLKhoaHocDataModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="EF\sp_helpdiagramdefinition_Result.cs">
       <DependentUpon>QLKhoaHocDataModel.tt</DependentUpon>
     </Compile>

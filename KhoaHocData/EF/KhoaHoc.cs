@@ -36,10 +36,10 @@ namespace KhoaHocData.EF
         public Nullable<int> SoLuongMua { get; set; }
         public Nullable<bool> DaXoa { get; set; }
     
-        public virtual NguoiDung NguoiDung { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Chuong> Chuongs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DanhGiaKhoaHoc> DanhGiaKhoaHocs { get; set; }
+        public virtual NguoiDung NguoiDung { get; set; }
     }
 }

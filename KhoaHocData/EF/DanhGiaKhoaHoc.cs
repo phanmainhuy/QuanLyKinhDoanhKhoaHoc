@@ -20,5 +20,7 @@ namespace KhoaHocData.EF
         public string NoiDung { get; set; }
         public Nullable<System.DateTime> NgayDanhGia { get; set; }
         public int MaDanhGia { get; set; }
+    
+        public virtual NguoiDung NguoiDung { get; set; }
     }
 }

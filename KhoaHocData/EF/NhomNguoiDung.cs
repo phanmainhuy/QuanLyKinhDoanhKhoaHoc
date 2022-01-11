@@ -18,6 +18,7 @@ namespace KhoaHocData.EF
         public NhomNguoiDung()
         {
             this.Quyen_NhomNguoiDung = new HashSet<Quyen_NhomNguoiDung>();
+            this.NguoiDungs = new HashSet<NguoiDung>();
         }
     
         public int MaNhomNguoiDung { get; set; }
@@ -26,5 +27,7 @@ namespace KhoaHocData.EF
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Quyen_NhomNguoiDung> Quyen_NhomNguoiDung { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<NguoiDung> NguoiDungs { get; set; }
     }
 }

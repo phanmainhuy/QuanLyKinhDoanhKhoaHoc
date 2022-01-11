@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="2585c85181864974bd7d83ab4d935964" Name="Diagram1" ZoomLevel="47">
+      <Diagram DiagramId="2585c85181864974bd7d83ab4d935964" Name="Diagram1" ZoomLevel="71">
         <EntityTypeShape EntityType="QL_KHOAHOCModel.BaiTap" Width="1.5" PointX="12.75" PointY="12.625" IsExpanded="true" />
         <EntityTypeShape EntityType="QL_KHOAHOCModel.CT_GioHang" Width="1.5" PointX="7.5" PointY="20.625" IsExpanded="true" />
         <EntityTypeShape EntityType="QL_KHOAHOCModel.CT_HoaDon" Width="1.5" PointX="10.5" PointY="18.25" IsExpanded="true" />
@@ -18,42 +18,28 @@
         <EntityTypeShape EntityType="QL_KHOAHOCModel.LoaiKhoaHoc" Width="1.5" PointX="6" PointY="9.5" IsExpanded="true" />
         <EntityTypeShape EntityType="QL_KHOAHOCModel.LOAIQUYEN" Width="1.5" PointX="1.5" PointY="9.75" IsExpanded="true" />
         <EntityTypeShape EntityType="QL_KHOAHOCModel.Luong" Width="1.5" PointX="5.25" PointY="34" IsExpanded="true" />
-        <EntityTypeShape EntityType="QL_KHOAHOCModel.NguoiDung" Width="1.5" PointX="3" PointY="16" IsExpanded="true" />
         <EntityTypeShape EntityType="QL_KHOAHOCModel.NhomNguoiDung" Width="1.5" PointX="0.75" PointY="17.625" IsExpanded="true" />
         <EntityTypeShape EntityType="QL_KHOAHOCModel.Quyen" Width="1.5" PointX="0.75" PointY="12.625" IsExpanded="true" />
         <EntityTypeShape EntityType="QL_KHOAHOCModel.Quyen_NhomNguoiDung" Width="1.5" PointX="3" PointY="12.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="QL_KHOAHOCModel.SoDuTaiKhoan" Width="1.5" PointX="5.25" PointY="36.875" IsExpanded="true" />
         <EntityTypeShape EntityType="QL_KHOAHOCModel.TichDiem" Width="1.5" PointX="5.25" PointY="39.875" IsExpanded="true" />
         <AssociationConnector Association="QL_KHOAHOCModel.FK_CTGioHang" ManuallyRouted="false" />
         <AssociationConnector Association="QL_KHOAHOCModel.FK_CTGioHang_GioHang" ManuallyRouted="false" />
         <AssociationConnector Association="QL_KHOAHOCModel.FK_CTHoaDon" ManuallyRouted="false" />
         <AssociationConnector Association="QL_KHOAHOCModel.FK_CTHoaDon_HoaDon" ManuallyRouted="false" />
         <AssociationConnector Association="QL_KHOAHOCModel.FK_LoaiKhoaHoc_DanhMucKH" ManuallyRouted="false" />
-        <AssociationConnector Association="QL_KHOAHOCModel.FK_DonHang_NguoiDung" ManuallyRouted="false" />
         <AssociationConnector Association="QL_KHOAHOCModel.FK_HoaDon_KhuyenMai" ManuallyRouted="false" />
-        <AssociationConnector Association="QL_KHOAHOCModel.FK_HoaDon_NguoiDung" ManuallyRouted="false" />
-        <AssociationConnector Association="QL_KHOAHOCModel.FK_KHOAHOC_GIAOVIEN" ManuallyRouted="false" />
         <AssociationConnector Association="QL_KHOAHOCModel.FK_KhoaHoc_LoaiKhoaHoc" ManuallyRouted="false" />
-        <AssociationConnector Association="QL_KHOAHOCModel.FK_KhuyenMai_NguoiDung" ManuallyRouted="false" />
         <AssociationConnector Association="QL_KHOAHOCModel.FK_KhuyenMaiKH_KhuyenMai" ManuallyRouted="false" />
-        <AssociationConnector Association="QL_KHOAHOCModel.FK_KhuyenMaiKH_NguoiDung" ManuallyRouted="false" />
         <AssociationConnector Association="QL_KHOAHOCModel.FK_LichSuLuong_Luong" ManuallyRouted="false" />
         <AssociationConnector Association="QL_KHOAHOCModel.FK_QUYEN_LOAIQUYEN" ManuallyRouted="false" />
-        <AssociationConnector Association="QL_KHOAHOCModel.FK_Luong_NguoiDung" ManuallyRouted="false" />
-        <AssociationConnector Association="QL_KHOAHOCModel.FK_NguoiDung_NhomNguoiDung" ManuallyRouted="false" />
-        <AssociationConnector Association="QL_KHOAHOCModel.FK_SoDuTaiKhoan_NguoiDung" ManuallyRouted="false" />
-        <AssociationConnector Association="QL_KHOAHOCModel.FK_TichDiem_NguoiDung" ManuallyRouted="false" />
         <AssociationConnector Association="QL_KHOAHOCModel.FK_Quyen_NhomNguoiDung_NhomNguoiDung" ManuallyRouted="false" />
         <AssociationConnector Association="QL_KHOAHOCModel.FK_Quyen_NhomNguoiDung_Quyen" ManuallyRouted="false" />
         <EntityTypeShape EntityType="QL_KHOAHOCModel.DonThuTien" Width="1.5" PointX="5.25" PointY="22.125" />
-        <AssociationConnector Association="QL_KHOAHOCModel.FK_DonThuTien_MaKH" />
-        <AssociationConnector Association="QL_KHOAHOCModel.FK_DonThuTien_MaNVHoTro" />
         <AssociationConnector Association="QL_KHOAHOCModel.FK_DonThuTien_MaHD" />
         <EntityTypeShape EntityType="QL_KHOAHOCModel.Chuong" Width="1.5" PointX="10.5" PointY="8.75" />
         <AssociationConnector Association="QL_KHOAHOCModel.FK_Chuong_KhoaHoc" />
         <EntityTypeShape EntityType="QL_KHOAHOCModel.DanhGiaKhoaHoc" Width="1.5" PointX="13.5" PointY="15.75" />
         <AssociationConnector Association="QL_KHOAHOCModel.FK_DanhGiaKhoaHoc_KhoaHoc" />
-        <AssociationConnector Association="QL_KHOAHOCModel.FK_DanhGiaKhoaHoc_NguoiDung" />
         <EntityTypeShape EntityType="QL_KHOAHOCModel.LoaiTrangTri" Width="1.5" PointX="0.75" PointY="1" />
         <EntityTypeShape EntityType="QL_KHOAHOCModel.TrangTri" Width="1.5" PointX="3" PointY="0.875" />
         <AssociationConnector Association="QL_KHOAHOCModel.fk_TrangTri_LoaiTrangTri" />
@@ -62,9 +48,22 @@
         <AssociationConnector Association="QL_KHOAHOCModel.FK_BaiHoc_KhoaHoc" />
         <AssociationConnector Association="QL_KHOAHOCModel.FK_BaiTap_BaiHoc" />
         <EntityTypeShape EntityType="QL_KHOAHOCModel.QuenMatKhau" Width="1.5" PointX="5.25" PointY="27.5" />
-        <EntityTypeShape EntityType="QL_KHOAHOCModel.ChamSocKhachHang" Width="1.5" PointX="3" PointY="4" />
         <EntityTypeShape EntityType="QL_KHOAHOCModel.LoaiVanDe" Width="1.5" PointX="0.75" PointY="4.625" />
+        <EntityTypeShape EntityType="QL_KHOAHOCModel.ChamSocKhachHang" Width="1.5" PointX="5.25" PointY="12.625" />
+        <EntityTypeShape EntityType="QL_KHOAHOCModel.NguoiDung" Width="1.5" PointX="3" PointY="15.5" />
         <AssociationConnector Association="QL_KHOAHOCModel.FK_ChamSocKhachHang_LoaiVanDe" />
+        <AssociationConnector Association="QL_KHOAHOCModel.FK_ChamSocKhachHang_NguoiDung" />
+        <AssociationConnector Association="QL_KHOAHOCModel.FK_DanhGiaKhoaHoc_NguoiDung" />
+        <AssociationConnector Association="QL_KHOAHOCModel.FK_DonThuTien_MaKH" />
+        <AssociationConnector Association="QL_KHOAHOCModel.FK_DonThuTien_MaNVHoTro" />
+        <AssociationConnector Association="QL_KHOAHOCModel.FK_DonHang_NguoiDung" />
+        <AssociationConnector Association="QL_KHOAHOCModel.FK_HoaDon_NguoiDung" />
+        <AssociationConnector Association="QL_KHOAHOCModel.FK_KHOAHOC_GIAOVIEN" />
+        <AssociationConnector Association="QL_KHOAHOCModel.FK_KhuyenMai_NguoiDung" />
+        <AssociationConnector Association="QL_KHOAHOCModel.FK_KhuyenMaiKH_NguoiDung" />
+        <AssociationConnector Association="QL_KHOAHOCModel.FK_Luong_NguoiDung" />
+        <AssociationConnector Association="QL_KHOAHOCModel.FK_NguoiDung_NhomNguoiDung" />
+        <AssociationConnector Association="QL_KHOAHOCModel.FK_TichDiem_NguoiDung" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

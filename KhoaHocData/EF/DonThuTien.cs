@@ -28,5 +28,8 @@ namespace KhoaHocData.EF
         public string SDTThu { get; set; }
         public Nullable<int> MaHD { get; set; }
         public string Email { get; set; }
+    
+        public virtual NguoiDung NguoiDung { get; set; }
+        public virtual NguoiDung NguoiDung1 { get; set; }
     }
 }

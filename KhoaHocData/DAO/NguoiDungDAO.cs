@@ -78,25 +78,30 @@ namespace KhoaHocData.DAO
         
         public bool DaMuaKhoaHoc(int pMaND, int pMaKhoaHoc)
         {
-            var nd = db.NguoiDungs.SingleOrDefault(x => x.MaND == pMaND);
-            if (nd == null)
-                return false;
-            if (nd.MaNhomNguoiDung != (int)AllEnum.MaNhomNguoiDung.Student)
-                return false;
-            List<HoaDon> lstHoaDon = db.HoaDons.Where(x => x.MaND == pMaND && x.ThanhToan.Value).ToList();
-            if (lstHoaDon == null || lstHoaDon.Count() == 0)
-                return false;
-            foreach(var item in lstHoaDon)
-            {
-                if(item.CT_HoaDon != null && item.CT_HoaDon.Count() > 0)
-                {
-                    foreach (var item2 in item.CT_HoaDon.ToList())
-                    {
-                        if (item2.MaKhoaHoc == pMaKhoaHoc)
-                            return true;
-                    }
-                }
-            }
+            //var nd = db.NguoiDungs.SingleOrDefault(x => x.MaND == pMaND);
+            //if (nd == null)
+            //    return false;
+            //if (nd.MaNhomNguoiDung != (int)AllEnum.MaNhomNguoiDung.Student)
+            //    return false;
+            //List<HoaDon> lstHoaDon = db.HoaDons.Where(x => x.MaND == pMaND && x.ThanhToan.Value).ToList();
+            //if (lstHoaDon == null || lstHoaDon.Count() == 0)
+            //    return false;
+            //foreach(var item in lstHoaDon)
+            //{
+            //    if(item.CT_HoaDon != null && item.CT_HoaDon.Count() > 0)
+            //    {
+            //        foreach (var item2 in item.CT_HoaDon.ToList())
+            //        {
+            //            if (item2.MaKhoaHoc == pMaKhoaHoc)
+            //                return true;
+            //        }
+            //    }
+            //}
+            //return false;
+
+            var khoahocdamua = db.KhoaHocCuaToi(pMaND);
+            if (khoahocdamua.Any(x => x.MaKhoaHoc == pMaKhoaHoc))
+                return true;
             return false;
         }
         public KetQuaTraVe DoiMatKhau(string pUserName, string pOldPassword, string pNewPassword)
