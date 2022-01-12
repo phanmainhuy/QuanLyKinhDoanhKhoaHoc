@@ -474,6 +474,53 @@ namespace KhoaHocData.DAO
             
 
         }
+        public async Task<KetQuaTraVe> ThanhToanNgay2(int pMaHoaDon, string pMaApDung)
+        {
+            var hd = db.HoaDons.FirstOrDefault(x => x.MaHD == pMaHoaDon);
+            var km = db.KhuyenMais.FirstOrDefault(x => x.MaApDung == pMaApDung);
+            if (hd == null)
+                return KetQuaTraVe.KhongTonTai;
+            var cthd = hd.CT_HoaDon;
+            var kmkh = new KhuyenMai_KhachHang();
+            decimal GiaTri = 0;
+            if(km != null)
+            {
+                kmkh = db.KhuyenMai_KhachHang.FirstOrDefault(x => x.MaKM == km.MaKM && x.MaND == hd.MaND);
+                if (kmkh == null)
+                    return KetQuaTraVe.KhongDuocPhep;
+                if (kmkh.IsSuDung == true || kmkh.NgayKetThuc < DateTime.Today)
+                    return KetQuaTraVe.KhongChinhXac;
+                GiaTri = km.GiaTri == null ? 0 : km.GiaTri.Value;
+            }
+            var lstKhoaHoc = db.KhoaHocs.ToList();
+            var nd = db.NguoiDungs.FirstOrDefault(x => x.MaND == hd.MaND);
+            lstKhoaHoc = lstKhoaHoc.Where(x => cthd.Any(y => y.MaKhoaHoc == x.MaKhoaHoc)).ToList();
+            lstKhoaHoc.ForEach(x =>
+            {
+                if (x.SoLuongMua == null)
+                    x.SoLuongMua = 1;
+                else
+                    x.SoLuongMua++;
+            });
+            if (cthd.Count() == 0)
+                return KetQuaTraVe.KhongHopLe;
+            
+            hd.ThanhToan = true;
+            hd.HinhThucThanhToan = PaymentType.ViDienTu.ToString();
+            kmkh.IsSuDung = true;
+            await GuiMailSauKhiThanhToan(nd.Email, lstKhoaHoc, hd.MaHD, hd.TongTien.Value, GiaTri);
+            try
+            {
+                await db.SaveChangesAsync();
+                return KetQuaTraVe.ThanhCong;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return KetQuaTraVe.ThatBai;
+            }
+        }
+
 
         public async Task<AllEnum.KetQuaTraVe> GuiMailSauKhiThanhToan(string reciepiantMailAddress,
             IEnumerable<KhoaHoc> lstKhoaHoc,

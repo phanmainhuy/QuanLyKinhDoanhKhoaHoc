@@ -18,7 +18,7 @@
         }
         public enum PaymentType
         {
-            Offline, VnPay
+            Offline, VnPay, ViDienTu
         }
 
         public enum TrangThaiDonThuTien

@@ -111,6 +111,23 @@ namespace KhoaHocAPI.Controllers
             else
                 return Request.CreateResponse(HttpStatusCode.OK);
         }
+        [Route("api/payment/InstantRamenMobile")]
+        public async Task<HttpResponseMessage> PostInstantPaymentMobile(InstantPayment model)
+        {
+            var result = await db_payment.ThanhToanNgay2(model.MaHD, model.MaApDung);
+            if (result == Common.AllEnum.KetQuaTraVe.KhongTonTai)
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Vui lòng kiểm tra lại hóa đơn, khuyến mãi và thử lại");
+            else if (result == Common.AllEnum.KetQuaTraVe.KhongHopLe)
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Hóa đơn rỗng, hãy kiểm tra lại");
+            else if (result == Common.AllEnum.KetQuaTraVe.KhongDuocPhep)
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Thanh toán ngay không phù hợp với đơn hàng này");
+            else if (result == Common.AllEnum.KetQuaTraVe.KhongChinhXac)
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Bạn không sở hữu mã giảm giá này");
+            else if (result == Common.AllEnum.KetQuaTraVe.ThatBai)
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Thực hiện thanh toán không thành công");
+            else
+                return Request.CreateResponse(HttpStatusCode.OK);
+        }
     }
     public class InstantPayment
     {
