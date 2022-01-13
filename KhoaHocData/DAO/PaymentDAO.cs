@@ -68,7 +68,8 @@ namespace KhoaHocData.DAO
             {
                 db.SaveChanges();
                 await GuiMailSauKhiThanhToan(dtt.Email, lstKhoaHoc, hd.MaHD, hd.TongTien.Value, km.GiaTri.Value);
-                kmkh.IsSuDung = true;
+                if(kmkh != null)
+                    kmkh.IsSuDung = true;
                 return AllEnum.KetQuaTraVe.ThanhCong;
             }
             catch (Exception ex)
