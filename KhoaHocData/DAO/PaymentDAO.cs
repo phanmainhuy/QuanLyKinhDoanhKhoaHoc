@@ -474,7 +474,7 @@ namespace KhoaHocData.DAO
             
 
         }
-        public async Task<KetQuaTraVe> ThanhToanNgay2(int pMaHoaDon, string pMaApDung)
+        public async Task<KetQuaTraVe> ThanhToanNgay2(int pMaHoaDon, string pMaApDung = "")
         {
             var hd = db.HoaDons.FirstOrDefault(x => x.MaHD == pMaHoaDon);
             var km = db.KhuyenMais.FirstOrDefault(x => x.MaApDung == pMaApDung);
