@@ -48,7 +48,9 @@ namespace KhoaHocData.DAO
             if (dtt == null)
                 return AllEnum.KetQuaTraVe.KhongTonTai;
             var km = db.KhuyenMais.FirstOrDefault(x => x.MaKM == hd.MaKM);
-            var kmkh = db.KhuyenMai_KhachHang.FirstOrDefault(x => x.MaND == hd.MaND && x.MaKM == km.MaKM);
+            KhuyenMai_KhachHang kmkh = null;
+            if(km != null)
+                kmkh = db.KhuyenMai_KhachHang.FirstOrDefault(x => x.MaND == hd.MaND && x.MaKM == km.MaKM);
             dtt.TrangThai = AllEnum.TrangThaiDonThuTien.DaThanhToan.ToString();
             hd.TrangThai = "1";
             hd.ThanhToan = true;
@@ -67,7 +69,10 @@ namespace KhoaHocData.DAO
             try
             {
                 db.SaveChanges();
-                await GuiMailSauKhiThanhToan(dtt.Email, lstKhoaHoc, hd.MaHD, hd.TongTien.Value, km.GiaTri.Value);
+                decimal GiaTri = 0;
+                if (km != null)
+                    GiaTri = km.GiaTri == null? 0: km.GiaTri.Value;
+                await GuiMailSauKhiThanhToan(dtt.Email, lstKhoaHoc, hd.MaHD, hd.TongTien.Value, GiaTri);
                 if(kmkh != null)
                     kmkh.IsSuDung = true;
                 return AllEnum.KetQuaTraVe.ThanhCong;
