@@ -29,8 +29,9 @@ namespace KhoaHocData.DAO
         }
         public NguoiDung GetGiaoVienTheoMa(int pMaGV)
         {
+            var nguoidungnhomquyen = db.Quyen_NhomNguoiDung.Where(x => x.MaQuyen == 1);
             var item = db.NguoiDungs
-                .Where(x => x.MaND == (int)AllEnum.MaNhomNguoiDung.Teacher)
+                .Where(x => nguoidungnhomquyen.Select(y=>y.MaNhomNguoiDung).Contains(x.MaNhomNguoiDung.Value))
                                     .SingleOrDefault(x => x.MaND == pMaGV);
             if (item == null)
                 return db.NguoiDungs.Single(x => x.MaND == 0);

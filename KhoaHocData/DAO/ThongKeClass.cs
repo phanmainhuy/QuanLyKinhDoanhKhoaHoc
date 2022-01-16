@@ -42,11 +42,11 @@ namespace KhoaHocData.DAO
             {
                 return lstDailyAccess;
             }
-            var lstHoaDon = db.HoaDons.Where(x=> x.ThanhToan == true).ToList();
+            var lstHoaDon = db.HoaDons.Where(x=> x.ThanhToan == true);
             var lstCTHoaDon = db.CT_HoaDon;
             for (int i = start.Day; i <= end.Day; i++)
             {
-                lstHoaDon = lstHoaDon.Where(x => x.NgayLap.Value.Day == i && x.NgayLap.Value.Month == start.Month).ToList();
+                lstHoaDon = lstHoaDon.Where(x => x.NgayLap.Value.Day == i && x.NgayLap.Value.Month == start.Month);
                 var lstCTHD = lstCTHoaDon.Where(x => lstHoaDon.Any(y => x.MaHD == y.MaHD)).ToList();
                 DailyAccessStatistic dl = new DailyAccessStatistic();
                 dl.Date = new DateTime(start.Year, start.Month, i);
