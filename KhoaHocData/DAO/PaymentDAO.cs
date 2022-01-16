@@ -514,6 +514,7 @@ namespace KhoaHocData.DAO
             hd.ThanhToan = true;
             hd.HinhThucThanhToan = PaymentType.ViDienTu.ToString();
             kmkh.IsSuDung = true;
+            await TichDiemNguoiDung(hd.MaND.Value, hd.TongTien.Value);
             await GuiMailSauKhiThanhToan(nd.Email, lstKhoaHoc, hd.MaHD, hd.TongTien.Value, GiaTri);
             try
             {

@@ -52,7 +52,7 @@ namespace KhoaHocData.DAO
                 dl.Date = new DateTime(start.Year, start.Month, i);
                 dl.NewStudent = 0;
                 dl.CourseSellCount = 0;
-                dl.CourseSellCount += lstCTHD.Count();
+                dl.CourseSellCount += lstCTHD.ToList().Count();
                 foreach (var item in items)
                 {
                     if (item.NgayTao.Value.Day == i)
