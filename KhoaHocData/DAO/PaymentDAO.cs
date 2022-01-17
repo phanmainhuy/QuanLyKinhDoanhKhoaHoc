@@ -497,6 +497,8 @@ namespace KhoaHocData.DAO
                 if (kmkh.IsSuDung == true || kmkh.NgayKetThuc < DateTime.Today)
                     return KetQuaTraVe.KhongChinhXac;
                 GiaTri = km.GiaTri == null ? 0 : km.GiaTri.Value;
+                if (kmkh != null)
+                    kmkh.IsSuDung = true;
             }
             var lstKhoaHoc = db.KhoaHocs.ToList();
             var nd = db.NguoiDungs.FirstOrDefault(x => x.MaND == hd.MaND);
