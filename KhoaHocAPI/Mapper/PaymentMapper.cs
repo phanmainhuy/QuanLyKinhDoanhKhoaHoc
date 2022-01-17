@@ -15,16 +15,26 @@ namespace KhoaHocAPI.Mapper
 
         public static PaymentItemVM MapPaymentItem(CT_HoaDon cthd)
         {
+            KhoaHoc kh = cthd.KhoaHoc;
+            if (kh == null)
+                kh = new GetDAO().GetKhoaHocTheoMa(cthd.MaKhoaHoc.Value);
+            if(kh == null)
+            {
+                kh = new KhoaHoc();
+                kh.TenKhoaHoc = "";
+                kh.HinhAnh = "defaultkhoahoc.png";
+                kh.MaGV = 0;
+            }
             return new PaymentItemVM()
             {
                 CourseID = cthd.MaKhoaHoc.Value,
                 ItemID = cthd.MaCTHD,
-                CourseName = cthd.KhoaHoc.TenKhoaHoc,
-                ImageName = cthd.KhoaHoc.HinhAnh,
+                CourseName = kh.TenKhoaHoc,
+                ImageName = kh.HinhAnh,
                 LastPrice = cthd.DonGia.Value,
                 PayMentID = cthd.MaHD.Value,
-                TeacherId = cthd.KhoaHoc.MaGV.Value,
-                TeacherName = getDAODB.GetGiaoVienTheoMa(cthd.KhoaHoc.MaGV.Value).HoTen
+                TeacherId = kh.MaGV.Value,
+                TeacherName = kh == null? "Admin": getDAODB.GetGiaoVienTheoMa(kh.MaGV.Value).HoTen
             };
         }
         public static IEnumerable<PaymentItemVM> MapListPaymentItem(IEnumerable<CT_HoaDon> lstCT)
