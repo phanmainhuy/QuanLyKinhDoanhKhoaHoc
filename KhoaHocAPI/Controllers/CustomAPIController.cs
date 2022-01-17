@@ -210,6 +210,9 @@ namespace KhoaHocAPI.Controllers
             var httpRequest = HttpContext.Current.Request;
             //Upload Image    
             HttpFileCollection hfc = HttpContext.Current.Request.Files;
+            if (hfc.Count == 0)
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Không có video");
+            var filename = "";
             List<string> lstExtension = new List<string>()
             {
                 ".mp4"
@@ -226,7 +229,7 @@ namespace KhoaHocAPI.Controllers
                     }
                     if (hpf.ContentLength > 0)
                     {
-                        var filename = "video_" + new GetDAO().GetTongBaiTap() + ".mp4";
+                        filename = "video_" + new GetDAO().GetTongBaiTap() + ".mp4";
                         var filePath = HttpContext.Current.Server.MapPath("~/Assets/video/" + filename);
                         hpf.SaveAs(filePath);
                     }
@@ -237,7 +240,7 @@ namespace KhoaHocAPI.Controllers
                 Console.WriteLine(ex.Message);
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Gặp lỗi khi lưu video");
             }
-            return Request.CreateResponse(HttpStatusCode.Created);
+            return Request.CreateResponse(HttpStatusCode.Created, filename);
         }
         [HttpPost]
         [Route("api/nguoidung/doimatkhau")]
