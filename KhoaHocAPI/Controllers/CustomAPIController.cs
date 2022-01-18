@@ -70,7 +70,14 @@ namespace KhoaHocAPI.Controllers
             HttpContext.Current.Response.ContentType = new MediaTypeHeaderValue("application/octet-stream").ToString();
             HttpContext.Current.Response.Headers.Set("connection", "keep-alive");
             HttpContext.Current.Response.TransmitFile(path);
-            HttpContext.Current.Response.End();
+            try
+            {
+                HttpContext.Current.Response.End();
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
         [Route("Restore")]
@@ -229,7 +236,7 @@ namespace KhoaHocAPI.Controllers
                     }
                     if (hpf.ContentLength > 0)
                     {
-                        filename = "video_" + new GetDAO().GetTongBaiTap() + ".mp4";
+                        filename = "video_" + XuLy.RandomString(7) + ".mp4";
                         var filePath = HttpContext.Current.Server.MapPath("~/Assets/video/" + filename);
                         hpf.SaveAs(filePath);
                     }

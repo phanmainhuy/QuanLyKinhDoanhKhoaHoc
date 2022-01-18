@@ -44,6 +44,8 @@ namespace KhoaHocData.DAO
             dm.TenDanhMuc = pTenDanhMuc;
             if (!string.IsNullOrEmpty(pHinhAnh))
                 dm.HinhAnh = pHinhAnh;
+            else
+                dm.HinhAnh = "defaultdirectory.png";
             db.DanhMucKhoaHocs.Add(dm);
             try
             {

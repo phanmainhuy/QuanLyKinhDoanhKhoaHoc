@@ -39,5 +39,21 @@ namespace KhoaHocAPI.Controllers
                 return Request.CreateResponse(HttpStatusCode.Created);
             }
         }
+        public HttpResponseMessage Delete(int MaBaiTap)
+        {
+            var result = db.XoaBaiTap(MaBaiTap);
+            if (result == Common.AllEnum.KetQuaTraVe.KhongTonTai)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Bài tập không tồn tại");
+            }
+            else if (result == Common.AllEnum.KetQuaTraVe.ThatBai)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Thêm bài học không thành công");
+            }
+            else
+            {
+                return Request.CreateResponse(HttpStatusCode.OK);
+            }
+        }
     }
 }
